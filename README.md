@@ -13,3 +13,4 @@
 | 9            | [Best Time to Buy and Sell Stock](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/description/) | [Stock I](./Top%20Interview%20150/best-time-to-buy-and-sell-stock.js) |
 | 10            | [Roman to Integer](https://leetcode.com/problems/roman-to-integer/description/) | [Roman to Integer](./Top%20Interview%20150/roman-to-integer.js) |
 | 11            | [Is Subsequence](https://leetcode.com/problems/is-subsequence/description/) | [Is Subsequence](./Top%20Interview%20150/is-subsequence.js) |
+| 12            | [Valid Parentheses](https://leetcode.com/problems/valid-parentheses/description/) | [Valid Parentheses](./Top%20Interview%20150/valid-parentheses.js) |

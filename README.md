@@ -15,4 +15,4 @@
 | 11            | [Is Subsequence](https://leetcode.com/problems/is-subsequence/description/) | [Is Subsequence](./Top%20Interview%20150/is-subsequence.js) |
 | 12            | [Valid Parentheses](https://leetcode.com/problems/valid-parentheses/description/) | [Valid Parentheses](./Top%20Interview%20150/valid-parentheses.js) |
 | 13            | [Valid Anagram](https://leetcode.com/problems/valid-anagram/description/) | [Valid Anagram](./Top%20Interview%20150/valid-anagram.js) |
-
+| 14            | [Plus One](https://leetcode.com/problems/plus-one/description/) | [Plus One](./Top%20Interview%20150/plus-one.js) |

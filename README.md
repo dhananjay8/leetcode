@@ -17,3 +17,4 @@
 | 13            | [Valid Anagram](https://leetcode.com/problems/valid-anagram/description/) | [Valid Anagram](./Top%20Interview%20150/valid-anagram.js) |
 | 14            | [Plus One](https://leetcode.com/problems/plus-one/description/) | [Plus One](./Top%20Interview%20150/plus-one.js) |
 | 15            | [Palindrome Number](https://leetcode.com/problems/palindrome-number/description/) | [Palindrome Number](./Top%20Interview%20150/palindrome-number.js) |
+| 16            | [Single Number](https://leetcode.com/problems/single-number/description/) | [Single Number](./Top%20Interview%20150/single-number.js) |

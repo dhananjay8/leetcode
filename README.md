@@ -19,3 +19,4 @@
 | 15            | [Palindrome Number](https://leetcode.com/problems/palindrome-number/description/) | [Palindrome Number](./Top%20Interview%20150/palindrome-number.js) |
 | 16            | [Single Number](https://leetcode.com/problems/single-number/description/) | [Single Number](./Top%20Interview%20150/single-number.js) |
 | 17            | [Ransom Note](https://leetcode.com/problems/ransom-note/description/) | [Ransom Note](./Top%20Interview%20150/ransom-note.js) |
+| 18            | [Longest Common Prefix](https://leetcode.com/problems/longest-common-prefix/description/) | [Longest Common Prefix](./Top%20Interview%20150/longest-common-prefix.js) |

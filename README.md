@@ -21,3 +21,4 @@
 | 17            | [Ransom Note](https://leetcode.com/problems/ransom-note/description/) | [Ransom Note](./Top%20Interview%20150/ransom-note.js) |
 | 18            | [Longest Common Prefix](https://leetcode.com/problems/longest-common-prefix/description/) | [Longest Common Prefix](./Top%20Interview%20150/longest-common-prefix.js) |
 | 19            | [Length of Last Word](https://leetcode.com/problems/length-of-last-word/description/) | [Length of Last Word](./Top%20Interview%20150/length-of-last-word.js) |
+| 20            | [Isomorphic Strings](https://leetcode.com/problems/isomorphic-strings/description/) | [Isomorphic Strings](./Top%20Interview%20150/isomorphic-strings.js) |

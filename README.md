@@ -24,3 +24,6 @@
 | 20            | [Isomorphic Strings](https://leetcode.com/problems/isomorphic-strings/description/) | [Isomorphic Strings](./Top%20Interview%20150/isomorphic-strings.js) |
 | 21            | [Happy Number](https://leetcode.com/problems/happy-number/description/) | [Happy Number](./Top%20Interview%20150/happy-number.js) |
 | 22            | [Word Pattern](https://leetcode.com/problems/word-pattern/description/) | [Word Pattern](./Top%20Interview%20150/word-pattern.js) |
+| 23            | [Contains Duplicate II](https://leetcode.com/problems/contains-duplicate-ii/description/) | [Contains Duplicate II](./Top%20Interview%20150/contains-duplicate-ii.js) |
+
+

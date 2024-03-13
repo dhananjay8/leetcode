@@ -28,4 +28,7 @@
 | 24            | [Sqrt(x)](https://leetcode.com/problems/sqrtx/description/) | [Sqrt(x)](./Top%20Interview%20150/sqrtx.js) |
 | 25            | [Number of 1 Bits](https://leetcode.com/problems/number-of-1-bits/description/) | [Number of 1 Bits](./Top%20Interview%20150/number-of-1-bits.js) |
 | 26            | [Find the Index of the First Occurrence in a String](https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/description/) | [Find the Index of the First Occurrence in a String](./Top%20Interview%20150/find-the-index-of-the-first-occurrence.js) |
+| 27            | [Find the Index of the First Occurrence in a String](https://leetcode.com/problems/reverse-bits/description/) | [Find the Index of the First Occurrence in a String](./Top%20Interview%20150/reverse-bits.js) |
+
+
 

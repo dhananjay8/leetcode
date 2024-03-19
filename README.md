@@ -30,5 +30,8 @@
 | 26            | [Find the Index of the First Occurrence in a String](https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/description/) | [Find the Index of the First Occurrence in a String](./Top%20Interview%20150/find-the-index-of-the-first-occurrence.js) |
 | 27            | [Reverse Bits](https://leetcode.com/problems/reverse-bits/description/) | [Reverse Bits](./Top%20Interview%20150/reverse-bits.js) |
 | 28            | [Add Binary](https://leetcode.com/problems/add-binary/description/) | [Add Binary](./Top%20Interview%20150/add-binary.js) |
+| 29            | [Search Insert Position](https://leetcode.com/problems/search-insert-position/description/) | [Search Insert Position](./Top%20Interview%20150/search-insert-position.js) |
+
+
 
 

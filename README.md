@@ -33,6 +33,5 @@
 | 29            | [Search Insert Position](https://leetcode.com/problems/search-insert-position/description/) | [Search Insert Position](./Top%20Interview%20150/search-insert-position.js) |
 | 30            | [Group Anagrams](https://leetcode.com/problems/group-anagrams/description/) | [Group Anagrams](./Top%20Interview%20150/group-anagrams.js) |
 | 31            | [Summary Ranges](https://leetcode.com/problems/summary-ranges/description/) | [Summary Ranges](./Top%20Interview%20150/summary-ranges.js) |
-
-
+| 32            | [Longest Consecutive Sequence](https://leetcode.com/problems/longest-consecutive-sequence/description/) | [Longest Consecutive Sequence](./Top%20Interview%20150/longest-consecutive-sequence.js) |
 

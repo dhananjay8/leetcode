@@ -36,5 +36,6 @@
 | 32            | [Longest Consecutive Sequence](https://leetcode.com/problems/longest-consecutive-sequence/description/) | [Longest Consecutive Sequence](./Top%20Interview%20150/longest-consecutive-sequence.js) |
 | 33            | [Evaluate Reverse Polish Notation](https://leetcode.com/problems/evaluate-reverse-polish-notation/description/) | [Evaluate Reverse Polish Notation](./Top%20Interview%20150/evaluate-reverse-polish-notation.js) |
 | 34            | [Min Stack](https://leetcode.com/problems/min-stack/description/) | [Min Stack](./Top%20Interview%20150/min-stack.js) |
+| 35            | [Simplify Path](https://leetcode.com/problems/simplify-path/description/) | [Simplify Path](./Top%20Interview%20150/simplify-path.py) |
 
 

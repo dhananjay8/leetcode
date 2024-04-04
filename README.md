@@ -37,5 +37,5 @@
 | 33            | [Evaluate Reverse Polish Notation](https://leetcode.com/problems/evaluate-reverse-polish-notation/description/) | [Evaluate Reverse Polish Notation](./Top%20Interview%20150/evaluate-reverse-polish-notation.js) |
 | 34            | [Min Stack](https://leetcode.com/problems/min-stack/description/) | [Min Stack](./Top%20Interview%20150/min-stack.js) |
 | 35            | [Simplify Path](https://leetcode.com/problems/simplify-path/description/) | [Simplify Path](./Top%20Interview%20150/simplify-path.py) |
-
+| 36            | [Basic Calculator](https://leetcode.com/problems/basic-calculator/description/) | [Basic Calculator](./Top%20Interview%20150/basic-calculator.py) |
 

@@ -1,5 +1,6 @@
 # leetcode
 
+## Top 150 - Easy + Medium
 | Number | Problem Name | Solution |
 |--------------|-------------------------------|----------------------------|
 | 1            | [Two Sum](https://leetcode.com/problems/two-sum/) | [Two Sum](./Top%20Interview%20150/two_sum.js) |
@@ -41,3 +42,11 @@
 | 37            | [Container With Most Water](https://leetcode.com/problems/container-with-most-water/description/) | [Container With Most Water](./Top%20Interview%20150/container-with-most-water.py) |
 | 38            | [Two Sum II - Input Array Is Sorted](https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/description/) | [Two Sum II - Input Array Is Sorted](./Top%20Interview%20150/two-sum-ii-input-array-is-sorted.py) |
 | 39            | [Pow(x, n)](https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/description/) | [Pow(x, n)](./Top%20Interview%20150/two-sum-ii-input-array-is-sorted.py) |
+| 40            | [Factorial Trailing Zeroes](https://leetcode.com/problems/factorial-trailing-zeroes/description/) | [Factorial Trailing Zeroes](./Top%20Interview%20150/factorial-trailing-zeroes.py) |
+
+
+## Top 150 - Hard
+| Number | Problem Name | Solution |
+|--------------|-------------------------------|----------------------------|
+| 1            | [Max Points on a Line](https://leetcode.com/problems/max-points-on-a-line/) | [Max Points on a Line](./Top%20Interview%20150/hard/max-points-on-a-line.py) |
+| 2            | [Trapping Rain Water](https://leetcode.com/problems/trapping-rain-water/) | [Trapping Rain Water](./Top%20Interview%20150/hard/trapping-rain-water.js) |

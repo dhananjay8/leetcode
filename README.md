@@ -44,6 +44,7 @@
 | 39            | [Pow(x, n)](https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/description/) | [Pow(x, n)](./Top%20Interview%20150/two-sum-ii-input-array-is-sorted.py) |
 | 40            | [Factorial Trailing Zeroes](https://leetcode.com/problems/factorial-trailing-zeroes/description/) | [Factorial Trailing Zeroes](./Top%20Interview%20150/factorial-trailing-zeroes.py) |
 | 41            | [Best Time to Buy and Sell Stock II](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/description/) | [Best Time to Buy and Sell Stock II](./Top%20Interview%20150/best-time-to-buy-and-sell-stock-ii.js) |
+| 42            | [Product of Array Except Self](https://leetcode.com/problems/product-of-array-except-self/description/) | [Product of Array Except Self](./Top%20Interview%20150/product-of-array-except-self.js) |
 
 
 ## Top 150 - Hard

@@ -45,6 +45,9 @@
 | 40            | [Factorial Trailing Zeroes](https://leetcode.com/problems/factorial-trailing-zeroes/description/) | [Factorial Trailing Zeroes](./Top%20Interview%20150/factorial-trailing-zeroes.py) |
 | 41            | [Best Time to Buy and Sell Stock II](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/description/) | [Best Time to Buy and Sell Stock II](./Top%20Interview%20150/best-time-to-buy-and-sell-stock-ii.js) |
 | 42            | [Product of Array Except Self](https://leetcode.com/problems/product-of-array-except-self/description/) | [Product of Array Except Self](./Top%20Interview%20150/product-of-array-except-self.js) |
+| 43            | [Maximum Subarray](https://leetcode.com/problems/maximum-subarray/description/) | [Maximum Subarray](./Top%20Interview%20150/maximum-subarray.py) |
+| 44            | [Maximum Sum Circular Subarray](https://leetcode.com/problems/maximum-sum-circular-subarray/description/) | [Maximum Sum Circular Subarray](./Top%20Interview%20150/maximum-sum-circular-subarray.js) |
+| 45            | [Reverse Words in a String](https://leetcode.com/problems/reverse-words-in-a-string/description/) | [Reverse Words in a String](./Top%20Interview%20150/reverse-words-in-a-string.py) |
 
 
 ## Top 150 - Hard

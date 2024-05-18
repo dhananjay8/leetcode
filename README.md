@@ -50,6 +50,9 @@
 | 45            | [Reverse Words in a String](https://leetcode.com/problems/reverse-words-in-a-string/description/) | [Reverse Words in a String](./Top%20Interview%20150/reverse-words-in-a-string.py) |
 | 46            | [Linked List Cycle](https://leetcode.com/problems/linked-list-cycle/description/) | [Linked List Cycle](./Top%20Interview%20150/linked-list-cycle.js) |
 | 47            | [Add Two Numbers](https://leetcode.com/problems/add-two-numbers/description/) | [Add Two Numbers](./Top%20Interview%20150/add-two-numbers.js) |
+| 48            | [Insert Delete GetRandom O(1)](https://leetcode.com/problems/insert-delete-getrandom-o1/description/) | [Insert Delete GetRandom O(1)](./Top%20Interview%20150/insert-delete-getrandom-o1.js) |
+
+
 
 
 ## Top 150 - Hard

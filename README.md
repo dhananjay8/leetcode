@@ -53,8 +53,7 @@
 | 48            | [Insert Delete GetRandom O(1)](https://leetcode.com/problems/insert-delete-getrandom-o1/description/) | [Insert Delete GetRandom O(1)](./Top%20Interview%20150/insert-delete-getrandom-o1.js) |
 | 49            | [Rotate Array](https://leetcode.com/problems/rotate-array/description/) | [Rotate Array](./Top%20Interview%20150/rotate-array.js) |
 | 50            | [Jump Game](https://leetcode.com/problems/jump-game/description/) | [Jump Game](./Top%20Interview%20150/jump-game.py) |
-
-
+| 51            | [LRU Cache](https://leetcode.com/problems/lru-cache/description/) | [LRU Cache](./Top%20Interview%20150/lru-cache.py) |
 
 
 ## Top 150 - Hard

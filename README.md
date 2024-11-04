@@ -55,7 +55,8 @@
 | 50            | [Jump Game](https://leetcode.com/problems/jump-game/description/) | [Jump Game](./Top%20Interview%20150/jump-game.py) |
 | 51            | [Jump Game II](https://leetcode.com/problems/jump-game-ii/description/) | [Jump Game II](./Top%20Interview%20150/jump-game-ii.py) |
 | 52            | [LRU Cache](https://leetcode.com/problems/lru-cache/description/) | [LRU Cache](./Top%20Interview%20150/lru-cache.py) |
-| 53            | [Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/description/) | [LRU Cache](./Top%20Interview%20150/top-k-frequent-elements.js) |
+| 53            | [Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/description/) | [Top K Frequent Elements](./Top%20Interview%20150/top-k-frequent-elements.js) |
+| 53            | [String Encode and Decode](https://leetcode.com/problems/encode-and-decode-strings/description/) | [String Encode and Decode](./Top%20Interview%20150/string-encode-and-decode.js) |
 
 
 ## Top 150 - Hard

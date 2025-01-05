@@ -1,0 +1,170 @@
+Arrays and Strings
+	1.	Find the maximum sum subarray.
+	2.	Trapping Rain Water.
+	3.	Longest Substring Without Repeating Characters.
+	4.	Minimum Window Substring.
+	5.	Rotate Image.
+	6.	Find the missing number in an array.
+	7.	Merge Intervals.
+	8.	Longest Palindromic Substring.
+	9.	Check if a string is a palindrome.
+	10.	Two Sum.
+	11.	Product of Array Except Self.
+	12.	Subarray Sum Equals K.
+	13.	Set Matrix Zeroes.
+	14.	Spiral Matrix.
+	15.	Search in Rotated Sorted Array.
+	16.	Find Duplicate Number.
+	17.	Largest Rectangle in Histogram.
+	18.	Find First and Last Position in Sorted Array.
+	19.	Word Search.
+	20.	Count and Say.
+    
+Sorting and Searching 
+	1.	Binary Search.
+	2.	Search a 2D Matrix.
+	3.	Find Peak Element.
+	4.	Median of Two Sorted Arrays.
+	5.	Merge Sort.
+	6.	Quick Sort.
+	7.	Kth Largest Element in an Array.
+	8.	Search in Rotated Sorted Array II.
+	9.	Count Smaller Numbers After Self.
+	10.	Heapsort.
+	11.	Find Missing Positive Integer.
+	12.	Find K Closest Elements.
+	13.	Search Insert Position.
+	14.	Minimum Absolute Difference.
+	15.	Divide Two Integers.
+
+Stacks and Queues
+	1.	Implement Stack Using Queues.
+	2.	Valid Parentheses.
+	3.	Daily Temperatures.
+	4.	Implement Circular Queue.
+	5.	Design Min Stack.
+	6.	Evaluate Reverse Polish Notation.
+	7.	Next Greater Element I/II.
+	8.	Sliding Window Maximum.
+	9.	Implement Queue Using Stacks.
+	10.	Decode String.
+	11.	Simplify Path.
+	12.	Largest Rectangle in Histogram.
+
+Linked Lists
+	1.	Reverse a Linked List.
+	2.	Detect a Cycle in a Linked List.
+	3.	Find the Intersection Point of Two Linked Lists.
+	4.	Merge Two Sorted Lists.
+	5.	Remove Nth Node From End of List.
+	6.	Rotate List.
+	7.	LRU Cache.
+	8.	Merge K Sorted Lists.
+	9.	Copy List with Random Pointer.
+	10.	Palindrome Linked List.
+	11.	Add Two Numbers.
+	12.	Flatten a Multilevel Doubly Linked List.
+	13.	Reverse Nodes in K-Group.
+	14.	Partition List.
+	15.	Sort List.
+
+Trees 
+	1.	Binary Tree Level Order Traversal.
+	2.	Validate Binary Search Tree.
+	3.	Lowest Common Ancestor of a Binary Tree.
+	4.	Diameter of Binary Tree.
+	5.	Path Sum.
+	6.	Serialize and Deserialize Binary Tree.
+	7.	Construct Binary Tree from Inorder and Postorder Traversal.
+	8.	Invert Binary Tree.
+	9.	Maximum Depth of Binary Tree.
+	10.	Symmetric Tree.
+	11.	Binary Tree Zigzag Level Order Traversal.
+	12.	Flatten Binary Tree to Linked List.
+	13.	Vertical Order Traversal of Binary Tree.
+	14.	Balanced Binary Tree.
+	15.	Populating Next Right Pointers in Each Node.
+	16.	Find the Kth Smallest Element in a BST.
+	17.	Binary Search Tree Iterator.
+	18.	Recover Binary Search Tree.
+	19.	Construct BST from Preorder Traversal.
+	20.	Unique Binary Search Trees.
+
+Graphs 
+	1.	Clone Graph.
+	2.	Number of Connected Components in an Undirected Graph.
+	3.	Detect Cycle in Undirected Graph.
+	4.	Shortest Path in a Grid with Obstacles.
+	5.	Alien Dictionary.
+	6.	Minimum Spanning Tree (Prim/Kruskal).
+	7.	Course Schedule.
+	8.	Word Ladder.
+	9.	Pacific Atlantic Water Flow.
+	10.	Find Eventual Safe States.
+	11.	Network Delay Time.
+	12.	Graph Bipartiteness Check.
+	13.	Find Strongly Connected Components.
+	14.	Path with Maximum Probability.
+	15.	Shortest Bridge.
+
+Dynamic Programming 
+	1.	Fibonacci Number (DP).
+	2.	Climbing Stairs.
+	3.	Longest Increasing Subsequence.
+	4.	Edit Distance.
+	5.	Coin Change.
+	6.	Maximum Product Subarray.
+	7.	0/1 Knapsack Problem.
+	8.	Longest Common Subsequence.
+	9.	House Robber.
+	10.	Partition Equal Subset Sum.
+	11.	Word Break.
+	12.	Palindromic Substrings.
+	13.	Burst Balloons.
+	14.	Shortest Common Supersequence.
+	15.	Interleaving String.
+
+Backtracking 
+	1.	N-Queens.
+	2.	Sudoku Solver.
+	3.	Word Search.
+	4.	Subsets.
+	5.	Permutations.
+	6.	Combination Sum.
+	7.	Generate Parentheses.
+	8.	Palindrome Partitioning.
+	9.	Letter Combinations of a Phone Number.
+	10.	Restore IP Addresses.
+
+Greedy Algorithms 
+	1.	Activity Selection Problem.
+	2.	Minimum Number of Arrows to Burst Balloons.
+	3.	Huffman Encoding.
+	4.	Job Sequencing Problem.
+	5.	Dijkstra’s Algorithm.
+	6.	Gas Station.
+	7.	Partition Labels.
+	8.	Jump Game.
+	9.	Reorganize String.
+	10.	Minimum Platforms.
+
+Bit Manipulation
+	1.	Single Number.
+	2.	Counting Bits.
+	3.	Reverse Bits.
+	4.	Power of Two.
+	5.	Subsets Using Bitmask.
+
+Heap 
+	1.	Top K Frequent Elements.
+	2.	Merge K Sorted Lists.
+	3.	Find Median from Data Stream.
+	4.	Sliding Window Median.
+	5.	Kth Largest Element in a Stream.
+
+Trie 
+	1.	Implement Trie.
+	2.	Word Search II.
+	3.	Design Search Autocomplete System.
+	4.	Longest Word in Dictionary.
+	5.	Replace Words.

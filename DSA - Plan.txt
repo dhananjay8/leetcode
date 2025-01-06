@@ -1,5 +1,5 @@
 Arrays and Strings
-	1.	Check if a String is a Palindrome
+	1.	[Valid Palindrome](https://leetcode.com/problems/valid-palindrome/description/)
 	2.	Two Sum
 	3.	Find the Missing Number in an Array
 	4.	Count and Say

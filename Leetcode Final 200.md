@@ -1,4 +1,32 @@
-Arrays and Strings
+# leetcode
+
+## Final 200 - Easy
+| Number | Problem Name | Solution |
+|--------------|-------------------------------|----------------------------|
+| 1            | [Valid Palindrome](https://leetcode.com/problems/valid-palindrome/description/) | [Valid Palindrome](./Top%20Interview%20150/easy/valid-palindrome.js) |
+| 2            | [Two Sum](https://leetcode.com/problems/two-sum/) | [Two Sum](./Top%20Interview%20150/easy/two_sum.js) |
+| 3            | [Missing Number](https://leetcode.com/problems/missing-number/description/) | [Missing Number](./Top%20Interview%20150/easy/missing-number.py) |
+| 4            | []() | []() |
+| 5            | []() | []() |
+
+## Final 200 - Medium
+| Number | Problem Name | Solution |
+|--------------|-------------------------------|----------------------------|
+| 1            | []() | []() |
+| 2            | []() | []() |
+
+
+
+## Final 200 - Hard
+| Number | Problem Name | Solution |
+|--------------|-------------------------------|----------------------------|
+| 1            | []() | []() |
+| 2            | []() | []() |
+
+
+
+### List of Topic-wise Questions:
+#### Arrays and Strings
 	1.	Check if a String is a Palindrome
 	2.	Two Sum
 	3.	Find the Missing Number in an Array
@@ -26,7 +54,7 @@ Arrays and Strings
 	25.	Minimum Window Substring
 
     
-Sorting and Searching 
+#### Sorting and Searching 
 	1.	Binary Search
 	2.	Search Insert Position
 	3.	Find Minimum in Rotated Sorted Array
@@ -54,7 +82,7 @@ Sorting and Searching
 	25.	Minimum Number of Arrows to Burst Balloons
 
 
-Stacks and Queues
+#### Stacks and Queues
 	1.	Valid Parentheses
 	2.	Implement Queue using Stacks
 	3.	Backspace String Compare
@@ -77,7 +105,7 @@ Stacks and Queues
 	20.	Basic Calculator
 
 
-Linked Lists
+#### Linked Lists
 	1.	Reverse Linked List
 	2.	Merge Two Sorted Lists
 	3.	Linked List Cycle
@@ -95,7 +123,7 @@ Linked Lists
 	15.	LRU Cache
 
 
-Trees 
+#### Trees 
 	1.	Invert Binary Tree
 	2.	Same Tree
 	3.	Symmetric Tree
@@ -123,7 +151,7 @@ Trees
 	25.	Recover Binary Search Tree
 
 
-Trie 
+#### Trie 
 	1.	Implement Trie.
 	2.	Word Search II.
 	3.	Design Search Autocomplete System.
@@ -131,7 +159,7 @@ Trie
 	5.	Replace Words.
 
 
-Heap 
+#### Heap 
 	1.	Kth Largest Element in a Stream
 	2.	Last Stone Weight
 	3.	Kth Largest Element in an Array
@@ -144,7 +172,7 @@ Heap
 	10.	Sliding Window Median
 
 
-Backtracking 
+#### Backtracking 
 	1.	N-Queens.
 	2.	Sudoku Solver.
 	3.	Word Search.
@@ -157,7 +185,7 @@ Backtracking
 	10.	Restore IP Addresses.
 
 
-Graphs 
+#### Graphs 
 	1.	Flood Fill
 	2.	Number of Islands
 	3.	Max Area of Island
@@ -180,7 +208,7 @@ Graphs
 	20.	Find Strongly Connected Components
 
 
-Dynamic Programming 
+#### Dynamic Programming 
 	1.	Fibonacci Number (DP).
 	2.	Climbing Stairs.
 	3.	House Robber.
@@ -203,7 +231,7 @@ Dynamic Programming
 	20. House Robber II
 
 
-Greedy Algorithms 
+#### Greedy Algorithms 
 	1.	Activity Selection Problem.
 	2.	Minimum Number of Arrows to Burst Balloons.
 	3.	Minimum Platforms.
@@ -216,7 +244,7 @@ Greedy Algorithms
 	10.	Reorganize String.
 
 
-Bit Manipulation & Maths
+#### Bit Manipulation & Maths
 	1.	Single Number
 	2.	Number of 1 Bits
 	3.	Counting Bits

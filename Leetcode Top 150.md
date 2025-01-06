@@ -1,13 +1,6 @@
-# leetcode
+# Important DSA Questions
 
-## Top 200 - Easy
-| Number | Problem Name | Solution |
-|--------------|-------------------------------|----------------------------|
-| 1            | [Valid Palindrome](https://leetcode.com/problems/valid-palindrome/description/) | [Valid Palindrome](./Top%20Interview%20150/easy/valid-palindrome.js) |
-| 2            | [Two Sum](https://leetcode.com/problems/two-sum/) | [Two Sum](./Top%20Interview%20150/easy/two_sum.js) |
-| 3            | [Missing Number](https://leetcode.com/problems/missing-number/description/) | [Missing Number](./Top%20Interview%20150/easy/missing-number.py) |
-
-## Top 150 - Easy + Medium
+## Leetcode Top 150 - Easy + Medium
 | Number | Problem Name | Solution |
 |--------------|-------------------------------|----------------------------|
 | 1            | [Two Sum](https://leetcode.com/problems/two-sum/) | [Two Sum](./Top%20Interview%20150/easy/two_sum.js) |
@@ -68,7 +61,7 @@
 
 
 
-## Top 150 - Hard
+## Leetcode Top 150 - Hard
 | Number | Problem Name | Solution |
 |--------------|-------------------------------|----------------------------|
 | 1            | [Max Points on a Line](https://leetcode.com/problems/max-points-on-a-line/) | [Max Points on a Line](./Top%20Interview%20150/hard/max-points-on-a-line.py) |

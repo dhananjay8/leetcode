@@ -1,9 +1,16 @@
 # leetcode
 
+## Top 200 - Easy
+| Number | Problem Name | Solution |
+|--------------|-------------------------------|----------------------------|
+| 1            | [Valid Palindrome](https://leetcode.com/problems/valid-palindrome/description/) | [Valid Palindrome](./Top%20Interview%20150/easy/valid-palindrome.js) |
+| 2            | [Two Sum](https://leetcode.com/problems/two-sum/) | [Two Sum](./Top%20Interview%20150/easy/two_sum.js) |
+| 3            | [Missing Number](https://leetcode.com/problems/missing-number/description/) | [Missing Number](./Top%20Interview%20150/easy/missing-number.py) |
+
 ## Top 150 - Easy + Medium
 | Number | Problem Name | Solution |
 |--------------|-------------------------------|----------------------------|
-| 1            | [Two Sum](https://leetcode.com/problems/two-sum/) | [Two Sum](./Top%20Interview%20150/two_sum.js) |
+| 1            | [Two Sum](https://leetcode.com/problems/two-sum/) | [Two Sum](./Top%20Interview%20150/easy/two_sum.js) |
 | 2            | [Valid Palindrome](https://leetcode.com/problems/valid-palindrome/description/) | [Valid Palindrome](./Top%20Interview%20150/easy/valid-palindrome.js) |
 | 3            | [3sum](https://leetcode.com/problems/3sum/description/) | [3sum](./Top%20Interview%20150/3sum.js) |
 | 4            | [Remove Element](https://leetcode.com/problems/remove-element/description/) | [Remove Element](./Top%20Interview%20150/remove_element.js) |
@@ -40,7 +47,7 @@
 | 35            | [Simplify Path](https://leetcode.com/problems/simplify-path/description/) | [Simplify Path](./Top%20Interview%20150/simplify-path.py) |
 | 36            | [Basic Calculator](https://leetcode.com/problems/basic-calculator/description/) | [Basic Calculator](./Top%20Interview%20150/basic-calculator.py) |
 | 37            | [Container With Most Water](https://leetcode.com/problems/container-with-most-water/description/) | [Container With Most Water](./Top%20Interview%20150/container-with-most-water.py) |
-| 38            | [Two Sum II - Input Array Is Sorted](https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/description/) | [Two Sum II - Input Array Is Sorted](./Top%20Interview%20150/two-sum-ii-input-array-is-sorted.py) |
+| 38            | [Two Sum II - Input Array Is Sorted](https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/description/) | [Two Sum II - Input Array Is Sorted](./Top%20Interview%20150/easy/two-sum-ii-input-array-is-sorted.py) |
 | 39            | [Pow(x, n)](https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/description/) | [Pow(x, n)](./Top%20Interview%20150/two-sum-ii-input-array-is-sorted.py) |
 | 40            | [Factorial Trailing Zeroes](https://leetcode.com/problems/factorial-trailing-zeroes/description/) | [Factorial Trailing Zeroes](./Top%20Interview%20150/factorial-trailing-zeroes.py) |
 | 41            | [Best Time to Buy and Sell Stock II](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/description/) | [Best Time to Buy and Sell Stock II](./Top%20Interview%20150/best-time-to-buy-and-sell-stock-ii.js) |

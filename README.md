@@ -6,7 +6,7 @@
 | 1            | [Valid Palindrome](https://leetcode.com/problems/valid-palindrome/description/) | [Valid Palindrome](./solutions/easy/valid-palindrome.js) |
 | 2            | [Two Sum](https://leetcode.com/problems/two-sum/) | [Two Sum](./solutions/easy/two_sum.js) |
 | 3            | [Missing Number](https://leetcode.com/problems/missing-number/description/) | [Missing Number](./solutions/easy/missing-number.py) |
-| 4            | []() | []() |
+| 4            | [Find All Anagrams in a String](https://leetcode.com/problems/find-all-anagrams-in-a-string/description/) | [Find All Anagrams in a String](./solutions/easy/find-all-anagrams-in-a-string.py) |
 | 5            | []() | []() |
 
 ## Final 200 - Medium
@@ -30,8 +30,8 @@
 	1.	Check if a String is a Palindrome
 	2.	Two Sum
 	3.	Find the Missing Number in an Array
-	4.	Count and Say
-	5.	Find All Anagrams in a String
+	4.	Find All Anagrams in a String
+	5.	Count and Say
 	6.	Group Anagrams
 	7.	Find the Longest Consecutive Sequence
 	8.	Find the Maximum Sum Subarray (Kadane’s Algorithm)

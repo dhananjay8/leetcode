@@ -7,7 +7,8 @@
 | 2            | [Two Sum](https://leetcode.com/problems/two-sum/) | [Two Sum](./solutions/easy/two_sum.js) |
 | 3            | [Missing Number](https://leetcode.com/problems/missing-number/description/) | [Missing Number](./solutions/easy/missing-number.py) |
 | 4            | [Find All Anagrams in a String](https://leetcode.com/problems/find-all-anagrams-in-a-string/description/) | [Find All Anagrams in a String](./solutions/easy/find-all-anagrams-in-a-string.py) |
-| 5            | []() | []() |
+| 5            | [Group Anagrams](https://leetcode.com/problems/group-anagrams/description/) | [Group Anagrams](./solutions/easy/group-anagrams.js) |
+| 6            | []() | []() |
 
 ## Final 200 - Medium
 | Number | Problem Name | Solution |

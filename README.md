@@ -30,8 +30,8 @@
 
 
 
-### List of Topic-wise Questions:
-#### Arrays and Strings
+### List of Topic-wise Leetcode Problems:
+#### ➤ Arrays and Strings
 	1.	Check if a String is a Palindrome
 	2.	Two Sum
 	3.	Find the Missing Number in an Array
@@ -59,7 +59,7 @@
 	25.	Minimum Window Substring
 
     
-#### Sorting and Searching 
+#### ➤ Sorting and Searching 
 	1.	Binary Search
 	2.	Search Insert Position
 	3.	Find Minimum in Rotated Sorted Array
@@ -87,7 +87,7 @@
 	25.	Minimum Number of Arrows to Burst Balloons
 
 
-#### Stacks and Queues
+#### ➤ Stacks and Queues
 	1.	Valid Parentheses
 	2.	Implement Queue using Stacks
 	3.	Backspace String Compare
@@ -110,7 +110,7 @@
 	20.	Basic Calculator
 
 
-#### Linked Lists
+#### ➤ Linked Lists
 	1.	Reverse Linked List
 	2.	Merge Two Sorted Lists
 	3.	Linked List Cycle
@@ -128,7 +128,7 @@
 	15.	LRU Cache
 
 
-#### Trees 
+#### ➤ Trees 
 	1.	Invert Binary Tree
 	2.	Same Tree
 	3.	Symmetric Tree
@@ -156,7 +156,7 @@
 	25.	Recover Binary Search Tree
 
 
-#### Trie 
+#### ➤ Trie 
 	1.	Implement Trie.
 	2.	Word Search II.
 	3.	Design Search Autocomplete System.
@@ -164,7 +164,7 @@
 	5.	Replace Words.
 
 
-#### Heap 
+#### ➤ Heap 
 	1.	Kth Largest Element in a Stream
 	2.	Last Stone Weight
 	3.	Kth Largest Element in an Array
@@ -177,7 +177,7 @@
 	10.	Sliding Window Median
 
 
-#### Backtracking 
+#### ➤ Backtracking 
 	1.	N-Queens.
 	2.	Sudoku Solver.
 	3.	Word Search.
@@ -190,7 +190,7 @@
 	10.	Restore IP Addresses.
 
 
-#### Graphs 
+#### ➤ Graphs 
 	1.	Flood Fill
 	2.	Number of Islands
 	3.	Max Area of Island
@@ -213,7 +213,7 @@
 	20.	Find Strongly Connected Components
 
 
-#### Dynamic Programming 
+#### ➤ Dynamic Programming 
 	1.	Fibonacci Number (DP).
 	2.	Climbing Stairs.
 	3.	House Robber.
@@ -236,7 +236,7 @@
 	20. House Robber II
 
 
-#### Greedy Algorithms 
+#### ➤ Greedy Algorithms 
 	1.	Activity Selection Problem.
 	2.	Minimum Number of Arrows to Burst Balloons.
 	3.	Minimum Platforms.
@@ -249,7 +249,7 @@
 	10.	Reorganize String.
 
 
-#### Bit Manipulation & Maths
+#### ➤ Bit Manipulation & Maths
 	1.	Single Number
 	2.	Number of 1 Bits
 	3.	Counting Bits
@@ -267,8 +267,8 @@
 	15.	Multiply Strings
 
 
-### Important DSA Questions:
-#### ➤ 𝗔𝗿𝗿𝗮𝘆𝘀 𝗮𝗻𝗱 𝗦𝘁𝗿𝗶𝗻𝗴𝘀:
+### Important DSA Interview Questions:
+#### ➤  𝗔𝗿𝗿𝗮𝘆𝘀 𝗮𝗻𝗱 𝗦𝘁𝗿𝗶𝗻𝗴𝘀:
 	1. Find the maximum sum subarray.
 	2. Find all substrings that are palindromes.
 	3. Implement the "two sum" problem.
@@ -279,7 +279,7 @@
  	8. Find the first non-repeating character in a string.
  	9. Write a program to remove duplicates from a sorted array.
 
-#### ➤ 𝗟𝗶𝗻𝗸𝗲𝗱 𝗟𝗶𝘀𝘁𝘀:
+#### ➤  𝗟𝗶𝗻𝗸𝗲𝗱 𝗟𝗶𝘀𝘁𝘀:
  	10. Reverse a linked list.
  	11. Detect a cycle in a linked list.
  	12. Find the middle of a linked list.
@@ -287,14 +287,14 @@
  	14. Implement a stack using linked list.
  	15. Find the intersection point of two linked lists.
 
-#### ➤ 𝗦𝘁𝗮𝗰𝗸𝘀 𝗮𝗻𝗱 𝗤𝘂𝗲𝘂𝗲𝘀:
+#### ➤  𝗦𝘁𝗮𝗰𝗸𝘀 𝗮𝗻𝗱 𝗤𝘂𝗲𝘂𝗲𝘀:
  	16. Implement a stack using an array.
  	17. Implement a stack that supports push, pop, top, and retrieving the minimum element.
  	18. Implement a circular queue.
  	19. Design a max stack that supports push, pop, top, retrieve maximum element.
  	20. Design a queue using stacks.
 
-#### ➤ 𝗧𝗿𝗲𝗲𝘀 𝗮𝗻𝗱 𝗕𝗶𝗻𝗮𝗿𝘆 𝗦𝗲𝗮𝗿𝗰𝗵 𝗧𝗿𝗲𝗲𝘀:
+#### ➤  𝗧𝗿𝗲𝗲𝘀 𝗮𝗻𝗱 𝗕𝗶𝗻𝗮𝗿𝘆 𝗦𝗲𝗮𝗿𝗰𝗵 𝗧𝗿𝗲𝗲𝘀:
  	21. Find the height of a binary tree.
  	22. Find the lowest common ancestor of two nodes in a binary tree.
  	23. Validate if a binary tree is a valid binary search tree.
@@ -303,7 +303,7 @@
  	26. Find the diameter of a binary tree.
  	27. Convert a binary tree to its mirror tree.
 
-#### ➤ 𝗚𝗿𝗮𝗽𝗵𝘀:
+#### ➤  𝗚𝗿𝗮𝗽𝗵𝘀:
  	28. Implement depth-first search (DFS).
  	29. Implement breadth-first search (BFS).
  	30. Find the shortest path between two nodes in an unweighted graph.
@@ -312,7 +312,7 @@
  	33. Find the number of connected components in an undirected graph.
  	34. Find bridges in a graph.
 
-#### ➤ 𝗦𝗼𝗿𝘁𝗶𝗻𝗴 𝗮𝗻𝗱 𝗦𝗲𝗮𝗿𝗰𝗵𝗶𝗻𝗴:
+#### ➤  𝗦𝗼𝗿𝘁𝗶𝗻𝗴 𝗮𝗻𝗱 𝗦𝗲𝗮𝗿𝗰𝗵𝗶𝗻𝗴:
  	35. Implement (bubble, insertion, selection, merge) sort.
  	36. Implement quicksort.
  	37. Implement binary search.
@@ -320,55 +320,55 @@
  	39. Find the kth smallest element in an array.
  	40. Given an array of integers, count the number of inversions it has. An inversion occurs when two elements in the array are out of order.
 
-#### ➤ 𝗗𝘆𝗻𝗮𝗺𝗶𝗰 𝗣𝗿𝗼𝗴𝗿𝗮𝗺𝗺𝗶𝗻𝗴 (𝗗𝗣):
- 1. How do you find the nth Fibonacci number using dynamic programming?
- 2. Write a dynamic programming solution for the 0/1 knapsack problem.
- 3. Memoization to optimize recursive solutions in dynamic programming?
- 4. Implement a dynamic programming algorithm to find the longest common subsequence of two strings.
- 5. The coin change problem.
- 6. Tabulation approach in dynamic programming.
+#### ➤  𝗗𝘆𝗻𝗮𝗺𝗶𝗰 𝗣𝗿𝗼𝗴𝗿𝗮𝗺𝗺𝗶𝗻𝗴 (𝗗𝗣):
+ 	1. How do you find the nth Fibonacci number using dynamic programming?
+	2. Write a dynamic programming solution for the 0/1 knapsack problem.
+ 	3. Memoization to optimize recursive solutions in dynamic programming?
+ 	4. Implement a dynamic programming algorithm to find the longest common subsequence of two strings.
+ 	5. The coin change problem.
+ 	6. Tabulation approach in dynamic programming.
 
-#### ➤ 𝗕𝗮𝗰𝗸𝘁𝗿𝗮𝗰𝗸𝗶𝗻𝗴:
- 7. Backtracking algorithm to solve the N-Queens problem.
- 8. Generate all permutations of a given set using backtracking?
- 9. Implement backtracking to solve the Sudoku puzzle.
- 10. Subset sum problem.
- 11. Graph coloring problem using backtracking.
- 12. Write a backtracking algorithm to find the Hamiltonian cycle in a graph.
+#### ➤  𝗕𝗮𝗰𝗸𝘁𝗿𝗮𝗰𝗸𝗶𝗻𝗴:
+ 	7. Backtracking algorithm to solve the N-Queens problem.
+	8. Generate all permutations of a given set using backtracking?
+	9. Implement backtracking to solve the Sudoku puzzle.
+	10. Subset sum problem.
+	11. Graph coloring problem using backtracking.
+ 	12. Write a backtracking algorithm to find the Hamiltonian cycle in a graph.
 
-#### ➤ 𝗛𝗮𝘀𝗵𝗶𝗻𝗴:
- 13. Implement a hash table using separate chaining.
- 14. First non-repeating character in a string using hashing.
- 15. Collision resolution techniques in hashing.
- 16. Write a function to solve the two-sum problem using hashing.
- 17. How can you implement a hash set data structure?
- 18. Count the frequency of elements in an array using hashing.
+#### ➤  𝗛𝗮𝘀𝗵𝗶𝗻𝗴:
+ 	13. Implement a hash table using separate chaining.
+ 	14. First non-repeating character in a string using hashing.
+ 	15. Collision resolution techniques in hashing.
+ 	16. Write a function to solve the two-sum problem using hashing.
+ 	17. How can you implement a hash set data structure?
+ 	18. Count the frequency of elements in an array using hashing.
 
-#### ➤ 𝗛𝗲𝗮𝗽:
- 19. Implement a priority queue using a min-heap.
- 20. How do you merge K sorted arrays using a min-heap?
- 21. Write a function to perform heap sort algorithm.
- 22. Find the kth largest element in an array using a min-heap.
- 23. Implement a priority queue using a min-heap.
- 24. How do you build a max heap from an array?
+#### ➤  𝗛𝗲𝗮𝗽:
+ 	19. Implement a priority queue using a min-heap.
+ 	20. How do you merge K sorted arrays using a min-heap?
+ 	21. Write a function to perform heap sort algorithm.
+ 	22. Find the kth largest element in an array using a min-heap.
+ 	23. Implement a priority queue using a min-heap.
+ 	24. How do you build a max heap from an array?
 
-#### ➤ 𝗧𝗿𝗶𝗲𝘀:
- 25. Implement a trie data structure.
- 26. Write a function to search for a word in a trie.
- 27. How can you implement autocomplete feature using a trie?
- 28. Deleting a word from a trie.
- 30. Write a function to find all words matching a pattern in a trie.
+#### ➤  𝗧𝗿𝗶𝗲𝘀:
+ 	25. Implement a trie data structure.
+ 	26. Write a function to search for a word in a trie.
+ 	27. How can you implement autocomplete feature using a trie?
+ 	28. Deleting a word from a trie.
+ 	30. Write a function to find all words matching a pattern in a trie.
 
-#### ➤ 𝗚𝗿𝗲𝗲𝗱𝘆 𝗔𝗹𝗴𝗼𝗿𝗶𝘁𝗵𝗺𝘀:
- 31. Solve the activity selection problem using a greedy algorithm.
- 32. Implement Huffman coding using a greedy algorithm.
- 33. Write a function to find the minimum spanning tree using Prim's algorithm.
- 34. Coin change problem.
- 35. Dijkstra's algorithm using a greedy approach.
- 36. Implement the job sequencing problem using a greedy algorithm.
+#### ➤  𝗚𝗿𝗲𝗲𝗱𝘆 𝗔𝗹𝗴𝗼𝗿𝗶𝘁𝗵𝗺𝘀:
+ 	31. Solve the activity selection problem using a greedy algorithm.
+ 	32. Implement Huffman coding using a greedy algorithm.
+ 	33. Write a function to find the minimum spanning tree using Prim's algorithm.
+ 	34. Coin change problem.
+ 	35. Dijkstra's algorithm using a greedy approach.
+ 	36. Implement the job sequencing problem using a greedy algorithm.
 
-#### ➤ Extras
- 37. Stack Vs queue.
- 38. breadth-first search (BFS) and depth-first search (DFS) traversal 
- 39. Concept of big O notation.
- 40. What is an AVL tree? Explain its properties and how it maintains balance during insertion and deletion operations.
+#### ➤  Extras
+ 	37. Stack Vs queue.
+ 	38. breadth-first search (BFS) and depth-first search (DFS) traversal 
+ 	39. Concept of big O notation.
+ 	40. What is an AVL tree? Explain its properties and how it maintains balance during insertion and deletion operations.

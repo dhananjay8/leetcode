@@ -98,13 +98,12 @@
     • Unified Modeling Language (UML)
 
 ### Case Studies
-
- • Design URL Shortening Service
- • Design Dropbox
- • Design Twitter
- • System Design Netflix - A Complete Architecture
- • System Design of Uber App - Uber System Architecture
- • Design Book My Show
- • Designing Facebook Messenger
- • Designing WhatsApp Messenger
- • Designing Instagram
+    • Design URL Shortening Service
+    • Design Dropbox
+    • Design Twitter
+    • System Design Netflix - A Complete Architecture
+    • System Design of Uber App - Uber System Architecture
+    • Design Book My Show
+    • Designing Facebook Messenger
+    • Designing WhatsApp Messenger
+    • Designing Instagram

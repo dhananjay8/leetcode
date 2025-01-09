@@ -49,12 +49,12 @@
 | 44            | [Maximum Sum Circular Subarray](https://leetcode.com/problems/maximum-sum-circular-subarray/description/) | [Maximum Sum Circular Subarray](./solutions/maximum-sum-circular-subarray.js) |
 | 45            | [Reverse Words in a String](https://leetcode.com/problems/reverse-words-in-a-string/description/) | [Reverse Words in a String](./solutions/reverse-words-in-a-string.py) |
 | 46            | [Linked List Cycle](https://leetcode.com/problems/linked-list-cycle/description/) | [Linked List Cycle](./solutions/linked-list-cycle.js) |
-| 47            | [Add Two Numbers](https://leetcode.com/problems/add-two-numbers/description/) | [Add Two Numbers](./solutions/add-two-numbers.js) |
+| 47            | [Add Two Numbers](https://leetcode.com/problems/add-two-numbers/description/) | [Add Two Numbers](./solutions/medium/add-two-numbers.js) |
 | 48            | [Insert Delete GetRandom O(1)](https://leetcode.com/problems/insert-delete-getrandom-o1/description/) | [Insert Delete GetRandom O(1)](./solutions/insert-delete-getrandom-o1.js) |
 | 49            | [Rotate Array](https://leetcode.com/problems/rotate-array/description/) | [Rotate Array](./solutions/rotate-array.js) |
 | 50            | [Jump Game](https://leetcode.com/problems/jump-game/description/) | [Jump Game](./solutions/jump-game.py) |
 | 51            | [Jump Game II](https://leetcode.com/problems/jump-game-ii/description/) | [Jump Game II](./solutions/jump-game-ii.py) |
-| 52            | [LRU Cache](https://leetcode.com/problems/lru-cache/description/) | [LRU Cache](./solutions/lru-cache.py) |
+| 52            | [LRU Cache](https://leetcode.com/problems/lru-cache/description/) | [LRU Cache](./solutions/medium/lru-cache.py) |
 | 53            | [Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/description/) | [Top K Frequent Elements](./solutions/top-k-frequent-elements.js) |
 | 54            | [String Encode and Decode](https://leetcode.com/problems/encode-and-decode-strings/description/) | [String Encode and Decode](./solutions/string-encode-and-decode.js) |
 | 55            | [Valid Sudoku](https://leetcode.com/problems/valid-sudoku/) | [Valid Sudoku](./solutions/valid-sudoku.js) |

@@ -17,7 +17,7 @@
 | 1            | [Find All Anagrams in a String](https://leetcode.com/problems/find-all-anagrams-in-a-string/description/) | [Find All Anagrams in a String](./solutions/medium/find-all-anagrams-in-a-string.py) |
 | 2            | [Group Anagrams](https://leetcode.com/problems/group-anagrams/description/) | [Group Anagrams](./solutions/medium/group-anagrams.js) |
 | 3            | [Count and Say](https://leetcode.com/problems/count-and-say/description/) | [Count and Say](./solutions/medium/count-and-say.py) |
-| 4            | []() | []() |
+| 4            | [Add Two Numbers](https://leetcode.com/problems/add-two-numbers/description/) | [Add Two Numbers](./solutions/medium/add-two-numbers.js) |
 | 5            | []() | []() |
 
 
@@ -32,12 +32,12 @@
 
 ### List of Topic-wise Leetcode Problems:
 #### ➤ Arrays and Strings
-	1.	Check if a String is a Palindrome
-	2.	Two Sum
-	3.	Find the Missing Number in an Array
-	4.	Find All Anagrams in a String
-	5.	Count and Say
-	6.	Group Anagrams
+	1.	Check if a String is a Palindrome ✅
+	2.	Two Sum ✅
+	3.	Find the Missing Number in an Array ✅
+	4.	Find All Anagrams in a String ✅
+	5.	Count and Say ✅
+	6.	Group Anagrams ✅
 	7.	Find the Longest Consecutive Sequence
 	8.	Find the Maximum Sum Subarray (Kadane’s Algorithm)
 	9.	Rotate Image
@@ -118,7 +118,7 @@
 	5.	Palindrome Linked List
 	6.	Remove Nth Node From End of List
 	7.	Copy List with Random Pointer
-	8.	Add Two Numbers
+	8.	Add Two Numbers ✅
 	9.	Reorder List
 	10.	Swap Nodes in Pairs
 	11.	Odd Even Linked List

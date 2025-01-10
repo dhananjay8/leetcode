@@ -18,7 +18,9 @@
 | 2            | [Group Anagrams](https://leetcode.com/problems/group-anagrams/description/) | [Group Anagrams](./solutions/medium/group-anagrams.js) |
 | 3            | [Count and Say](https://leetcode.com/problems/count-and-say/description/) | [Count and Say](./solutions/medium/count-and-say.py) |
 | 4            | [Add Two Numbers](https://leetcode.com/problems/add-two-numbers/description/) | [Add Two Numbers](./solutions/medium/add-two-numbers.js) |
-| 5            | []() | []() |
+| 5            | [Evaluate Reverse Polish Notation](https://leetcode.com/problems/evaluate-reverse-polish-notation/description/) | [Evaluate Reverse Polish Notation](./solutions/medium/evaluate-reverse-polish-notation.js) |
+| 6            | []() | []() |
+
 
 
 
@@ -95,7 +97,7 @@
 	5.	Min Stack
 	6.	Middle of the Linked List
 	7.	Maximum Depth of Binary Tree
-	8.	Evaluate Reverse Polish Notation
+	8.	Evaluate Reverse Polish Notation ✅
 	9.	Daily Temperatures
 	10.	Decode String
 	11.	Asteroid Collision

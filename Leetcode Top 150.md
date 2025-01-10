@@ -38,7 +38,7 @@
 | 33            | [Evaluate Reverse Polish Notation](https://leetcode.com/problems/evaluate-reverse-polish-notation/description/) | [Evaluate Reverse Polish Notation](./solutions/evaluate-reverse-polish-notation.js) |
 | 34            | [Min Stack](https://leetcode.com/problems/min-stack/description/) | [Min Stack](./solutions/min-stack.js) |
 | 35            | [Simplify Path](https://leetcode.com/problems/simplify-path/description/) | [Simplify Path](./solutions/simplify-path.py) |
-| 36            | [Basic Calculator](https://leetcode.com/problems/basic-calculator/description/) | [Basic Calculator](./solutions/basic-calculator.py) |
+| 36            | [Basic Calculator](https://leetcode.com/problems/basic-calculator/description/) | [Basic Calculator](./solutions/hard/basic-calculator.py) |
 | 37            | [Container With Most Water](https://leetcode.com/problems/container-with-most-water/description/) | [Container With Most Water](./solutions/container-with-most-water.py) |
 | 38            | [Two Sum II - Input Array Is Sorted](https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/description/) | [Two Sum II - Input Array Is Sorted](./solutions/easy/two-sum-ii-input-array-is-sorted.py) |
 | 39            | [Pow(x, n)](https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/description/) | [Pow(x, n)](./solutions/two-sum-ii-input-array-is-sorted.py) |
@@ -48,7 +48,7 @@
 | 43            | [Maximum Subarray](https://leetcode.com/problems/maximum-subarray/description/) | [Maximum Subarray](./solutions/maximum-subarray.py) |
 | 44            | [Maximum Sum Circular Subarray](https://leetcode.com/problems/maximum-sum-circular-subarray/description/) | [Maximum Sum Circular Subarray](./solutions/maximum-sum-circular-subarray.js) |
 | 45            | [Reverse Words in a String](https://leetcode.com/problems/reverse-words-in-a-string/description/) | [Reverse Words in a String](./solutions/reverse-words-in-a-string.py) |
-| 46            | [Linked List Cycle](https://leetcode.com/problems/linked-list-cycle/description/) | [Linked List Cycle](./solutions/linked-list-cycle.js) |
+| 46            | [Linked List Cycle](https://leetcode.com/problems/linked-list-cycle/description/) | [Linked List Cycle](./solutions/easy/linked-list-cycle.js) |
 | 47            | [Add Two Numbers](https://leetcode.com/problems/add-two-numbers/description/) | [Add Two Numbers](./solutions/medium/add-two-numbers.js) |
 | 48            | [Insert Delete GetRandom O(1)](https://leetcode.com/problems/insert-delete-getrandom-o1/description/) | [Insert Delete GetRandom O(1)](./solutions/insert-delete-getrandom-o1.js) |
 | 49            | [Rotate Array](https://leetcode.com/problems/rotate-array/description/) | [Rotate Array](./solutions/rotate-array.js) |

@@ -6,7 +6,7 @@
 | 1            | [Valid Palindrome](https://leetcode.com/problems/valid-palindrome/description/) | [Valid Palindrome](./solutions/easy/valid-palindrome.js) |
 | 2            | [Two Sum](https://leetcode.com/problems/two-sum/) | [Two Sum](./solutions/easy/two_sum.js) |
 | 3            | [Missing Number](https://leetcode.com/problems/missing-number/description/) | [Missing Number](./solutions/easy/missing-number.py) |
-| 4            | []() | []() |
+| 4            | [Linked List Cycle](https://leetcode.com/problems/linked-list-cycle/description/) | [Linked List Cycle](./solutions/easy/linked-list-cycle.js) |
 | 5            | []() | []() |
 
 
@@ -25,7 +25,7 @@
 ## Final 200 - Hard
 | Number | Problem Name | Solution |
 |--------------|-------------------------------|----------------------------|
-| 1            | []() | []() |
+| 1            | [Basic Calculator](https://leetcode.com/problems/basic-calculator/description/) | [Basic Calculator](./solutions/hard/basic-calculator.py) |
 | 2            | []() | []() |
 
 
@@ -107,13 +107,13 @@
 	17.	Longest Valid Parentheses
 	18.	Implement Stack Using Queues.
 	19.	Maximum Frequency Stack
-	20.	Basic Calculator
+	20.	Basic Calculator ✅
 
 
 #### ➤ Linked Lists
 	1.	Reverse Linked List
 	2.	Merge Two Sorted Lists
-	3.	Linked List Cycle
+	3.	Linked List Cycle ✅
 	4.	Middle of the Linked List
 	5.	Palindrome Linked List
 	6.	Remove Nth Node From End of List

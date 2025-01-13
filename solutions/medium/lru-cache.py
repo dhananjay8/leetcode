@@ -1,3 +1,84 @@
+# class Node {
+#     constructor(key, value) {
+#         this.key = key;
+#         this.value = value;
+#         this.prev = null;
+#         this.next = null;
+#     }
+# }
+
+# /**
+#  * @param {number} capacity
+#  */
+# var LRUCache = function(capacity) {
+#     this.capacity = capacity;
+#     this.cache = new Map();
+#     this.head = new Node(0,0);
+#     this.tail = new Node(0,0);
+#     this.head.next = this.tail;
+#     this.tail.prev = this.head;
+# };
+
+# LRUCache.prototype._removeFromEnd = function(node) {
+#     if (node && node.prev && node.next) {
+#         const prevNode = node.prev;
+#         const nextNode = node.next;
+#         prevNode.next = nextNode;
+#         nextNode.prev = prevNode;
+#     }
+# }
+
+# LRUCache.prototype._addToHead = function(node) {
+#     node.next = this.head.next;
+#     node.prev = this.head;
+#     this.head.next.prev = node;
+#     this.head.next = node;
+# }
+
+# /** 
+#  * @param {number} key
+#  * @return {number}
+#  */
+# LRUCache.prototype.get = function(key) {
+#     if(this.cache.has(key)){
+#         const node = this.cache.get(key);
+#         this._removeFromEnd(node);
+#         this._addToHead(node);
+#         return node.value;
+#     }
+#     return -1;
+# };
+
+# /** 
+#  * @param {number} key 
+#  * @param {number} value
+#  * @return {void}
+#  */
+# LRUCache.prototype.put = function(key, value) {
+#     if(this.cache.has(key)){
+#         const node = this.cache.get(key);
+#         node.value = value;
+#         this._removeFromEnd(node);
+#         this._addToHead(node);
+#     } else {
+#         if (this.cache.size >= this.capacity) {
+#             const tailNode = this.tail.prev;
+#             this._removeFromEnd(tailNode);
+#             this.cache.delete(tailNode.key);
+#         }
+#          const newNode = new Node(key, value);
+#          this.cache.set(key, newNode);
+#          this._addToHead(newNode);
+#     };
+# };
+
+# /** 
+#  * Your LRUCache object will be instantiated and called as such:
+#  * var obj = new LRUCache(capacity)
+#  * var param_1 = obj.get(key)
+#  * obj.put(key,value)
+#  */
+
 class Node:
     def __init__(self, key: int, value: int):
         self.key = key
@@ -57,3 +138,4 @@ class LRUCache:
 # obj = LRUCache(capacity)
 # param_1 = obj.get(key)
 # obj.put(key,value)
+

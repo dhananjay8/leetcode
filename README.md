@@ -9,9 +9,10 @@
 | 4            | [Linked List Cycle](https://leetcode.com/problems/linked-list-cycle/description/) | [Linked List Cycle](./solutions/easy/linked-list-cycle.js) |
 | 5            | [Valid Parentheses](https://leetcode.com/problems/valid-parentheses/description/) | [Valid Parentheses](./solutions/easy/valid-parentheses.js) |
 | 6            | [Merge Two Sorted Lists](https://leetcode.com/problems/merge-two-sorted-lists/description) | [Merge Two Sorted Lists](./solutions/easy/merge-two-sorted-lists.js) |
-| 7            | []() | []() |
-| 8            | []() | []() |
+| 7            | [Implement Queue using Stacks]() | [Implement Queue using Stacks](./solutions/misc/queue-using-stacks.js) |
+| 8            | [Implement Stack Using Queues]() | [Implement Stack Using Queues](./solutions/misc/stack-using-queues.js) |
 | 9            | []() | []() |
+| 10            | []() | []() |
 
 
 ## Final 200 - Medium
@@ -24,8 +25,9 @@
 | 5            | [Evaluate Reverse Polish Notation](https://leetcode.com/problems/evaluate-reverse-polish-notation/description/) | [Evaluate Reverse Polish Notation](./solutions/medium/evaluate-reverse-polish-notation.js) |
 | 6            | [Min Stack](https://leetcode.com/problems/min-stack/description/) | [Min Stack](./solutions/medium/min-stack.js) |
 | 7            | [Simplify Path](https://leetcode.com/problems/simplify-path/description/) | [Simplify Path](./solutions/medium/simplify-path.py) |
-| 8            | []() | []() |
+| 8            | [LRU Cache](https://leetcode.com/problems/lru-cache/description) | [LRU Cache](./solutions/medium/lru-cache.py) |
 | 9            | []() | []() |
+| 10            | []() | []() |
 
 
 ## Final 200 - Hard
@@ -95,23 +97,23 @@
 
 #### ➤ Stacks and Queues
 	1.	Valid Parentheses ✅
-	2.	Implement Queue using Stacks
+	2.	Min Stack ✅
 	3.	Backspace String Compare
 	4.	Palindrome Linked List
-	5.	Min Stack ✅
+	5.	Evaluate Reverse Polish Notation ✅
 	6.	Middle of the Linked List
 	7.	Maximum Depth of Binary Tree
-	8.	Evaluate Reverse Polish Notation ✅
+	8.	Simplify Path ✅
 	9.	Daily Temperatures
 	10.	Decode String
 	11.	Asteroid Collision
 	12.	Car Fleet
 	13.	Generate Parentheses
 	14.	Basic Calculator II
-	15.	Simplify Path ✅
+	15.	Longest Valid Parentheses
 	16.	Largest Rectangle in Histogram
-	17.	Longest Valid Parentheses
-	18.	Implement Stack Using Queues.
+	17.	Implement Queue using Stacks ✅
+	18.	Implement Stack Using Queues ✅
 	19.	Maximum Frequency Stack
 	20.	Basic Calculator ✅
 
@@ -131,7 +133,7 @@
 	12.	Sort List
 	13.	Reverse Nodes in k-Group
 	14.	Merge K Sorted Lists
-	15.	LRU Cache
+	15.	LRU Cache ✅
 
 
 #### ➤ Trees 

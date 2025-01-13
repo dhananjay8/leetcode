@@ -24,7 +24,7 @@
 | 5            | [Evaluate Reverse Polish Notation](https://leetcode.com/problems/evaluate-reverse-polish-notation/description/) | [Evaluate Reverse Polish Notation](./solutions/medium/evaluate-reverse-polish-notation.js) |
 | 6            | [Min Stack](https://leetcode.com/problems/min-stack/description/) | [Min Stack](./solutions/medium/min-stack.js) |
 | 7            | [Simplify Path](https://leetcode.com/problems/simplify-path/description/) | [Simplify Path](./solutions/medium/simplify-path.py) |
-| 8            | []() | []() |
+| 8            | [Remove Duplicates from Sorted List II](https://leetcode.com/problems/remove-duplicates-from-sorted-list-ii/description) | [Remove Duplicates from Sorted List II](./solutions/medium/remove-duplicates-from-sorted-list-ii.js) |
 | 9            | []() | []() |
 
 

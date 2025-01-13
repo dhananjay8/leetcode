@@ -59,6 +59,7 @@
 | 54            | [String Encode and Decode](https://leetcode.com/problems/encode-and-decode-strings/description/) | [String Encode and Decode](./solutions/string-encode-and-decode.js) |
 | 55            | [Valid Sudoku](https://leetcode.com/problems/valid-sudoku/) | [Valid Sudoku](./solutions/valid-sudoku.js) |
 | 56            | [Merge Two Sorted Lists](https://leetcode.com/problems/merge-two-sorted-lists/description) | [Merge Two Sorted Lists](./solutions/easy/merge-two-sorted-lists.js) |
+| 57            | [Remove Duplicates from Sorted List II](https://leetcode.com/problems/remove-duplicates-from-sorted-list-ii/description) | [Remove Duplicates from Sorted List II](./solutions/medium/remove-duplicates-from-sorted-list-ii.js) |
 
 
 

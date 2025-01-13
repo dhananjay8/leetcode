@@ -14,7 +14,7 @@
 | 9            | [Best Time to Buy and Sell Stock](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/description/) | [Stock I](./solutions/best-time-to-buy-and-sell-stock.js) |
 | 10            | [Roman to Integer](https://leetcode.com/problems/roman-to-integer/description/) | [Roman to Integer](./solutions/roman-to-integer.js) |
 | 11            | [Is Subsequence](https://leetcode.com/problems/is-subsequence/description/) | [Is Subsequence](./solutions/is-subsequence.js) |
-| 12            | [Valid Parentheses](https://leetcode.com/problems/valid-parentheses/description/) | [Valid Parentheses](./solutions/valid-parentheses.js) |
+| 12            | [Valid Parentheses](https://leetcode.com/problems/valid-parentheses/description/) | [Valid Parentheses](./solutions/easy/valid-parentheses.js) |
 | 13            | [Valid Anagram](https://leetcode.com/problems/valid-anagram/description/) | [Valid Anagram](./solutions/valid-anagram.js) |
 | 14            | [Plus One](https://leetcode.com/problems/plus-one/description/) | [Plus One](./solutions/plus-one.js) |
 | 15            | [Palindrome Number](https://leetcode.com/problems/palindrome-number/description/) | [Palindrome Number](./solutions/palindrome-number.js) |
@@ -37,7 +37,7 @@
 | 32            | [Longest Consecutive Sequence](https://leetcode.com/problems/longest-consecutive-sequence/description/) | [Longest Consecutive Sequence](./solutions/longest-consecutive-sequence.js) |
 | 33            | [Evaluate Reverse Polish Notation](https://leetcode.com/problems/evaluate-reverse-polish-notation/description/) | [Evaluate Reverse Polish Notation](./solutions/medium/evaluate-reverse-polish-notation.js) |
 | 34            | [Min Stack](https://leetcode.com/problems/min-stack/description/) | [Min Stack](./solutions/medium/min-stack.js) |
-| 35            | [Simplify Path](https://leetcode.com/problems/simplify-path/description/) | [Simplify Path](./solutions/simplify-path.py) |
+| 35            | [Simplify Path](https://leetcode.com/problems/simplify-path/description/) | [Simplify Path](./solutions/medium/simplify-path.py) |
 | 36            | [Basic Calculator](https://leetcode.com/problems/basic-calculator/description/) | [Basic Calculator](./solutions/hard/basic-calculator.py) |
 | 37            | [Container With Most Water](https://leetcode.com/problems/container-with-most-water/description/) | [Container With Most Water](./solutions/container-with-most-water.py) |
 | 38            | [Two Sum II - Input Array Is Sorted](https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/description/) | [Two Sum II - Input Array Is Sorted](./solutions/easy/two-sum-ii-input-array-is-sorted.py) |
@@ -58,6 +58,7 @@
 | 53            | [Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/description/) | [Top K Frequent Elements](./solutions/top-k-frequent-elements.js) |
 | 54            | [String Encode and Decode](https://leetcode.com/problems/encode-and-decode-strings/description/) | [String Encode and Decode](./solutions/string-encode-and-decode.js) |
 | 55            | [Valid Sudoku](https://leetcode.com/problems/valid-sudoku/) | [Valid Sudoku](./solutions/valid-sudoku.js) |
+| 56            | [Merge Two Sorted Lists](https://leetcode.com/problems/merge-two-sorted-lists/description) | [Merge Two Sorted Lists](./solutions/easy/merge-two-sorted-lists.js) |
 
 
 

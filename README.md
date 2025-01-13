@@ -7,8 +7,11 @@
 | 2            | [Two Sum](https://leetcode.com/problems/two-sum/) | [Two Sum](./solutions/easy/two_sum.js) |
 | 3            | [Missing Number](https://leetcode.com/problems/missing-number/description/) | [Missing Number](./solutions/easy/missing-number.py) |
 | 4            | [Linked List Cycle](https://leetcode.com/problems/linked-list-cycle/description/) | [Linked List Cycle](./solutions/easy/linked-list-cycle.js) |
-| 5            | []() | []() |
-
+| 5            | [Valid Parentheses](https://leetcode.com/problems/valid-parentheses/description/) | [Valid Parentheses](./solutions/easy/valid-parentheses.js) |
+| 6            | [Merge Two Sorted Lists](https://leetcode.com/problems/merge-two-sorted-lists/description) | [Merge Two Sorted Lists](./solutions/easy/merge-two-sorted-lists.js) |
+| 7            | []() | []() |
+| 8            | []() | []() |
+| 9            | []() | []() |
 
 
 ## Final 200 - Medium
@@ -20,7 +23,9 @@
 | 4            | [Add Two Numbers](https://leetcode.com/problems/add-two-numbers/description/) | [Add Two Numbers](./solutions/medium/add-two-numbers.js) |
 | 5            | [Evaluate Reverse Polish Notation](https://leetcode.com/problems/evaluate-reverse-polish-notation/description/) | [Evaluate Reverse Polish Notation](./solutions/medium/evaluate-reverse-polish-notation.js) |
 | 6            | [Min Stack](https://leetcode.com/problems/min-stack/description/) | [Min Stack](./solutions/medium/min-stack.js) |
-| 7            | []() | []() |
+| 7            | [Simplify Path](https://leetcode.com/problems/simplify-path/description/) | [Simplify Path](./solutions/medium/simplify-path.py) |
+| 8            | []() | []() |
+| 9            | []() | []() |
 
 
 ## Final 200 - Hard
@@ -89,7 +94,7 @@
 
 
 #### ➤ Stacks and Queues
-	1.	Valid Parentheses
+	1.	Valid Parentheses ✅
 	2.	Implement Queue using Stacks
 	3.	Backspace String Compare
 	4.	Palindrome Linked List
@@ -103,7 +108,7 @@
 	12.	Car Fleet
 	13.	Generate Parentheses
 	14.	Basic Calculator II
-	15.	Simplify Path
+	15.	Simplify Path ✅
 	16.	Largest Rectangle in Histogram
 	17.	Longest Valid Parentheses
 	18.	Implement Stack Using Queues.
@@ -113,7 +118,7 @@
 
 #### ➤ Linked Lists
 	1.	Reverse Linked List
-	2.	Merge Two Sorted Lists
+	2.	Merge Two Sorted Lists ✅
 	3.	Linked List Cycle ✅
 	4.	Middle of the Linked List
 	5.	Palindrome Linked List

@@ -36,7 +36,7 @@
 | 31            | [Summary Ranges](https://leetcode.com/problems/summary-ranges/description/) | [Summary Ranges](./solutions/summary-ranges.js) |
 | 32            | [Longest Consecutive Sequence](https://leetcode.com/problems/longest-consecutive-sequence/description/) | [Longest Consecutive Sequence](./solutions/longest-consecutive-sequence.js) |
 | 33            | [Evaluate Reverse Polish Notation](https://leetcode.com/problems/evaluate-reverse-polish-notation/description/) | [Evaluate Reverse Polish Notation](./solutions/medium/evaluate-reverse-polish-notation.js) |
-| 34            | [Min Stack](https://leetcode.com/problems/min-stack/description/) | [Min Stack](./solutions/min-stack.js) |
+| 34            | [Min Stack](https://leetcode.com/problems/min-stack/description/) | [Min Stack](./solutions/medium/min-stack.js) |
 | 35            | [Simplify Path](https://leetcode.com/problems/simplify-path/description/) | [Simplify Path](./solutions/simplify-path.py) |
 | 36            | [Basic Calculator](https://leetcode.com/problems/basic-calculator/description/) | [Basic Calculator](./solutions/hard/basic-calculator.py) |
 | 37            | [Container With Most Water](https://leetcode.com/problems/container-with-most-water/description/) | [Container With Most Water](./solutions/container-with-most-water.py) |

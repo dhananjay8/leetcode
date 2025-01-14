@@ -1,0 +1,177 @@
+Binary Search Tree Node and Helper Class
+
+// Definition for a Binary Search Tree Node
+class TreeNode {
+  constructor(val = 0, left = null, right = null) {
+    this.val = val;
+    this.left = left;
+    this.right = right;
+  }
+}
+
+1. In-order Traversal (Left → Root → Right)
+
+In-order traversal visits nodes in ascending order for BSTs.
+
+Recursive Implementation:
+
+function inorderTraversal(root) {
+  const result = [];
+  
+  function traverse(node) {
+    if (!node) return;
+    traverse(node.left);  // Visit left subtree
+    result.push(node.val); // Visit root
+    traverse(node.right); // Visit right subtree
+  }
+  
+  traverse(root);
+  return result;
+}
+
+Iterative Implementation:
+
+function inorderTraversalIterative(root) {
+  const result = [];
+  const stack = [];
+  let current = root;
+
+  while (current || stack.length) {
+    while (current) {
+      stack.push(current);
+      current = current.left; // Go to the leftmost node
+    }
+    current = stack.pop();
+    result.push(current.val); // Visit the node
+    current = current.right; // Move to the right subtree
+  }
+
+  return result;
+}
+
+2. Pre-order Traversal (Root → Left → Right)
+
+Recursive Implementation:
+
+function preorderTraversal(root) {
+  const result = [];
+  
+  function traverse(node) {
+    if (!node) return;
+    result.push(node.val); // Visit root
+    traverse(node.left);   // Visit left subtree
+    traverse(node.right);  // Visit right subtree
+  }
+  
+  traverse(root);
+  return result;
+}
+
+Iterative Implementation:
+
+function preorderTraversalIterative(root) {
+  if (!root) return [];
+  
+  const result = [];
+  const stack = [root]; // Start with the root
+
+  while (stack.length) {
+    const node = stack.pop();
+    result.push(node.val); // Visit root
+
+    if (node.right) stack.push(node.right); // Push right child first
+    if (node.left) stack.push(node.left);   // Push left child second
+  }
+
+  return result;
+}
+
+3. Post-order Traversal (Left → Right → Root)
+
+Recursive Implementation:
+
+function postorderTraversal(root) {
+  const result = [];
+  
+  function traverse(node) {
+    if (!node) return;
+    traverse(node.left);  // Visit left subtree
+    traverse(node.right); // Visit right subtree
+    result.push(node.val); // Visit root
+  }
+  
+  traverse(root);
+  return result;
+}
+
+Iterative Implementation:
+
+function postorderTraversalIterative(root) {
+  if (!root) return [];
+
+  const result = [];
+  const stack = [root];
+  const visited = new Set(); // To track visited nodes
+
+  while (stack.length) {
+    const node = stack[stack.length - 1]; // Peek the top node
+    if (node.left && !visited.has(node.left)) {
+      stack.push(node.left); // Push left child if not visited
+    } else if (node.right && !visited.has(node.right)) {
+      stack.push(node.right); // Push right child if not visited
+    } else {
+      result.push(node.val); // Visit root
+      visited.add(node); // Mark as visited
+      stack.pop(); // Remove from stack
+    }
+  }
+
+  return result;
+}
+
+4. Level-order Traversal (BFS)
+
+Iterative Implementation:
+
+function levelOrderTraversal(root) {
+  if (!root) return [];
+
+  const result = [];
+  const queue = [root]; // Initialize the queue with the root
+
+  while (queue.length) {
+    const node = queue.shift(); // Dequeue the front node
+    result.push(node.val); // Visit the node
+
+    if (node.left) queue.push(node.left);   // Enqueue left child
+    if (node.right) queue.push(node.right); // Enqueue right child
+  }
+
+  return result;
+}
+
+Example Usage
+
+// Construct a sample BST
+const root = new TreeNode(4);
+root.left = new TreeNode(2);
+root.right = new TreeNode(6);
+root.left.left = new TreeNode(1);
+root.left.right = new TreeNode(3);
+root.right.left = new TreeNode(5);
+root.right.right = new TreeNode(7);
+
+console.log("In-order Traversal:", inorderTraversal(root)); // Output: [1, 2, 3, 4, 5, 6, 7]
+console.log("Pre-order Traversal:", preorderTraversal(root)); // Output: [4, 2, 1, 3, 6, 5, 7]
+console.log("Post-order Traversal:", postorderTraversal(root)); // Output: [1, 3, 2, 5, 7, 6, 4]
+console.log("Level-order Traversal:", levelOrderTraversal(root)); // Output: [4, 2, 6, 1, 3, 5, 7]
+
+Traversal Summary
+
+Traversal Type	Order
+In-order	Left → Root → Right
+Pre-order	Root → Left → Right
+Post-order	Left → Right → Root
+Level-order (BFS)	Level by level, left to right
+
+These methods are straightforward and optimized for binary trees in LeetCode-style problems.

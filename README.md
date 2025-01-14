@@ -11,8 +11,10 @@
 | 6            | [Merge Two Sorted Lists](https://leetcode.com/problems/merge-two-sorted-lists/description) | [Merge Two Sorted Lists](./solutions/easy/merge-two-sorted-lists.js) |
 | 7            | [Implement Queue using Stacks]() | [Implement Queue using Stacks](./solutions/misc/queue-using-stacks.js) |
 | 8            | [Implement Stack Using Queues]() | [Implement Stack Using Queues](./solutions/misc/stack-using-queues.js) |
-| 9            | []() | []() |
+| 9            | [Symmetric Tree](https://leetcode.com/problems/symmetric-tree/description) | [Symmetric Tree](./solutions/easy/trees/symmetric-tree.js) |
 | 10            | []() | []() |
+| 11            | []() | []() |
+| 12            | []() | []() |
 
 
 ## Final 200 - Medium
@@ -26,8 +28,10 @@
 | 6            | [Min Stack](https://leetcode.com/problems/min-stack/description/) | [Min Stack](./solutions/medium/min-stack.js) |
 | 7            | [Simplify Path](https://leetcode.com/problems/simplify-path/description/) | [Simplify Path](./solutions/medium/simplify-path.py) |
 | 8            | [LRU Cache](https://leetcode.com/problems/lru-cache/description) | [LRU Cache](./solutions/medium/lru-cache.py) |
-| 9            | []() | []() |
-| 10            | []() | []() |
+| 9            | [Validate Binary Search Tree](https://leetcode.com/problems/validate-binary-search-tree/description) | [Validate Binary Search Tree](./solutions/medium/trees/validate-binary-search-tree.js) |
+| 10            | [Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal/description) | [Binary Tree Level Order Traversal](./solutions/medium/trees/binary-tree-level-order-traversal.js) |
+| 11            | []() | []() |
+| 12            | []() | []() |
 
 
 ## Final 200 - Hard
@@ -139,7 +143,7 @@
 #### ➤ Trees 
 	1.	Invert Binary Tree
 	2.	Same Tree
-	3.	Symmetric Tree
+	3.	Symmetric Tree ✅
 	4.	Maximum Depth of Binary Tree
 	5.	Balanced Binary Tree
 	6.	Subtree of Another Tree
@@ -147,10 +151,10 @@
 	8.	Diameter of Binary Tree
 	9.	Path Sum
 	10.	Count Complete Tree Nodes
-	11.	Validate Binary Search Tree
+	11.	Validate Binary Search Tree ✅
 	12.	Kth Smallest Element in a BST
 	13.	Construct Binary Tree from Preorder and Inorder Traversal
-	14.	Binary Tree Level Order Traversal
+	14.	Binary Tree Level Order Traversal ✅
 	15.	Binary Tree Zigzag Level Order Traversal
 	16.	Binary Tree Right Side View
 	17.	Count Good Nodes in Binary Tree

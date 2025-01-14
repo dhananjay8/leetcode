@@ -60,6 +60,12 @@
 | 55            | [Valid Sudoku](https://leetcode.com/problems/valid-sudoku/) | [Valid Sudoku](./solutions/valid-sudoku.js) |
 | 56            | [Merge Two Sorted Lists](https://leetcode.com/problems/merge-two-sorted-lists/description) | [Merge Two Sorted Lists](./solutions/easy/merge-two-sorted-lists.js) |
 | 57            | [Remove Duplicates from Sorted List II](https://leetcode.com/problems/remove-duplicates-from-sorted-list-ii/description) | [Remove Duplicates from Sorted List II](./solutions/medium/remove-duplicates-from-sorted-list-ii.js) |
+| 58            | [Validate Binary Search Tree](https://leetcode.com/problems/validate-binary-search-tree/description) | [Validate Binary Search Tree](./solutions/medium/trees/validate-binary-search-tree.js) |
+| 59            | [Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal/description) | [Binary Tree Level Order Traversal](./solutions/medium/trees/binary-tree-level-order-traversal.js) |
+| 60            | [Symmetric Tree](https://leetcode.com/problems/symmetric-tree/description) | [Symmetric Tree](./solutions/easy/trees/symmetric-tree.js) |
+| 61            | []() | []() |
+| 62            | []() | []() |
+
 
 
 

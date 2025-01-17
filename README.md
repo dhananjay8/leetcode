@@ -34,7 +34,7 @@
 | 12            | [Implement Trie (Prefix Tree)](https://leetcode.com/problems/implement-trie-prefix-tree/description/) | [Implement Trie (Prefix Tree)](./solutions/medium/tries/implement-trie-prefix-tree.js) |
 | 13            | [Replace Words)](https://leetcode.com/problems/replace-words/description/) | [Replace Words](./solutions/medium/tries/replace-words.js) |
 | 14            | [Longest Word in Dictionary)](https://leetcode.com/problems/longest-word-in-dictionary/) | [Longest Word in Dictionary](./solutions/medium/tries/longest-word-in-dictionary.js) |
-| 15            | []() | []() |
+| 15            | [Design Add and Search Words Data Structure](https://leetcode.com/problems/design-add-and-search-words-data-structure/description) | [Design Add and Search Words Data Structure](./solutions/medium/tries/design-add-and-search-words-data-structure.js) |
 | 16            | []() | []() |
 | 17            | []() | []() |
 
@@ -178,9 +178,10 @@
 
 #### ➤ Trie 
 	1.	Implement Trie ✅
-	2.	Word Search II ✅ 
+	2.	Design Add and Search Words Data Structure ✅ 
 	3.	Longest Word in Dictionary ✅ 
 	4.	Replace Words ✅ 
+	5.  Word Search II ✅ 
 
 
 #### ➤ Heap 
@@ -197,16 +198,16 @@
 
 
 #### ➤ Backtracking 
-	1.	N-Queens.
-	2.	Sudoku Solver.
-	3.	Word Search.
-	4.	Subsets.
-	5.	Permutations.
-	6.	Combination Sum.
-	7.	Generate Parentheses.
-	8.	Palindrome Partitioning.
-	9.	Letter Combinations of a Phone Number.
-	10.	Restore IP Addresses.
+	1.	N-Queens
+	2.	Sudoku Solver
+	3.	Word Search
+	4.	Subsets
+	5.	Permutations
+	6.	Combination Sum
+	7.	Generate Parentheses
+	8.	Palindrome Partitioning
+	9.	Letter Combinations of a Phone Number
+	10.	Restore IP Addresses
 
 
 #### ➤ Graphs 
@@ -233,39 +234,39 @@
 
 
 #### ➤ Dynamic Programming 
-	1.	Fibonacci Number (DP).
-	2.	Climbing Stairs.
-	3.	House Robber.
-	4.	Edit Distance.
-	5.	Coin Change.
-	6.	Maximum Product Subarray.
-	7.	0/1 Knapsack Problem.
-	8.	Longest Common Subsequence.
-	9.	Longest Increasing Subsequence.
-	10.	Partition Equal Subset Sum.
-	11.	Word Break.
-	12.	Palindromic Substrings.
-	13.	Maximal Square.
-	14.	Shortest Common Supersequence.
-	15.	Interleaving String.
+	1.	Fibonacci Number (DP)
+	2.	Climbing Stairs
+	3.	House Robber
+	4.	Edit Distance
+	5.	Coin Change
+	6.	Maximum Product Subarray
+	7.	0/1 Knapsack Problem
+	8.	Longest Common Subsequence
+	9.	Longest Increasing Subsequence
+	10.	Partition Equal Subset Sum
+	11.	Word Break
+	12.	Palindromic Substrings
+	13.	Maximal Square
+	14.	Shortest Common Supersequence
+	15.	Interleaving String
 	16. Unique Paths
 	17. Decode Ways
-	18. Burst Balloons.
+	18. Burst Balloons
 	19. Jump Game
 	20. House Robber II
 
 
 #### ➤ Greedy Algorithms 
-	1.	Activity Selection Problem.
-	2.	Minimum Number of Arrows to Burst Balloons.
-	3.	Minimum Platforms.
-	4.	Job Sequencing Problem.
-	5.	Jump Game.
-	6.	Gas Station.
-	7.	Partition Labels.
-	8.	Dijkstra’s Algorithm.
-	9.	Huffman Encoding.
-	10.	Reorganize String.
+	1.	Activity Selection Problem
+	2.	Minimum Number of Arrows to Burst Balloons
+	3.	Minimum Platforms
+	4.	Job Sequencing Problem
+	5.	Jump Game
+	6.	Gas Station
+	7.	Partition Labels
+	8.	Dijkstra’s Algorithm
+	9.	Huffman Encoding
+	10.	Reorganize String
 
 
 #### ➤ Bit Manipulation & Maths

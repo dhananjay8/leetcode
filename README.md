@@ -44,7 +44,7 @@
 |--------------|-------------------------------|----------------------------|
 | 1            | [Basic Calculator](https://leetcode.com/problems/basic-calculator/description/) | [Basic Calculator](./solutions/hard/basic-calculator.py) |
 | 2            | [Trapping Rain Water](https://leetcode.com/problems/trapping-rain-water/) | [Trapping Rain Water](./solutions/hard/trapping-rain-water.js) |
-| 3            | []() | []() |
+| 3            | [Word Search II](https://leetcode.com/problems/word-search-ii/description/) | [Word Search II](./solutions/hard/trapping-rain-water.js) |
 | 4            | []() | []() |
 | 5            | []() | []() |
 

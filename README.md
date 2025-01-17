@@ -30,15 +30,21 @@
 | 8            | [LRU Cache](https://leetcode.com/problems/lru-cache/description) | [LRU Cache](./solutions/medium/lru-cache.py) |
 | 9            | [Validate Binary Search Tree](https://leetcode.com/problems/validate-binary-search-tree/description) | [Validate Binary Search Tree](./solutions/medium/trees/validate-binary-search-tree.js) |
 | 10            | [Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal/description) | [Binary Tree Level Order Traversal](./solutions/medium/trees/binary-tree-level-order-traversal.js) |
-| 11            | []() | []() |
+| 11            | [Product of Array Except Self](https://leetcode.com/problems/product-of-array-except-self/description/) | [Product of Array Except Self](./solutions/medium/product-of-array-except-self.js) |
 | 12            | []() | []() |
+| 13            | []() | []() |
+| 14            | []() | []() |
+| 15            | []() | []() |
 
 
 ## Final 200 - Hard
 | Number | Problem Name | Solution |
 |--------------|-------------------------------|----------------------------|
 | 1            | [Basic Calculator](https://leetcode.com/problems/basic-calculator/description/) | [Basic Calculator](./solutions/hard/basic-calculator.py) |
-| 2            | []() | []() |
+| 2            | [Trapping Rain Water](https://leetcode.com/problems/trapping-rain-water/) | [Trapping Rain Water](./solutions/hard/trapping-rain-water.js) |
+| 3            | []() | []() |
+| 4            | []() | []() |
+| 5            | []() | []() |
 
 
 
@@ -56,7 +62,7 @@
 	10.	Merge Intervals
 	11.	Longest Substring Without Repeating Characters
 	12.	Longest Palindromic Substring
-	13.	Product of Array Except Self
+	13.	Product of Array Except Self ✅
 	14.	Subarray Sum Equals K
 	15.	Set Matrix Zeroes
 	16.	Spiral Matrix
@@ -65,7 +71,7 @@
 	19.	Find First and Last Position in a Sorted Array
 	20.	Word Search
 	21.	Maximum Product Subarray
-	22.	Trapping Rain Water
+	22.	Trapping Rain Water ✅
 	23.	Container With Most Water
 	24.	Largest Rectangle in Histogram
 	25.	Minimum Window Substring

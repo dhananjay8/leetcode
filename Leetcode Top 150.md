@@ -44,7 +44,7 @@
 | 39            | [Pow(x, n)](https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/description/) | [Pow(x, n)](./solutions/two-sum-ii-input-array-is-sorted.py) |
 | 40            | [Factorial Trailing Zeroes](https://leetcode.com/problems/factorial-trailing-zeroes/description/) | [Factorial Trailing Zeroes](./solutions/factorial-trailing-zeroes.py) |
 | 41            | [Best Time to Buy and Sell Stock II](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/description/) | [Best Time to Buy and Sell Stock II](./solutions/best-time-to-buy-and-sell-stock-ii.js) |
-| 42            | [Product of Array Except Self](https://leetcode.com/problems/product-of-array-except-self/description/) | [Product of Array Except Self](./solutions/product-of-array-except-self.js) |
+| 42            | [Product of Array Except Self](https://leetcode.com/problems/product-of-array-except-self/description/) | [Product of Array Except Self](./solutions/medium/product-of-array-except-self.js) |
 | 43            | [Maximum Subarray](https://leetcode.com/problems/maximum-subarray/description/) | [Maximum Subarray](./solutions/maximum-subarray.py) |
 | 44            | [Maximum Sum Circular Subarray](https://leetcode.com/problems/maximum-sum-circular-subarray/description/) | [Maximum Sum Circular Subarray](./solutions/maximum-sum-circular-subarray.js) |
 | 45            | [Reverse Words in a String](https://leetcode.com/problems/reverse-words-in-a-string/description/) | [Reverse Words in a String](./solutions/reverse-words-in-a-string.py) |

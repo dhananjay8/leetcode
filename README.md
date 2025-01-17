@@ -12,9 +12,13 @@
 | 7            | [Implement Queue using Stacks]() | [Implement Queue using Stacks](./solutions/misc/queue-using-stacks.js) |
 | 8            | [Implement Stack Using Queues]() | [Implement Stack Using Queues](./solutions/misc/stack-using-queues.js) |
 | 9            | [Symmetric Tree](https://leetcode.com/problems/symmetric-tree/description) | [Symmetric Tree](./solutions/easy/trees/symmetric-tree.js) |
-| 10            | []() | []() |
-| 11            | []() | []() |
+| 10            | [Climbing Stairs](https://leetcode.com/problems/climbing-stairs/description) | [Climbing Stairs](./solutions/medium/dp/climbing-stairs.js) |
+| 11            | [Fibonacci number]() | [Fibonacci number](./solutions/medium/dp/fibonacci.js) |
 | 12            | []() | []() |
+| 13            | []() | []() |
+| 14            | []() | []() |
+| 15            | []() | []() |
+
 
 
 ## Final 200 - Medium
@@ -35,8 +39,12 @@
 | 13            | [Replace Words)](https://leetcode.com/problems/replace-words/description/) | [Replace Words](./solutions/medium/tries/replace-words.js) |
 | 14            | [Longest Word in Dictionary)](https://leetcode.com/problems/longest-word-in-dictionary/) | [Longest Word in Dictionary](./solutions/medium/tries/longest-word-in-dictionary.js) |
 | 15            | [Design Add and Search Words Data Structure](https://leetcode.com/problems/design-add-and-search-words-data-structure/description) | [Design Add and Search Words Data Structure](./solutions/medium/tries/design-add-and-search-words-data-structure.js) |
-| 16            | []() | []() |
+| 16            | [Coin Change](https://leetcode.com/problems/coin-change/description) | [Coin Change](./solutions/medium/dp/coin-change.js) |
 | 17            | []() | []() |
+| 18            | []() | []() |
+| 19            | []() | []() |
+| 20            | []() | []() |
+
 
 
 ## Final 200 - Hard
@@ -234,11 +242,11 @@
 
 
 #### ➤ Dynamic Programming 
-	1.	Fibonacci Number (DP)
-	2.	Climbing Stairs
-	3.	House Robber
-	4.	Edit Distance
-	5.	Coin Change
+	1.	Fibonacci Number (DP) ✅
+	2.	Climbing Stairs ✅
+	3.	Coin Change ✅
+	4.	House Robber
+	5.	Edit Distance
 	6.	Maximum Product Subarray
 	7.	0/1 Knapsack Problem
 	8.	Longest Common Subsequence

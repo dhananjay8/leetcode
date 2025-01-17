@@ -32,8 +32,8 @@
 | 10            | [Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal/description) | [Binary Tree Level Order Traversal](./solutions/medium/trees/binary-tree-level-order-traversal.js) |
 | 11            | [Product of Array Except Self](https://leetcode.com/problems/product-of-array-except-self/description/) | [Product of Array Except Self](./solutions/medium/product-of-array-except-self.js) |
 | 12            | [Implement Trie (Prefix Tree)](https://leetcode.com/problems/implement-trie-prefix-tree/description/) | [Implement Trie (Prefix Tree)](./solutions/medium/tries/implement-trie-prefix-tree.js) |
-| 13            | [Replace Words)](https://leetcode.com/problems/replace-words/description/) | [IReplace Words](./solutions/medium/tries/replace-words.js) |
-| 14            | []() | []() |
+| 13            | [Replace Words)](https://leetcode.com/problems/replace-words/description/) | [Replace Words](./solutions/medium/tries/replace-words.js) |
+| 14            | [Longest Word in Dictionary)](https://leetcode.com/problems/longest-word-in-dictionary/) | [Longest Word in Dictionary](./solutions/medium/tries/longest-word-in-dictionary.js) |
 | 15            | []() | []() |
 | 16            | []() | []() |
 | 17            | []() | []() |

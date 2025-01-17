@@ -31,10 +31,12 @@
 | 9            | [Validate Binary Search Tree](https://leetcode.com/problems/validate-binary-search-tree/description) | [Validate Binary Search Tree](./solutions/medium/trees/validate-binary-search-tree.js) |
 | 10            | [Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal/description) | [Binary Tree Level Order Traversal](./solutions/medium/trees/binary-tree-level-order-traversal.js) |
 | 11            | [Product of Array Except Self](https://leetcode.com/problems/product-of-array-except-self/description/) | [Product of Array Except Self](./solutions/medium/product-of-array-except-self.js) |
-| 12            | []() | []() |
-| 13            | []() | []() |
+| 12            | [Implement Trie (Prefix Tree)](https://leetcode.com/problems/implement-trie-prefix-tree/description/) | [Implement Trie (Prefix Tree)](./solutions/medium/tries/implement-trie-prefix-tree.js) |
+| 13            | [Replace Words)](https://leetcode.com/problems/replace-words/description/) | [IReplace Words](./solutions/medium/tries/replace-words.js) |
 | 14            | []() | []() |
 | 15            | []() | []() |
+| 16            | []() | []() |
+| 17            | []() | []() |
 
 
 ## Final 200 - Hard
@@ -175,11 +177,10 @@
 
 
 #### ➤ Trie 
-	1.	Implement Trie.
-	2.	Word Search II.
-	3.	Design Search Autocomplete System.
-	4.	Longest Word in Dictionary.
-	5.	Replace Words.
+	1.	Implement Trie ✅
+	2.	Word Search II ✅ 
+	3.	Longest Word in Dictionary ✅ 
+	4.	Replace Words ✅ 
 
 
 #### ➤ Heap 

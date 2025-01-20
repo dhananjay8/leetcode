@@ -16,8 +16,13 @@
 | 11            | [Fibonacci number]() | [Fibonacci number](./solutions/medium/dp/fibonacci.js) |
 | 12            | [Invert Binary Tree](https://leetcode.com/problems/invert-binary-tree/description	) | [Invert Binary Tree](./solutions/easy/trees/invert-binary-tree.js) |
 | 13            | [Maximum Depth of Binary Tree](https://leetcode.com/problems/maximum-depth-of-binary-tree/description) | [Maximum Depth of Binary Tree](./solutions/easy/trees/maximum-depth-of-binary-tree.js) |
-| 14            | []() | []() |
+| 14            | [Same Tree](https://leetcode.com/problems/same-tree/description) | [Same Tree](./solutions/easy/trees/same-tree.js) |
 | 15            | []() | []() |
+| 16            | []() | []() |
+| 17            | []() | []() |
+| 18            | []() | []() |
+| 19            | []() | []() |
+| 20            | []() | []() |
 
 
 
@@ -158,7 +163,7 @@
 
 #### ➤ Trees 
 	1.	Invert Binary Tree ✅
-	2.	Same Tree
+	2.	Same Tree ✅
 	3.	Symmetric Tree ✅
 	4.	Maximum Depth of Binary Tree
 	5.	Balanced Binary Tree

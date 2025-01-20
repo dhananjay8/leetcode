@@ -45,8 +45,8 @@
 | 14            | [Longest Word in Dictionary)](https://leetcode.com/problems/longest-word-in-dictionary/) | [Longest Word in Dictionary](./solutions/medium/tries/longest-word-in-dictionary.js) |
 | 15            | [Design Add and Search Words Data Structure](https://leetcode.com/problems/design-add-and-search-words-data-structure/description) | [Design Add and Search Words Data Structure](./solutions/medium/tries/design-add-and-search-words-data-structure.js) |
 | 16            | [Coin Change](https://leetcode.com/problems/coin-change/description) | [Coin Change](./solutions/medium/dp/coin-change.js) |
-| 17            | []() | []() |
-| 18            | []() | []() |
+| 17            | [Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/description) | [Longest Substring Without Repeating Characters](./solutions/medium/longest-substring-without-repeating-characters.js) |
+| 18            | [Minimum Size Subarray Sum](https://leetcode.com/problems/minimum-size-subarray-sum/description) | [Minimum Size Subarray Sum](./solutions/medium/minimum-size-subarray-sum.js) |
 | 19            | []() | []() |
 | 20            | []() | []() |
 
@@ -75,7 +75,7 @@
 	8.	Find the Maximum Sum Subarray (Kadane’s Algorithm)
 	9.	Rotate Image
 	10.	Merge Intervals
-	11.	Longest Substring Without Repeating Characters
+	11.	Longest Substring Without Repeating Characters ✅
 	12.	Longest Palindromic Substring
 	13.	Product of Array Except Self ✅
 	14.	Subarray Sum Equals K

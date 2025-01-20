@@ -63,9 +63,13 @@
 | 58            | [Validate Binary Search Tree](https://leetcode.com/problems/validate-binary-search-tree/description) | [Validate Binary Search Tree](./solutions/medium/trees/validate-binary-search-tree.js) |
 | 59            | [Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal/description) | [Binary Tree Level Order Traversal](./solutions/medium/trees/binary-tree-level-order-traversal.js) |
 | 60            | [Symmetric Tree](https://leetcode.com/problems/symmetric-tree/description) | [Symmetric Tree](./solutions/easy/trees/symmetric-tree.js) |
-| 61            | []() | []() |
-| 62            | []() | []() |
-
+| 61            | [Invert Binary Tree](https://leetcode.com/problems/invert-binary-tree/description	) | [Invert Binary Tree](./solutions/easy/trees/invert-binary-tree.js) |
+| 62            | [Maximum Depth of Binary Tree](https://leetcode.com/problems/maximum-depth-of-binary-tree/description) | [Maximum Depth of Binary Tree](./solutions/easy/trees/maximum-depth-of-binary-tree.js) |
+| 63            | [Same Tree](https://leetcode.com/problems/same-tree/description) | [Same Tree](./solutions/easy/trees/same-tree.js) |
+| 64            | [Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/description) | [Longest Substring Without Repeating Characters](./solutions/medium/longest-substring-without-repeating-characters.js) |
+| 65            | [Minimum Size Subarray Sum](https://leetcode.com/problems/minimum-size-subarray-sum/description) | [Minimum Size Subarray Sum](./solutions/medium/minimum-size-subarray-sum.js) |
+| 66            | []() | []() |
+| 67            | []() | []() |
 
 
 

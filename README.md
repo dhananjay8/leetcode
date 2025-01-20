@@ -14,8 +14,8 @@
 | 9            | [Symmetric Tree](https://leetcode.com/problems/symmetric-tree/description) | [Symmetric Tree](./solutions/easy/trees/symmetric-tree.js) |
 | 10            | [Climbing Stairs](https://leetcode.com/problems/climbing-stairs/description) | [Climbing Stairs](./solutions/medium/dp/climbing-stairs.js) |
 | 11            | [Fibonacci number]() | [Fibonacci number](./solutions/medium/dp/fibonacci.js) |
-| 12            | []() | []() |
-| 13            | []() | []() |
+| 12            | [Invert Binary Tree](https://leetcode.com/problems/invert-binary-tree/description	) | [Invert Binary Tree](./solutions/easy/trees/invert-binary-tree.js) |
+| 13            | [Maximum Depth of Binary Tree](https://leetcode.com/problems/maximum-depth-of-binary-tree/description) | [Maximum Depth of Binary Tree](./solutions/easy/trees/maximum-depth-of-binary-tree.js) |
 | 14            | []() | []() |
 | 15            | []() | []() |
 
@@ -122,7 +122,7 @@
 	4.	Palindrome Linked List
 	5.	Evaluate Reverse Polish Notation ✅
 	6.	Middle of the Linked List
-	7.	Maximum Depth of Binary Tree
+	7.	Maximum Depth of Binary Tree ✅
 	8.	Simplify Path ✅
 	9.	Daily Temperatures
 	10.	Decode String
@@ -157,7 +157,7 @@
 
 
 #### ➤ Trees 
-	1.	Invert Binary Tree
+	1.	Invert Binary Tree ✅
 	2.	Same Tree
 	3.	Symmetric Tree ✅
 	4.	Maximum Depth of Binary Tree

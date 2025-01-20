@@ -46,7 +46,7 @@
 | 15            | [Design Add and Search Words Data Structure](https://leetcode.com/problems/design-add-and-search-words-data-structure/description) | [Design Add and Search Words Data Structure](./solutions/medium/tries/design-add-and-search-words-data-structure.js) |
 | 16            | [Coin Change](https://leetcode.com/problems/coin-change/description) | [Coin Change](./solutions/medium/dp/coin-change.js) |
 | 17            | [Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/description) | [Longest Substring Without Repeating Characters](./solutions/medium/longest-substring-without-repeating-characters.js) |
-| 18            | [Minimum Size Subarray Sum](https://leetcode.com/problems/minimum-size-subarray-sum/description) | [Minimum Size Subarray Sum](./solutions/medium/minimum-size-subarray-sum.js) |
+| 18            | [Subarray Sum Equals K](https://leetcode.com/problems/subarray-sum-equals-k/description/) | [Subarray Sum Equals K](./solutions/medium/subarray-sum-equals-k.js) |
 | 19            | []() | []() |
 | 20            | []() | []() |
 
@@ -78,7 +78,7 @@
 	11.	Longest Substring Without Repeating Characters ✅
 	12.	Longest Palindromic Substring
 	13.	Product of Array Except Self ✅
-	14.	Subarray Sum Equals K
+	14.	Subarray Sum Equals K ✅
 	15.	Set Matrix Zeroes
 	16.	Spiral Matrix
 	17.	Search in Rotated Sorted Array

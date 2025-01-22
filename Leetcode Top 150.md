@@ -69,8 +69,10 @@
 | 64            | [Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/description) | [Longest Substring Without Repeating Characters](./solutions/medium/longest-substring-without-repeating-characters.js) |
 | 65            | [Minimum Size Subarray Sum](https://leetcode.com/problems/minimum-size-subarray-sum/description) | [Minimum Size Subarray Sum](./solutions/medium/minimum-size-subarray-sum.js) |
 | 66            | [House Robber](https://leetcode.com/problems/house-robber/description) | [House Robber](./solutions/medium/dp/house-robber.js) |
-| 67            | []() | []() |
+| 67            | [Word Break](https://leetcode.com/problems/word-break/description) | [Word Break](./solutions/medium/dp/word-break.js) |
 | 68            | []() | []() |
+| 69            | []() | []() |
+| 70            | []() | []() |
 
 
 

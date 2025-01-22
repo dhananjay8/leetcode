@@ -48,7 +48,7 @@
 | 17            | [Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/description) | [Longest Substring Without Repeating Characters](./solutions/medium/longest-substring-without-repeating-characters.js) |
 | 18            | [Subarray Sum Equals K](https://leetcode.com/problems/subarray-sum-equals-k/description/) | [Subarray Sum Equals K](./solutions/medium/subarray-sum-equals-k.js) |
 | 19            | [Merge Intervals](https://leetcode.com/problems/merge-intervals/description) | [Merge Intervals](./solutions/medium/merge-intervals.js) |
-| 20            | []() | []() |
+| 20            | [House Robber](https://leetcode.com/problems/house-robber/description) | [House Robber](./solutions/medium/dp/house-robber.js) |
 | 21            | []() | []() |
 | 22            | []() | []() |
 
@@ -252,7 +252,7 @@
 	1.	Fibonacci Number (DP) ✅
 	2.	Climbing Stairs ✅
 	3.	Coin Change ✅
-	4.	House Robber
+	4.	House Robber ✅
 	5.	Edit Distance
 	6.	Maximum Product Subarray
 	7.	0/1 Knapsack Problem

@@ -68,8 +68,9 @@
 | 63            | [Same Tree](https://leetcode.com/problems/same-tree/description) | [Same Tree](./solutions/easy/trees/same-tree.js) |
 | 64            | [Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/description) | [Longest Substring Without Repeating Characters](./solutions/medium/longest-substring-without-repeating-characters.js) |
 | 65            | [Minimum Size Subarray Sum](https://leetcode.com/problems/minimum-size-subarray-sum/description) | [Minimum Size Subarray Sum](./solutions/medium/minimum-size-subarray-sum.js) |
-| 66            | []() | []() |
+| 66            | [House Robber](https://leetcode.com/problems/house-robber/description) | [House Robber](./solutions/medium/dp/house-robber.js) |
 | 67            | []() | []() |
+| 68            | []() | []() |
 
 
 

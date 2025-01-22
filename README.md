@@ -49,9 +49,11 @@
 | 18            | [Subarray Sum Equals K](https://leetcode.com/problems/subarray-sum-equals-k/description/) | [Subarray Sum Equals K](./solutions/medium/subarray-sum-equals-k.js) |
 | 19            | [Merge Intervals](https://leetcode.com/problems/merge-intervals/description) | [Merge Intervals](./solutions/medium/merge-intervals.js) |
 | 20            | [House Robber](https://leetcode.com/problems/house-robber/description) | [House Robber](./solutions/medium/dp/house-robber.js) |
-| 21            | []() | []() |
+| 21            | [Word Break](https://leetcode.com/problems/word-break/description) | [Word Break](./solutions/medium/dp/word-break.js) |
 | 22            | []() | []() |
-
+| 23            | []() | []() |
+| 24            | []() | []() |
+| 25            | []() | []() |
 
 
 ## Final 200 - Hard
@@ -259,7 +261,7 @@
 	8.	Longest Common Subsequence
 	9.	Longest Increasing Subsequence
 	10.	Partition Equal Subset Sum
-	11.	Word Break
+	11.	Word Break ✅
 	12.	Palindromic Substrings
 	13.	Maximal Square
 	14.	Shortest Common Supersequence

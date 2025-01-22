@@ -70,9 +70,14 @@
 | 65            | [Minimum Size Subarray Sum](https://leetcode.com/problems/minimum-size-subarray-sum/description) | [Minimum Size Subarray Sum](./solutions/medium/minimum-size-subarray-sum.js) |
 | 66            | [House Robber](https://leetcode.com/problems/house-robber/description) | [House Robber](./solutions/medium/dp/house-robber.js) |
 | 67            | [Word Break](https://leetcode.com/problems/word-break/description) | [Word Break](./solutions/medium/dp/word-break.js) |
-| 68            | []() | []() |
+| 68            | [Merge Intervals](https://leetcode.com/problems/merge-intervals/description) | [Merge Intervals](./solutions/medium/merge-intervals.js) |
 | 69            | []() | []() |
 | 70            | []() | []() |
+| 71            | []() | []() |
+| 72            | []() | []() |
+| 73            | []() | []() |
+| 74            | []() | []() |
+| 75            | []() | []() |
 
 
 

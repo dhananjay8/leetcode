@@ -47,8 +47,10 @@
 | 16            | [Coin Change](https://leetcode.com/problems/coin-change/description) | [Coin Change](./solutions/medium/dp/coin-change.js) |
 | 17            | [Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/description) | [Longest Substring Without Repeating Characters](./solutions/medium/longest-substring-without-repeating-characters.js) |
 | 18            | [Subarray Sum Equals K](https://leetcode.com/problems/subarray-sum-equals-k/description/) | [Subarray Sum Equals K](./solutions/medium/subarray-sum-equals-k.js) |
-| 19            | []() | []() |
+| 19            | [Merge Intervals](https://leetcode.com/problems/merge-intervals/description) | [Merge Intervals](./solutions/medium/merge-intervals.js) |
 | 20            | []() | []() |
+| 21            | []() | []() |
+| 22            | []() | []() |
 
 
 
@@ -74,7 +76,7 @@
 	7.	Find the Longest Consecutive Sequence
 	8.	Find the Maximum Sum Subarray (Kadane’s Algorithm)
 	9.	Rotate Image
-	10.	Merge Intervals
+	10.	Merge Intervals ✅
 	11.	Longest Substring Without Repeating Characters ✅
 	12.	Longest Palindromic Substring
 	13.	Product of Array Except Self ✅

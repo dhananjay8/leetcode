@@ -62,8 +62,14 @@
 | 1            | [Basic Calculator](https://leetcode.com/problems/basic-calculator/description/) | [Basic Calculator](./solutions/hard/basic-calculator.py) |
 | 2            | [Trapping Rain Water](https://leetcode.com/problems/trapping-rain-water/) | [Trapping Rain Water](./solutions/hard/trapping-rain-water.js) |
 | 3            | [Word Search II](https://leetcode.com/problems/word-search-ii/description/) | [Word Search II](./solutions/hard/trapping-rain-water.js) |
-| 4            | []() | []() |
+| 4            | [Median of Two Sorted Arrays](https://leetcode.com/problems/median-of-two-sorted-arrays/description/) | [Median of Two Sorted Arrays](./solutions/hard/median-of-two-sorted-arrays.js) |
 | 5            | []() | []() |
+| 6            | []() | []() |
+| 7            | []() | []() |
+| 8            | []() | []() |
+| 9            | []() | []() |
+| 10            | []() | []() |
+
 
 
 
@@ -117,7 +123,7 @@
 	18.	Maximum Number of Events That Can Be Attended
 	19.	Divide Two Integers
 	20.	Find Peak Element
-	21.	Median of Two Sorted Arrays
+	21.	Median of Two Sorted Arrays ✅
 	22.	Count Smaller Numbers After Self
 	23.	Heapsort
 	24.	Search in Rotated Sorted Array II

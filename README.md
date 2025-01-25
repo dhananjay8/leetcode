@@ -3,21 +3,21 @@
 ## Final 200 - Easy
 | Number | Problem Name | Solution |
 |--------------|-------------------------------|----------------------------|
-| 1            | [Valid Palindrome](https://leetcode.com/problems/valid-palindrome/description/) | [Valid Palindrome](./solutions/easy/valid-palindrome.js) |
+| 1            | [Valid Palindrome](https://leetcode.com/problems/valid-palindrome/) | [Valid Palindrome](./solutions/easy/valid-palindrome.js) |
 | 2            | [Two Sum](https://leetcode.com/problems/two-sum/) | [Two Sum](./solutions/easy/two_sum.js) |
-| 3            | [Missing Number](https://leetcode.com/problems/missing-number/description/) | [Missing Number](./solutions/easy/missing-number.py) |
-| 4            | [Linked List Cycle](https://leetcode.com/problems/linked-list-cycle/description/) | [Linked List Cycle](./solutions/easy/linked-list-cycle.js) |
-| 5            | [Valid Parentheses](https://leetcode.com/problems/valid-parentheses/description/) | [Valid Parentheses](./solutions/easy/valid-parentheses.js) |
-| 6            | [Merge Two Sorted Lists](https://leetcode.com/problems/merge-two-sorted-lists/description) | [Merge Two Sorted Lists](./solutions/easy/merge-two-sorted-lists.js) |
+| 3            | [Missing Number](https://leetcode.com/problems/missing-number/) | [Missing Number](./solutions/easy/missing-number.py) |
+| 4            | [Linked List Cycle](https://leetcode.com/problems/linked-list-cycle/) | [Linked List Cycle](./solutions/easy/linked-list-cycle.js) |
+| 5            | [Valid Parentheses](https://leetcode.com/problems/valid-parentheses/) | [Valid Parentheses](./solutions/easy/valid-parentheses.js) |
+| 6            | [Merge Two Sorted Lists](https://leetcode.com/problems/merge-two-sorted-lists/) | [Merge Two Sorted Lists](./solutions/easy/merge-two-sorted-lists.js) |
 | 7            | [Implement Queue using Stacks]() | [Implement Queue using Stacks](./solutions/misc/queue-using-stacks.js) |
 | 8            | [Implement Stack Using Queues]() | [Implement Stack Using Queues](./solutions/misc/stack-using-queues.js) |
-| 9            | [Symmetric Tree](https://leetcode.com/problems/symmetric-tree/description) | [Symmetric Tree](./solutions/easy/trees/symmetric-tree.js) |
-| 10            | [Climbing Stairs](https://leetcode.com/problems/climbing-stairs/description) | [Climbing Stairs](./solutions/medium/dp/climbing-stairs.js) |
+| 9            | [Symmetric Tree](https://leetcode.com/problems/symmetric-tree/) | [Symmetric Tree](./solutions/easy/trees/symmetric-tree.js) |
+| 10            | [Climbing Stairs](https://leetcode.com/problems/climbing-stairs/) | [Climbing Stairs](./solutions/medium/dp/climbing-stairs.js) |
 | 11            | [Fibonacci number]() | [Fibonacci number](./solutions/medium/dp/fibonacci.js) |
-| 12            | [Invert Binary Tree](https://leetcode.com/problems/invert-binary-tree/description	) | [Invert Binary Tree](./solutions/easy/trees/invert-binary-tree.js) |
-| 13            | [Maximum Depth of Binary Tree](https://leetcode.com/problems/maximum-depth-of-binary-tree/description) | [Maximum Depth of Binary Tree](./solutions/easy/trees/maximum-depth-of-binary-tree.js) |
-| 14            | [Same Tree](https://leetcode.com/problems/same-tree/description) | [Same Tree](./solutions/easy/trees/same-tree.js) |
-| 15            | []() | []() |
+| 12            | [Invert Binary Tree](https://leetcode.com/problems/invert-binary-tree/	) | [Invert Binary Tree](./solutions/easy/trees/invert-binary-tree.js) |
+| 13            | [Maximum Depth of Binary Tree](https://leetcode.com/problems/maximum-depth-of-binary-tree/) | [Maximum Depth of Binary Tree](./solutions/easy/trees/maximum-depth-of-binary-tree.js) |
+| 14            | [Same Tree](https://leetcode.com/problems/same-tree/) | [Same Tree](./solutions/easy/trees/same-tree.js) |
+| 15            | [Reverse Linked List](https://leetcode.com/problems/reverse-linked-list/) | [Reverse Linked List](./solutions/easy/reverse-linked-list.js) |
 | 16            | []() | []() |
 | 17            | []() | []() |
 | 18            | []() | []() |
@@ -29,40 +29,44 @@
 ## Final 200 - Medium
 | Number | Problem Name | Solution |
 |--------------|-------------------------------|----------------------------|
-| 1            | [Find All Anagrams in a String](https://leetcode.com/problems/find-all-anagrams-in-a-string/description/) | [Find All Anagrams in a String](./solutions/medium/find-all-anagrams-in-a-string.py) |
-| 2            | [Group Anagrams](https://leetcode.com/problems/group-anagrams/description/) | [Group Anagrams](./solutions/medium/group-anagrams.js) |
-| 3            | [Count and Say](https://leetcode.com/problems/count-and-say/description/) | [Count and Say](./solutions/medium/count-and-say.py) |
-| 4            | [Add Two Numbers](https://leetcode.com/problems/add-two-numbers/description/) | [Add Two Numbers](./solutions/medium/linked-lists/add-two-numbers.js) |
-| 5            | [Evaluate Reverse Polish Notation](https://leetcode.com/problems/evaluate-reverse-polish-notation/description/) | [Evaluate Reverse Polish Notation](./solutions/medium/evaluate-reverse-polish-notation.js) |
-| 6            | [Min Stack](https://leetcode.com/problems/min-stack/description/) | [Min Stack](./solutions/medium/min-stack.js) |
-| 7            | [Simplify Path](https://leetcode.com/problems/simplify-path/description/) | [Simplify Path](./solutions/medium/simplify-path.py) |
-| 8            | [LRU Cache](https://leetcode.com/problems/lru-cache/description) | [LRU Cache](./solutions/medium/linked-lists/lru-cache.py) |
-| 9            | [Validate Binary Search Tree](https://leetcode.com/problems/validate-binary-search-tree/description) | [Validate Binary Search Tree](./solutions/medium/trees/validate-binary-search-tree.js) |
-| 10            | [Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal/description) | [Binary Tree Level Order Traversal](./solutions/medium/trees/binary-tree-level-order-traversal.js) |
-| 11            | [Product of Array Except Self](https://leetcode.com/problems/product-of-array-except-self/description/) | [Product of Array Except Self](./solutions/medium/product-of-array-except-self.js) |
-| 12            | [Implement Trie (Prefix Tree)](https://leetcode.com/problems/implement-trie-prefix-tree/description/) | [Implement Trie (Prefix Tree)](./solutions/medium/tries/implement-trie-prefix-tree.js) |
-| 13            | [Replace Words)](https://leetcode.com/problems/replace-words/description/) | [Replace Words](./solutions/medium/tries/replace-words.js) |
+| 1            | [Find All Anagrams in a String](https://leetcode.com/problems/find-all-anagrams-in-a-string/) | [Find All Anagrams in a String](./solutions/medium/find-all-anagrams-in-a-string.py) |
+| 2            | [Group Anagrams](https://leetcode.com/problems/group-anagrams/) | [Group Anagrams](./solutions/medium/group-anagrams.js) |
+| 3            | [Count and Say](https://leetcode.com/problems/count-and-say/) | [Count and Say](./solutions/medium/count-and-say.py) |
+| 4            | [Add Two Numbers](https://leetcode.com/problems/add-two-numbers/) | [Add Two Numbers](./solutions/medium/linked-lists/add-two-numbers.js) |
+| 5            | [Evaluate Reverse Polish Notation](https://leetcode.com/problems/evaluate-reverse-polish-notation/) | [Evaluate Reverse Polish Notation](./solutions/medium/evaluate-reverse-polish-notation.js) |
+| 6            | [Min Stack](https://leetcode.com/problems/min-stack/) | [Min Stack](./solutions/medium/min-stack.js) |
+| 7            | [Simplify Path](https://leetcode.com/problems/simplify-path/) | [Simplify Path](./solutions/medium/simplify-path.py) |
+| 8            | [LRU Cache](https://leetcode.com/problems/lru-cache/) | [LRU Cache](./solutions/medium/linked-lists/lru-cache.py) |
+| 9            | [Validate Binary Search Tree](https://leetcode.com/problems/validate-binary-search-tree/) | [Validate Binary Search Tree](./solutions/medium/trees/validate-binary-search-tree.js) |
+| 10            | [Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal/) | [Binary Tree Level Order Traversal](./solutions/medium/trees/binary-tree-level-order-traversal.js) |
+| 11            | [Product of Array Except Self](https://leetcode.com/problems/product-of-array-except-self/) | [Product of Array Except Self](./solutions/medium/product-of-array-except-self.js) |
+| 12            | [Implement Trie (Prefix Tree)](https://leetcode.com/problems/implement-trie-prefix-tree/) | [Implement Trie (Prefix Tree)](./solutions/medium/tries/implement-trie-prefix-tree.js) |
+| 13            | [Replace Words)](https://leetcode.com/problems/replace-words/) | [Replace Words](./solutions/medium/tries/replace-words.js) |
 | 14            | [Longest Word in Dictionary)](https://leetcode.com/problems/longest-word-in-dictionary/) | [Longest Word in Dictionary](./solutions/medium/tries/longest-word-in-dictionary.js) |
-| 15            | [Design Add and Search Words Data Structure](https://leetcode.com/problems/design-add-and-search-words-data-structure/description) | [Design Add and Search Words Data Structure](./solutions/medium/tries/design-add-and-search-words-data-structure.js) |
-| 16            | [Coin Change](https://leetcode.com/problems/coin-change/description) | [Coin Change](./solutions/medium/dp/coin-change.js) |
-| 17            | [Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/description) | [Longest Substring Without Repeating Characters](./solutions/medium/longest-substring-without-repeating-characters.js) |
-| 18            | [Subarray Sum Equals K](https://leetcode.com/problems/subarray-sum-equals-k/description/) | [Subarray Sum Equals K](./solutions/medium/subarray-sum-equals-k.js) |
-| 19            | [Merge Intervals](https://leetcode.com/problems/merge-intervals/description) | [Merge Intervals](./solutions/medium/merge-intervals.js) |
-| 20            | [House Robber](https://leetcode.com/problems/house-robber/description) | [House Robber](./solutions/medium/dp/house-robber.js) |
-| 21            | [Word Break](https://leetcode.com/problems/word-break/description) | [Word Break](./solutions/medium/dp/word-break.js) |
-| 22            | [Copy List with Random Pointer](https://leetcode.com/problems/copy-list-with-random-pointer/description) | [Copy List with Random Pointer](./solutions/medium/linked-lists/copy-list-with-random-pointer.js) |
-| 23            | []() | []() |
+| 15            | [Design Add and Search Words Data Structure](https://leetcode.com/problems/design-add-and-search-words-data-structure/) | [Design Add and Search Words Data Structure](./solutions/medium/tries/design-add-and-search-words-data-structure.js) |
+| 16            | [Coin Change](https://leetcode.com/problems/coin-change/) | [Coin Change](./solutions/medium/dp/coin-change.js) |
+| 17            | [Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/) | [Longest Substring Without Repeating Characters](./solutions/medium/longest-substring-without-repeating-characters.js) |
+| 18            | [Subarray Sum Equals K](https://leetcode.com/problems/subarray-sum-equals-k/) | [Subarray Sum Equals K](./solutions/medium/subarray-sum-equals-k.js) |
+| 19            | [Merge Intervals](https://leetcode.com/problems/merge-intervals/) | [Merge Intervals](./solutions/medium/merge-intervals.js) |
+| 20            | [House Robber](https://leetcode.com/problems/house-robber/) | [House Robber](./solutions/medium/dp/house-robber.js) |
+| 21            | [Word Break](https://leetcode.com/problems/word-break/) | [Word Break](./solutions/medium/dp/word-break.js) |
+| 22            | [Copy List with Random Pointer](https://leetcode.com/problems/copy-list-with-random-pointer/) | [Copy List with Random Pointer](./solutions/medium/linked-lists/copy-list-with-random-pointer.js) |
+| 23            | [Odd Even Linked List](https://leetcode.com/problems/odd-even-linked-list/) | [Odd Even Linked List](./solutions/medium/linked-lists/odd-even-linked-list.js) |
 | 24            | []() | []() |
 | 25            | []() | []() |
+| 26            | []() | []() |
+| 27            | []() | []() |
+| 28            | []() | []() |
+| 29            | []() | []() |
 
 
 ## Final 200 - Hard
 | Number | Problem Name | Solution |
 |--------------|-------------------------------|----------------------------|
-| 1            | [Basic Calculator](https://leetcode.com/problems/basic-calculator/description/) | [Basic Calculator](./solutions/hard/basic-calculator.py) |
+| 1            | [Basic Calculator](https://leetcode.com/problems/basic-calculator/) | [Basic Calculator](./solutions/hard/basic-calculator.py) |
 | 2            | [Trapping Rain Water](https://leetcode.com/problems/trapping-rain-water/) | [Trapping Rain Water](./solutions/hard/trapping-rain-water.js) |
-| 3            | [Word Search II](https://leetcode.com/problems/word-search-ii/description/) | [Word Search II](./solutions/hard/trapping-rain-water.js) |
-| 4            | [Median of Two Sorted Arrays](https://leetcode.com/problems/median-of-two-sorted-arrays/description/) | [Median of Two Sorted Arrays](./solutions/hard/median-of-two-sorted-arrays.js) |
+| 3            | [Word Search II](https://leetcode.com/problems/word-search-ii/) | [Word Search II](./solutions/hard/trapping-rain-water.js) |
+| 4            | [Median of Two Sorted Arrays](https://leetcode.com/problems/median-of-two-sorted-arrays/) | [Median of Two Sorted Arrays](./solutions/hard/median-of-two-sorted-arrays.js) |
 | 5            | []() | []() |
 | 6            | []() | []() |
 | 7            | []() | []() |
@@ -154,7 +158,7 @@
 
 
 #### ➤ Linked Lists
-	1.	Reverse Linked List
+	1.	Reverse Linked List ✅
 	2.	Merge Two Sorted Lists ✅
 	3.	Linked List Cycle ✅
 	4.	Middle of the Linked List

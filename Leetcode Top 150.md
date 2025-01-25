@@ -58,21 +58,21 @@
 | 53            | [Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/) | [Top K Frequent Elements](./solutions/top-k-frequent-elements.js) |
 | 54            | [String Encode and Decode](https://leetcode.com/problems/encode-and-decode-strings/) | [String Encode and Decode](./solutions/string-encode-and-decode.js) |
 | 55            | [Valid Sudoku](https://leetcode.com/problems/valid-sudoku/) | [Valid Sudoku](./solutions/valid-sudoku.js) |
-| 56            | [Merge Two Sorted Lists](https://leetcode.com/problems/merge-two-sorted-lists/description) | [Merge Two Sorted Lists](./solutions/easy/merge-two-sorted-lists.js) |
-| 57            | [Remove Duplicates from Sorted List II](https://leetcode.com/problems/remove-duplicates-from-sorted-list-ii/description) | [Remove Duplicates from Sorted List II](./solutions/medium/linked-lists/remove-duplicates-from-sorted-list-ii.js) |
-| 58            | [Validate Binary Search Tree](https://leetcode.com/problems/validate-binary-search-tree/description) | [Validate Binary Search Tree](./solutions/medium/trees/validate-binary-search-tree.js) |
-| 59            | [Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal/description) | [Binary Tree Level Order Traversal](./solutions/medium/trees/binary-tree-level-order-traversal.js) |
-| 60            | [Symmetric Tree](https://leetcode.com/problems/symmetric-tree/description) | [Symmetric Tree](./solutions/easy/trees/symmetric-tree.js) |
-| 61            | [Invert Binary Tree](https://leetcode.com/problems/invert-binary-tree/description	) | [Invert Binary Tree](./solutions/easy/trees/invert-binary-tree.js) |
-| 62            | [Maximum Depth of Binary Tree](https://leetcode.com/problems/maximum-depth-of-binary-tree/description) | [Maximum Depth of Binary Tree](./solutions/easy/trees/maximum-depth-of-binary-tree.js) |
-| 63            | [Same Tree](https://leetcode.com/problems/same-tree/description) | [Same Tree](./solutions/easy/trees/same-tree.js) |
-| 64            | [Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/description) | [Longest Substring Without Repeating Characters](./solutions/medium/longest-substring-without-repeating-characters.js) |
-| 65            | [Minimum Size Subarray Sum](https://leetcode.com/problems/minimum-size-subarray-sum/description) | [Minimum Size Subarray Sum](./solutions/medium/minimum-size-subarray-sum.js) |
-| 66            | [House Robber](https://leetcode.com/problems/house-robber/description) | [House Robber](./solutions/medium/dp/house-robber.js) |
-| 67            | [Word Break](https://leetcode.com/problems/word-break/description) | [Word Break](./solutions/medium/dp/word-break.js) |
-| 68            | [Merge Intervals](https://leetcode.com/problems/merge-intervals/description) | [Merge Intervals](./solutions/medium/merge-intervals.js) |
-| 69            | [Rotate List](https://leetcode.com/problems/rotate-list/description) | [Rotate List](./solutions/medium/linked-lists/rotate-list.js) |
-| 70            | [Copy List with Random Pointer](https://leetcode.com/problems/copy-list-with-random-pointer/description) | [Copy List with Random Pointer](./solutions/medium/linked-lists/copy-list-with-random-pointer.js) |
+| 56            | [Merge Two Sorted Lists](https://leetcode.com/problems/merge-two-sorted-lists/) | [Merge Two Sorted Lists](./solutions/easy/merge-two-sorted-lists.js) |
+| 57            | [Remove Duplicates from Sorted List II](https://leetcode.com/problems/remove-duplicates-from-sorted-list-ii/) | [Remove Duplicates from Sorted List II](./solutions/medium/linked-lists/remove-duplicates-from-sorted-list-ii.js) |
+| 58            | [Validate Binary Search Tree](https://leetcode.com/problems/validate-binary-search-tree/) | [Validate Binary Search Tree](./solutions/medium/trees/validate-binary-search-tree.js) |
+| 59            | [Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal/) | [Binary Tree Level Order Traversal](./solutions/medium/trees/binary-tree-level-order-traversal.js) |
+| 60            | [Symmetric Tree](https://leetcode.com/problems/symmetric-tree/) | [Symmetric Tree](./solutions/easy/trees/symmetric-tree.js) |
+| 61            | [Invert Binary Tree](https://leetcode.com/problems/invert-binary-tree/	) | [Invert Binary Tree](./solutions/easy/trees/invert-binary-tree.js) |
+| 62            | [Maximum Depth of Binary Tree](https://leetcode.com/problems/maximum-depth-of-binary-tree/) | [Maximum Depth of Binary Tree](./solutions/easy/trees/maximum-depth-of-binary-tree.js) |
+| 63            | [Same Tree](https://leetcode.com/problems/same-tree/) | [Same Tree](./solutions/easy/trees/same-tree.js) |
+| 64            | [Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/) | [Longest Substring Without Repeating Characters](./solutions/medium/longest-substring-without-repeating-characters.js) |
+| 65            | [Minimum Size Subarray Sum](https://leetcode.com/problems/minimum-size-subarray-sum/) | [Minimum Size Subarray Sum](./solutions/medium/minimum-size-subarray-sum.js) |
+| 66            | [House Robber](https://leetcode.com/problems/house-robber/) | [House Robber](./solutions/medium/dp/house-robber.js) |
+| 67            | [Word Break](https://leetcode.com/problems/word-break/) | [Word Break](./solutions/medium/dp/word-break.js) |
+| 68            | [Merge Intervals](https://leetcode.com/problems/merge-intervals/) | [Merge Intervals](./solutions/medium/merge-intervals.js) |
+| 69            | [Rotate List](https://leetcode.com/problems/rotate-list/) | [Rotate List](./solutions/medium/linked-lists/rotate-list.js) |
+| 70            | [Copy List with Random Pointer](https://leetcode.com/problems/copy-list-with-random-pointer/) | [Copy List with Random Pointer](./solutions/medium/linked-lists/copy-list-with-random-pointer.js) |
 | 71            | [Reverse Linked List](https://leetcode.com/problems/reverse-linked-list/) | [Reverse Linked List](./solutions/easy/reverse-linked-list.js) |
 | 72            | []() | []() |
 | 73            | []() | []() |

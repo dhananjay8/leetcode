@@ -15,11 +15,13 @@ var trap = function (height) {
 
   while (l < r) {
     lMax = Math.max(lMax, height[l]);
+    // If this iteration does not have (not contributed to) the maximum left height, calculate water stored in the gap.
     if (height[l] < lMax) {
       res += lMax - height[l];
     }
 
     rMax = Math.max(rMax, height[r]);
+    // If this iteration does not have (not contributed to) the maximum right height, calculate water stored in the gap.
     if (height[r] < rMax) {
       res += rMax - height[r];
     }

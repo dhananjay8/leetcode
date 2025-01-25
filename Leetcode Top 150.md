@@ -49,17 +49,17 @@
 | 44            | [Maximum Sum Circular Subarray](https://leetcode.com/problems/maximum-sum-circular-subarray/description/) | [Maximum Sum Circular Subarray](./solutions/maximum-sum-circular-subarray.js) |
 | 45            | [Reverse Words in a String](https://leetcode.com/problems/reverse-words-in-a-string/description/) | [Reverse Words in a String](./solutions/reverse-words-in-a-string.py) |
 | 46            | [Linked List Cycle](https://leetcode.com/problems/linked-list-cycle/description/) | [Linked List Cycle](./solutions/easy/linked-list-cycle.js) |
-| 47            | [Add Two Numbers](https://leetcode.com/problems/add-two-numbers/description/) | [Add Two Numbers](./solutions/medium/add-two-numbers.js) |
+| 47            | [Add Two Numbers](https://leetcode.com/problems/add-two-numbers/description/) | [Add Two Numbers](./solutions/medium/linked-lists/add-two-numbers.js) |
 | 48            | [Insert Delete GetRandom O(1)](https://leetcode.com/problems/insert-delete-getrandom-o1/description/) | [Insert Delete GetRandom O(1)](./solutions/insert-delete-getrandom-o1.js) |
 | 49            | [Rotate Array](https://leetcode.com/problems/rotate-array/description/) | [Rotate Array](./solutions/rotate-array.js) |
 | 50            | [Jump Game](https://leetcode.com/problems/jump-game/description/) | [Jump Game](./solutions/jump-game.py) |
 | 51            | [Jump Game II](https://leetcode.com/problems/jump-game-ii/description/) | [Jump Game II](./solutions/jump-game-ii.py) |
-| 52            | [LRU Cache](https://leetcode.com/problems/lru-cache/description/) | [LRU Cache](./solutions/medium/lru-cache.py) |
+| 52            | [LRU Cache](https://leetcode.com/problems/lru-cache/description/) | [LRU Cache](./solutions/medium/linked-lists/lru-cache.py) |
 | 53            | [Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/description/) | [Top K Frequent Elements](./solutions/top-k-frequent-elements.js) |
 | 54            | [String Encode and Decode](https://leetcode.com/problems/encode-and-decode-strings/description/) | [String Encode and Decode](./solutions/string-encode-and-decode.js) |
 | 55            | [Valid Sudoku](https://leetcode.com/problems/valid-sudoku/) | [Valid Sudoku](./solutions/valid-sudoku.js) |
 | 56            | [Merge Two Sorted Lists](https://leetcode.com/problems/merge-two-sorted-lists/description) | [Merge Two Sorted Lists](./solutions/easy/merge-two-sorted-lists.js) |
-| 57            | [Remove Duplicates from Sorted List II](https://leetcode.com/problems/remove-duplicates-from-sorted-list-ii/description) | [Remove Duplicates from Sorted List II](./solutions/medium/remove-duplicates-from-sorted-list-ii.js) |
+| 57            | [Remove Duplicates from Sorted List II](https://leetcode.com/problems/remove-duplicates-from-sorted-list-ii/description) | [Remove Duplicates from Sorted List II](./solutions/medium/linked-lists/remove-duplicates-from-sorted-list-ii.js) |
 | 58            | [Validate Binary Search Tree](https://leetcode.com/problems/validate-binary-search-tree/description) | [Validate Binary Search Tree](./solutions/medium/trees/validate-binary-search-tree.js) |
 | 59            | [Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal/description) | [Binary Tree Level Order Traversal](./solutions/medium/trees/binary-tree-level-order-traversal.js) |
 | 60            | [Symmetric Tree](https://leetcode.com/problems/symmetric-tree/description) | [Symmetric Tree](./solutions/easy/trees/symmetric-tree.js) |
@@ -71,15 +71,16 @@
 | 66            | [House Robber](https://leetcode.com/problems/house-robber/description) | [House Robber](./solutions/medium/dp/house-robber.js) |
 | 67            | [Word Break](https://leetcode.com/problems/word-break/description) | [Word Break](./solutions/medium/dp/word-break.js) |
 | 68            | [Merge Intervals](https://leetcode.com/problems/merge-intervals/description) | [Merge Intervals](./solutions/medium/merge-intervals.js) |
-| 69            | []() | []() |
-| 70            | []() | []() |
+| 69            | [Rotate List](https://leetcode.com/problems/rotate-list/description) | [Rotate List](./solutions/medium/linked-lists/rotate-list.js) |
+| 70            | [Copy List with Random Pointer](https://leetcode.com/problems/copy-list-with-random-pointer/description) | [Copy List with Random Pointer](./solutions/medium/linked-lists/copy-list-with-random-pointer.js) |
 | 71            | []() | []() |
 | 72            | []() | []() |
 | 73            | []() | []() |
 | 74            | []() | []() |
 | 75            | []() | []() |
 
-
+ 
+ 
 
 ## Leetcode Top 150 - Hard
 | Number | Problem Name | Solution |

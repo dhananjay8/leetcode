@@ -32,11 +32,11 @@
 | 1            | [Find All Anagrams in a String](https://leetcode.com/problems/find-all-anagrams-in-a-string/description/) | [Find All Anagrams in a String](./solutions/medium/find-all-anagrams-in-a-string.py) |
 | 2            | [Group Anagrams](https://leetcode.com/problems/group-anagrams/description/) | [Group Anagrams](./solutions/medium/group-anagrams.js) |
 | 3            | [Count and Say](https://leetcode.com/problems/count-and-say/description/) | [Count and Say](./solutions/medium/count-and-say.py) |
-| 4            | [Add Two Numbers](https://leetcode.com/problems/add-two-numbers/description/) | [Add Two Numbers](./solutions/medium/add-two-numbers.js) |
+| 4            | [Add Two Numbers](https://leetcode.com/problems/add-two-numbers/description/) | [Add Two Numbers](./solutions/medium/linked-lists/add-two-numbers.js) |
 | 5            | [Evaluate Reverse Polish Notation](https://leetcode.com/problems/evaluate-reverse-polish-notation/description/) | [Evaluate Reverse Polish Notation](./solutions/medium/evaluate-reverse-polish-notation.js) |
 | 6            | [Min Stack](https://leetcode.com/problems/min-stack/description/) | [Min Stack](./solutions/medium/min-stack.js) |
 | 7            | [Simplify Path](https://leetcode.com/problems/simplify-path/description/) | [Simplify Path](./solutions/medium/simplify-path.py) |
-| 8            | [LRU Cache](https://leetcode.com/problems/lru-cache/description) | [LRU Cache](./solutions/medium/lru-cache.py) |
+| 8            | [LRU Cache](https://leetcode.com/problems/lru-cache/description) | [LRU Cache](./solutions/medium/linked-lists/lru-cache.py) |
 | 9            | [Validate Binary Search Tree](https://leetcode.com/problems/validate-binary-search-tree/description) | [Validate Binary Search Tree](./solutions/medium/trees/validate-binary-search-tree.js) |
 | 10            | [Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal/description) | [Binary Tree Level Order Traversal](./solutions/medium/trees/binary-tree-level-order-traversal.js) |
 | 11            | [Product of Array Except Self](https://leetcode.com/problems/product-of-array-except-self/description/) | [Product of Array Except Self](./solutions/medium/product-of-array-except-self.js) |
@@ -50,7 +50,7 @@
 | 19            | [Merge Intervals](https://leetcode.com/problems/merge-intervals/description) | [Merge Intervals](./solutions/medium/merge-intervals.js) |
 | 20            | [House Robber](https://leetcode.com/problems/house-robber/description) | [House Robber](./solutions/medium/dp/house-robber.js) |
 | 21            | [Word Break](https://leetcode.com/problems/word-break/description) | [Word Break](./solutions/medium/dp/word-break.js) |
-| 22            | []() | []() |
+| 22            | [Copy List with Random Pointer](https://leetcode.com/problems/copy-list-with-random-pointer/description) | [Copy List with Random Pointer](./solutions/medium/linked-lists/copy-list-with-random-pointer.js) |
 | 23            | []() | []() |
 | 24            | []() | []() |
 | 25            | []() | []() |
@@ -160,7 +160,7 @@
 	4.	Middle of the Linked List
 	5.	Palindrome Linked List
 	6.	Remove Nth Node From End of List
-	7.	Copy List with Random Pointer
+	7.	Copy List with Random Pointer ✅
 	8.	Add Two Numbers ✅
 	9.	Reorder List
 	10.	Swap Nodes in Pairs

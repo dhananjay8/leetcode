@@ -39,7 +39,7 @@
 | 34            | [Min Stack](https://leetcode.com/problems/min-stack/) | [Min Stack](./solutions/medium/min-stack.js) |
 | 35            | [Simplify Path](https://leetcode.com/problems/simplify-path/) | [Simplify Path](./solutions/medium/simplify-path.py) |
 | 36            | [Basic Calculator](https://leetcode.com/problems/basic-calculator/) | [Basic Calculator](./solutions/hard/basic-calculator.py) |
-| 37            | [Container With Most Water](https://leetcode.com/problems/container-with-most-water/) | [Container With Most Water](./solutions/container-with-most-water.py) |
+| 37            | [Container With Most Water](https://leetcode.com/problems/container-with-most-water/) | [Container With Most Water](./solutions/medium/container-with-most-water.py) |
 | 38            | [Two Sum II - Input Array Is Sorted](https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/) | [Two Sum II - Input Array Is Sorted](./solutions/easy/two-sum-ii-input-array-is-sorted.py) |
 | 39            | [Pow(x, n)](https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/) | [Pow(x, n)](./solutions/two-sum-ii-input-array-is-sorted.py) |
 | 40            | [Factorial Trailing Zeroes](https://leetcode.com/problems/factorial-trailing-zeroes/) | [Factorial Trailing Zeroes](./solutions/factorial-trailing-zeroes.py) |

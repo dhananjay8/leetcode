@@ -9,17 +9,17 @@
 | 4            | [Linked List Cycle](https://leetcode.com/problems/linked-list-cycle/) | [Linked List Cycle](./solutions/easy/linked-list-cycle.js) |
 | 5            | [Valid Parentheses](https://leetcode.com/problems/valid-parentheses/) | [Valid Parentheses](./solutions/easy/valid-parentheses.js) |
 | 6            | [Merge Two Sorted Lists](https://leetcode.com/problems/merge-two-sorted-lists/) | [Merge Two Sorted Lists](./solutions/easy/merge-two-sorted-lists.js) |
-| 7            | [Implement Queue using Stacks]() | [Implement Queue using Stacks](./solutions/misc/queue-using-stacks.js) |
-| 8            | [Implement Stack Using Queues]() | [Implement Stack Using Queues](./solutions/misc/stack-using-queues.js) |
-| 9            | [Symmetric Tree](https://leetcode.com/problems/symmetric-tree/) | [Symmetric Tree](./solutions/easy/trees/symmetric-tree.js) |
+| 7            | [Middle of the Linked List](https://leetcode.com/problems/middle-of-the-linked-list) | [Middle of the Linked List](./solutions/easy/middle-of-the-linked-list.js) |
+| 8            | [Palindrome Linked List](https://leetcode.com/problems/palindrome-linked-list/) | [Palindrome Linked List](./solutions/easy/palindrome-linked-list.js) |
+| 9            | [Reverse Linked List](https://leetcode.com/problems/reverse-linked-list/) | [Reverse Linked List](./solutions/easy/reverse-linked-list.js) |
 | 10            | [Climbing Stairs](https://leetcode.com/problems/climbing-stairs/) | [Climbing Stairs](./solutions/medium/dp/climbing-stairs.js) |
-| 11            | [Fibonacci number]() | [Fibonacci number](./solutions/medium/dp/fibonacci.js) |
+| 11            | [Symmetric Tree](https://leetcode.com/problems/symmetric-tree/) | [Symmetric Tree](./solutions/easy/trees/symmetric-tree.js) |
 | 12            | [Invert Binary Tree](https://leetcode.com/problems/invert-binary-tree/	) | [Invert Binary Tree](./solutions/easy/trees/invert-binary-tree.js) |
 | 13            | [Maximum Depth of Binary Tree](https://leetcode.com/problems/maximum-depth-of-binary-tree/) | [Maximum Depth of Binary Tree](./solutions/easy/trees/maximum-depth-of-binary-tree.js) |
 | 14            | [Same Tree](https://leetcode.com/problems/same-tree/) | [Same Tree](./solutions/easy/trees/same-tree.js) |
-| 15            | [Reverse Linked List](https://leetcode.com/problems/reverse-linked-list/) | [Reverse Linked List](./solutions/easy/reverse-linked-list.js) |
-| 16            | [Palindrome Linked List](https://leetcode.com/problems/palindrome-linked-list/) | [Palindrome Linked List](./solutions/easy/palindrome-linked-list.js) |
-| 17            | [Middle of the Linked List](https://leetcode.com/problems/middle-of-the-linked-list) | [Middle of the Linked List](./solutions/easy/middle-of-the-linked-list.js) |
+| 15            | []() | []() |
+| 16            | []() | []() |
+| 17            | []() | []() |
 | 18            | []() | []() |
 | 19            | []() | []() |
 | 20            | []() | []() |
@@ -53,8 +53,8 @@
 | 22            | [Copy List with Random Pointer](https://leetcode.com/problems/copy-list-with-random-pointer/) | [Copy List with Random Pointer](./solutions/medium/linked-lists/copy-list-with-random-pointer.js) |
 | 23            | [Odd Even Linked List](https://leetcode.com/problems/odd-even-linked-list/) | [Odd Even Linked List](./solutions/medium/linked-lists/odd-even-linked-list.js) |
 | 24            | [Remove Nth Node From End of List](https://leetcode.com/problems/remove-nth-node-from-end-of-list/) | [Remove Nth Node From End of List](./solutions/medium/linked-lists/remove-nth-node-from-end-of-list.js) |
-| 25            | []() | []() |
-| 26            | []() | []() |
+| 25            | [Container With Most Water](https://leetcode.com/problems/container-with-most-water/) | [Container With Most Water](./solutions/medium/container-with-most-water.py) |
+| 26            | [Maximum Product Subarray](https://leetcode.com/problems/maximum-product-subarray/) | [Maximum Product Subarray](./solutions/medium/maximum-product-subarray.js) |
 | 27            | []() | []() |
 | 28            | []() | []() |
 | 29            | []() | []() |
@@ -99,9 +99,9 @@
 	18.	Find Duplicate Number
 	19.	Find First and Last Position in a Sorted Array
 	20.	Word Search
-	21.	Maximum Product Subarray
+	21.	Maximum Product Subarray ✅
 	22.	Trapping Rain Water ✅
-	23.	Container With Most Water
+	23.	Container With Most Water ✅
 	24.	Largest Rectangle in Histogram
 	25.	Minimum Window Substring
 
@@ -140,8 +140,8 @@
 	3.	Backspace String Compare
 	4.	Simplify Path ✅
 	5.	Evaluate Reverse Polish Notation ✅
-	6.	Implement Queue using Stacks ✅
-	7.	Implement Stack Using Queues ✅
+	6.	
+	7.	
 	8.	Basic Calculator ✅
 	9.	Daily Temperatures
 	10.	Decode String
@@ -261,26 +261,26 @@
 
 
 #### ➤ Dynamic Programming 
-	1.	Fibonacci Number (DP) ✅
-	2.	Climbing Stairs ✅
-	3.	Coin Change ✅
+	1.	Climbing Stairs ✅
+	2.	Coin Change ✅
+	3.	Word Break ✅
 	4.	House Robber ✅
 	5.	Edit Distance
-	6.	Maximum Product Subarray
+	6.	
 	7.	0/1 Knapsack Problem
 	8.	Longest Common Subsequence
 	9.	Longest Increasing Subsequence
 	10.	Partition Equal Subset Sum
-	11.	Word Break ✅
+	11.	Decode Ways
 	12.	Palindromic Substrings
 	13.	Maximal Square
 	14.	Shortest Common Supersequence
 	15.	Interleaving String
 	16. Unique Paths
-	17. Decode Ways
+	17. House Robber II
 	18. Burst Balloons
 	19. Jump Game
-	20. House Robber II
+	20. 
 
 
 #### ➤ Greedy Algorithms 

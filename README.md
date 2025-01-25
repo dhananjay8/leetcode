@@ -18,8 +18,8 @@
 | 13            | [Maximum Depth of Binary Tree](https://leetcode.com/problems/maximum-depth-of-binary-tree/) | [Maximum Depth of Binary Tree](./solutions/easy/trees/maximum-depth-of-binary-tree.js) |
 | 14            | [Same Tree](https://leetcode.com/problems/same-tree/) | [Same Tree](./solutions/easy/trees/same-tree.js) |
 | 15            | [Reverse Linked List](https://leetcode.com/problems/reverse-linked-list/) | [Reverse Linked List](./solutions/easy/reverse-linked-list.js) |
-| 16            | []() | []() |
-| 17            | []() | []() |
+| 16            | [Palindrome Linked List](https://leetcode.com/problems/palindrome-linked-list/) | [Palindrome Linked List](./solutions/easy/palindrome-linked-list.js) |
+| 17            | [Middle of the Linked List](https://leetcode.com/problems/middle-of-the-linked-list) | [Middle of the Linked List](./solutions/easy/middle-of-the-linked-list.js) |
 | 18            | []() | []() |
 | 19            | []() | []() |
 | 20            | []() | []() |
@@ -52,7 +52,7 @@
 | 21            | [Word Break](https://leetcode.com/problems/word-break/) | [Word Break](./solutions/medium/dp/word-break.js) |
 | 22            | [Copy List with Random Pointer](https://leetcode.com/problems/copy-list-with-random-pointer/) | [Copy List with Random Pointer](./solutions/medium/linked-lists/copy-list-with-random-pointer.js) |
 | 23            | [Odd Even Linked List](https://leetcode.com/problems/odd-even-linked-list/) | [Odd Even Linked List](./solutions/medium/linked-lists/odd-even-linked-list.js) |
-| 24            | []() | []() |
+| 24            | [Remove Nth Node From End of List](https://leetcode.com/problems/remove-nth-node-from-end-of-list/) | [Remove Nth Node From End of List](./solutions/medium/linked-lists/remove-nth-node-from-end-of-list.js) |
 | 25            | []() | []() |
 | 26            | []() | []() |
 | 27            | []() | []() |
@@ -138,11 +138,11 @@
 	1.	Valid Parentheses ✅
 	2.	Min Stack ✅
 	3.	Backspace String Compare
-	4.	Palindrome Linked List
+	4.	Simplify Path ✅
 	5.	Evaluate Reverse Polish Notation ✅
-	6.	Middle of the Linked List
-	7.	Maximum Depth of Binary Tree ✅
-	8.	Simplify Path ✅
+	6.	Implement Queue using Stacks ✅
+	7.	Implement Stack Using Queues ✅
+	8.	Basic Calculator ✅
 	9.	Daily Temperatures
 	10.	Decode String
 	11.	Asteroid Collision
@@ -151,24 +151,24 @@
 	14.	Basic Calculator II
 	15.	Longest Valid Parentheses
 	16.	Largest Rectangle in Histogram
-	17.	Implement Queue using Stacks ✅
-	18.	Implement Stack Using Queues ✅
-	19.	Maximum Frequency Stack
-	20.	Basic Calculator ✅
+	17.	Maximum Frequency Stack
+	18.	
+	19.	
+	20.	
 
 
 #### ➤ Linked Lists
 	1.	Reverse Linked List ✅
 	2.	Merge Two Sorted Lists ✅
 	3.	Linked List Cycle ✅
-	4.	Middle of the Linked List
-	5.	Palindrome Linked List
-	6.	Remove Nth Node From End of List
+	4.	Middle of the Linked List ✅
+	5.	Palindrome Linked List ✅
+	6.	Remove Nth Node From End of List ✅
 	7.	Copy List with Random Pointer ✅
 	8.	Add Two Numbers ✅
 	9.	Reorder List
 	10.	Swap Nodes in Pairs
-	11.	Odd Even Linked List
+	11.	Odd Even Linked List ✅
 	12.	Sort List
 	13.	Reverse Nodes in k-Group
 	14.	Merge K Sorted Lists

@@ -11,7 +11,6 @@
  * @return {boolean}
  */
 var hasCycle = function (head) {
-  // console.log(head.val);
   if (!head || !head.next) return false;
   let ptr1 = head,
     ptr2 = head.next;
@@ -21,5 +20,4 @@ var hasCycle = function (head) {
     ptr1 = ptr1.next;
     ptr2 = ptr2.next.next;
   }
-  return false;
 };

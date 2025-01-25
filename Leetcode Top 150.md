@@ -74,7 +74,7 @@
 | 69            | [Rotate List](https://leetcode.com/problems/rotate-list/) | [Rotate List](./solutions/medium/linked-lists/rotate-list.js) |
 | 70            | [Copy List with Random Pointer](https://leetcode.com/problems/copy-list-with-random-pointer/) | [Copy List with Random Pointer](./solutions/medium/linked-lists/copy-list-with-random-pointer.js) |
 | 71            | [Reverse Linked List](https://leetcode.com/problems/reverse-linked-list/) | [Reverse Linked List](./solutions/easy/reverse-linked-list.js) |
-| 72            | []() | []() |
+| 72            | [Remove Nth Node From End of List](https://leetcode.com/problems/remove-nth-node-from-end-of-list/) | [Remove Nth Node From End of List](./solutions/medium/linked-lists/remove-nth-node-from-end-of-list.js) |
 | 73            | []() | []() |
 | 74            | []() | []() |
 | 75            | []() | []() |

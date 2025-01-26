@@ -32,32 +32,40 @@
 | 1            | [Find All Anagrams in a String](https://leetcode.com/problems/find-all-anagrams-in-a-string/) | [Find All Anagrams in a String](./solutions/medium/find-all-anagrams-in-a-string.py) |
 | 2            | [Group Anagrams](https://leetcode.com/problems/group-anagrams/) | [Group Anagrams](./solutions/medium/group-anagrams.js) |
 | 3            | [Count and Say](https://leetcode.com/problems/count-and-say/) | [Count and Say](./solutions/medium/count-and-say.py) |
-| 4            | [Add Two Numbers](https://leetcode.com/problems/add-two-numbers/) | [Add Two Numbers](./solutions/medium/linked-lists/add-two-numbers.js) |
-| 5            | [Evaluate Reverse Polish Notation](https://leetcode.com/problems/evaluate-reverse-polish-notation/) | [Evaluate Reverse Polish Notation](./solutions/medium/evaluate-reverse-polish-notation.js) |
-| 6            | [Min Stack](https://leetcode.com/problems/min-stack/) | [Min Stack](./solutions/medium/min-stack.js) |
-| 7            | [Simplify Path](https://leetcode.com/problems/simplify-path/) | [Simplify Path](./solutions/medium/simplify-path.py) |
-| 8            | [LRU Cache](https://leetcode.com/problems/lru-cache/) | [LRU Cache](./solutions/medium/linked-lists/lru-cache.py) |
-| 9            | [Validate Binary Search Tree](https://leetcode.com/problems/validate-binary-search-tree/) | [Validate Binary Search Tree](./solutions/medium/trees/validate-binary-search-tree.js) |
-| 10            | [Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal/) | [Binary Tree Level Order Traversal](./solutions/medium/trees/binary-tree-level-order-traversal.js) |
-| 11            | [Product of Array Except Self](https://leetcode.com/problems/product-of-array-except-self/) | [Product of Array Except Self](./solutions/medium/product-of-array-except-self.js) |
-| 12            | [Implement Trie (Prefix Tree)](https://leetcode.com/problems/implement-trie-prefix-tree/) | [Implement Trie (Prefix Tree)](./solutions/medium/tries/implement-trie-prefix-tree.js) |
-| 13            | [Replace Words)](https://leetcode.com/problems/replace-words/) | [Replace Words](./solutions/medium/tries/replace-words.js) |
-| 14            | [Longest Word in Dictionary)](https://leetcode.com/problems/longest-word-in-dictionary/) | [Longest Word in Dictionary](./solutions/medium/tries/longest-word-in-dictionary.js) |
-| 15            | [Design Add and Search Words Data Structure](https://leetcode.com/problems/design-add-and-search-words-data-structure/) | [Design Add and Search Words Data Structure](./solutions/medium/tries/design-add-and-search-words-data-structure.js) |
-| 16            | [Coin Change](https://leetcode.com/problems/coin-change/) | [Coin Change](./solutions/medium/dp/coin-change.js) |
-| 17            | [Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/) | [Longest Substring Without Repeating Characters](./solutions/medium/longest-substring-without-repeating-characters.js) |
-| 18            | [Subarray Sum Equals K](https://leetcode.com/problems/subarray-sum-equals-k/) | [Subarray Sum Equals K](./solutions/medium/subarray-sum-equals-k.js) |
-| 19            | [Merge Intervals](https://leetcode.com/problems/merge-intervals/) | [Merge Intervals](./solutions/medium/merge-intervals.js) |
-| 20            | [House Robber](https://leetcode.com/problems/house-robber/) | [House Robber](./solutions/medium/dp/house-robber.js) |
-| 21            | [Word Break](https://leetcode.com/problems/word-break/) | [Word Break](./solutions/medium/dp/word-break.js) |
-| 22            | [Copy List with Random Pointer](https://leetcode.com/problems/copy-list-with-random-pointer/) | [Copy List with Random Pointer](./solutions/medium/linked-lists/copy-list-with-random-pointer.js) |
-| 23            | [Odd Even Linked List](https://leetcode.com/problems/odd-even-linked-list/) | [Odd Even Linked List](./solutions/medium/linked-lists/odd-even-linked-list.js) |
-| 24            | [Remove Nth Node From End of List](https://leetcode.com/problems/remove-nth-node-from-end-of-list/) | [Remove Nth Node From End of List](./solutions/medium/linked-lists/remove-nth-node-from-end-of-list.js) |
-| 25            | [Container With Most Water](https://leetcode.com/problems/container-with-most-water/) | [Container With Most Water](./solutions/medium/container-with-most-water.py) |
-| 26            | [Maximum Product Subarray](https://leetcode.com/problems/maximum-product-subarray/) | [Maximum Product Subarray](./solutions/medium/maximum-product-subarray.js) |
-| 27            | []() | []() |
-| 28            | []() | []() |
-| 29            | []() | []() |
+| 4            | [Subarray Sum Equals K](https://leetcode.com/problems/subarray-sum-equals-k/) | [Subarray Sum Equals K](./solutions/medium/subarray-sum-equals-k.js) |
+| 5            | [Merge Intervals](https://leetcode.com/problems/merge-intervals/) | [Merge Intervals](./solutions/medium/merge-intervals.js) |
+| 6            | [Container With Most Water](https://leetcode.com/problems/container-with-most-water/) | [Container With Most Water](./solutions/medium/container-with-most-water.py) |
+| 7            | [Maximum Product Subarray](https://leetcode.com/problems/maximum-product-subarray/) | [Maximum Product Subarray](./solutions/medium/maximum-product-subarray.js) |
+| 8            | [Product of Array Except Self](https://leetcode.com/problems/product-of-array-except-self/) | [Product of Array Except Self](./solutions/medium/product-of-array-except-self.js) |
+| 9            | [Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/) | [Longest Substring Without Repeating Characters](./solutions/medium/longest-substring-without-repeating-characters.js) |
+| 10            | [Evaluate Reverse Polish Notation](https://leetcode.com/problems/evaluate-reverse-polish-notation/) | [Evaluate Reverse Polish Notation](./solutions/medium/evaluate-reverse-polish-notation.js) |
+| 11            | [Min Stack](https://leetcode.com/problems/min-stack/) | [Min Stack](./solutions/medium/min-stack.js) |
+| 12            | [Simplify Path](https://leetcode.com/problems/simplify-path/) | [Simplify Path](./solutions/medium/simplify-path.py) |
+| 13            | [Add Two Numbers](https://leetcode.com/problems/add-two-numbers/) | [Add Two Numbers](./solutions/medium/linked-lists/add-two-numbers.js) |
+| 14            | [Copy List with Random Pointer](https://leetcode.com/problems/copy-list-with-random-pointer/) | [Copy List with Random Pointer](./solutions/medium/linked-lists/copy-list-with-random-pointer.js) |
+| 15            | [Odd Even Linked List](https://leetcode.com/problems/odd-even-linked-list/) | [Odd Even Linked List](./solutions/medium/linked-lists/odd-even-linked-list.js) |
+| 16            | [Remove Nth Node From End of List](https://leetcode.com/problems/remove-nth-node-from-end-of-list/) | [Remove Nth Node From End of List](./solutions/medium/linked-lists/remove-nth-node-from-end-of-list.js) |
+| 17            | [LRU Cache](https://leetcode.com/problems/lru-cache/) | [LRU Cache](./solutions/medium/linked-lists/lru-cache.py) |
+| 18            | [Validate Binary Search Tree](https://leetcode.com/problems/validate-binary-search-tree/) | [Validate Binary Search Tree](./solutions/medium/trees/validate-binary-search-tree.js) |
+| 19            | [Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal/) | [Binary Tree Level Order Traversal](./solutions/medium/trees/binary-tree-level-order-traversal.js) |
+| 20            | [Implement Trie (Prefix Tree)](https://leetcode.com/problems/implement-trie-prefix-tree/) | [Implement Trie (Prefix Tree)](./solutions/medium/tries/implement-trie-prefix-tree.js) |
+| 21            | [Design Add and Search Words Data Structure](https://leetcode.com/problems/design-add-and-search-words-data-structure/) | [Design Add and Search Words Data Structure](./solutions/medium/tries/design-add-and-search-words-data-structure.js) |
+| 22            | [Replace Words)](https://leetcode.com/problems/replace-words/) | [Replace Words](./solutions/medium/tries/replace-words.js) |
+| 23            | [Longest Word in Dictionary)](https://leetcode.com/problems/longest-word-in-dictionary/) | [Longest Word in Dictionary](./solutions/medium/tries/longest-word-in-dictionary.js) |
+| 24            | [Coin Change](https://leetcode.com/problems/coin-change/) | [Coin Change](./solutions/medium/dp/coin-change.js) |
+| 25            | [House Robber](https://leetcode.com/problems/house-robber/) | [House Robber](./solutions/medium/dp/house-robber.js) |
+| 26            | [Word Break](https://leetcode.com/problems/word-break/) | [Word Break](./solutions/medium/dp/word-break.js) |
+| 27            | [Minimum Size Subarray Sum](https://leetcode.com/problems/minimum-size-subarray-sum/) | [Minimum Size Subarray Sum](./solutions/medium/minimum-size-subarray-sum.js) |
+| 28            | [Maximum Subarray](https://leetcode.com/problems/maximum-subarray/) | [Maximum Subarray](./solutions/medium/maximum-subarray.py) |
+| 29            | [Sort Colors](https://leetcode.com/problems/sort-colors/description/) | [Sort Colors](./solutions/medium/sort-colors.js) |
+| 30            | [Kth Largest Element in an Array](https://leetcode.com/problems/kth-largest-element-in-an-array) | [Kth Largest Element in an Array](./solutions/medium/kth-largest-element-in-an-array.js) |
+| 31            | [Find K Closest Elements](https://leetcode.com/problems/find-k-closest-elements) | [Find K Closest Elements](./solutions/medium/find-k-closest-elements.js) |
+| 32            | [Find All Duplicates in an Array](https://leetcode.com/problems/find-all-duplicates-in-an-array/) | [Find All Duplicates in an Array](./solutions/medium/find-all-duplicates-in-an-array.js) |
+| 33            | [Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/) | [Top K Frequent Elements](./solutions/medium/top-k-frequent-elements.js) |
+| 34            | [Find Peak Element](https://leetcode.com/problems/find-peak-element) | [Find Peak Element](./solutions/medium/find-peak-element.js) |
+| 35            | []() | []() |
+| 36            | []() | []() |
+| 37            | []() | []() |
 
 
 ## Final 200 - Hard
@@ -79,14 +87,14 @@
 
 ### List of Topic-wise Leetcode Problems:
 #### ➤ Arrays and Strings
-	1.	Check if a String is a Palindrome ✅
+	1.	Valid Palindrome ✅
 	2.	Two Sum ✅
-	3.	Find the Missing Number in an Array ✅
+	3.	Missing Number ✅
 	4.	Find All Anagrams in a String ✅
 	5.	Count and Say ✅
 	6.	Group Anagrams ✅
 	7.	Find the Longest Consecutive Sequence
-	8.	Find the Maximum Sum Subarray (Kadane’s Algorithm)
+	8.	Find the Maximum Sum Subarray (Kadane’s Algorithm) ✅
 	9.	Rotate Image
 	10.	Merge Intervals ✅
 	11.	Longest Substring Without Repeating Characters ✅
@@ -104,33 +112,34 @@
 	23.	Container With Most Water ✅
 	24.	Largest Rectangle in Histogram
 	25.	Minimum Window Substring
+	26. Minimum Size Subarray Sum ✅
 
     
 #### ➤ Sorting and Searching 
-	1.	Binary Search
+	1.	Sort Colors ✅
 	2.	Search Insert Position
 	3.	Find Minimum in Rotated Sorted Array
 	4.	Intersection of Two Arrays II
 	5.	Minimum Absolute Difference
 	6.	Search a 2D Matrix
-	7.	Kth Largest Element in an Array
+	7.	Kth Largest Element in an Array ✅
 	8.	Find Missing Positive Integer
-	9.	Find K Closest Elements
-	10.	Find All Duplicates in an Array
-	11.	Top K Frequent Elements
-	12.	Sort Colors
+	9.	Find K Closest Elements ✅
+	10.	Find All Duplicates in an Array ✅
+	11.	Top K Frequent Elements ✅
+	12.	Median of Two Sorted Arrays ✅
 	13.	Find the Smallest Range Covering Elements from K Lists
 	14.	Wiggle Sort II
-	15.	Quick Sort
-	16.	Merge Sort
+	15.	
+	16.	
 	17.	Maximum Gap
 	18.	Maximum Number of Events That Can Be Attended
 	19.	Divide Two Integers
-	20.	Find Peak Element
-	21.	Median of Two Sorted Arrays ✅
-	22.	Count Smaller Numbers After Self
+	20.	Find Peak Element ✅
+	21.	
+	22.	Count Smaller Numbers After Self ✅
 	23.	Heapsort
-	24.	Search in Rotated Sorted Array II
+	24.	Search in Rotated Sorted Array II ✅
 	25.	Minimum Number of Arrows to Burst Balloons
 
 
@@ -140,11 +149,11 @@
 	3.	Backspace String Compare
 	4.	Simplify Path ✅
 	5.	Evaluate Reverse Polish Notation ✅
-	6.	
-	7.	
+	6.	Daily Temperatures
+	7.	Decode String
 	8.	Basic Calculator ✅
-	9.	Daily Temperatures
-	10.	Decode String
+	9.	
+	10.	
 	11.	Asteroid Collision
 	12.	Car Fleet
 	13.	Generate Parentheses
@@ -214,11 +223,11 @@
 #### ➤ Heap 
 	1.	Kth Largest Element in a Stream
 	2.	Last Stone Weight
-	3.	Kth Largest Element in an Array
+	3.	Kth Largest Element in an Array ✅
 	4.	K Closest Points to Origin
 	5.	Task Scheduler
 	6.	Top K Frequent Words
-	7.	Find K Closest Elements
+	7.	Find K Closest Elements ✅
 	8.	Merge K Sorted Lists
 	9.	Find Median from Data Stream
 	10.	Sliding Window Median

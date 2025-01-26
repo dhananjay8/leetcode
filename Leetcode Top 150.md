@@ -45,7 +45,7 @@
 | 40            | [Factorial Trailing Zeroes](https://leetcode.com/problems/factorial-trailing-zeroes/) | [Factorial Trailing Zeroes](./solutions/factorial-trailing-zeroes.py) |
 | 41            | [Best Time to Buy and Sell Stock II](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/) | [Best Time to Buy and Sell Stock II](./solutions/best-time-to-buy-and-sell-stock-ii.js) |
 | 42            | [Product of Array Except Self](https://leetcode.com/problems/product-of-array-except-self/) | [Product of Array Except Self](./solutions/medium/product-of-array-except-self.js) |
-| 43            | [Maximum Subarray](https://leetcode.com/problems/maximum-subarray/) | [Maximum Subarray](./solutions/maximum-subarray.py) |
+| 43            | [Maximum Subarray](https://leetcode.com/problems/maximum-subarray/) | [Maximum Subarray](./solutions/medium/maximum-subarray.py) |
 | 44            | [Maximum Sum Circular Subarray](https://leetcode.com/problems/maximum-sum-circular-subarray/) | [Maximum Sum Circular Subarray](./solutions/maximum-sum-circular-subarray.js) |
 | 45            | [Reverse Words in a String](https://leetcode.com/problems/reverse-words-in-a-string/) | [Reverse Words in a String](./solutions/reverse-words-in-a-string.py) |
 | 46            | [Linked List Cycle](https://leetcode.com/problems/linked-list-cycle/) | [Linked List Cycle](./solutions/easy/linked-list-cycle.js) |
@@ -55,7 +55,7 @@
 | 50            | [Jump Game](https://leetcode.com/problems/jump-game/) | [Jump Game](./solutions/jump-game.py) |
 | 51            | [Jump Game II](https://leetcode.com/problems/jump-game-ii/) | [Jump Game II](./solutions/jump-game-ii.py) |
 | 52            | [LRU Cache](https://leetcode.com/problems/lru-cache/) | [LRU Cache](./solutions/medium/linked-lists/lru-cache.py) |
-| 53            | [Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/) | [Top K Frequent Elements](./solutions/top-k-frequent-elements.js) |
+| 53            | [Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/) | [Top K Frequent Elements](./solutions/medium/top-k-frequent-elements.js) |
 | 54            | [String Encode and Decode](https://leetcode.com/problems/encode-and-decode-strings/) | [String Encode and Decode](./solutions/string-encode-and-decode.js) |
 | 55            | [Valid Sudoku](https://leetcode.com/problems/valid-sudoku/) | [Valid Sudoku](./solutions/valid-sudoku.js) |
 | 56            | [Merge Two Sorted Lists](https://leetcode.com/problems/merge-two-sorted-lists/) | [Merge Two Sorted Lists](./solutions/easy/merge-two-sorted-lists.js) |

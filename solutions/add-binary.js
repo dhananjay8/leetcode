@@ -1,3 +1,18 @@
+var addBinary = function (a, b) {
+  let i = a.length - 1,
+    j = b.length - 1,
+    carry = 0,
+    result = [];
+
+  while (i >= 0 || j >= 0 || carry > 0) {
+    let sum = (i >= 0 ? +a[i--] : 0) + (j >= 0 ? +b[j--] : 0) + carry;
+    result.push(sum % 2); // Append the binary digit to the result
+    carry = Math.floor(sum / 2); // Calculate the carry
+  }
+
+  return result.reverse().join(""); // Reverse and join the result to get the binary string
+};
+
 /**
  * @param {string} a
  * @param {string} b

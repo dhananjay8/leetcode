@@ -12,6 +12,21 @@ var findPairs = function (arr, target) {
   return pairs;
 };
 
+var findPairs = function (arr, target) {
+  let pairs = [];
+  let seen = new Map(); // To store elements we've seen
+
+  for (let num of arr) {
+    let complement = target - num; // Find the required pair value
+    if (seen.has(complement)) {
+      pairs.push([complement, num]); // Add the pair
+    }
+    seen.set(num, true); // Mark the current number as seen
+  }
+
+  return pairs;
+};
+
 // Check if a number is a perfect number
 var isPerfectNumber = function (num) {
   if (num <= 1) return false; // Numbers <= 1 are not perfect numbers
@@ -36,6 +51,26 @@ var findNthRoot = function (x, n) {
     else high = mid; // Adjust upper bound
   }
   return (low + high) / 2; // Return the approximated root
+};
+
+var printPrimes = function (n) {
+  if (n < 2) {
+    return false;
+  }
+
+  for (let i = 2; i <= n; i++) {
+    let isPrime = true;
+    for (let j = 2; j * j <= i; j++) {
+      // Use `j * j <= i` instead of `Math.sqrt(i)`
+      if (i % j === 0) {
+        isPrime = false; // Not a prime number
+        break;
+      }
+    }
+    if (isPrime) {
+      console.log(i); // Print the prime number
+    }
+  }
 };
 
 // Find the sum of all prime numbers below a given number

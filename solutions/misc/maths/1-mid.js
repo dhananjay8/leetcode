@@ -7,6 +7,13 @@ var factorial = function (n) {
   return result;
 };
 
+function factorial(n) {
+  if (n <= 0) {
+    return 1; // Base case: 0! is 1
+  }
+  return n * factorial(n - 1); // Recursive case
+}
+
 // Determine if a number is a palindrome without converting it to a string
 var isPalindromeNumber = function (num) {
   if (num < 0) return false; // Negative numbers are not palindromes

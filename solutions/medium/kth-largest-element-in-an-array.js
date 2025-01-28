@@ -4,33 +4,11 @@
  * @return {number}
  */
 var findKthLargest = function (nums, k) {
-  const MinHeap = function () {
-    this.heap = [];
-  };
+  // Step 1: Sort the array in descending order
+  nums.sort((a, b) => b - a);
 
-  MinHeap.prototype.push = function (val) {
-    this.heap.push(val);
-    this.heap.sort((a, b) => a - b);
-  };
-
-  MinHeap.prototype.pop = function () {
-    return this.heap.shift();
-  };
-
-  MinHeap.prototype.size = function () {
-    return this.heap.length;
-  };
-
-  let heap = new MinHeap();
-
-  for (let num of nums) {
-    heap.push(num);
-    if (heap.size() > k) {
-      heap.pop();
-    }
-  }
-
-  return heap.heap[0];
+  // Step 2: Return the Kth largest element
+  return nums[k - 1];
 };
 
 /**
@@ -64,6 +42,41 @@ var findKthLargest = function (nums, k) {
     }
   }
 };
+
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
+ */
+var findKthLargest = function (nums, k) {
+    const MinHeap = function () {
+      this.heap = [];
+    };
+  
+    MinHeap.prototype.push = function (val) {
+      this.heap.push(val);
+      this.heap.sort((a, b) => a - b);
+    };
+  
+    MinHeap.prototype.pop = function () {
+      return this.heap.shift();
+    };
+  
+    MinHeap.prototype.size = function () {
+      return this.heap.length;
+    };
+  
+    let heap = new MinHeap();
+  
+    for (let num of nums) {
+      heap.push(num);
+      if (heap.size() > k) {
+        heap.pop();
+      }
+    }
+  
+    return heap.heap[0];
+  };
 
 /**
  * @param {number[]} nums

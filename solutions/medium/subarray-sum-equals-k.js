@@ -14,6 +14,7 @@ var subarraySum = function (nums, k) {
       map.set(sum, map.get(sum) + 1);
     }
     sum += num;
+    // If (sum - k) exists in the map, it means there is a subarray ending at the current position that adds up to k. The value of map.get(sum - k) (frequency of (sum - k)) is added to count.
     if (map.has(sum - k)) {
       count += map.get(sum - k);
     }

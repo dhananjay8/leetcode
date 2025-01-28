@@ -18,3 +18,54 @@ var lengthOfLongestSubstring = function (s) {
   }
   return maxLen;
 };
+
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var lengthOfLongestSubstring = function(s) {
+  let set = new Set();
+  let start = 0, maxLength = 0;
+
+  for (let end = 0; end < s.length; end++) {
+    // Use a while loop to remove characters from the set starting from the start pointer until the duplicate character is removed.
+      while (set.has(s[end])) {
+          set.delete(s[start]);
+          start++;
+      }
+      set.add(s[end]);
+      maxLength = Math.max(maxLength, end - start + 1);
+  }
+
+  return maxLength;
+};
+
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var lengthOfLongestSubstring = function(s) {
+  let maxLength = 0; // To store the length of the longest substring
+
+  // Outer loop: Start of the substring
+  for (let i = 0; i < s.length; i++) {
+      let seen = new Set(); // To track characters in the current substring
+      let currentLength = 0; // Length of the current substring
+
+      // Inner loop: End of the substring
+      for (let j = i; j < s.length; j++) {
+          if (seen.has(s[j])) {
+              // Break if a duplicate character is found
+              break;
+          }
+          // Add the character to the set and update current substring length
+          seen.add(s[j]);
+          currentLength++;
+      }
+
+      // Update the maximum length
+      maxLength = Math.max(maxLength, currentLength);
+  }
+
+  return maxLength; // Return the length of the longest substring
+};

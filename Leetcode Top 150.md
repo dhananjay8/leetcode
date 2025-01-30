@@ -33,7 +33,7 @@
 | 28            | [Add Binary](https://leetcode.com/problems/add-binary/) | [Add Binary](./solutions/add-binary.js) |
 | 29            | [Search Insert Position](https://leetcode.com/problems/search-insert-position/) | [Search Insert Position](./solutions/search-insert-position.js) |
 | 30            | [Group Anagrams](https://leetcode.com/problems/group-anagrams/) | [Group Anagrams](./solutions/group-anagrams.js) |
-| 31            | [Summary Ranges](https://leetcode.com/problems/summary-ranges/) | [Summary Ranges](./solutions/summary-ranges.js) |
+| 31            | [Summary Ranges](https://leetcode.com/problems/summary-ranges/) | [Summary Ranges](./solutions/easy/summary-ranges.js) |
 | 32            | [Longest Consecutive Sequence](https://leetcode.com/problems/longest-consecutive-sequence/) | [Longest Consecutive Sequence](./solutions/longest-consecutive-sequence.js) |
 | 33            | [Evaluate Reverse Polish Notation](https://leetcode.com/problems/evaluate-reverse-polish-notation/) | [Evaluate Reverse Polish Notation](./solutions/medium/evaluate-reverse-polish-notation.js) |
 | 34            | [Min Stack](https://leetcode.com/problems/min-stack/) | [Min Stack](./solutions/medium/min-stack.js) |

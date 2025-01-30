@@ -17,12 +17,16 @@
 | 12            | [Invert Binary Tree](https://leetcode.com/problems/invert-binary-tree/	) | [Invert Binary Tree](./solutions/easy/trees/invert-binary-tree.js) |
 | 13            | [Maximum Depth of Binary Tree](https://leetcode.com/problems/maximum-depth-of-binary-tree/) | [Maximum Depth of Binary Tree](./solutions/easy/trees/maximum-depth-of-binary-tree.js) |
 | 14            | [Same Tree](https://leetcode.com/problems/same-tree/) | [Same Tree](./solutions/easy/trees/same-tree.js) |
-| 15            | []() | []() |
-| 16            | []() | []() |
-| 17            | []() | []() |
-| 18            | []() | []() |
-| 19            | []() | []() |
-| 20            | []() | []() |
+| 15            | [Summary Ranges](https://leetcode.com/problems/summary-ranges/) | [Summary Ranges](./solutions/easy/summary-ranges.js) |
+| 16            | [Valid Anagram](https://leetcode.com/problems/valid-anagram/) | [Valid Anagram](./solutions/valid-anagram.js) |
+| 17            | [Ransom Note](https://leetcode.com/problems/ransom-note/) | [Ransom Note](./solutions/ransom-note.js) |
+| 18            | [Isomorphic Strings](https://leetcode.com/problems/isomorphic-strings/) | [Isomorphic Strings](./solutions/isomorphic-strings.js) |
+| 19            | [Contains Duplicate II](https://leetcode.com/problems/contains-duplicate-ii/) | [Contains Duplicate II](./solutions/contains-duplicate-ii.js) |
+| 20            | [Happy Number](https://leetcode.com/problems/happy-number/) | [Happy Number](./solutions/happy-number.js) |
+| 21            | []() | []() |
+| 22            | []() | []() |
+| 23            | []() | []() |
+| 24            | []() | []() |
 
 
 
@@ -64,8 +68,13 @@
 | 33            | [Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/) | [Top K Frequent Elements](./solutions/medium/top-k-frequent-elements.js) |
 | 34            | [Find Peak Element](https://leetcode.com/problems/find-peak-element) | [Find Peak Element](./solutions/medium/find-peak-element.js) |
 | 35            | [Minimum Number of Arrows to Burst Balloons](https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons) | [Minimum Number of Arrows to Burst Balloons](./solutions/medium/minimum-number-of-arrows-to-burst-balloons.js) |
-| 36            | []() | []() |
+| 36            | [Longest Consecutive Sequence](https://leetcode.com/problems/longest-consecutive-sequence/) | [Longest Consecutive Sequence](./solutions/longest-consecutive-sequence.js) |
 | 37            | []() | []() |
+| 38            | []() | []() |
+| 39            | []() | []() |
+| 40            | []() | []() |
+| 41            | []() | []() |
+| 42            | []() | []() |
 
 
 ## Final 200 - Hard
@@ -86,62 +95,72 @@
 
 
 ### List of Topic-wise Leetcode Problems:
-#### ➤ Arrays and Strings
-	1.	Valid Palindrome ✅
-	2.	Two Sum ✅
-	3.	Missing Number ✅
-	4.	Find All Anagrams in a String ✅
-	5.	Count and Say ✅
-	6.	Group Anagrams ✅
-	7.	Find the Longest Consecutive Sequence
-	8.	Find the Maximum Sum Subarray (Kadane’s Algorithm) ✅
-	9.	Rotate Image
-	10.	Merge Intervals ✅
-	11.	Longest Substring Without Repeating Characters ✅
-	12.	Longest Palindromic Substring
-	13.	Product of Array Except Self ✅
-	14.	Subarray Sum Equals K ✅
-	15.	Set Matrix Zeroes
-	16.	Spiral Matrix
-	17.	Search in Rotated Sorted Array
-	18.	Find Duplicate Number
-	19.	Find First and Last Position in a Sorted Array
-	20.	Word Search
-	21.	Maximum Product Subarray ✅
-	22.	Trapping Rain Water ✅
-	23.	Container With Most Water ✅
-	24.	Largest Rectangle in Histogram
-	25.	Minimum Window Substring
-	26. Minimum Size Subarray Sum ✅
-
-    
-#### ➤ Sorting and Searching 
+#### ➤ Array Manipulation & Sorting
 	1.	Sort Colors ✅
-	2.	Search Insert Position
-	3.	Find Minimum in Rotated Sorted Array
-	4.	Intersection of Two Arrays II
-	5.	Minimum Absolute Difference
-	6.	Search a 2D Matrix
-	7.	Kth Largest Element in an Array ✅
-	8.	Find Missing Positive Integer
-	9.	Find K Closest Elements ✅
-	10.	Find All Duplicates in an Array ✅
-	11.	Top K Frequent Elements ✅
-	12.	Median of Two Sorted Arrays ✅
-	13.	Find the Smallest Range Covering Elements from K Lists
+	2.	Find All Duplicates in an Array ✅
+	3.	Longest Consecutive Sequence ✅
+	4.	Find Duplicate Number
+	5.	Missing Number ✅
+	6.	Find Missing Positive Integer
+	7.	Find K Closest Elements ✅
+	8.	Find Peak Element ✅
+	9.	Find the Smallest Range Covering Elements from K Lists
+	10.	Find the Maximum Sum Subarray (Kadane’s Algorithm) ✅
+	11.	Kth Largest Element in an Array ✅
+	12.	Top K Frequent Elements ✅
+	13.	Maximum Gap
 	14.	Wiggle Sort II
-	15.	
-	16.	
-	17.	Maximum Gap
-	18.	Maximum Number of Events That Can Be Attended
-	19.	Divide Two Integers
-	20.	Find Peak Element ✅
-	21.	
-	22.	Count Smaller Numbers After Self ✅
-	23.	Heapsort
-	24.	Search in Rotated Sorted Array II ✅
-	25.	Minimum Number of Arrows to Burst Balloons ✅
+	15.	Heapsort
 
+#### ➤ Searching Algorithms (Binary Search & Variants)
+	1.	Search in Rotated Sorted Array
+	2.	Search in Rotated Sorted Array II ✅
+	3.	Find First and Last Position in a Sorted Array
+	4.	Search Insert Position
+	5.	Find Minimum in Rotated Sorted Array
+	6.	Median of Two Sorted Arrays ✅
+	7.	Search a 2D Matrix
+
+#### ➤ Sliding Window & Substring Problems
+	1.	Valid Palindrome ✅
+	2.	Longest Substring Without Repeating Characters ✅
+	3.	Find All Anagrams in a String ✅
+	4.	Longest Palindromic Substring
+	5.	Minimum Window Substring
+
+#### ➤ Intervals & Merging Problems
+	1.	Summary Ranges ✅
+	2.	Merge Intervals ✅
+	3.	Insert Interval ✅
+	4.	Minimum Absolute Difference
+	5.	Minimum Number of Arrows to Burst Balloons ✅
+	6.	Maximum Number of Events That Can Be Attended
+	7.	Intersection of Two Arrays II
+
+#### ➤ Matrix Problems
+	1.	Rotate Image
+	2.	Set Matrix Zeroes
+	3.	Spiral Matrix
+	4.	Word Search
+
+#### ➤ Array/String Misc
+	1.	Count and Say ✅
+	2.	
+	3.	Find All Anagrams in a String ✅
+	4.	Subarray Sum Equals K ✅
+	5.	Minimum Size Subarray Sum ✅
+	6.	Maximum Product Subarray ✅
+	7.  Find First and Last Position in a Sorted Array
+
+#### ➤ Hashmaps
+	1. Valid Anagram ✅
+	2. Ransom Note ✅
+	3. Group Anagrams ✅
+	4. Isomorphic Strings ✅
+	5. Two Sum ✅
+	6. Contains Duplicate II ✅
+	7. Happy Number ✅
+	8. 
 
 #### ➤ Stacks and Queues
 	1.	Valid Parentheses ✅
@@ -152,18 +171,13 @@
 	6.	Daily Temperatures
 	7.	Decode String
 	8.	Basic Calculator ✅
-	9.	
-	10.	
+	9.	Car Fleet
+	10.	Generate Parentheses
 	11.	Asteroid Collision
-	12.	Car Fleet
-	13.	Generate Parentheses
-	14.	Basic Calculator II
-	15.	Longest Valid Parentheses
-	16.	Largest Rectangle in Histogram
-	17.	Maximum Frequency Stack
-	18.	
-	19.	
-	20.	
+	12.	Basic Calculator II
+	13.	Maximum Frequency Stack
+	14.	Longest Valid Parentheses
+	15.	Largest Rectangle in Histogram
 
 
 #### ➤ Linked Lists
@@ -275,21 +289,18 @@
 	3.	Word Break ✅
 	4.	House Robber ✅
 	5.	Edit Distance
-	6.	
+	6.	Palindromic Substrings
 	7.	0/1 Knapsack Problem
 	8.	Longest Common Subsequence
 	9.	Longest Increasing Subsequence
 	10.	Partition Equal Subset Sum
 	11.	Decode Ways
-	12.	Palindromic Substrings
+	12.	Unique Paths
 	13.	Maximal Square
 	14.	Shortest Common Supersequence
 	15.	Interleaving String
-	16. Unique Paths
-	17. House Robber II
-	18. 
-	19. Jump Game
-	20. 
+	16. House Robber II
+	17. Jump Game
 
 
 #### ➤ Greedy Algorithms 
@@ -297,27 +308,29 @@
 	2.	Huffman Encoding
 	3.	Minimum Platforms
 	4.	Job Sequencing Problem
-	5.	Jump Game
+	5.	Jump Game - Greedy
 	6.	Gas Station
 	7.	Partition Labels
 	8.	Dijkstra’s Algorithm
-	9.	
-	10.	Reorganize String
+	9.	Trapping Rain Water ✅
+	10.	Largest Rectangle in Histogram
+	11.	Container With Most Water ✅
+	12.	Reorganize String
 
 
-#### ➤ Bit Manipulation & Maths
+#### ➤ Bit Manipulation, Maths, Misc
 	1.	Single Number
 	2.	Number of 1 Bits
 	3.	Counting Bits
 	4.	Reverse Bits
 	5.	Add Binary
-	6.	Missing Number
+	6.	Divide Two Integers
 	7.	Find the Duplicate Number
 	8.	Single Number II
 	9.	Bitwise AND of Numbers Range
 	10.	Palindrome Number
 	11.	Plus One
-	12.	Happy Number
-	13.	Pow(x, n)
+	12.	Pow(x, n)
+	13.	
 	14.	Factorial Trailing Zeroes
 	15.	Multiply Strings

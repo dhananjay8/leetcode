@@ -4,27 +4,29 @@
  * @return {string[]}
  */
 var summaryRanges = function (nums) {
-    if (nums.length === 0) return [];
-    const res = [];
+  if (nums.length === 0) return [];
+  const summaryRanges = [];
 
-    let lastNum = nums[0];
+  let start = nums[0]; // Keeps track of the beginning of a range.
 
-    for (let i = 0; i < nums.length; i++) {
-      if (curr + 1 !== next) {
-        const str =
-          lastNum === undefined || lastNum === curr
-            ? `${curr}`
-            : `${lastNum}->${curr}`;
+  for (let i = 0; i < nums.length; i++) {
+    const currentNumber = nums[i],
+      nextNumber = nums[i + 1];
+    if (currentNumber + 1 !== nextNumber) {
+      // we have reached the end of a continuous sequence.
 
-        res.push(str);
+      // If start equals currentNumber, it’s a single number.
+      summaryRanges.push(
+        start === currentNumber ? `${start}` : `${start}->${currentNumber}`
+      );
 
-        lastNum = next;
-      }
+      start = nextNumber;
     }
+  }
 
-    console.log(res);
+  console.log(summaryRanges);
 
-    return res;
+  return summaryRanges;
 };
 
 // USING HASHMAP

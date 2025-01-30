@@ -23,7 +23,7 @@
 | 18            | [Isomorphic Strings](https://leetcode.com/problems/isomorphic-strings/) | [Isomorphic Strings](./solutions/isomorphic-strings.js) |
 | 19            | [Contains Duplicate II](https://leetcode.com/problems/contains-duplicate-ii/) | [Contains Duplicate II](./solutions/contains-duplicate-ii.js) |
 | 20            | [Happy Number](https://leetcode.com/problems/happy-number/) | [Happy Number](./solutions/happy-number.js) |
-| 21            | []() | []() |
+| 21            | [Remove Duplicates from Sorted Array](https://leetcode.com/problems/remove-duplicates-from-sorted-array/) | [Remove Duplicates](./solutions/remove-duplicates-from-sorted-array.js) |
 | 22            | []() | []() |
 | 23            | []() | []() |
 | 24            | []() | []() |
@@ -37,7 +37,7 @@
 | 2            | [Group Anagrams](https://leetcode.com/problems/group-anagrams/) | [Group Anagrams](./solutions/medium/group-anagrams.js) |
 | 3            | [Count and Say](https://leetcode.com/problems/count-and-say/) | [Count and Say](./solutions/medium/count-and-say.py) |
 | 4            | [Subarray Sum Equals K](https://leetcode.com/problems/subarray-sum-equals-k/) | [Subarray Sum Equals K](./solutions/medium/subarray-sum-equals-k.js) |
-| 5            | [Merge Intervals](https://leetcode.com/problems/merge-intervals/) | [Merge Intervals](./solutions/medium/merge-intervals.js) |
+| 5            |  [Longest Consecutive Sequence](https://leetcode.com/problems/longest-consecutive-sequence/) | [Longest Consecutive Sequence](./solutions/longest-consecutive-sequence.js) |
 | 6            | [Container With Most Water](https://leetcode.com/problems/container-with-most-water/) | [Container With Most Water](./solutions/medium/container-with-most-water.py) |
 | 7            | [Maximum Product Subarray](https://leetcode.com/problems/maximum-product-subarray/) | [Maximum Product Subarray](./solutions/medium/maximum-product-subarray.js) |
 | 8            | [Product of Array Except Self](https://leetcode.com/problems/product-of-array-except-self/) | [Product of Array Except Self](./solutions/medium/product-of-array-except-self.js) |
@@ -68,10 +68,10 @@
 | 33            | [Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/) | [Top K Frequent Elements](./solutions/medium/top-k-frequent-elements.js) |
 | 34            | [Find Peak Element](https://leetcode.com/problems/find-peak-element) | [Find Peak Element](./solutions/medium/find-peak-element.js) |
 | 35            | [Minimum Number of Arrows to Burst Balloons](https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons) | [Minimum Number of Arrows to Burst Balloons](./solutions/medium/minimum-number-of-arrows-to-burst-balloons.js) |
-| 36            | [Longest Consecutive Sequence](https://leetcode.com/problems/longest-consecutive-sequence/) | [Longest Consecutive Sequence](./solutions/longest-consecutive-sequence.js) |
-| 37            | []() | []() |
-| 38            | []() | []() |
-| 39            | []() | []() |
+| 36            | [Merge Intervals](https://leetcode.com/problems/merge-intervals/) | [Merge Intervals](./solutions/medium/merge-intervals.js) |
+| 37            | [Insert Interval](https://leetcode.com/problems/insert-interval) | [Insert Interval](./solutions/medium/insert-interval.js) |
+| 38            | [Remove Duplicates from Sorted Array II](https://leetcode.com/problems/remove-duplicates-from-sorted-array-ii/) | [Remove Duplicates II](./solutions/remove-duplicates-from-sorted-array-ii.js) |
+| 39            | [Find Duplicate Number](https://leetcode.com/problems/find-the-duplicate-number) | [Find Duplicate Number](./solutions/medium/find-the-duplicate-number.js) |
 | 40            | []() | []() |
 | 41            | []() | []() |
 | 42            | []() | []() |
@@ -84,7 +84,7 @@
 | 2            | [Trapping Rain Water](https://leetcode.com/problems/trapping-rain-water/) | [Trapping Rain Water](./solutions/hard/trapping-rain-water.js) |
 | 3            | [Word Search II](https://leetcode.com/problems/word-search-ii/) | [Word Search II](./solutions/hard/trapping-rain-water.js) |
 | 4            | [Median of Two Sorted Arrays](https://leetcode.com/problems/median-of-two-sorted-arrays/) | [Median of Two Sorted Arrays](./solutions/hard/median-of-two-sorted-arrays.js) |
-| 5            | []() | []() |
+| 5            | [Reverse Nodes in k-Group](https://leetcode.com/problems/reverse-nodes-in-k-group) | [Reverse Nodes in k-Group](./solutions/hardreverse-nodes-in-k-group.js) |
 | 6            | []() | []() |
 | 7            | []() | []() |
 | 8            | []() | []() |
@@ -98,23 +98,25 @@
 #### ➤ Array Manipulation & Sorting
 	1.	Sort Colors ✅
 	2.	Find All Duplicates in an Array ✅
-	3.	Longest Consecutive Sequence ✅
-	4.	Find Duplicate Number
-	5.	Missing Number ✅
-	6.	Find Missing Positive Integer
+	3.	Missing Number ✅
+	4.	Find Duplicate Number ✅
+	5.	Remove Duplicates from Sorted Array ✅
+	6.	Remove Duplicates from Sorted Array II ✅
 	7.	Find K Closest Elements ✅
-	8.	Find Peak Element ✅
-	9.	Find the Smallest Range Covering Elements from K Lists
+	8.	Find Missing Positive Integer
+	9.	Find Peak Element ✅
 	10.	Find the Maximum Sum Subarray (Kadane’s Algorithm) ✅
 	11.	Kth Largest Element in an Array ✅
 	12.	Top K Frequent Elements ✅
-	13.	Maximum Gap
-	14.	Wiggle Sort II
+	13.	Longest Consecutive Sequence ✅
+	14.	Find the Smallest Range Covering Elements from K Lists
 	15.	Heapsort
+	16. Maximum Gap
+	17. Wiggle Sort II
 
 #### ➤ Searching Algorithms (Binary Search & Variants)
 	1.	Search in Rotated Sorted Array
-	2.	Search in Rotated Sorted Array II ✅
+	2.	Search in Rotated Sorted Array II
 	3.	Find First and Last Position in a Sorted Array
 	4.	Search Insert Position
 	5.	Find Minimum in Rotated Sorted Array
@@ -144,13 +146,14 @@
 	4.	Word Search
 
 #### ➤ Array/String Misc
-	1.	Count and Say ✅
+	1.	
 	2.	
 	3.	Find All Anagrams in a String ✅
 	4.	Subarray Sum Equals K ✅
 	5.	Minimum Size Subarray Sum ✅
 	6.	Maximum Product Subarray ✅
 	7.  Find First and Last Position in a Sorted Array
+	8.  Count and Say ✅
 
 #### ➤ Hashmaps
 	1. Valid Anagram ✅
@@ -189,12 +192,12 @@
 	6.	Remove Nth Node From End of List ✅
 	7.	Copy List with Random Pointer ✅
 	8.	Add Two Numbers ✅
-	9.	Reorder List
-	10.	Swap Nodes in Pairs
+	9.	Reorder List ✅
+	10.	Swap Nodes in Pairs ✅
 	11.	Odd Even Linked List ✅
-	12.	Sort List
-	13.	Reverse Nodes in k-Group
-	14.	Merge K Sorted Lists
+	12.	Sort List ✅
+	13.	Reverse Nodes in k-Group ✅
+	14.	Merge K Sorted Lists ✅
 	15.	LRU Cache ✅
 
 
@@ -325,7 +328,7 @@
 	4.	Reverse Bits
 	5.	Add Binary
 	6.	Divide Two Integers
-	7.	Find the Duplicate Number
+	7.	
 	8.	Single Number II
 	9.	Bitwise AND of Numbers Range
 	10.	Palindrome Number

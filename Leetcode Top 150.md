@@ -78,8 +78,8 @@
 | 73            | [Counting Bits](https://leetcode.com/problems/counting-bits) | [Counting Bits](./solutions/easy/counting-bits.js) |
 | 74            | [Minimum Number of Arrows to Burst Balloons](https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons) | [Minimum Number of Arrows to Burst Balloons](./solutions/medium/minimum-number-of-arrows-to-burst-balloons.js) |
 | 75            | [Insert Interval](https://leetcode.com/problems/insert-interval) | [Insert Interval](./solutions/medium/insert-interval.js) |
-| 76            | []() | []() |
-| 77            | []() | []() |
+| 76            | [Reverse Linked List II](https://leetcode.com/problems/reverse-linked-list-ii) | [Reverse Linked List II](./solutions/medium/linked-lists/reverse-linked-list-ii.js) |
+| 77            | [Partition List](https://leetcode.com/problems/partition-list) | [Partition List](./solutions/medium/linked-lists/partition-list.js) |
 | 78            | []() | []() |
 | 79            | []() | []() |
 

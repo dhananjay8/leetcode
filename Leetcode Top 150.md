@@ -76,7 +76,7 @@
 | 71            | [Reverse Linked List](https://leetcode.com/problems/reverse-linked-list/) | [Reverse Linked List](./solutions/easy/reverse-linked-list.js) |
 | 72            | [Remove Nth Node From End of List](https://leetcode.com/problems/remove-nth-node-from-end-of-list/) | [Remove Nth Node From End of List](./solutions/medium/linked-lists/remove-nth-node-from-end-of-list.js) |
 | 73            | [Counting Bits](https://leetcode.com/problems/counting-bits) | [Counting Bits](./solutions/easy/counting-bits.js) |
-| 74            | []() | []() |
+| 74            | [Minimum Number of Arrows to Burst Balloons](https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons) | [Minimum Number of Arrows to Burst Balloons](./solutions/medium/minimum-number-of-arrows-to-burst-balloons.js) |
 | 75            | []() | []() |
 | 76            | []() | []() |
 | 77            | []() | []() |

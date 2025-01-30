@@ -63,7 +63,7 @@
 | 32            | [Find All Duplicates in an Array](https://leetcode.com/problems/find-all-duplicates-in-an-array/) | [Find All Duplicates in an Array](./solutions/medium/find-all-duplicates-in-an-array.js) |
 | 33            | [Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/) | [Top K Frequent Elements](./solutions/medium/top-k-frequent-elements.js) |
 | 34            | [Find Peak Element](https://leetcode.com/problems/find-peak-element) | [Find Peak Element](./solutions/medium/find-peak-element.js) |
-| 35            | []() | []() |
+| 35            | [Minimum Number of Arrows to Burst Balloons](https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons) | [Minimum Number of Arrows to Burst Balloons](./solutions/medium/minimum-number-of-arrows-to-burst-balloons.js) |
 | 36            | []() | []() |
 | 37            | []() | []() |
 
@@ -140,7 +140,7 @@
 	22.	Count Smaller Numbers After Self ✅
 	23.	Heapsort
 	24.	Search in Rotated Sorted Array II ✅
-	25.	Minimum Number of Arrows to Burst Balloons
+	25.	Minimum Number of Arrows to Burst Balloons ✅
 
 
 #### ➤ Stacks and Queues
@@ -287,21 +287,21 @@
 	15.	Interleaving String
 	16. Unique Paths
 	17. House Robber II
-	18. Burst Balloons
+	18. 
 	19. Jump Game
 	20. 
 
 
 #### ➤ Greedy Algorithms 
 	1.	Activity Selection Problem
-	2.	Minimum Number of Arrows to Burst Balloons
+	2.	Huffman Encoding
 	3.	Minimum Platforms
 	4.	Job Sequencing Problem
 	5.	Jump Game
 	6.	Gas Station
 	7.	Partition Labels
 	8.	Dijkstra’s Algorithm
-	9.	Huffman Encoding
+	9.	
 	10.	Reorganize String
 
 

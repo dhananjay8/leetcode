@@ -84,7 +84,7 @@
 | 2            | [Trapping Rain Water](https://leetcode.com/problems/trapping-rain-water/) | [Trapping Rain Water](./solutions/hard/trapping-rain-water.js) |
 | 3            | [Word Search II](https://leetcode.com/problems/word-search-ii/) | [Word Search II](./solutions/hard/trapping-rain-water.js) |
 | 4            | [Median of Two Sorted Arrays](https://leetcode.com/problems/median-of-two-sorted-arrays/) | [Median of Two Sorted Arrays](./solutions/hard/median-of-two-sorted-arrays.js) |
-| 5            | [Reverse Nodes in k-Group](https://leetcode.com/problems/reverse-nodes-in-k-group) | [Reverse Nodes in k-Group](./solutions/hardreverse-nodes-in-k-group.js) |
+| 5            | [Reverse Nodes in k-Group](https://leetcode.com/problems/reverse-nodes-in-k-group) | [Reverse Nodes in k-Group](./solutions/hard/reverse-nodes-in-k-group.js) |
 | 6            | []() | []() |
 | 7            | []() | []() |
 | 8            | []() | []() |

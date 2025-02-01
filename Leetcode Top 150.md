@@ -91,3 +91,4 @@
 |--------------|-------------------------------|----------------------------|
 | 1            | [Max Points on a Line](https://leetcode.com/problems/max-points-on-a-line/) | [Max Points on a Line](./solutions/hard/max-points-on-a-line.py) |
 | 2            | [Trapping Rain Water](https://leetcode.com/problems/trapping-rain-water/) | [Trapping Rain Water](./solutions/hard/trapping-rain-water.js) |
+| 3            | [Reverse Nodes in k-Group](https://leetcode.com/problems/reverse-nodes-in-k-group) | [Reverse Nodes in k-Group](./solutions/hard/reverse-nodes-in-k-group.js) |

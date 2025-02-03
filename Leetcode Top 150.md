@@ -52,8 +52,8 @@
 | 47            | [Add Two Numbers](https://leetcode.com/problems/add-two-numbers/) | [Add Two Numbers](./solutions/medium/linked-lists/add-two-numbers.js) |
 | 48            | [Insert Delete GetRandom O(1)](https://leetcode.com/problems/insert-delete-getrandom-o1/) | [Insert Delete GetRandom O(1)](./solutions/insert-delete-getrandom-o1.js) |
 | 49            | [Rotate Array](https://leetcode.com/problems/rotate-array/) | [Rotate Array](./solutions/rotate-array.js) |
-| 50            | [Jump Game](https://leetcode.com/problems/jump-game/) | [Jump Game](./solutions/jump-game.py) |
-| 51            | [Jump Game II](https://leetcode.com/problems/jump-game-ii/) | [Jump Game II](./solutions/jump-game-ii.py) |
+| 50            | [Jump Game](https://leetcode.com/problems/jump-game/) | [Jump Game](./solutions/medium/jump-game.py) |
+| 51            | [Jump Game II](https://leetcode.com/problems/jump-game-ii/) | [Jump Game II](./solutions/medium/jump-game-ii.py) |
 | 52            | [LRU Cache](https://leetcode.com/problems/lru-cache/) | [LRU Cache](./solutions/medium/linked-lists/lru-cache.py) |
 | 53            | [Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/) | [Top K Frequent Elements](./solutions/medium/top-k-frequent-elements.js) |
 | 54            | [String Encode and Decode](https://leetcode.com/problems/encode-and-decode-strings/) | [String Encode and Decode](./solutions/string-encode-and-decode.js) |

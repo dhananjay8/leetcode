@@ -72,8 +72,8 @@
 | 37            | [Insert Interval](https://leetcode.com/problems/insert-interval) | [Insert Interval](./solutions/medium/insert-interval.js) |
 | 38            | [Remove Duplicates from Sorted Array II](https://leetcode.com/problems/remove-duplicates-from-sorted-array-ii/) | [Remove Duplicates II](./solutions/remove-duplicates-from-sorted-array-ii.js) |
 | 39            | [Find Duplicate Number](https://leetcode.com/problems/find-the-duplicate-number) | [Find Duplicate Number](./solutions/medium/find-the-duplicate-number.js) |
-| 40            | []() | []() |
-| 41            | []() | []() |
+| 40            | [Jump Game](https://leetcode.com/problems/jump-game/) | [Jump Game](./solutions/medium/jump-game.py) |
+| 41            | [Jump Game II](https://leetcode.com/problems/jump-game-ii/) | [Jump Game II](./solutions/medium/jump-game-ii.py) |
 | 42            | []() | []() |
 
 
@@ -303,7 +303,7 @@
 	14.	Shortest Common Supersequence
 	15.	Interleaving String
 	16. House Robber II
-	17. Jump Game
+	17. 
 
 
 #### ➤ Greedy Algorithms 
@@ -311,7 +311,7 @@
 	2.	Huffman Encoding
 	3.	Minimum Platforms
 	4.	Job Sequencing Problem
-	5.	Jump Game - Greedy
+	5.	Jump Game 
 	6.	Gas Station
 	7.	Partition Labels
 	8.	Dijkstra’s Algorithm

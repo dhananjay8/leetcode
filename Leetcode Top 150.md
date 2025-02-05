@@ -12,7 +12,7 @@
 | 7            | [Majority Element](https://leetcode.com/problems/majority-element/) | [Majority Element](./solutions/majority-element.js) |
 | 8            | [Merge Sorted Array](https://leetcode.com/problems/merge-sorted-array/) | [Merge Sorted Array](./solutions/merge-sorted-array.js) |
 | 9            | [Best Time to Buy and Sell Stock](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/) | [Stock I](./solutions/best-time-to-buy-and-sell-stock.js) |
-| 10            | [Roman to Integer](https://leetcode.com/problems/roman-to-integer/) | [Roman to Integer](./solutions/roman-to-integer.js) |
+| 10            | []() | []() |
 | 11            | [Is Subsequence](https://leetcode.com/problems/is-subsequence/) | [Is Subsequence](./solutions/is-subsequence.js) |
 | 12            | [Valid Parentheses](https://leetcode.com/problems/valid-parentheses/) | [Valid Parentheses](./solutions/easy/valid-parentheses.js) |
 | 13            | [Valid Anagram](https://leetcode.com/problems/valid-anagram/) | [Valid Anagram](./solutions/valid-anagram.js) |
@@ -81,8 +81,8 @@
 | 76            | [Reverse Linked List II](https://leetcode.com/problems/reverse-linked-list-ii) | [Reverse Linked List II](./solutions/medium/linked-lists/reverse-linked-list-ii.js) |
 | 77            | [Partition List](https://leetcode.com/problems/partition-list) | [Partition List](./solutions/medium/linked-lists/partition-list.js) |
 | 78            | [Zigzag Conversion](https://leetcode.com/problems/zigzag-conversion) | [Zigzag Conversion](./solutions/medium/zigzag-conversion.js) |
-| 79            | []() | []() |
-| 80            | []() | []() |
+| 79            | [Roman to Integer](https://leetcode.com/problems/roman-to-integer/) | [Roman to Integer](./solutions/misc/maths/roman-to-integer.js) |
+| 80            | [Integer to Roman](https://leetcode.com/problems/integer-to-roman) | [Integer to Roman](./solutions/misc/maths/integer-to-roman.js) |
 | 81            | []() | []() |
 | 82            | []() | []() |
 

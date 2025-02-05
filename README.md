@@ -61,7 +61,7 @@
 | 26            | [Word Break](https://leetcode.com/problems/word-break/) | [Word Break](./solutions/medium/dp/word-break.js) |
 | 27            | [Minimum Size Subarray Sum](https://leetcode.com/problems/minimum-size-subarray-sum/) | [Minimum Size Subarray Sum](./solutions/medium/minimum-size-subarray-sum.js) |
 | 28            | [Maximum Subarray](https://leetcode.com/problems/maximum-subarray/) | [Maximum Subarray](./solutions/medium/maximum-subarray.py) |
-| 29            | [Sort Colors](https://leetcode.com/problems/sort-colors/description/) | [Sort Colors](./solutions/medium/sort-colors.js) |
+| 29            | [Sort Colors](https://leetcode.com/problems/sort-colors) | [Sort Colors](./solutions/medium/sort-colors.js) |
 | 30            | [Kth Largest Element in an Array](https://leetcode.com/problems/kth-largest-element-in-an-array) | [Kth Largest Element in an Array](./solutions/medium/kth-largest-element-in-an-array.js) |
 | 31            | [Find K Closest Elements](https://leetcode.com/problems/find-k-closest-elements) | [Find K Closest Elements](./solutions/medium/find-k-closest-elements.js) |
 | 32            | [Find All Duplicates in an Array](https://leetcode.com/problems/find-all-duplicates-in-an-array/) | [Find All Duplicates in an Array](./solutions/medium/find-all-duplicates-in-an-array.js) |

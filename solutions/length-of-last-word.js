@@ -3,14 +3,19 @@
  * @return {number}
  */
 var lengthOfLastWord = function (s) {
-  let sLen = s.length;
-  let cnt = 0;
-  for (let i = sLen - 1; i >= 0; i--) {
-    if (s[i] == " ") {
-      if (cnt > 0) return cnt;
-      continue;
-    }
-    cnt += 1;
+  let length = 0;
+  let i = s.length - 1;
+
+  // Skip trailing spaces
+  while (i >= 0 && s[i] === " ") {
+    i--;
   }
-  return cnt;
+
+  // Count the length of the last word
+  while (i >= 0 && s[i] !== " ") {
+    length++;
+    i--;
+  }
+
+  return length;
 };

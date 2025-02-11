@@ -74,7 +74,10 @@
 | 39            | [Find Duplicate Number](https://leetcode.com/problems/find-the-duplicate-number) | [Find Duplicate Number](./solutions/medium/find-the-duplicate-number.js) |
 | 40            | [Jump Game](https://leetcode.com/problems/jump-game/) | [Jump Game](./solutions/medium/jump-game.py) |
 | 41            | [Jump Game II](https://leetcode.com/problems/jump-game-ii/) | [Jump Game II](./solutions/medium/jump-game-ii.py) |
-| 42            | []() | []() |
+| 42            | [Gas Station](https://leetcode.com/problems/gas-station) | [Gas Station](./solutions/medium/gas-station.js) |
+| 43            | []() | []() |
+| 44            | []() | []() |
+| 45            | []() | []() |
 
 
 ## Final 200 - Hard
@@ -312,7 +315,7 @@
 	3.	Minimum Platforms
 	4.	Job Sequencing Problem
 	5.	Jump Game 
-	6.	Gas Station
+	6.	Gas Station ✅
 	7.	Partition Labels
 	8.	Dijkstra’s Algorithm
 	9.	Trapping Rain Water ✅

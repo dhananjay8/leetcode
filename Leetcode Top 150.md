@@ -83,8 +83,10 @@
 | 78            | [Zigzag Conversion](https://leetcode.com/problems/zigzag-conversion) | [Zigzag Conversion](./solutions/medium/zigzag-conversion.js) |
 | 79            | [Roman to Integer](https://leetcode.com/problems/roman-to-integer/) | [Roman to Integer](./solutions/misc/maths/roman-to-integer.js) |
 | 80            | [Integer to Roman](https://leetcode.com/problems/integer-to-roman) | [Integer to Roman](./solutions/misc/maths/integer-to-roman.js) |
-| 81            | []() | []() |
-| 82            | []() | []() |
+| 81            | [Gas Station](https://leetcode.com/problems/gas-station) | [Gas Station](./solutions/medium/gas-station.js) |
+| 82            | [H-Index](https://leetcode.com/problems/h-index) | [H-Index](./solutions/medium/h-index.js) |
+| 83            | []() | []() |
+| 84            | []() | []() |
 
  
  

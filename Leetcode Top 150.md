@@ -85,8 +85,14 @@
 | 80            | [Integer to Roman](https://leetcode.com/problems/integer-to-roman) | [Integer to Roman](./solutions/misc/maths/integer-to-roman.js) |
 | 81            | [Gas Station](https://leetcode.com/problems/gas-station) | [Gas Station](./solutions/medium/gas-station.js) |
 | 82            | [H-Index](https://leetcode.com/problems/h-index) | [H-Index](./solutions/medium/h-index.js) |
-| 83            | []() | []() |
+| 83            | [Kth Smallest Element in a BST](https://leetcode.com/problems/kth-smallest-element-in-a-bst) | [Kth Smallest Element in a BST](./solutions/medium/trees/kth-smallest-element-in-a-bst.js) |
 | 84            | []() | []() |
+| 85            | []() | []() |
+| 86            | []() | []() |
+| 87            | []() | []() |
+| 88            | []() | []() |
+| 89            | []() | []() |
+| 90            | []() | []() |
 
  
  
@@ -97,3 +103,10 @@
 | 1            | [Max Points on a Line](https://leetcode.com/problems/max-points-on-a-line/) | [Max Points on a Line](./solutions/hard/max-points-on-a-line.py) |
 | 2            | [Trapping Rain Water](https://leetcode.com/problems/trapping-rain-water/) | [Trapping Rain Water](./solutions/hard/trapping-rain-water.js) |
 | 3            | [Reverse Nodes in k-Group](https://leetcode.com/problems/reverse-nodes-in-k-group) | [Reverse Nodes in k-Group](./solutions/hard/reverse-nodes-in-k-group.js) |
+| 4            | []() | []() |
+| 5            | []() | []() |
+| 6            | []() | []() |
+| 7            | []() | []() |
+| 8            | []() | []() |
+| 9            | []() | []() |
+| 10            | []() | []() |

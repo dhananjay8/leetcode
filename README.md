@@ -75,9 +75,15 @@
 | 40            | [Jump Game](https://leetcode.com/problems/jump-game/) | [Jump Game](./solutions/medium/jump-game.py) |
 | 41            | [Jump Game II](https://leetcode.com/problems/jump-game-ii/) | [Jump Game II](./solutions/medium/jump-game-ii.py) |
 | 42            | [Gas Station](https://leetcode.com/problems/gas-station) | [Gas Station](./solutions/medium/gas-station.js) |
-| 43            | []() | []() |
+| 43            | [Kth Smallest Element in a BST](https://leetcode.com/problems/kth-smallest-element-in-a-bst) | [Kth Smallest Element in a BST](./solutions/medium/trees/kth-smallest-element-in-a-bst.js) |
 | 44            | []() | []() |
 | 45            | []() | []() |
+| 46            | []() | []() |
+| 47            | []() | []() |
+| 48            | []() | []() |
+| 49            | []() | []() |
+| 50            | []() | []() |
+
 
 
 ## Final 200 - Hard
@@ -216,7 +222,7 @@
 	9.	Path Sum
 	10.	Count Complete Tree Nodes
 	11.	Validate Binary Search Tree ✅
-	12.	Kth Smallest Element in a BST
+	12.	Kth Smallest Element in a BST ✅
 	13.	Construct Binary Tree from Preorder and Inorder Traversal
 	14.	Binary Tree Level Order Traversal ✅
 	15.	Binary Tree Zigzag Level Order Traversal
@@ -294,20 +300,41 @@
 	2.	Coin Change ✅
 	3.	Word Break ✅
 	4.	House Robber ✅
-	5.	Edit Distance
-	6.	Palindromic Substrings
-	7.	0/1 Knapsack Problem
-	8.	Longest Common Subsequence
-	9.	Longest Increasing Subsequence
-	10.	Partition Equal Subset Sum
+	5.	Paint House
+	6.	Unique Paths II
+	7.	
+	8.	
+	9.	0/1 Knapsack Problem
+	10.	Palindromic Substrings
 	11.	Decode Ways
 	12.	Unique Paths
-	13.	Maximal Square
 	14.	Shortest Common Supersequence
 	15.	Interleaving String
 	16. House Robber II
 	17. 
 
+
+
+Minimum Path Sum
+Maximal Square
+Longest Increasing Subsequence
+Can I Win
+Ones and Zeroes
+Longest Palindromic Subsequence
+Partition Equal Subset Sum / Partition to K Equal Sum Subset
+Cheapest Flights Within K Stop
+Longest Arithmetic Sequence
+Last Stone Weight II
+Filling Bookcase Shelves
+Longest Common Subsequence
+Dice Roll Sum
+Longest Valid Parentheses
+Wildcard Matching
+Edit Distance
+Best Time to Buy and Sell Stocks
+Burst Balloons
+Minimum Cost to Merge Stones
+Minimum Difficulty of a Job Schedule
 
 #### ➤ Greedy Algorithms 
 	1.	Activity Selection Problem

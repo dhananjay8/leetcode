@@ -7,7 +7,7 @@
 	3. Implement the "two sum" problem.
 	4. Implement Kadane's algorithm for maximum subarray sum.
  	5. Find the missing number in an array of integers.
-	6. (Merge two sorted arrays into one sorted array.)(./solutions/easy/merge-sorted-array.js)
+	6. [Merge two sorted arrays into one sorted array.](./solutions/easy/merge-sorted-array.js) ✅
  	7. Check if a string is a palindrome.
  	8. Find the first non-repeating character in a string.
  	9. Write a program to remove duplicates from a sorted array.

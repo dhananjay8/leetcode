@@ -16,23 +16,33 @@
  */
 
 // JavaScript Solution - Three Pointers (Backwards)
-function merge(nums1, m, nums2, n) {
-  let p1 = m - 1; // Pointer for nums1
-  let p2 = n - 1; // Pointer for nums2
-  let p = m + n - 1; // Pointer for merged array
-
-  // Merge from back to front
-  while (p2 >= 0) {
-    if (p1 >= 0 && nums1[p1] > nums2[p2]) {
-      nums1[p] = nums1[p1];
-      p1--;
+/**
+ * @param {number[]} nums1
+ * @param {number} m
+ * @param {number[]} nums2
+ * @param {number} n
+ * @return {void} Do not return anything, modify nums1 in-place instead.
+ */
+var merge = function (nums1, m, nums2, n) {
+  let lastNums1Ind = m - 1;
+  let lastNums2Ind = n - 1;
+  let lastPossibleNum1Ind = m + n - 1;
+  while (lastNums1Ind >= 0 && lastNums2Ind >= 0) {
+    if (nums1[lastNums1Ind] > nums2[lastNums2Ind]) {
+      nums1[lastPossibleNum1Ind] = nums1[lastNums1Ind];
+      lastNums1Ind -= 1;
     } else {
-      nums1[p] = nums2[p2];
-      p2--;
+      nums1[lastPossibleNum1Ind] = nums2[lastNums2Ind];
+      lastNums2Ind -= 1;
     }
-    p--;
+    lastPossibleNum1Ind -= 1;
   }
-}
+  while (lastNums2Ind >= 0) {
+    nums1[lastPossibleNum1Ind] = nums2[lastNums2Ind];
+    lastNums2Ind -= 1;
+    lastPossibleNum1Ind -= 1;
+  }
+};
 
 // Test cases
 let nums1 = [1, 2, 3, 0, 0, 0];

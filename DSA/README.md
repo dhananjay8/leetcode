@@ -11,6 +11,10 @@
  	7. Check if a string is a palindrome.
  	8. Find the first non-repeating character in a string.
  	9. Write a program to remove duplicates from a sorted array.
+	10. Maximum Subarray Sum (Kadane + variations)
+	11. Sliding Window Maximum
+	12. Longest Substring Without Repeating Characters
+	13. Minimum Window Substring
 
 #### ➤  𝗟𝗶𝗻𝗸𝗲𝗱 𝗟𝗶𝘀𝘁𝘀:
  	10. Reverse a linked list.
@@ -19,6 +23,7 @@
  	13. Merge two sorted linked lists.
  	14. Implement a stack using linked list.
  	15. Find the intersection point of two linked lists.
+	16. Merge K Sorted Lists
 
 #### ➤  𝗦𝘁𝗮𝗰𝗸𝘀 𝗮𝗻𝗱 𝗤𝘂𝗲𝘂𝗲𝘀:
  	16. Implement a stack using an array.
@@ -26,6 +31,9 @@
  	18. Implement a circular queue.
  	19. Design a max stack that supports push, pop, top, retrieve maximum element.
  	20. Design a queue using stacks.
+	21. Implement LRU Cache
+	22. Implement LFU Cache
+	23. Design a Task Scheduler with Priorities
 
 #### ➤  𝗧𝗿𝗲𝗲𝘀 𝗮𝗻𝗱 𝗕𝗶𝗻𝗮𝗿𝘆 𝗦𝗲𝗮𝗿𝗰𝗵 𝗧𝗿𝗲𝗲𝘀:
  	21. Find the height of a binary tree.
@@ -35,6 +43,8 @@
  	25. Implement an inorder traversal of a binary tree.
  	26. Find the diameter of a binary tree.
  	27. Convert a binary tree to its mirror tree.
+	28. Lowest Common Ancestor (Binary Tree)
+	29. Serialize & Deserialize Binary Tree
 
 #### ➤  𝗚𝗿𝗮𝗽𝗵𝘀:
  	28. Implement depth-first search (DFS).
@@ -44,6 +54,10 @@
  	32. Check if a graph is bipartite.
  	33. Find the number of connected components in an undirected graph.
  	34. Find bridges in a graph.
+	35. Word Ladder (shortest transformation)
+	36. Detect Cycle in a Directed Graph
+	37. Number of Islands
+	38. Course Schedule (Topological Sort)
 
 #### ➤  𝗦𝗼𝗿𝘁𝗶𝗻𝗴 𝗮𝗻𝗱 𝗦𝗲𝗮𝗿𝗰𝗵𝗶𝗻𝗴:
  	35. Implement (bubble, insertion, selection, merge) sort.
@@ -60,6 +74,7 @@
  	4. Implement a dynamic programming algorithm to find the longest common subsequence of two strings.
  	5. The coin change problem.
  	6. Tabulation approach in dynamic programming.
+	7. Coin Change (DP)
 
 #### ➤  𝗕𝗮𝗰𝗸𝘁𝗿𝗮𝗰𝗸𝗶𝗻𝗴:
  	7. Backtracking algorithm to solve the N-Queens problem.
@@ -84,6 +99,9 @@
  	22. Find the kth largest element in an array using a min-heap.
  	23. Implement a priority queue using a min-heap.
  	24. How do you build a max heap from an array?
+	25. Find Median from Data Stream
+	26. Kth Largest Element in a Stream
+	27. Top K Frequent Elements
 
 #### ➤  𝗧𝗿𝗶𝗲𝘀:
  	25. Implement a trie data structure.

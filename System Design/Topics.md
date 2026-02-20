@@ -97,13 +97,53 @@
     • Network Protocols and Proxies in System Design
     • Unified Modeling Language (UML)
 
-### Case Studies
-    • Design URL Shortening Service
-    • Design Dropbox
-    • Design Twitter
-    • System Design Netflix - A Complete Architecture
-    • System Design of Uber App - Uber System Architecture
-    • Design Book My Show
-    • Designing Facebook Messenger
-    • Designing WhatsApp Messenger
-    • Designing Instagram
+
+## System Design Topics
+[1] Observability, metrics, and control
+- Distributed metrics logging and aggregation
+- Collecting performance metrics from thousands of servers
+- Monitoring health for a large compute cluster
+- Designing a distributed tracing system
+- Building a system to sort huge datasets across machines
+- Control plane for a distributed database
+
+[2] Streams, queues and live features
+- Kafka style distributed stream processing
+- Distributed queue service like RabbitMQ
+- Surge pricing engine for ride sharing
+- ETA and live location sharing between driver and rider
+- Live comments system for a social app
+- Showing live viewer count on a page
+
+[3] Storage, sync and large files
+- Key value store at scale
+- Cloud file storage like Dropbox or Google Drive
+- Photo sharing platform like Google Photos or Flickr
+- Distributed file transfer like Bittorrent
+- Reliable file downloader library
+- Bulk data migration from on-prem to cloud
+
+[4] Consumer apps, content and feeds
+- Calendar application like Google Calendar
+- User analytics dashboard and data pipeline
+- Hotel booking system with availability, reservation and booking
+- Weather application backend
+- Marketplace feature inside a social app
+- Ads management and serving for a social feed
+
+[5] Money, commerce and pricing
+- API rate limiter for public or paid APIs
+- Price alert system for products or stocks
+- Credit card processing engine
+- Wire transfer API between banks
+- Parts compatibility system for an ecommerce site
+- Rider matching for a ride hailing or food delivery app
+
+[6] Platform, auth and reliability
+- Login and authentication system for web and mobile apps
+- Distributed job scheduler for background tasks
+- Notification system that works at global scale
+- A/B testing platform for experiments
+- On call escalation system for incidents
+- IoC or dependency injection framework
+- Counting and broadcasting likes for very high traffic users

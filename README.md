@@ -7,7 +7,10 @@ A comprehensive repository for interview prep: **DSA**, **System Design**, **SQL
 - **[SQL/](./SQL/)** — SQL interview questions with solutions
 - **[System Design/](./System%20Design/)** — System design case studies for interviews
 - **[Machine Coding/](./Machine%20Coding/)** — Frontend/full-stack machine coding rounds
-- **[DSA/](./DSA/)** — DSA notes, patterns, and algorithm cheat sheets
+- **[DSA/](./DSA/)** — DSA cheat sheet, sorting algorithms, patterns
+- **[Design Patterns/](./Design%20Patterns/)** — 12 design patterns with JS/Python/Java code
+- **[DevOps Notes/](./General%20Tech/DevOps/)** — Linux, Docker, CI/CD, Terraform, AWS, Monitoring, Security
+- **[Kubernetes Notes/](./General%20Tech/Kubernetes/)** — Core concepts, Networking, Storage, Scaling, Helm, GitOps
 
 ---
 
@@ -86,6 +89,8 @@ A comprehensive repository for interview prep: **DSA**, **System Design**, **SQL
 | 40     | [Missing Number](https://leetcode.com/problems/missing-number/) | [Missing Number](./solutions/easy/missing-number.py) |
 | 41     | [Climbing Stairs](https://leetcode.com/problems/climbing-stairs/) | [Climbing Stairs](./solutions/medium/dp/climbing-stairs.js) |
 | 42     | [Roman to Integer](https://leetcode.com/problems/roman-to-integer/) | [Roman to Integer](./solutions/easy/roman-to-integer.js) |
+| 43     | [Contains Duplicate](https://leetcode.com/problems/contains-duplicate/) | [Contains Duplicate](./solutions/easy/contains-duplicate.js) |
+| 44     | [Average of Levels in Binary Tree](https://leetcode.com/problems/average-of-levels-in-binary-tree/) | [Average of Levels](./solutions/easy/average-of-levels-in-binary-tree.js) |
 
 ## Final 200 - Medium
 | Number | Problem Name | Solution |
@@ -153,6 +158,14 @@ A comprehensive repository for interview prep: **DSA**, **System Design**, **SQL
 | 61     | [Remove Duplicates from Sorted Array II](https://leetcode.com/problems/remove-duplicates-from-sorted-array-ii/) | [Remove Duplicates II](./solutions/medium/remove-duplicates-from-sorted-array-ii.js) |
 | 62     | [Evaluate Reverse Polish Notation](https://leetcode.com/problems/evaluate-reverse-polish-notation/) | [Evaluate RPN](./solutions/medium/evaluate-reverse-polish-notation.js) |
 | 63     | [House Robber](https://leetcode.com/problems/house-robber/) | [House Robber](./solutions/medium/dp/house-robber.js) |
+| 64     | [Longest Repeating Character Replacement](https://leetcode.com/problems/longest-repeating-character-replacement/) | [Longest Repeating](./solutions/medium/longest-repeating-character-replacement.js) |
+| 65     | [String to Integer (atoi)](https://leetcode.com/problems/string-to-integer-atoi/) | [String to Integer](./solutions/medium/string-to-integer-atoi.js) |
+| 66     | [Snakes and Ladders](https://leetcode.com/problems/snakes-and-ladders/) | [Snakes and Ladders](./solutions/medium/snakes-and-ladders.js) |
+| 67     | [Minimum Genetic Mutation](https://leetcode.com/problems/minimum-genetic-mutation/) | [Genetic Mutation](./solutions/medium/minimum-genetic-mutation.js) |
+| 68     | [Sort List](https://leetcode.com/problems/sort-list/) | [Sort List](./solutions/medium/sort-list.js) |
+| 69     | [Interleaving String](https://leetcode.com/problems/interleaving-string/) | [Interleaving String](./solutions/medium/interleaving-string.js) |
+| 70     | [Integer to Roman](https://leetcode.com/problems/integer-to-roman/) | [Integer to Roman](./solutions/medium/integer-to-roman.js) |
+| 71     | [Count and Say](https://leetcode.com/problems/count-and-say/) | [Count and Say](./solutions/medium/count-and-say.py) |
 
 ## Final 200 - Hard
 | Number | Problem Name | Solution |
@@ -163,6 +176,8 @@ A comprehensive repository for interview prep: **DSA**, **System Design**, **SQL
 | 4      | [Median of Two Sorted Arrays](https://leetcode.com/problems/median-of-two-sorted-arrays/) | [Median of Two Sorted Arrays](./solutions/hard/median-of-two-sorted-arrays.js) |
 | 5      | [Reverse Nodes in k-Group](https://leetcode.com/problems/reverse-nodes-in-k-group) | [Reverse Nodes in k-Group](./solutions/hard/reverse-nodes-in-k-group.js) |
 | 6      | [Max Points on a Line](https://leetcode.com/problems/max-points-on-a-line/) | [Max Points on a Line](./solutions/hard/max-points-on-a-line.py) |
+| 7      | [Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring/) | [Min Window Substring](./solutions/hard/minimum-window-substring.js) |
+| 8      | [Text Justification](https://leetcode.com/problems/text-justification/) | [Text Justification](./solutions/hard/text-justification.js) |
 
 
 ## Topic-wise DSA Problems (with Solutions)
@@ -403,10 +418,15 @@ A comprehensive repository for interview prep: **DSA**, **System Design**, **SQL
 | 12 | [Factorial Trailing Zeroes](https://leetcode.com/problems/factorial-trailing-zeroes/) | [Solution](./solutions/medium/factorial-trailing-zeroes.py) |
 | 13 | [Multiply Strings](https://leetcode.com/problems/multiply-strings/) | [Solution](./solutions/medium/multiply-strings.js) |
 
+
 ---
 
 ## 📖 Quick Reference Links
 - **[SQL Questions & Answers](./SQL/README.md)**
 - **[System Design Case Studies](./System%20Design/Case_Studies.md)**
 - **[Machine Coding Questions](./Machine%20Coding/Questions.md)**
-- **[DSA Notes & Patterns](./DSA/)**
+- **[DSA Cheat Sheet & Patterns](./DSA/cheat-sheet.md)**
+- **[Sorting & Searching Algorithms](./DSA/sorting-algorithms.md)**
+- **[Design Patterns](./Design%20Patterns/README.md)**
+- **[DevOps Interview Notes](./General%20Tech/DevOps/README.md)**
+- **[Kubernetes Interview Notes](./General%20Tech/Kubernetes/README.md)**

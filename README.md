@@ -1,6 +1,45 @@
-# LeetCode Solutions - Comprehensive Collection
+# 🎯 Software Engineering Interview Preparation
 
-This repository contains solutions to LeetCode problems organized by difficulty level (Easy, Medium, Hard). All solutions are implemented in JavaScript with Python implementations included as comments.
+A comprehensive repository for interview prep: **DSA**, **System Design**, **SQL**, and **Machine Coding**.
+
+## 📂 Repository Structure
+- **[solutions/](./solutions/)** — LeetCode solutions (JS + Python) organized by difficulty
+- **[SQL/](./SQL/)** — SQL interview questions with solutions
+- **[System Design/](./System%20Design/)** — System design case studies for interviews
+- **[Machine Coding/](./Machine%20Coding/)** — Frontend/full-stack machine coding rounds
+- **[DSA/](./DSA/)** — DSA notes, patterns, and cheat sheets
+
+---
+
+## 🧠 Quick Pattern Recognition Guide
+
+| If the problem says... | Think about... |
+|---|---|
+| Sorted array | Binary Search, Two Pointers |
+| All permutations/subsets | Backtracking |
+| Tree | DFS, BFS |
+| Graph | DFS, BFS, Union-Find |
+| Linked list | Two Pointers, Fast/Slow |
+| Recursion banned | Stack |
+| In-place | Swap, Store multiple values per pointer |
+| Max/min subarray/subset | Dynamic Programming |
+| Top/least K items | Heap, QuickSelect |
+| Common strings | HashMap, Trie |
+| Optimize space | Bit Manipulation, Greedy |
+| String patterns | Rolling Hash, Sliding Window |
+
+### Complexity Guide (by constraint `n`)
+| n | Target Complexity |
+|---|---|
+| n ≤ 12 | O(n!) |
+| n ≤ 25 | O(2^n) |
+| n ≤ 500 | O(n³) |
+| n ≤ 10⁴ | O(n²) |
+| n ≤ 10⁶ | O(n log n) |
+| n ≤ 10⁸ | O(n) |
+| n > 10⁸ | O(log n) or O(1) |
+
+---
 
 ## Final 200 - Easy
 | Number | Problem Name | Solution |
@@ -379,3 +418,63 @@ This repository contains solutions to LeetCode problems organized by difficulty 
 11. Pow(x, n)
 12. Factorial Trailing Zeroes
 13. Multiply Strings
+
+---
+
+## 📚 Additional Frequently Asked DSA Interview Questions
+
+#### ➤ Must-Know Patterns (Extra)
+1. Sliding Window Maximum (Monotonic Deque)
+2. Minimum Window Substring
+3. Trapping Rain Water (Two Pointer / Stack)
+4. Longest Repeating Character Replacement
+5. Minimum Number of Platforms (Greedy)
+6. Detect Cycle in Directed Graph (DFS coloring)
+7. Shortest Path in Binary Matrix (BFS)
+8. Is Graph Bipartite?
+9. Find Bridges in Graph (Tarjan's Algorithm)
+10. Topological Sort (Kahn's / DFS)
+
+#### ➤ Frequently Asked String Problems
+1. Longest Repeating Character Replacement
+2. Group Anagrams
+3. Encode and Decode Strings
+4. Minimum Window Substring
+5. Valid Palindrome II (remove at most one char)
+6. String to Integer (atoi)
+7. Count and Say
+8. ZigZag Conversion
+
+#### ➤ Frequently Asked Array Problems
+1. Next Permutation
+2. Rotate Array
+3. Move Zeroes
+4. Contains Duplicate
+5. Maximum Sum Circular Subarray
+6. Subarray Product Less Than K
+7. Intersection of Two Arrays II
+8. First Missing Positive
+
+#### ➤ Advanced Graph Problems
+1. Minimum Spanning Tree (Prim's / Kruskal's)
+2. Bellman-Ford Algorithm
+3. Floyd-Warshall Algorithm
+4. Strongly Connected Components (Kosaraju's / Tarjan's)
+5. Shortest Path with Alternating Colors
+6. Critical Connections in a Network
+
+#### ➤ Advanced DP Problems
+1. Matrix Chain Multiplication
+2. Egg Drop Problem
+3. Regular Expression Matching
+4. Distinct Subsequences
+5. Maximum Profit in Job Scheduling
+6. Stone Game variations
+
+---
+
+## 📖 Quick Reference Links
+- **[SQL Questions & Answers](./SQL/README.md)**
+- **[System Design Case Studies](./System%20Design/Case_Studies.md)**
+- **[Machine Coding Questions](./Machine%20Coding/Questions.md)**
+- **[DSA Notes & Patterns](./DSA/)**

@@ -1,4 +1,8 @@
-# DSA
+# DSA — Notes & Interview Questions
+
+> 📌 **Main question list with solutions:** See [../README.md](../README.md) for the complete topic-wise problem list with solution links.
+> 
+> This file contains additional DSA conceptual questions commonly asked in interviews.
 
 ### Important DSA Interview Questions:
 #### ➤  𝗔𝗿𝗿𝗮𝘆𝘀 𝗮𝗻𝗱 𝗦𝘁𝗿𝗶𝗻𝗴𝘀:

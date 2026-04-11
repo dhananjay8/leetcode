@@ -1,14 +1,25 @@
 ### 𝗠𝗮𝗰𝗵𝗶𝗻𝗲 𝗖𝗼𝗱𝗶𝗻𝗴 / 𝗣𝗿𝗮𝗰𝘁𝗶𝗰𝗮𝗹 𝗥𝗼𝘂𝗻𝗱𝘀
 
-- Build a Todo / Task Management App
-- Build a Kanban Board (drag & drop)
-- Build a Search with Autocomplete & Debouncing
-- Build a Pagination / Infinite Scroll System
-- Build a Real-time Chat UI
-- Build a File Explorer (like VS Code)
-- Build a Calendar / Scheduler Application
-- Build a Shopping Cart with Checkout Flow
-- Build a Dashboard with Charts & Filters
-- Build a Notification / Toast System
-- Build a Form Builder with Validation
-- Build a Feature Flag / Toggle System
+#### Core Machine Coding Questions
+1. [Build a Todo / Task Management App](./01-todo-app.md)
+2. [Build a Kanban Board (drag & drop)](./02-kanban-board.md)
+3. [Build a Search with Autocomplete & Debouncing](./03-autocomplete-search.md)
+4. [Build a Pagination / Infinite Scroll System](./04-pagination-infinite-scroll.md)
+5. [Build a Real-time Chat UI](./05-chat-ui.md)
+6. [Build a File Explorer (like VS Code)](./06-file-explorer.md)
+7. [Build a Calendar / Scheduler Application](./07-calendar-scheduler.md)
+8. [Build a Shopping Cart with Checkout Flow](./08-shopping-cart.md)
+9. [Build a Dashboard with Charts & Filters](./09-dashboard.md)
+10. [Build a Notification / Toast System](./10-toast-notification.md)
+11. [Build a Form Builder with Validation](./11-form-builder.md)
+12. [Build a Feature Flag / Toggle System](./12-feature-flags.md)
+
+#### Additional Frequently Asked Questions
+13. [Build a Star Rating Component](./13-star-rating.md)
+14. [Build a Modal / Dialog System](./14-modal-dialog.md)
+15. [Build an Image Carousel / Slider](./15-image-carousel.md)
+16. [Build a Spreadsheet (like Google Sheets)](./16-spreadsheet.md)
+17. [Build a Multi-step Wizard Form](./17-multi-step-form.md)
+18. [Build a Comment System (nested/threaded)](./18-comment-system.md)
+19. [Build a Polling / Voting System](./19-polling-system.md)
+20. [Build a Snake Game](./20-snake-game.md)

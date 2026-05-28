@@ -17,6 +17,51 @@
 
 ---
 
+## ⚡ 60-Second Pattern Identification
+
+Before coding, answer 3 questions:
+1. **Core DS?** — Array / LinkedList / Tree / Graph / Heap / Stack
+2. **Core Op?** — Find / Optimize / Count / Generate / Detect
+3. **Core Constraint?** — Sorted / Limited space / Real-time stream / Unknown length
+
+The three answers map directly to one of the patterns below.
+
+---
+
+## 🏷️ Pattern Trigger Sections
+
+### [1] Arrays and Hashing
+- **Problems**: Two Sum, Product Except Self, Contains Duplicate, Majority Element, Sort Colors
+- **Keywords**: hash map, frequency, prefix product, counting, in-place
+- **Trigger**: question talks about counts, presence, or rearranging array values
+
+### [2] Two Pointers
+- **Problems**: 3Sum, Container With Most Water, Move Zeroes, Remove Duplicates, Valid Palindrome
+- **Keywords**: left/right pointers, shrinking range, swapping, partitioning
+- **Trigger**: sorted data + need pairs, ranges, or in-place cleanup
+
+### [3] Sliding Window
+- **Problems**: Longest Substring Without Repeating, Subarray Sum Equals K, Min Window Substring, Sliding Window Max, String Compression
+- **Keywords**: window start/end, expand/shrink, running count, best window
+- **Trigger**: best contiguous subarray/substring satisfying a condition
+
+### [4] Binary Search on Sorted or Answer Space
+- **Problems**: Search Rotated Array, Find First/Last Position, Median of Two Sorted, Find Peak, Koko Bananas
+- **Keywords**: mid index, sorted property, search space, monotonic answer
+- **Trigger**: sorted/monotonic input OR answer space is monotonic + tight time
+
+### [5] Matrix and Grid Traversal
+- **Problems**: Number of Islands, Rotting Oranges, Spiral Matrix, Rotate Image, Valid Sudoku
+- **Keywords**: 2D grid, visited set, boundaries, 4 directions
+- **Trigger**: board/grid — explore neighbors or process layers
+
+### [6] Intervals and Timeline Scans
+- **Problems**: Merge Intervals, Meeting Rooms II, Best Time to Buy/Sell Stock, Daily Temperatures
+- **Keywords**: sort by start, sweep line, prefix max, monotonic structure
+- **Trigger**: time ranges, bookings, or prices evolving over a timeline
+
+---
+
 ## 🧩 14 Must-Know Patterns
 
 ### 1. Two Pointers

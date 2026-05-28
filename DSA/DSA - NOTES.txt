@@ -1,3 +1,24 @@
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+60-SECOND PATTERN IDENTIFICATION FRAMEWORK
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Before coding, answer these 3 questions:
+1. Core Data Structure?  → Array, LinkedList, Tree, Graph, Heap, Stack
+2. Core Operation?       → Find, Optimize, Count, Generate, Detect
+3. Core Constraint?      → Sorted input, Limited space, Real-time stream, Unknown length
+
+The answers map directly to one of the 12 core patterns below.
+
+Example: "Longest substring without repeating characters"
+  DS: string (array of chars)  |  Op: find longest contiguous  |  Constraint: no repeats in window
+  → Sliding Window ✓
+
+Do NOT start coding until you can name the pattern out loud.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PATTERN → TRIGGER MAPPING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
 If input array is sorted then
  - Binary search
  - Two pointers
@@ -63,3 +84,90 @@ Here's a quick guide based on the value of (n):
  - If n > 10 ^ 8 Time complexity can be O(log n) or 0(1).
  - If n <= 10 ^ 9 Time complexity can be O(sqrt{n}).
  - If n > 10 ^ 9 Time complexity can be O(log n) or 0(1).
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PATTERN REFERENCE SECTIONS (from cheat-sheet.md)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[1] Arrays and Hashing Basics
+- Problems: Two Sum, Product of Array Except Self, Contains Duplicate, Majority Element, Sort Colors
+- Keywords: hash map, frequency, prefix product, counting, in place
+- Trigger: counts, presence, or rearranging array values without complex rules
+
+[2] Two Pointer Techniques
+- Problems: 3Sum, Container With Most Water, Move Zeroes, Remove Duplicates, Valid Palindrome
+- Keywords: left right pointers, shrinking range, swapping, partitioning
+- Trigger: sorted data + need pairs, ranges, or in-place cleanup
+
+[3] Sliding Window
+- Problems: Longest Substring Without Repeating, Subarray Sum Equals K, Min Window Substring, Sliding Window Max
+- Keywords: window start end, expand shrink, running count, best window
+- Trigger: best subarray/substring satisfying a condition over contiguous elements
+
+[4] Binary Search on Sorted or Answer Space
+- Problems: Search Rotated Array, Find First/Last Position, Median of Two Sorted Arrays, Find Peak, Koko Bananas
+- Keywords: mid index, sorted property, search space, monotonic answer
+- Trigger: sorted/monotonic input OR answer behaves monotonically + tight time constraint
+
+[5] Matrix and Grid Traversal
+- Problems: Number of Islands, Rotting Oranges, Spiral Matrix, Rotate Image, Valid Sudoku
+- Keywords: 2D grid, visited set, boundaries, four directions
+- Trigger: board/grid problem needing neighbor exploration or layer processing
+
+[6] Intervals and Timeline Scans
+- Problems: Merge Intervals, Meeting Rooms II, Best Time to Buy/Sell Stock, Daily Temperatures
+- Keywords: sort by start, sweep line, prefix max, monotonic structure
+- Trigger: time ranges, bookings, or values that evolve over a timeline
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+DSA PREPARATION ROADMAP — ZERO TO OA READY (30 topics)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1.  Sliding Window:             3, 76, 209, 424, 567, 904
+2.  Two Pointers:               11, 15, 16, 18, 42, 167
+3.  Fast/Slow Pointers:         141, 142, 19, 876, 160, 234
+4.  Binary Search (sorted):     33, 34, 35, 153, 162, 704
+5.  Binary Search (answer):     875, 1011, 410, 774, 1283, 1482
+6.  Hashing/Freq Maps:          1, 49, 128, 217, 242, 347
+7.  Prefix Sum:                 303, 560, 724, 930, 974, 523
+8.  Difference Array:           370, 1094, 1109, 1893, 1943, 2381
+9.  Monotonic Stack:            739, 496, 503, 84, 85, 901
+10. Monotonic Queue/Deque:      239, 862, 1425, 1438, 1499, 1696
+11. Heap/Top K:                 215, 347, 692, 703, 973, 1046
+12. Intervals:                  56, 57, 252, 253, 435, 452
+13. Greedy Scheduling:          45, 55, 406, 621, 763, 134
+14. Linked List Manipulation:   21, 23, 24, 25, 92, 138
+15. Tree DFS:                   104, 112, 113, 543, 124, 226
+16. Tree BFS/Level Order:       102, 103, 199, 515, 637, 116
+17. BST Problems:               98, 99, 230, 235, 450, 700
+18. Backtracking Basics:        46, 47, 77, 78, 90, 39
+19. Backtracking + Constraints: 40, 17, 79, 131, 51, 52
+20. Graph BFS/DFS:              200, 695, 733, 994, 1091, 1254
+21. Topological Sort/DAG:       207, 210, 802, 1462, 1203, 2115
+22. Union Find/DSU:             547, 684, 1319, 1579, 990, 1202
+23. Shortest Path:              743, 787, 1514, 1631, 1334, 1976
+24. MST/Graph Greedy:           1584, 1135, 1168, 1489, 778, 1102
+25. Trie:                       208, 211, 212, 648, 677, 1268
+26. Bit Manipulation:           136, 137, 191, 338, 268, 190
+27. 1D DP Basics:               70, 198, 213, 322, 279, 300
+28. Knapsack/Subset DP:         416, 494, 518, 474, 1049, 879
+29. Grid DP:                    62, 63, 64, 221, 931, 120
+30. String/Sequence DP:         1143, 72, 115, 583, 97, 1312
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+TWITTER IMAGE LIST (2-3 per pattern, speedrun from memory)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1.  Sliding Window:     3, 76, 424, 904
+2.  Two Pointers:       11, 15, 167, 42
+3.  Binary Search:      33, 153, 875, 1011
+4.  Hashing + Prefix:   1, 49, 560, 128
+5.  Monotonic Stack:    739, 503, 84, 901
+6.  Heap (Top K):       215, 347, 973, 703
+7.  Intervals:          56, 435, 57, 252
+8.  BFS/DFS:            200, 994, 102, 133
+9.  Trees:              104, 236, 543, 124
+10. DP basics:          70, 198, 322, 300

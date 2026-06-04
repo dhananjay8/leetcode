@@ -23,3 +23,15 @@
 18. [Build a Comment System (nested/threaded)](./18-comment-system.md)
 19. [Build a Polling / Voting System](./19-polling-system.md)
 20. [Build a Snake Game](./20-snake-game.md)
+
+#### More Frequently Asked Frontend Questions
+21. [Build an Accordion Component](./21-accordion.md)
+22. [Build a Tabs Component](./22-tabs.md)
+23. [Build an OTP Input Component](./23-otp-input.md)
+24. [Build a Progress Bar / Step Progress Component](./24-progress-bar.md)
+25. [Build a Data Table with Sorting and Filtering](./25-data-table.md)
+26. [Build a Virtualized List](./26-virtualized-list.md)
+27. [Build an Image Upload with Preview](./27-image-upload-preview.md)
+28. [Build a Multi-select Dropdown](./28-multi-select-dropdown.md)
+29. [Build a Countdown Timer](./29-countdown-timer.md)
+30. [Build a Tic-Tac-Toe Game](./30-tic-tac-toe.md)

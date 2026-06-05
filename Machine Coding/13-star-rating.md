@@ -9,28 +9,57 @@
 ## Implementation
 
 ```javascript
-function StarRating({ maxStars = 5, value = 0, onChange, readOnly = false }) {
+import { useState } from 'react';
+
+function StarRating({ maxStars = 5, value = 0, onChange, readOnly = false, allowClear = true }) {
   const [hoverValue, setHoverValue] = useState(0);
+  const displayValue = hoverValue || value;
 
   const handleClick = (rating) => {
-    if (!readOnly && onChange) onChange(rating);
+    if (readOnly) return;
+    onChange?.(allowClear && value === rating ? 0 : rating);
+  };
+
+  const handleKeyDown = (event, rating) => {
+    if (readOnly) return;
+    if (event.key === 'Enter' || event.key === ' ') handleClick(rating);
+    if (event.key === 'ArrowRight') onChange?.(Math.min(value + 1, maxStars));
+    if (event.key === 'ArrowLeft') onChange?.(Math.max(value - 1, 0));
   };
 
   return (
-    <div role="radiogroup" aria-label="Rating" style={{ display: 'flex', cursor: readOnly ? 'default' : 'pointer' }}>
+    <div
+      role="radiogroup"
+      aria-label="Rating"
+      onMouseLeave={() => setHoverValue(0)}
+      style={{ display: 'flex', gap: 4, cursor: readOnly ? 'default' : 'pointer' }}
+    >
       {Array.from({ length: maxStars }, (_, i) => {
         const starValue = i + 1;
-        const filled = starValue <= (hoverValue || value);
+        const filled = starValue <= displayValue;
+
         return (
-          <span key={i}
-            role="radio" aria-checked={starValue === value} tabIndex={0}
+          <button
+            key={starValue}
+            type="button"
+            role="radio"
+            aria-label={`${starValue} star${starValue > 1 ? 's' : ''}`}
+            aria-checked={starValue === value}
+            tabIndex={readOnly ? -1 : 0}
+            disabled={readOnly}
             onClick={() => handleClick(starValue)}
             onMouseEnter={() => !readOnly && setHoverValue(starValue)}
-            onMouseLeave={() => setHoverValue(0)}
-            onKeyDown={(e) => e.key === 'Enter' && handleClick(starValue)}
-            style={{ fontSize: '24px', color: filled ? '#fbbf24' : '#d1d5db', transition: 'color 0.15s' }}>
+            onKeyDown={(event) => handleKeyDown(event, starValue)}
+            style={{
+              border: 0,
+              background: 'transparent',
+              fontSize: 24,
+              color: filled ? '#fbbf24' : '#d1d5db',
+              transition: 'color 0.15s'
+            }}
+          >
             ★
-          </span>
+          </button>
         );
       })}
     </div>
@@ -52,8 +81,9 @@ function App() {
 ## Key Patterns
 - **Controlled component**: value + onChange props
 - **Hover preview**: separate hoverValue state
-- **Accessibility**: role="radiogroup", keyboard Enter to select, aria-checked
+- **Accessibility**: role="radiogroup", keyboard selection, aria-checked
 - **Reusable**: maxStars, readOnly, onChange as props
+- **Clear support**: clicking selected rating can reset to zero
 
 ## Interview Tips
 - Simple but tests component design skills

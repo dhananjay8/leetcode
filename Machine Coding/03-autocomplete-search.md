@@ -10,79 +10,114 @@
 ## Core Implementation
 
 ```javascript
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 function AutocompleteSearch() {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
   const [activeIndex, setActiveIndex] = useState(-1);
   const [showDropdown, setShowDropdown] = useState(false);
-  const cache = useRef({});  // cache previous searches
+  const [loading, setLoading] = useState(false);
+  const cache = useRef(new Map());
+  const abortRef = useRef(null);
 
-  // Debounce function
-  const debounce = (fn, delay) => {
-    let timer;
-    return (...args) => {
-      clearTimeout(timer);
-      timer = setTimeout(() => fn(...args), delay);
-    };
-  };
+  useEffect(() => {
+    const searchTerm = query.trim();
 
-  // Fetch suggestions (debounced)
-  const fetchSuggestions = useCallback(
-    debounce(async (searchTerm) => {
-      if (!searchTerm.trim()) { setResults([]); return; }
-
-      // Check cache first
-      if (cache.current[searchTerm]) {
-        setResults(cache.current[searchTerm]);
+    const timerId = setTimeout(async () => {
+      if (!searchTerm) {
+        setResults([]);
+        setShowDropdown(false);
         return;
       }
 
-      const res = await fetch(`/api/search?q=${encodeURIComponent(searchTerm)}`);
-      const data = await res.json();
-      cache.current[searchTerm] = data;  // cache results
-      setResults(data);
-      setShowDropdown(true);
-    }, 300),
-    []
-  );
+      if (cache.current.has(searchTerm)) {
+        setResults(cache.current.get(searchTerm));
+        setShowDropdown(true);
+        return;
+      }
 
-  // Handle input change
+      abortRef.current?.abort();
+      const controller = new AbortController();
+      abortRef.current = controller;
+      setLoading(true);
+
+      try {
+        const res = await fetch(`/api/search?q=${encodeURIComponent(searchTerm)}`, {
+          signal: controller.signal
+        });
+        const data = await res.json();
+        cache.current.set(searchTerm, data);
+        setResults(data);
+        setShowDropdown(true);
+      } catch (error) {
+        if (error.name !== 'AbortError') setResults([]);
+      } finally {
+        if (!controller.signal.aborted) setLoading(false);
+      }
+    }, 300);
+
+    return () => clearTimeout(timerId);
+  }, [query]);
+
   const handleChange = (e) => {
     setQuery(e.target.value);
     setActiveIndex(-1);
-    fetchSuggestions(e.target.value);
   };
 
-  // Keyboard navigation
+  const selectResult = (item) => {
+    setQuery(item.name);
+    setShowDropdown(false);
+  };
+
   const handleKeyDown = (e) => {
+    if (e.key === 'Escape') {
+      setShowDropdown(false);
+      return;
+    }
+    if (!results.length) return;
     if (e.key === 'ArrowDown') setActiveIndex(prev => Math.min(prev + 1, results.length - 1));
     if (e.key === 'ArrowUp') setActiveIndex(prev => Math.max(prev - 1, 0));
     if (e.key === 'Enter' && activeIndex >= 0) selectResult(results[activeIndex]);
-    if (e.key === 'Escape') setShowDropdown(false);
   };
 
-  // Highlight matching text
-  const highlightMatch = (text, query) => {
-    const idx = text.toLowerCase().indexOf(query.toLowerCase());
+  const highlightMatch = (text) => {
+    const searchTerm = query.trim();
+    const idx = text.toLowerCase().indexOf(searchTerm.toLowerCase());
     if (idx === -1) return text;
-    return <>{text.slice(0,idx)}<strong>{text.slice(idx, idx+query.length)}</strong>{text.slice(idx+query.length)}</>;
+    return <>{text.slice(0, idx)}<strong>{text.slice(idx, idx + searchTerm.length)}</strong>{text.slice(idx + searchTerm.length)}</>;
   };
 
   return (
     <div>
-      <input value={query} onChange={handleChange} onKeyDown={handleKeyDown}
-             onFocus={() => results.length && setShowDropdown(true)}
-             onBlur={() => setTimeout(() => setShowDropdown(false), 200)} />
+      <input
+        role="combobox"
+        aria-expanded={showDropdown}
+        aria-controls="search-results"
+        aria-activedescendant={activeIndex >= 0 ? `result-${results[activeIndex].id}` : undefined}
+        value={query}
+        onChange={handleChange}
+        onKeyDown={handleKeyDown}
+        onFocus={() => results.length && setShowDropdown(true)}
+        onBlur={() => setTimeout(() => setShowDropdown(false), 150)}
+      />
+      {loading && <span>Loading...</span>}
       {showDropdown && (
-        <ul>{results.map((item, i) => (
-          <li key={item.id} className={i === activeIndex ? 'active' : ''}
+        <ul id="search-results" role="listbox">
+          {results.map((item, i) => (
+            <li
+              key={item.id}
+              id={`result-${item.id}`}
+              role="option"
+              aria-selected={i === activeIndex}
+              className={i === activeIndex ? 'active' : ''}
               onMouseEnter={() => setActiveIndex(i)}
-              onClick={() => selectResult(item)}>
-            {highlightMatch(item.name, query)}
-          </li>
-        ))}</ul>
+              onMouseDown={() => selectResult(item)}
+            >
+              {highlightMatch(item.name)}
+            </li>
+          ))}
+        </ul>
       )}
     </div>
   );
@@ -95,6 +130,7 @@ function AutocompleteSearch() {
 - **Keyboard nav**: Arrow keys + Enter + Escape
 - **Highlight**: Bold the matching substring
 - **Accessibility**: aria-roles, aria-activedescendant
+- **Race safety**: AbortController cancels stale requests
 
 ## Interview Tips
 - Implement debounce from scratch (shows understanding)

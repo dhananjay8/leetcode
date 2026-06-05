@@ -9,31 +9,44 @@
 ## Implementation
 
 ```javascript
-// Toast Context (global state)
+import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
+
 const ToastContext = createContext();
 
 function ToastProvider({ children }) {
   const [toasts, setToasts] = useState([]);
-
-  const addToast = useCallback((message, type = 'info', duration = 3000) => {
-    const id = Date.now();
-    setToasts(prev => [...prev, { id, message, type, duration }]);
-    // Auto-dismiss
-    setTimeout(() => removeToast(id), duration);
-  }, []);
+  const timers = useRef(new Map());
 
   const removeToast = useCallback((id) => {
+    const timerId = timers.current.get(id);
+    if (timerId) clearTimeout(timerId);
+    timers.current.delete(id);
     setToasts(prev => prev.filter(t => t.id !== id));
   }, []);
 
+  const addToast = useCallback((message, type = 'info', duration = 3000) => {
+    const id = crypto.randomUUID();
+    setToasts(prev => [...prev, { id, message, type, duration }]);
+    const timerId = setTimeout(() => removeToast(id), duration);
+    timers.current.set(id, timerId);
+    return id;
+  }, [removeToast]);
+
+  useEffect(() => {
+    return () => {
+      timers.current.forEach(timerId => clearTimeout(timerId));
+      timers.current.clear();
+    };
+  }, []);
+
   return (
-    <ToastContext.Provider value={{ addToast }}>
+    <ToastContext.Provider value={{ addToast, removeToast }}>
       {children}
-      <div className="toast-container" aria-live="polite">
+      <div className="toast-container" aria-live="polite" aria-atomic="true">
         {toasts.map(toast => (
-          <div key={toast.id} className={`toast toast-${toast.type}`}>
+          <div key={toast.id} role="status" className={`toast toast-${toast.type}`}>
             <span>{toast.message}</span>
-            <button onClick={() => removeToast(toast.id)}>×</button>
+            <button aria-label="Dismiss notification" onClick={() => removeToast(toast.id)}>×</button>
           </div>
         ))}
       </div>
@@ -63,6 +76,7 @@ function SomeComponent() {
 - **Auto-dismiss** with setTimeout
 - **Stacking**: CSS flex column, newest at bottom
 - **Animations**: CSS keyframes for enter/exit
+- **Cleanup**: clear timers on manual dismiss and unmount
 
 ## Interview Tips
 - Use Context + Provider pattern for global access

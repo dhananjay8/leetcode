@@ -11,6 +11,27 @@ A comprehensive repository for interview prep: **DSA**, **System Design**, **SQL
 - **[Design Patterns/](./Design%20Patterns/)** — 12 design patterns with JS/Python/Java code
 - **[DevOps Notes/](./General%20Tech/DevOps/)** — Linux, Docker, CI/CD, Terraform, AWS, Monitoring, Security
 - **[Kubernetes Notes/](./General%20Tech/Kubernetes/)** — Core concepts, Networking, Storage, Scaling, Helm, GitOps
+- **[General Tech/](./General%20Tech/README.md)** — Unified index for DevOps and Kubernetes tracks
+- **[ROADMAP.md](./ROADMAP.md)** — Practical 12-week study plan for DSA + system design + machine coding
+- **[CONTRIBUTING.md](./CONTRIBUTING.md)** — Content and formatting guidelines for future updates
+- **[TRACKER.md](./TRACKER.md)** — Weekly and daily execution tracker
+- **[MISTAKE_LOG.md](./MISTAKE_LOG.md)** — Error patterns and spaced-repetition revisit log
+- **[MOCK_SCORECARD.md](./MOCK_SCORECARD.md)** — Scoring rubric for DSA, machine coding, and design mocks
+
+## 🚀 How to use this repo
+
+1. Start with `DSA/cheat-sheet.md` and solve 3-5 problems daily by pattern.
+2. Follow `ROADMAP.md` week by week for structured prep.
+3. Practice one machine-coding prompt + one system-design case study every weekend.
+4. Before interviews, revise `Design Patterns/`, `SQL/`, and `General Tech/` quick notes.
+
+## 🧪 Repo hygiene checks
+
+Run this dry-run validator to catch broken internal markdown links:
+
+```bash
+python3 tools/validate_markdown_links.py
+```
 
 ---
 
@@ -89,7 +110,7 @@ A comprehensive repository for interview prep: **DSA**, **System Design**, **SQL
 |---|---------|----------|
 | 31 | [Minimum Size Subarray Sum](https://leetcode.com/problems/minimum-size-subarray-sum/) | [Min Subarray Sum](./solutions/medium/minimum-size-subarray-sum.js) |
 | 32 | [Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/) | [Longest Substring](./solutions/medium/longest-substring-without-repeating-characters.js) |
-| 33 | [Substring with Concatenation of All Words](https://leetcode.com/problems/substring-with-concatenation-of-all-words/) | [Substring Concatenation](./solutions/medium/substring-with-concatenation-of-all-words.js) |
+| 33 | [Substring with Concatenation of All Words](https://leetcode.com/problems/substring-with-concatenation-of-all-words/) | [Substring Concatenation](./solutions/hard/substring-with-concatenation-of-all-words.js) |
 | 34 | [Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring/) | [Min Window Substring](./solutions/hard/minimum-window-substring.js) |
 
 ### Matrix (5 problems)
@@ -199,8 +220,8 @@ A comprehensive repository for interview prep: **DSA**, **System Design**, **SQL
 ### Trie (3 problems)
 | # | Problem | Solution |
 |---|---------|----------|
-| 99 | [Implement Trie (Prefix Tree)](https://leetcode.com/problems/implement-trie-prefix-tree/) | [Implement Trie](./solutions/medium/trie/implement-trie-prefix-tree.js) |
-| 100 | [Design Add and Search Words Data Structure](https://leetcode.com/problems/design-add-and-search-words-data-structure/) | [Design Add Search](./solutions/medium/trie/design-add-and-search-words-data-structure.js) |
+| 99 | [Implement Trie (Prefix Tree)](https://leetcode.com/problems/implement-trie-prefix-tree/) | [Implement Trie](./solutions/medium/tries/implement-trie-prefix-tree.js) |
+| 100 | [Design Add and Search Words Data Structure](https://leetcode.com/problems/design-add-and-search-words-data-structure/) | [Design Add Search](./solutions/medium/tries/design-add-and-search-words-data-structure.js) |
 | 101 | [Word Search II](https://leetcode.com/problems/word-search-ii/) | [Word Search II](./solutions/medium/tries/word-search-ii.js) |
 
 ### Backtracking (7 problems)
@@ -210,7 +231,7 @@ A comprehensive repository for interview prep: **DSA**, **System Design**, **SQL
 | 103 | [Combinations](https://leetcode.com/problems/combinations/) | [Combinations](./solutions/medium/combinations.js) |
 | 104 | [Permutations](https://leetcode.com/problems/permutations/) | [Permutations](./solutions/medium/permutations.js) |
 | 105 | [Combination Sum](https://leetcode.com/problems/combination-sum/) | [Combination Sum](./solutions/medium/combination-sum.js) |
-| 106 | [N-Queens II](https://leetcode.com/problems/n-queens-ii/) | [N-Queens II](./solutions/medium/n-queens-ii.js) |
+| 106 | [N-Queens II](https://leetcode.com/problems/n-queens-ii/) | [N-Queens](./solutions/hard/n-queens.js) |
 | 107 | [Generate Parentheses](https://leetcode.com/problems/generate-parentheses/) | [Generate Parentheses](./solutions/medium/generate-parentheses.js) |
 | 108 | [Word Search](https://leetcode.com/problems/word-search/) | [Word Search](./solutions/medium/word-search.js) |
 
@@ -225,7 +246,7 @@ A comprehensive repository for interview prep: **DSA**, **System Design**, **SQL
 ### Kadane's Algorithm (2 problems)
 | # | Problem | Solution |
 |---|---------|----------|
-| 113 | [Maximum Subarray](https://leetcode.com/problems/maximum-subarray/) | [Maximum Subarray](./solutions/medium/maximum-subarray.js) |
+| 113 | [Maximum Subarray](https://leetcode.com/problems/maximum-subarray/) | [Maximum Subarray](./solutions/medium/maximum-subarray.py) |
 | 114 | [Maximum Sum Circular Subarray](https://leetcode.com/problems/maximum-sum-circular-subarray/) | [Max Sum Circular](./solutions/medium/maximum-sum-circular-subarray.js) |
 
 ### Binary Search (7 problems)
@@ -272,7 +293,7 @@ A comprehensive repository for interview prep: **DSA**, **System Design**, **SQL
 |---|---------|----------|
 | 138 | [Climbing Stairs](https://leetcode.com/problems/climbing-stairs/) | [Climbing Stairs](./solutions/medium/dp/climbing-stairs.js) |
 | 139 | [House Robber](https://leetcode.com/problems/house-robber/) | [House Robber](./solutions/medium/dp/house-robber.js) |
-| 140 | [Word Break](https://leetcode.com/problems/word-break/) | [Word Break](./solutions/medium/word-break.js) |
+| 140 | [Word Break](https://leetcode.com/problems/word-break/) | [Word Break](./solutions/medium/dp/word-break.js) |
 | 141 | [Coin Change](https://leetcode.com/problems/coin-change/) | [Coin Change](./solutions/medium/dp/coin-change.js) |
 | 142 | [Longest Increasing Subsequence](https://leetcode.com/problems/longest-increasing-subsequence/) | [LIS](./solutions/medium/longest-increasing-subsequence.js) |
 
@@ -328,10 +349,16 @@ A comprehensive repository for interview prep: **DSA**, **System Design**, **SQL
 
 ## 📖 Quick Reference Links
 - **[SQL Questions & Answers](./SQL/README.md)**
+- **[System Design Index](./System%20Design/README.md)**
 - **[System Design Case Studies](./System%20Design/Case_Studies.md)**
+- **[System Design Interview Template](./System%20Design/_interview-template.md)**
+- **[Machine Coding Index](./Machine%20Coding/README.md)**
 - **[Machine Coding Questions](./Machine%20Coding/Questions.md)**
+- **[Machine Coding Evaluation Rubric](./Machine%20Coding/_evaluation-rubric.md)**
 - **[DSA Cheat Sheet & Patterns](./DSA/cheat-sheet.md)**
+- **[DSA Index](./DSA/README.md)**
 - **[Sorting & Searching Algorithms](./DSA/sorting-algorithms.md)**
+- **[Solutions Directory Guide](./solutions/README.md)**
 - **[Design Patterns](./Design%20Patterns/README.md)**
 - **[DevOps Interview Notes](./General%20Tech/DevOps/README.md)**
 - **[Kubernetes Interview Notes](./General%20Tech/Kubernetes/README.md)**

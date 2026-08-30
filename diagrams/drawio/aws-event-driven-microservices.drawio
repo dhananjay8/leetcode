@@ -1,0 +1,40 @@
+<mxfile host="app.diagrams.net" modified="2026-08-25T00:00:00.000Z" agent="GPT-5.3-Codex" version="24.7.17" type="device">
+  <diagram id="aws-event-driven-microservices" name="AWS-Event-Driven-Microservices">
+    <mxGraphModel dx="1700" dy="950" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1900" pageHeight="1250" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/><mxCell id="1" parent="0"/>
+        <mxCell id="user" value="Client" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1"><mxGeometry x="40" y="120" width="100" height="60" as="geometry"/></mxCell>
+        <mxCell id="edge" value="Route53 + CloudFront + WAF" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d79b00;" vertex="1" parent="1"><mxGeometry x="180" y="115" width="260" height="70" as="geometry"/></mxCell>
+        <mxCell id="api" value="API Gateway / ALB" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1"><mxGeometry x="470" y="115" width="210" height="70" as="geometry"/></mxCell>
+
+        <mxCell id="svc" value="Command Service\n(ECS/EKS/Lambda)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1"><mxGeometry x="730" y="110" width="230" height="80" as="geometry"/></mxCell>
+        <mxCell id="outbox" value="Outbox Table + CDC" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1"><mxGeometry x="1000" y="110" width="200" height="80" as="geometry"/></mxCell>
+
+        <mxCell id="bus" value="EventBridge Bus\nSchema Registry" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" vertex="1" parent="1"><mxGeometry x="1250" y="110" width="220" height="90" as="geometry"/></mxCell>
+
+        <mxCell id="orders" value="Orders Consumer\nSQS FIFO + DLQ" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1"><mxGeometry x="620" y="280" width="230" height="90" as="geometry"/></mxCell>
+        <mxCell id="billing" value="Billing Consumer\nSQS + Lambda" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1"><mxGeometry x="900" y="280" width="210" height="90" as="geometry"/></mxCell>
+        <mxCell id="notif" value="Notification Consumer\nSNS + SES/SMS" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1"><mxGeometry x="1160" y="280" width="230" height="90" as="geometry"/></mxCell>
+
+        <mxCell id="cqrs" value="Read Model Builders\nDynamoDB/OpenSearch" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1"><mxGeometry x="710" y="430" width="280" height="85" as="geometry"/></mxCell>
+        <mxCell id="query" value="Query API (CQRS read path)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1"><mxGeometry x="1040" y="430" width="260" height="85" as="geometry"/></mxCell>
+
+        <mxCell id="sec" value="Cross-cutting controls\nIdempotency keys, retries, DLQ replay, trace correlation IDs" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1"><mxGeometry x="380" y="560" width="650" height="90" as="geometry"/></mxCell>
+        <mxCell id="ci" value="GitHub Actions\nContract tests + event schema checks" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1"><mxGeometry x="40" y="300" width="260" height="95" as="geometry"/></mxCell>
+
+        <mxCell id="e1" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="user" target="edge"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e2" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="edge" target="api"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e3" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="api" target="svc"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e4" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="svc" target="outbox"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e5" style="edgeStyle=orthogonalEdgeStyle;dashed=1;html=1;endArrow=block;" edge="1" parent="1" source="outbox" target="bus"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e6" style="edgeStyle=orthogonalEdgeStyle;dashed=1;html=1;endArrow=block;" edge="1" parent="1" source="bus" target="orders"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e7" style="edgeStyle=orthogonalEdgeStyle;dashed=1;html=1;endArrow=block;" edge="1" parent="1" source="bus" target="billing"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e8" style="edgeStyle=orthogonalEdgeStyle;dashed=1;html=1;endArrow=block;" edge="1" parent="1" source="bus" target="notif"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e9" style="edgeStyle=orthogonalEdgeStyle;dashed=1;html=1;endArrow=block;" edge="1" parent="1" source="orders" target="cqrs"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e10" style="edgeStyle=orthogonalEdgeStyle;dashed=1;html=1;endArrow=block;" edge="1" parent="1" source="billing" target="cqrs"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e11" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="query" target="api"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="interviewEvent" value="Interview Focus: exactly-once illusions, idempotency keys, event contracts, replay strategy, and DLQ SLOs" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" vertex="1" parent="1"><mxGeometry x="380" y="30" width="830" height="60" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

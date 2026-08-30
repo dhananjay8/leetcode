@@ -1,0 +1,48 @@
+<mxfile host="app.diagrams.net" modified="2026-08-25T00:00:00.000Z" agent="GPT-5.3-Codex" version="24.7.17" type="device">
+  <diagram id="aws-serverless-lambda" name="AWS-Serverless-Lambda">
+    <mxGraphModel dx="1600" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1800" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <mxCell id="user" value="End Users" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1"><mxGeometry x="50" y="80" width="130" height="60" as="geometry"/></mxCell>
+        <mxCell id="r53" value="Route 53" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1"><mxGeometry x="60" y="170" width="120" height="60" as="geometry"/></mxCell>
+        <mxCell id="cf" value="CloudFront + WAF + Shield" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="40" y="260" width="200" height="70" as="geometry"/></mxCell>
+
+        <mxCell id="s3" value="S3 Static Hosting\nReact/Vite Artifacts" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1"><mxGeometry x="320" y="220" width="210" height="80" as="geometry"/></mxCell>
+        <mxCell id="apigw" value="API Gateway\nThrottling + Authorizers + WAF" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1"><mxGeometry x="320" y="340" width="230" height="90" as="geometry"/></mxCell>
+        <mxCell id="lambda" value="Lambda (Express via adapter)\nProvisioned Concurrency\nVPC-enabled for private DB access" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1"><mxGeometry x="620" y="330" width="300" height="110" as="geometry"/></mxCell>
+
+        <mxCell id="ddb" value="DynamoDB\nPITR + Global Tables" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1"><mxGeometry x="980" y="230" width="220" height="85" as="geometry"/></mxCell>
+        <mxCell id="aurora" value="Aurora Serverless v2\nvia RDS Proxy" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1"><mxGeometry x="980" y="350" width="220" height="85" as="geometry"/></mxCell>
+        <mxCell id="elasticache" value="ElastiCache Redis" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1"><mxGeometry x="980" y="470" width="220" height="80" as="geometry"/></mxCell>
+
+        <mxCell id="async" value="Async Backbone\nSQS + SNS + EventBridge + Step Functions + DLQ" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" vertex="1" parent="1"><mxGeometry x="620" y="480" width="300" height="95" as="geometry"/></mxCell>
+
+        <mxCell id="vpc" value="VPC + Networking\nPrivate Subnets, NAT GW, Interface Endpoints, SGs, NACLs, Network Firewall" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1"><mxGeometry x="620" y="610" width="580" height="90" as="geometry"/></mxCell>
+
+        <mxCell id="repo" value="Single GitHub Repo" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1"><mxGeometry x="50" y="430" width="160" height="60" as="geometry"/></mxCell>
+        <mxCell id="cicd" value="GitHub Actions\nBuild FE->S3\nDeploy BE->Lambda (SAM/CDK/Terraform)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1"><mxGeometry x="30" y="520" width="230" height="95" as="geometry"/></mxCell>
+        <mxCell id="sec" value="Security + Governance\nIAM least privilege, KMS CMK, Secrets Manager, CloudTrail, Config, Security Hub" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1"><mxGeometry x="1260" y="230" width="300" height="120" as="geometry"/></mxCell>
+        <mxCell id="obs" value="Observability\nCloudWatch Logs/Metrics, X-Ray, Alarms" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1"><mxGeometry x="1260" y="390" width="280" height="90" as="geometry"/></mxCell>
+
+        <mxCell id="e1" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="user" target="r53"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e2" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="r53" target="cf"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e3" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="cf" target="s3"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e4" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="cf" target="apigw"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e5" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="apigw" target="lambda"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e6" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="lambda" target="ddb"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e7" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="lambda" target="aurora"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e8" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="lambda" target="elasticache"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e9" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="lambda" target="async"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e10" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="repo" target="cicd"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e11" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="cicd" target="s3"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e12" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="cicd" target="lambda"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="interview3" value="Staff Interview Focus: cold-start mitigation, idempotency, DLQ strategy, and API throttling/error budgets" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" vertex="1" parent="1"><mxGeometry x="320" y="30" width="860" height="60" as="geometry"/></mxCell>
+        <mxCell id="e13" style="edgeStyle=orthogonalEdgeStyle;dashed=1;html=1;endArrow=block;" edge="1" parent="1" source="lambda" target="obs"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e14" style="edgeStyle=orthogonalEdgeStyle;dashed=1;html=1;endArrow=block;" edge="1" parent="1" source="async" target="obs"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e15" style="edgeStyle=orthogonalEdgeStyle;dashed=1;html=1;endArrow=block;" edge="1" parent="1" source="lambda" target="sec"><mxGeometry relative="1" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

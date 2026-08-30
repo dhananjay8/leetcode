@@ -1,0 +1,103 @@
+<mxfile host="65bd71144e">
+    <diagram id="aws-ec2-ha" name="AWS-EC2-HA">
+        <mxGraphModel dx="1332" dy="1062" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1800" pageHeight="1200" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="vpc" value="AWS VPC (10.0.0.0/16)" style="rounded=1;whiteSpace=wrap;html=1;strokeWidth=2;strokeColor=#6c8ebf;fillColor=#dae8fc;" parent="1" vertex="1">
+                    <mxGeometry x="260" y="120" width="1280" height="860" as="geometry"/>
+                </mxCell>
+                <mxCell id="publicA" value="Public Subnet AZ-A (10.0.1.0/24)\nALB + NAT GW + Bastion/SSM" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#d79b00;fillColor=#fff2cc;" parent="1" vertex="1">
+                    <mxGeometry x="300" y="190" width="580" height="300" as="geometry"/>
+                </mxCell>
+                <mxCell id="publicB" value="Public Subnet AZ-B (10.0.2.0/24)\nALB + NAT GW" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#d79b00;fillColor=#fff2cc;" parent="1" vertex="1">
+                    <mxGeometry x="910" y="190" width="580" height="300" as="geometry"/>
+                </mxCell>
+                <mxCell id="privateAppA" value="Private App Subnet AZ-A (10.0.11.0/24)\nEC2 ASG: FE + BE" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#82b366;fillColor=#d5e8d4;" parent="1" vertex="1">
+                    <mxGeometry x="300" y="520" width="580" height="190" as="geometry"/>
+                </mxCell>
+                <mxCell id="privateAppB" value="Private App Subnet AZ-B (10.0.12.0/24)\nEC2 ASG: FE + BE" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#82b366;fillColor=#d5e8d4;" parent="1" vertex="1">
+                    <mxGeometry x="910" y="520" width="580" height="190" as="geometry"/>
+                </mxCell>
+                <mxCell id="privateData" value="Private Data Subnets\nRDS Multi-AZ + ElastiCache Redis" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#9673a6;fillColor=#e1d5e7;" parent="1" vertex="1">
+                    <mxGeometry x="300" y="740" width="1190" height="170" as="geometry"/>
+                </mxCell>
+                <mxCell id="user" value="End Users" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="60" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="route53" value="Route 53\nLatency/Failover Routing" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="150" width="160" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="cloudfront" value="CloudFront + AWS WAF + Shield" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="260" width="220" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="alb" value="ALB (Cross-Zone)\nTLS 1.2+, ACM, OIDC" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="1" vertex="1">
+                    <mxGeometry x="640" y="280" width="280" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="asg" value="Auto Scaling Group\nBlue/Green with CodeDeploy" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+                    <mxGeometry x="650" y="560" width="260" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="rds" value="Amazon Aurora/RDS\nMulti-AZ + Read Replicas" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="1" vertex="1">
+                    <mxGeometry x="520" y="780" width="250" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="redis" value="ElastiCache Redis\nSession + Cache" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="1" vertex="1">
+                    <mxGeometry x="830" y="780" width="220" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="vpce" value="VPC Endpoints\nS3 Gateway, ECR, SSM, Secrets Manager, CloudWatch" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" parent="1" vertex="1">
+                    <mxGeometry x="1140" y="40" width="360" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="netsec" value="Networking/Security\nIGW, NAT GW per AZ, NACLs, SGs, Route Tables, AWS Network Firewall, VPC Flow Logs, GuardDuty" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" parent="1" vertex="1">
+                    <mxGeometry x="1140" y="910" width="360" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="github" value="Single GitHub Repo\nfrontend/ + backend/" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+                    <mxGeometry x="20" y="460" width="200" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="actions" value="GitHub Actions\nBuild/Test/SAST/SCA/IaC Scan" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+                    <mxGeometry x="20" y="560" width="220" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="obs" value="Observability\nCloudWatch/X-Ray/OpenSearch SIEM" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+                    <mxGeometry x="20" y="680" width="220" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="e1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;" parent="1" source="user" target="route53" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e2" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" parent="1" source="route53" target="cloudfront" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e3" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" parent="1" source="cloudfront" target="alb" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e4" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" parent="1" source="alb" target="asg" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e5" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" parent="1" source="asg" target="rds" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e6" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" parent="1" source="asg" target="redis" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e7" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" parent="1" source="github" target="actions" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e8" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" parent="1" source="actions" target="asg" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e9" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" parent="1" source="asg" target="obs" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="interview1" value="Staff Interview Focus: ASG warm pools, blue/green rollback, patch cadence, and RTO/RPO commitments" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" parent="1" vertex="1">
+                    <mxGeometry x="320" y="40" width="800" height="60" as="geometry"/>
+                </mxCell>
+                    <mxCell id="e10" style="edgeStyle=orthogonalEdgeStyle;dashed=1;html=1;endArrow=block;" parent="1" source="asg" target="vpce" edge="1">
+                        <mxGeometry relative="1" as="geometry"/>
+                    </mxCell>
+                    <mxCell id="e11" style="edgeStyle=orthogonalEdgeStyle;dashed=1;html=1;endArrow=block;" parent="1" source="actions" target="obs" edge="1">
+                        <mxGeometry relative="1" as="geometry"/>
+                    </mxCell>
+                    <mxCell id="e12" style="edgeStyle=orthogonalEdgeStyle;dashed=1;html=1;endArrow=block;" parent="1" source="netsec" target="asg" edge="1">
+                        <mxGeometry relative="1" as="geometry"/>
+                    </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

@@ -1,4 +1,8 @@
-# DevOps Learning Plan (52 Weeks)
+∟ 📂 Phase 1 (Weeks 1–4) Foundations
+∟ 📂 Linux basics (files, users, services) - Done
+∟ 📂 Git & GitHub (clone, branch, PR) - Done
+∟ 📂 Networking basics (IP, DNS, HTTP) - Done
+∟ 📂 Go or Python Scripting - Skipped
 
 Interview-focused progression from fundamentals to production-style projects.
 

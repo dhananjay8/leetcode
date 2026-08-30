@@ -1,0 +1,50 @@
+<mxfile host="app.diagrams.net" modified="2026-08-25T00:00:00.000Z" agent="GPT-5.3-Codex" version="24.7.17" type="device">
+  <diagram id="aws-hybrid-connectivity-dx-vpn" name="AWS-Hybrid-Connectivity-DX-VPN">
+    <mxGraphModel dx="1700" dy="940" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2100" pageHeight="1300" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <mxCell id="aws" value="AWS Region" style="rounded=1;whiteSpace=wrap;html=1;strokeWidth=2;strokeColor=#6c8ebf;fillColor=#dae8fc;" vertex="1" parent="1"><mxGeometry x="920" y="130" width="1120" height="1010" as="geometry"/></mxCell>
+        <mxCell id="onprem" value="On-Prem Data Centers" style="rounded=1;whiteSpace=wrap;html=1;strokeWidth=2;strokeColor=#9673a6;fillColor=#e1d5e7;" vertex="1" parent="1"><mxGeometry x="60" y="180" width="790" height="920" as="geometry"/></mxCell>
+
+        <mxCell id="corpA" value="DC-A\nCore Router + Firewall" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#9673a6;fillColor=#e1d5e7;" vertex="1" parent="1"><mxGeometry x="110" y="250" width="230" height="90" as="geometry"/></mxCell>
+        <mxCell id="corpB" value="DC-B\nCore Router + Firewall" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#9673a6;fillColor=#e1d5e7;" vertex="1" parent="1"><mxGeometry x="360" y="250" width="230" height="90" as="geometry"/></mxCell>
+        <mxCell id="seg" value="On-Prem Segmentation\nProd VLAN / Corp VLAN / PCI VLAN\nEast-West ACL + IDS" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#9673a6;fillColor=#e1d5e7;" vertex="1" parent="1"><mxGeometry x="120" y="390" width="470" height="120" as="geometry"/></mxCell>
+
+        <mxCell id="dxloc" value="Direct Connect Location" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#d79b00;fillColor=#fff2cc;" vertex="1" parent="1"><mxGeometry x="640" y="260" width="180" height="70" as="geometry"/></mxCell>
+        <mxCell id="dxgw" value="Direct Connect Gateway" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#d79b00;fillColor=#fff2cc;" vertex="1" parent="1"><mxGeometry x="960" y="260" width="220" height="70" as="geometry"/></mxCell>
+        <mxCell id="vgw" value="Transit Gateway\n(Primary Hybrid Hub)" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#d79b00;fillColor=#fff2cc;" vertex="1" parent="1"><mxGeometry x="1230" y="250" width="250" height="90" as="geometry"/></mxCell>
+
+        <mxCell id="vpn" value="IPSec VPN (Backup)\nBGP failover path" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#d79b00;fillColor=#fff2cc;" vertex="1" parent="1"><mxGeometry x="960" y="370" width="220" height="85" as="geometry"/></mxCell>
+        <mxCell id="cgw" value="Customer Gateway" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#d79b00;fillColor=#fff2cc;" vertex="1" parent="1"><mxGeometry x="690" y="380" width="160" height="70" as="geometry"/></mxCell>
+
+        <mxCell id="shared" value="Shared Services VPC\nDNS Resolver + AD + Central Proxy" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#82b366;fillColor=#d5e8d4;" vertex="1" parent="1"><mxGeometry x="1240" y="430" width="290" height="100" as="geometry"/></mxCell>
+        <mxCell id="appvpc" value="App VPC\nEKS/ECS + RDS" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#82b366;fillColor=#d5e8d4;" vertex="1" parent="1"><mxGeometry x="1550" y="430" width="260" height="100" as="geometry"/></mxCell>
+        <mxCell id="datavpc" value="Data VPC\nAnalytics + Data Lake" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#82b366;fillColor=#d5e8d4;" vertex="1" parent="1"><mxGeometry x="1830" y="430" width="180" height="100" as="geometry"/></mxCell>
+
+        <mxCell id="fw" value="AWS Network Firewall\nCentral Egress Inspection" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#b85450;fillColor=#f8cecc;" vertex="1" parent="1"><mxGeometry x="1240" y="560" width="300" height="90" as="geometry"/></mxCell>
+        <mxCell id="sgnacl" value="SG + NACL + Route Domains\nPer-segment policy boundaries" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#b85450;fillColor=#f8cecc;" vertex="1" parent="1"><mxGeometry x="1560" y="560" width="320" height="90" as="geometry"/></mxCell>
+
+        <mxCell id="monitor" value="Connectivity Operations\nCloudWatch, VPC Flow Logs, TGW flow logs, alarms, synthetic probes" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#6c8ebf;fillColor=#dae8fc;" vertex="1" parent="1"><mxGeometry x="1240" y="690" width="640" height="90" as="geometry"/></mxCell>
+        <mxCell id="interview" value="Interview Focus: BGP route preference, DX vs VPN failover timing, segmentation enforcement, and asymmetric routing prevention" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#666666;fillColor=#f5f5f5;" vertex="1" parent="1"><mxGeometry x="470" y="40" width="1320" height="50" as="geometry"/></mxCell>
+
+        <mxCell id="e1" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="corpA" target="dxloc"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e2" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="corpB" target="dxloc"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e3" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="dxloc" target="dxgw"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e4" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="dxgw" target="vgw"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e5" style="edgeStyle=orthogonalEdgeStyle;dashed=1;html=1;endArrow=block;" edge="1" parent="1" source="corpA" target="cgw"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e6" style="edgeStyle=orthogonalEdgeStyle;dashed=1;html=1;endArrow=block;" edge="1" parent="1" source="corpB" target="cgw"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e7" style="edgeStyle=orthogonalEdgeStyle;dashed=1;html=1;endArrow=block;" edge="1" parent="1" source="cgw" target="vpn"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e8" style="edgeStyle=orthogonalEdgeStyle;dashed=1;html=1;endArrow=block;" edge="1" parent="1" source="vpn" target="vgw"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e9" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="vgw" target="shared"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e10" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="vgw" target="appvpc"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e11" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="vgw" target="datavpc"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e12" style="edgeStyle=orthogonalEdgeStyle;dashed=1;html=1;endArrow=block;" edge="1" parent="1" source="appvpc" target="fw"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e13" style="edgeStyle=orthogonalEdgeStyle;dashed=1;html=1;endArrow=block;" edge="1" parent="1" source="shared" target="monitor"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e14" style="edgeStyle=orthogonalEdgeStyle;dashed=1;html=1;endArrow=block;" edge="1" parent="1" source="appvpc" target="monitor"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e15" style="edgeStyle=orthogonalEdgeStyle;dashed=1;html=1;endArrow=block;" edge="1" parent="1" source="datavpc" target="monitor"><mxGeometry relative="1" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

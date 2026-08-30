@@ -1,0 +1,36 @@
+<mxfile host="app.diagrams.net" modified="2026-08-25T00:00:00.000Z" agent="GPT-5.3-Codex" version="24.7.17" type="device">
+  <diagram id="aws-zero-trust-private-eks" name="AWS-Zero-Trust-Private-EKS">
+    <mxGraphModel dx="1700" dy="950" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1900" pageHeight="1250" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/><mxCell id="1" parent="0"/>
+        <mxCell id="vpc" value="VPC 10.40.0.0/16 (No Public Worker Nodes)" style="rounded=1;whiteSpace=wrap;html=1;strokeWidth=2;strokeColor=#6c8ebf;fillColor=#dae8fc;" vertex="1" parent="1"><mxGeometry x="270" y="130" width="1310" height="900" as="geometry"/></mxCell>
+        <mxCell id="ing" value="Ingress VPC Edge\nNLB + AWS WAF + Shield + TLS mTLS" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d79b00;" vertex="1" parent="1"><mxGeometry x="320" y="200" width="1210" height="150" as="geometry"/></mxCell>
+        <mxCell id="priv" value="Private EKS Cluster\nPrivate API endpoint\nCalico/Cilium Network Policies\nIRSA + SPIFFE/SPIRE (optional)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1"><mxGeometry x="320" y="390" width="1210" height="330" as="geometry"/></mxCell>
+        <mxCell id="data" value="Private Data Tier\nAurora + Redis + MSK" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1"><mxGeometry x="320" y="760" width="1210" height="210" as="geometry"/></mxCell>
+
+        <mxCell id="user" value="Users" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1"><mxGeometry x="40" y="100" width="120" height="60" as="geometry"/></mxCell>
+        <mxCell id="ga" value="Global Accelerator/Route53" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1"><mxGeometry x="30" y="190" width="220" height="70" as="geometry"/></mxCell>
+        <mxCell id="edge" value="CloudFront + WAF" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="30" y="280" width="190" height="70" as="geometry"/></mxCell>
+
+        <mxCell id="apps" value="FE Pods + BE Pods\nOPA/Gatekeeper policies\nPod Security Standards\nmTLS east-west traffic" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1"><mxGeometry x="700" y="500" width="330" height="130" as="geometry"/></mxCell>
+
+        <mxCell id="sec" value="Security Controls\nIAM Identity Center, SCP, KMS, Secrets Manager, EKS Pod Identity, Security Hub, GuardDuty, Inspector" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1"><mxGeometry x="30" y="420" width="250" height="145" as="geometry"/></mxCell>
+        <mxCell id="net" value="Network Controls\nPrivateLink, Interface VPC Endpoints, TGW, NACL/SG, Network Firewall, DNS Firewall" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" vertex="1" parent="1"><mxGeometry x="30" y="590" width="260" height="120" as="geometry"/></mxCell>
+        <mxCell id="ops" value="Ops Controls\nCloudWatch, Prometheus, X-Ray, Audit logs immutability" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1"><mxGeometry x="30" y="730" width="250" height="90" as="geometry"/></mxCell>
+
+        <mxCell id="repo" value="GitHub Monorepo" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1"><mxGeometry x="40" y="860" width="170" height="60" as="geometry"/></mxCell>
+        <mxCell id="ci" value="GitHub Actions\nPolicy checks + image signing + admission controls" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1"><mxGeometry x="30" y="930" width="260" height="90" as="geometry"/></mxCell>
+
+        <mxCell id="e1" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="user" target="ga"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e2" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="ga" target="edge"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e3" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="edge" target="apps"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e4" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="apps" target="data"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e5" style="edgeStyle=orthogonalEdgeStyle;dashed=1;html=1;endArrow=block;" edge="1" parent="1" source="apps" target="ops"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e6" style="edgeStyle=orthogonalEdgeStyle;dashed=1;html=1;endArrow=block;" edge="1" parent="1" source="apps" target="sec"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e7" style="edgeStyle=orthogonalEdgeStyle;dashed=1;html=1;endArrow=block;" edge="1" parent="1" source="ci" target="apps"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e8" style="edgeStyle=orthogonalEdgeStyle;dashed=1;html=1;endArrow=block;" edge="1" parent="1" source="ci" target="sec"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="interviewZero" value="Interview Focus: identity-first access, policy as code, private control-plane access, and egress filtering strategy" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" vertex="1" parent="1"><mxGeometry x="320" y="40" width="930" height="60" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

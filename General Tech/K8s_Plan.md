@@ -1,4 +1,7 @@
-# Kubernetes Learning Plan (52 Weeks)
+∟ 📂 Phase 1 (Weeks 1–4) Foundations
+ ∟ 📂 Linux basics for Kubernetes processes, and networking - Done
+ ∟ 📂 Git and GitHub for storing manifests and workflows - Done
+ ∟ 📂 Networking basics IP, DNS, HTTP, and load balancers - Done
 
 Interview-focused roadmap from fundamentals to production-grade clusters.
 

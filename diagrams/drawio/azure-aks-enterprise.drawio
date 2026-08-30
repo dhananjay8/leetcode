@@ -1,0 +1,43 @@
+<mxfile host="app.diagrams.net" modified="2026-08-25T00:00:00.000Z" agent="GPT-5.3-Codex" version="24.7.17" type="device">
+  <diagram id="azure-aks-enterprise" name="Azure-AKS-Enterprise">
+    <mxGraphModel dx="1600" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1800" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <mxCell id="azure" value="Azure Subscription" style="rounded=1;whiteSpace=wrap;html=1;strokeWidth=2;strokeColor=#6c8ebf;fillColor=#dae8fc;" vertex="1" parent="1"><mxGeometry x="290" y="140" width="1220" height="820" as="geometry"/></mxCell>
+        <mxCell id="vnet" value="Virtual Network (10.50.0.0/16)" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#6c8ebf;fillColor=#dae8fc;" vertex="1" parent="1"><mxGeometry x="330" y="190" width="1140" height="700" as="geometry"/></mxCell>
+
+        <mxCell id="front" value="Azure Front Door + WAF" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="70" y="240" width="210" height="80" as="geometry"/></mxCell>
+        <mxCell id="appgw" value="Application Gateway (WAF_v2)\nIngress Controller (AGIC)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1"><mxGeometry x="450" y="280" width="290" height="90" as="geometry"/></mxCell>
+
+        <mxCell id="aks" value="AKS (Multi-AZ Node Pools)\nReact Web Pods + Express API Pods\nHPA + Cluster Autoscaler" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1"><mxGeometry x="450" y="420" width="420" height="140" as="geometry"/></mxCell>
+
+        <mxCell id="db" value="Azure Database for PostgreSQL (HA)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1"><mxGeometry x="940" y="430" width="270" height="85" as="geometry"/></mxCell>
+        <mxCell id="cache" value="Azure Cache for Redis" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1"><mxGeometry x="940" y="540" width="230" height="80" as="geometry"/></mxCell>
+
+        <mxCell id="repo" value="Single GitHub Repo" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1"><mxGeometry x="60" y="430" width="180" height="60" as="geometry"/></mxCell>
+        <mxCell id="actions" value="GitHub Actions\nOIDC to Azure\nBuild/Test/Scan/Deploy" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1"><mxGeometry x="50" y="520" width="220" height="90" as="geometry"/></mxCell>
+        <mxCell id="acr" value="Azure Container Registry" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1"><mxGeometry x="450" y="590" width="220" height="70" as="geometry"/></mxCell>
+
+        <mxCell id="sec" value="Security\nKey Vault, Defender for Cloud, Sentinel, Policy, Private Endpoints" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1"><mxGeometry x="1230" y="420" width="230" height="120" as="geometry"/></mxCell>
+        <mxCell id="obs" value="Observability\nAzure Monitor, Log Analytics, App Insights" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1"><mxGeometry x="1230" y="560" width="230" height="90" as="geometry"/></mxCell>
+
+        <mxCell id="awsedge" value="Optional AWS Edge Integration\nRoute 53 + CloudFront + Global Accelerator to Front Door" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" vertex="1" parent="1"><mxGeometry x="60" y="660" width="360" height="90" as="geometry"/></mxCell>
+          <mxCell id="enduser" value="End Users" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1"><mxGeometry x="60" y="130" width="130" height="60" as="geometry"/></mxCell>
+
+        <mxCell id="e1" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="front" target="appgw"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e2" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="appgw" target="aks"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e3" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="aks" target="db"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e4" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="aks" target="cache"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e5" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="repo" target="actions"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e6" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="actions" target="acr"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e7" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="acr" target="aks"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="interview4" value="Staff Interview Focus: ingress policy, pod identity, private endpoints, and cross-cloud edge strategy" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" vertex="1" parent="1"><mxGeometry x="350" y="80" width="860" height="60" as="geometry"/></mxCell>
+        <mxCell id="e8" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="enduser" target="front"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e9" style="edgeStyle=orthogonalEdgeStyle;dashed=1;html=1;endArrow=block;" edge="1" parent="1" source="aks" target="obs"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e10" style="edgeStyle=orthogonalEdgeStyle;dashed=1;html=1;endArrow=block;" edge="1" parent="1" source="aks" target="sec"><mxGeometry relative="1" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

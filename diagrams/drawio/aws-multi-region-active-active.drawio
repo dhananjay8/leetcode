@@ -1,0 +1,53 @@
+<mxfile host="app.diagrams.net" modified="2026-08-25T00:00:00.000Z" agent="GPT-5.3-Codex" version="24.7.17" type="device">
+  <diagram id="aws-multi-region-active-active" name="AWS-Multi-Region-Active-Active">
+    <mxGraphModel dx="1800" dy="980" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2100" pageHeight="1300" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/><mxCell id="1" parent="0"/>
+        <mxCell id="user" value="Global Users" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1"><mxGeometry x="30" y="90" width="130" height="70" as="geometry"/></mxCell>
+        <mxCell id="ga" value="AWS Global Accelerator" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1"><mxGeometry x="200" y="95" width="210" height="70" as="geometry"/></mxCell>
+        <mxCell id="r53" value="Route 53\nLatency + Health Failover" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1"><mxGeometry x="440" y="95" width="220" height="70" as="geometry"/></mxCell>
+
+        <mxCell id="reg1" value="Region 1 (us-east-1)" style="rounded=1;whiteSpace=wrap;html=1;strokeWidth=2;strokeColor=#6c8ebf;fillColor=#dae8fc;" vertex="1" parent="1"><mxGeometry x="260" y="220" width="840" height="920" as="geometry"/></mxCell>
+        <mxCell id="reg2" value="Region 2 (us-west-2)" style="rounded=1;whiteSpace=wrap;html=1;strokeWidth=2;strokeColor=#6c8ebf;fillColor=#dae8fc;" vertex="1" parent="1"><mxGeometry x="1130" y="220" width="840" height="920" as="geometry"/></mxCell>
+
+        <mxCell id="edge1" value="CloudFront + WAF" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="330" y="280" width="220" height="75" as="geometry"/></mxCell>
+        <mxCell id="edge2" value="CloudFront + WAF" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="1200" y="280" width="220" height="75" as="geometry"/></mxCell>
+        <mxCell id="alb1" value="ALB" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1"><mxGeometry x="590" y="290" width="140" height="65" as="geometry"/></mxCell>
+        <mxCell id="alb2" value="ALB" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1"><mxGeometry x="1460" y="290" width="140" height="65" as="geometry"/></mxCell>
+
+        <mxCell id="app1" value="EKS/ECS App Stack\nReact + Express" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1"><mxGeometry x="500" y="430" width="320" height="105" as="geometry"/></mxCell>
+        <mxCell id="app2" value="EKS/ECS App Stack\nReact + Express" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1"><mxGeometry x="1370" y="430" width="320" height="105" as="geometry"/></mxCell>
+
+        <mxCell id="db1" value="Aurora Global Database\nPrimary Writer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1"><mxGeometry x="480" y="600" width="240" height="90" as="geometry"/></mxCell>
+        <mxCell id="db2" value="Aurora Global Database\nSecondary Writer/Reader" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1"><mxGeometry x="1350" y="600" width="260" height="90" as="geometry"/></mxCell>
+        <mxCell id="ddb" value="DynamoDB Global Tables\nSession/Profile data" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1"><mxGeometry x="900" y="610" width="250" height="85" as="geometry"/></mxCell>
+
+        <mxCell id="s3" value="S3 CRR\nStatic asset replication" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1"><mxGeometry x="880" y="760" width="270" height="85" as="geometry"/></mxCell>
+        <mxCell id="ev" value="EventBridge Global Endpoints\nSQS + DLQ regional" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" vertex="1" parent="1"><mxGeometry x="860" y="890" width="300" height="90" as="geometry"/></mxCell>
+
+        <mxCell id="ci" value="GitHub Actions\nMulti-region deploy + safe rollout" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1"><mxGeometry x="30" y="360" width="220" height="100" as="geometry"/></mxCell>
+        <mxCell id="govern" value="Multi-account governance\nControl Tower, SCPs, IAM Identity Center" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1"><mxGeometry x="30" y="500" width="230" height="95" as="geometry"/></mxCell>
+        <mxCell id="obs" value="Centralized Observability\nCloudWatch cross-region, OpenSearch, SIEM" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1"><mxGeometry x="30" y="620" width="240" height="95" as="geometry"/></mxCell>
+
+        <mxCell id="e1" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="user" target="ga"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e2" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="ga" target="r53"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e3" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="r53" target="edge1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e4" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="r53" target="edge2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e5" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="edge1" target="alb1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e6" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="edge2" target="alb2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e7" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="alb1" target="app1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e8" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="alb2" target="app2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e9" style="edgeStyle=orthogonalEdgeStyle;dashed=1;html=1;endArrow=block;" edge="1" parent="1" source="db1" target="db2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e10" style="edgeStyle=orthogonalEdgeStyle;dashed=1;html=1;endArrow=block;" edge="1" parent="1" source="app1" target="ddb"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e11" style="edgeStyle=orthogonalEdgeStyle;dashed=1;html=1;endArrow=block;" edge="1" parent="1" source="app2" target="ddb"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e12" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="app1" target="db1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e13" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="app2" target="db2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e14" style="edgeStyle=orthogonalEdgeStyle;dashed=1;html=1;endArrow=block;" edge="1" parent="1" source="ci" target="app1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e15" style="edgeStyle=orthogonalEdgeStyle;dashed=1;html=1;endArrow=block;" edge="1" parent="1" source="ci" target="app2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e16" style="edgeStyle=orthogonalEdgeStyle;dashed=1;html=1;endArrow=block;" edge="1" parent="1" source="app1" target="obs"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e17" style="edgeStyle=orthogonalEdgeStyle;dashed=1;html=1;endArrow=block;" edge="1" parent="1" source="app2" target="obs"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="interviewMr" value="Interview Focus: RTO/RPO during region loss, write failover mechanics, traffic draining, and consistency model per data type" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" vertex="1" parent="1"><mxGeometry x="700" y="20" width="980" height="60" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

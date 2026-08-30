@@ -12,11 +12,11 @@ A comprehensive repository for interview prep: **DSA**, **System Design**, **SQL
 - **[DevOps Notes/](./General%20Tech/DevOps/)** — Linux, Docker, CI/CD, Terraform, AWS, Monitoring, Security
 - **[Kubernetes Notes/](./General%20Tech/Kubernetes/)** — Core concepts, Networking, Storage, Scaling, Helm, GitOps
 - **[General Tech/](./General%20Tech/README.md)** — Unified index for DevOps and Kubernetes tracks
-- **[ROADMAP.md](./ROADMAP.md)** — Practical 12-week study plan for DSA + system design + machine coding
-- **[CONTRIBUTING.md](./CONTRIBUTING.md)** — Content and formatting guidelines for future updates
-- **[TRACKER.md](./TRACKER.md)** — Weekly and daily execution tracker
-- **[MISTAKE_LOG.md](./MISTAKE_LOG.md)** — Error patterns and spaced-repetition revisit log
-- **[MOCK_SCORECARD.md](./MOCK_SCORECARD.md)** — Scoring rubric for DSA, machine coding, and design mocks
+- **[ROADMAP.md](./misc/ROADMAP.md)** — Practical 12-week study plan for DSA + system design + machine coding
+- **[CONTRIBUTING.md](./misc/CONTRIBUTING.md)** — Content and formatting guidelines for future updates
+- **[TRACKER.md](./misc/TRACKER.md)** — Weekly and daily execution tracker
+- **[MISTAKE_LOG.md](./misc/MISTAKE_LOG.md)** — Error patterns and spaced-repetition revisit log
+- **[MOCK_SCORECARD.md](./misc/MOCK_SCORECARD.md)** — Scoring rubric for DSA, machine coding, and design mocks
 
 ## 🚀 How to use this repo
 

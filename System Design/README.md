@@ -5,6 +5,7 @@ Structured system design preparation for product-company interviews.
 ## Core Guides
 - [Topics and Study Tracks](./Topics.md)
 - [Case Study References](./Case_Studies.md)
+- [FortiRecon Director Case](./FortiRecon/README.md)
 
 ## Design Problem Index
 
@@ -35,6 +36,7 @@ Structured system design preparation for product-company interviews.
 | 23 | [Web Crawler](./23-web-crawler.md) | Medium |
 | 24 | [CDN](./24-cdn.md) | Medium |
 | 25 | [Stock Exchange](./25-stock-exchange.md) | Hard |
+| 26 | [FortiRecon EASM + DRP (Director)](./FortiRecon/README.md) | Hard |
 
 ## Interview Execution
 - Use `System Design/_interview-template.md` for timed practice.

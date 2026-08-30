@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net" modified="2026-08-25T00:00:00.000Z" agent="GPT-5.3-Codex" version="24.7.17" type="device">
   <diagram id="aws-event-driven-microservices" name="AWS-Event-Driven-Microservices">
-    <mxGraphModel dx="1700" dy="950" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1900" pageHeight="1250" math="0" shadow="0">
+    <mxGraphModel dx="1600" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1900" pageHeight="950" math="0" shadow="0">
       <root>
         <mxCell id="0"/><mxCell id="1" parent="0"/>
         <mxCell id="user" value="Client" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1"><mxGeometry x="40" y="120" width="100" height="60" as="geometry"/></mxCell>
@@ -34,6 +34,9 @@
         <mxCell id="e10" style="edgeStyle=orthogonalEdgeStyle;dashed=1;html=1;endArrow=block;" edge="1" parent="1" source="billing" target="cqrs"><mxGeometry relative="1" as="geometry"/></mxCell>
         <mxCell id="e11" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="query" target="api"><mxGeometry relative="1" as="geometry"/></mxCell>
         <mxCell id="interviewEvent" value="Interview Focus: exactly-once illusions, idempotency keys, event contracts, replay strategy, and DLQ SLOs" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" vertex="1" parent="1"><mxGeometry x="380" y="30" width="830" height="60" as="geometry"/></mxCell>
+        <mxCell id="legendStd" value="Legend&#xa;Orange = Edge / Ingress&#xa;Green = Compute / Workloads&#xa;Purple = Data Stores&#xa;Blue = Control Plane / CI-CD&#xa;Red = Security / Observability" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#666666;fillColor=#f5f5f5;" vertex="1" parent="1"><mxGeometry x="30" y="680" width="610" height="130" as="geometry"/></mxCell>
+        <mxCell id="trustStd" value="Trust Boundaries&#xa;Internet -> Edge -> Private Compute -> Data Tier" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#6c8ebf;fillColor=#dae8fc;" vertex="1" parent="1"><mxGeometry x="670" y="680" width="500" height="60" as="geometry"/></mxCell>
+        <mxCell id="nfrStd" value="NFR Strip&#xa;State SLO (latency/availability), RTO/RPO target, consistency model, and blast-radius boundary" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#9673a6;fillColor=#e1d5e7;" vertex="1" parent="1"><mxGeometry x="670" y="750" width="770" height="60" as="geometry"/></mxCell>
       </root>
     </mxGraphModel>
   </diagram>

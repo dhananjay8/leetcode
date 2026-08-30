@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="aws-ecs-fargate-ha" name="AWS-ECS-Fargate-HA">
-        <mxGraphModel dx="906" dy="531" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1900" pageHeight="1250" math="0" shadow="0">
+        <mxGraphModel dx="1600" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1900" pageHeight="1300" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -91,6 +91,9 @@
                 <mxCell id="interviewEcs" value="Interview Focus: task startup latency, deployment blast radius, service autoscaling signals, and cost per request" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" parent="1" vertex="1">
                     <mxGeometry x="320" y="40" width="910" height="60" as="geometry"/>
                 </mxCell>
+                <mxCell id="legendStd" value="Legend&#xa;Orange = Edge / Ingress&#xa;Green = Compute / Workloads&#xa;Purple = Data Stores&#xa;Blue = Control Plane / CI-CD&#xa;Red = Security / Observability" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" parent="1" vertex="1"><mxGeometry x="30" y="1050" width="610" height="130" as="geometry"/></mxCell>
+                <mxCell id="trustStd" value="Trust Boundaries&#xa;Internet -> Edge -> Private Compute -> Data Tier" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1"><mxGeometry x="670" y="1050" width="500" height="60" as="geometry"/></mxCell>
+                <mxCell id="nfrStd" value="NFR Strip&#xa;State SLO (latency/availability), RTO/RPO target, consistency model, and blast-radius boundary" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="1" vertex="1"><mxGeometry x="670" y="1120" width="900" height="60" as="geometry"/></mxCell>
             </root>
         </mxGraphModel>
     </diagram>

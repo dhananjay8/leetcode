@@ -12,6 +12,8 @@ sequenceDiagram
     participant DDB as DynamoDB
     participant AUR as Aurora Serverless
     participant SQS as SQS/EventBridge
+    participant CON as Async Consumer Lambda
+    participant DLQ as Dead-Letter Queue
     participant R53 as Route53
     participant CF as CloudFront/WAF
 
@@ -34,8 +36,29 @@ sequenceDiagram
         L->>AUR: Query via RDS Proxy
         AUR-->>L: Result
     end
-    L->>SQS: Publish async event
+    L->>SQS: Publish async event (idempotency key attached)
+
+    alt Async consumer throttled/failing
+        SQS->>CON: Deliver message
+        CON--xSQS: Processing error
+        SQS->>DLQ: Move after max receive attempts
+    else Consumer healthy
+        SQS->>CON: Deliver message
+        CON-->>SQS: Ack
+    end
+
     L-->>APIGW: API response
     APIGW-->>CF: Response
     CF-->>Dev: Final response
+
+    opt Burst traffic
+        APIGW->>L: Burst invokes at concurrency limit
+        L-->>APIGW: 429 or graceful fallback on throttle
+    end
 ```
+
+## Staff Interview Angles
+
+- Show where idempotency is introduced before async fan-out.
+- Discuss Lambda concurrency controls and downstream protection.
+- Explain DLQ replay operations and failure triage ownership.

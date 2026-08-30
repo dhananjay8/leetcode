@@ -30,6 +30,9 @@
         <mxCell id="e7" style="edgeStyle=orthogonalEdgeStyle;dashed=1;html=1;endArrow=block;" edge="1" parent="1" source="ci" target="apps"><mxGeometry relative="1" as="geometry"/></mxCell>
         <mxCell id="e8" style="edgeStyle=orthogonalEdgeStyle;dashed=1;html=1;endArrow=block;" edge="1" parent="1" source="ci" target="sec"><mxGeometry relative="1" as="geometry"/></mxCell>
         <mxCell id="interviewZero" value="Interview Focus: identity-first access, policy as code, private control-plane access, and egress filtering strategy" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" vertex="1" parent="1"><mxGeometry x="320" y="40" width="930" height="60" as="geometry"/></mxCell>
+        <mxCell id="legendStd" value="Legend&#xa;Orange = Edge / Ingress&#xa;Green = Compute / Workloads&#xa;Purple = Data Stores&#xa;Blue = Control Plane / CI-CD&#xa;Red = Security / Observability" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#666666;fillColor=#f5f5f5;" vertex="1" parent="1"><mxGeometry x="30" y="1060" width="610" height="130" as="geometry"/></mxCell>
+        <mxCell id="trustStd" value="Trust Boundaries&#xa;Internet -> Edge -> Private Zero-Trust Compute -> Data Tier" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#6c8ebf;fillColor=#dae8fc;" vertex="1" parent="1"><mxGeometry x="670" y="1060" width="650" height="60" as="geometry"/></mxCell>
+        <mxCell id="nfrStd" value="NFR Strip&#xa;State SLO (latency/availability), RTO/RPO target, consistency model, and blast-radius boundary" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#9673a6;fillColor=#e1d5e7;" vertex="1" parent="1"><mxGeometry x="670" y="1130" width="900" height="60" as="geometry"/></mxCell>
       </root>
     </mxGraphModel>
   </diagram>

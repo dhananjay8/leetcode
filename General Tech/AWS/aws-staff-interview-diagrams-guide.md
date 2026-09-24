@@ -5,29 +5,29 @@ Use the diagram set in this folder to discuss architecture choices using tradeof
 ## Which Diagram to Use for Which Interview Question
 
 - Scale stateless web/API quickly:
-  - [drawio/aws-ecs-fargate-ha.drawio](../drawio/aws-ecs-fargate-ha.drawio)
-  - [drawio/aws-eks-multi-az.drawio](../drawio/aws-eks-multi-az.drawio)
+  - [drawio/aws-ecs-fargate-ha.drawio](aws-ecs-fargate-ha.drawio)
+  - [drawio/aws-eks-multi-az.drawio](aws-eks-multi-az.drawio)
 
 - Minimize ops overhead and ship fast:
-  - [drawio/aws-serverless-lambda.drawio](../drawio/aws-serverless-lambda.drawio)
+  - [drawio/aws-serverless-lambda.drawio](aws-serverless-lambda.drawio)
 
 - Extreme resilience and global traffic:
-  - [drawio/aws-multi-region-active-active.drawio](../drawio/aws-multi-region-active-active.drawio)
+  - [drawio/aws-multi-region-active-active.drawio](aws-multi-region-active-active.drawio)
 
 - High-security/regulated environments:
-  - [drawio/aws-zero-trust-private-eks.drawio](../drawio/aws-zero-trust-private-eks.drawio)
+  - [drawio/aws-zero-trust-private-eks.drawio](aws-zero-trust-private-eks.drawio)
 
 - Decoupled systems and asynchronous reliability:
-  - [drawio/aws-event-driven-microservices.drawio](../drawio/aws-event-driven-microservices.drawio)
+  - [drawio/aws-event-driven-microservices.drawio](aws-event-driven-microservices.drawio)
 
 - Platform governance and enterprise scale:
-  - [drawio/aws-multi-account-landing-zone.drawio](../drawio/aws-multi-account-landing-zone.drawio)
+  - [drawio/aws-multi-account-landing-zone.drawio](aws-multi-account-landing-zone.drawio)
 
 - Hybrid enterprise networking and migration scenarios:
-  - [drawio/aws-hybrid-connectivity-dx-vpn.drawio](../drawio/aws-hybrid-connectivity-dx-vpn.drawio)
+  - [drawio/aws-hybrid-connectivity-dx-vpn.drawio](aws-hybrid-connectivity-dx-vpn.drawio)
 
 - Identity and secrets at enterprise scale:
-  - [drawio/aws-centralized-identity-secrets.drawio](../drawio/aws-centralized-identity-secrets.drawio)
+  - [drawio/aws-centralized-identity-secrets.drawio](aws-centralized-identity-secrets.drawio)
 
 ## Staff-Level Talking Points
 
@@ -50,6 +50,6 @@ Use the diagram set in this folder to discuss architecture choices using tradeof
 
 ## Sequence Walkthrough References
 
-- [sequence/aws-ecs-fargate-sequence.md](../sequence/aws-ecs-fargate-sequence.md)
-- [sequence/aws-multi-region-failover-sequence.md](../sequence/aws-multi-region-failover-sequence.md)
-- [sequence/aws-event-driven-sequence.md](../sequence/aws-event-driven-sequence.md)
+- [sequence/aws-ecs-fargate-sequence.md](aws-ecs-fargate-sequence.md)
+- [sequence/aws-multi-region-failover-sequence.md](aws-multi-region-failover-sequence.md)
+- [sequence/aws-event-driven-sequence.md](aws-event-driven-sequence.md)

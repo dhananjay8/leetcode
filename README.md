@@ -9,9 +9,10 @@ A comprehensive repository for interview prep: **DSA**, **System Design**, **SQL
 - **[Machine Coding/](./Machine%20Coding/)** — Frontend/full-stack machine coding rounds
 - **[DSA/](./DSA/)** — DSA cheat sheet, sorting algorithms, patterns
 - **[Design Patterns/](./Design%20Patterns/)** — 12 design patterns with JS/Python/Java code
-- **[DevOps Notes/](./General%20Tech/DevOps/)** — Linux, Docker, CI/CD, Terraform, AWS, Monitoring, Security
+- **[DevOps Notes/](./General%20Tech/DevOps/)** — Linux, Docker, CI/CD, Terraform, Monitoring, Security
+- **[AWS Notes/](./General%20Tech/AWS/)** — Staff/Principal-level AWS deep-dives, scenarios, and diagrams
 - **[Kubernetes Notes/](./General%20Tech/Kubernetes/)** — Core concepts, Networking, Storage, Scaling, Helm, GitOps
-- **[General Tech/](./General%20Tech/README.md)** — Unified index for DevOps and Kubernetes tracks
+- **[General Tech/](./General%20Tech/README.md)** — Unified index for DevOps, AWS, and Kubernetes tracks
 - **[ROADMAP.md](./misc/ROADMAP.md)** — Practical 12-week study plan for DSA + system design + machine coding
 - **[CONTRIBUTING.md](./misc/CONTRIBUTING.md)** — Content and formatting guidelines for future updates
 - **[TRACKER.md](./misc/TRACKER.md)** — Weekly and daily execution tracker

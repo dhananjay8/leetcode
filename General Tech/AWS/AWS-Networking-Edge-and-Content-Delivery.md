@@ -898,3 +898,167 @@ Use cases:
 - Global dashboard for Transit Gateway and Cloud WAN networks.
 - Visualize topology, monitor events, and automate route updates.
 - Useful for large multi-Region or multi-account network operations.
+
+---
+
+## 23. Seven-Component Connectivity Matrix
+
+These seven services solve completely different problems. Choosing correctly depends on **what you are connecting** (public internet, VPCs, SaaS, physical offices) and **at which OSI layer** the connection happens.
+
+| Service | Primary Use Case | OSI Layer | Key Characteristic |
+|---|---|---|---|
+| **API Gateway** | Expose, secure, and manage REST/HTTP APIs | L7 (Application) | Rate limiting, auth, API routing |
+| **NAT Gateway** | Private subnet resources get outbound-only internet access | L4 (Transport) | Outbound only; blocks internet-initiated inbound |
+| **VPC Peering** | Connect two VPCs point-to-point | L3 (Network) | Free; non-transitive; no CIDR overlap |
+| **Transit Gateway** | Interconnect thousands of VPCs + on-prem via central hub | L3 (Network) | Transitive routing; cloud router |
+| **PrivateLink** | Unidirectionally expose one service to other VPCs | L4 (Transport) | Powers Interface Endpoints; allows overlapping CIDRs |
+| **VPC Endpoint** | Privately reach AWS services or PrivateLink services | L3/L4 | Gateway (S3/DynamoDB, free) or Interface (ENI) |
+| **Direct Connect** | Dedicated physical fiber from on-prem to AWS | L1/L2 (Physical) | Bypasses public internet entirely |
+
+### Decision cheat sheet
+
+- Expose a REST API with auth + rate limiting → **API Gateway**
+- Private DB needs outbound updates but no inbound → **NAT Gateway**
+- Connect 2–3 VPCs cheaply → **VPC Peering**
+- Hub-and-spoke for dozens/hundreds of VPCs + on-prem → **Transit Gateway**
+- Reach S3 or a SaaS app privately without opening the network → **VPC Endpoint / PrivateLink**
+- Physical, ultra-stable, high-speed on-prem link → **Direct Connect**
+
+---
+
+## 24. One-Line Service Map
+
+```text
+Route 53       -> DNS
+Route Table    -> where packets go
+SG             -> stateful resource firewall
+NACL           -> stateless subnet firewall
+IGW            -> VPC internet connectivity
+NAT Gateway    -> private-resource outbound internet
+ALB            -> L7 HTTP routing
+NLB            -> L4 TCP/UDP/TLS
+VPC Peering    -> VPC <-> VPC
+TGW            -> network hub
+PrivateLink    -> private service exposure
+VPC Endpoint   -> private access to services
+Direct Connect -> dedicated hybrid connectivity
+VPN            -> encrypted hybrid connectivity
+```
+
+---
+
+## 25. Packet-Flow Mental Models
+
+### Public inbound request
+
+```text
+1. DNS              -> Route 53        "Where?"
+2. Global edge      -> CloudFront      "Edge / caching?"
+3. HTTP security    -> WAF             "Allow request?"
+4. Entry point      -> ALB / API Gateway
+5. Network routing  -> Route Table
+6. Network security -> NACL + Security Group
+7. Compute          -> Node.js / Lambda / ECS
+8. Dependencies     -> Redis / RDS / S3
+```
+
+### Private subnet -> internet (outbound)
+
+```text
+Node.js app
+   │
+   ▼
+Security Group
+   │
+   ▼
+Private subnet Route Table -> 0.0.0.0/0
+   │
+   ▼
+NAT Gateway (public subnet)
+   │
+   ▼
+Internet Gateway
+   │
+   ▼
+Vendor API / Internet
+```
+
+### Private subnet -> AWS service
+
+```text
+Application
+   │
+   ▼
+VPC Endpoint / PrivateLink
+   │
+   ▼
+S3 / DynamoDB / other AWS service
+```
+
+### Large enterprise hub-and-spoke
+
+```text
+VPC ─┐
+VPC ─┼──> Transit Gateway ──> On-Prem
+VPC ─┘                        │
+                        Direct Connect / VPN
+```
+
+### Full-stack request path (multi-AZ)
+
+```text
+                    INTERNET / USERS
+                          │
+                       Route 53
+                        "Where?"
+                          │
+                       CloudFront
+                     "Edge / caching?"
+                          │
+                          WAF
+                      "Allow request?"
+                          │
+              ┌───────────┴───────────┐
+              │                       │
+         API Gateway                ALB
+         Serverless               HTTP / L7
+              │                       │
+           Lambda                 ECS/EC2
+              │                       │
+              └───────────┬───────────┘
+                          │
+══════════════════════════ VPC ══════════════════════════
+
+        AZ-A                            AZ-B
+   ┌────────────────┐            ┌────────────────┐
+   │ Public Subnet  │            │ Public Subnet  │
+   │ ALB / NAT-A    │            │ ALB / NAT-B    │
+   └───────┬────────┘            └───────┬────────┘
+           │                             │
+   ┌───────▼────────┐            ┌───────▼────────┐
+   │ Private Subnet │            │ Private Subnet │
+   │ App / Lambda   │            │ App / Lambda   │
+   └───────┬────────┘            └───────┬────────┘
+           │                             │
+           └────────────┬────────────────┘
+                        │
+              ┌─────────▼─────────┐
+              │ DB Private Subnet │
+              │ Aurora/RDS/Redis  │
+              └───────────────────┘
+```
+
+---
+
+## 26. Comparisons Interviewers Love
+
+| Pair | Answer |
+|---|---|
+| **SG vs NACL** | SG = stateful + resource-level. NACL = stateless + subnet-level. |
+| **NAT vs IGW** | IGW = internet connectivity for public resources. NAT = outbound-only internet for private resources. |
+| **ALB vs NLB** | ALB = Layer 7 HTTP. NLB = Layer 4 TCP/UDP. |
+| **Route 53 vs ALB** | Route 53 = which endpoint/Region? ALB = which backend target? |
+| **Peering vs TGW** | Peering = direct VPC-to-VPC. TGW = hub for many networks. |
+| **Peering vs PrivateLink** | Peering = network-to-network connectivity. PrivateLink = expose one specific service privately. |
+| **NAT vs VPC Endpoint** | NAT = reach external/public endpoints. VPC Endpoint = private access to AWS services. |
+| **VPN vs Direct Connect** | VPN = encrypted tunnel over internet. Direct Connect = dedicated physical connection. |

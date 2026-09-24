@@ -743,3 +743,158 @@ When to use which:
 | Cross-AZ traffic | Charged even within same VPC if traffic crosses AZ |
 | Direct Connect | Port hourly + data transfer out; no free egress |
 | CloudFront | Cache misses generate origin fetch data-transfer charges |
+
+---
+
+## 22. Networking Deep-Dive Additions
+
+### Route 53 record types
+
+| Record | Purpose |
+|---|---|
+| **A** | Map a domain to an IPv4 address |
+| **AAAA** | Map a domain to an IPv6 address |
+| **CNAME** | Alias one domain to another (cannot be used at zone apex) |
+| **MX** | Mail exchange / email routing |
+| **TXT** | Verification, SPF, DKIM, general records |
+| **NS** | Delegates DNS to nameservers |
+| **Alias** | AWS-specific; maps an apex/domain to an AWS resource (ELB, CloudFront, S3 website) |
+
+Staff note: Prefer **Alias records** for AWS targets — they are free, follow target health, and work at the zone apex.
+
+### Route 53 Resolver endpoints and rules
+
+For hybrid DNS, Route 53 Resolver bridges on-premises and VPC name resolution.
+
+- **Inbound endpoints**: let on-prem DNS servers query private Route 53 hosted zones.
+- **Outbound endpoints + resolver rules**: forward VPC DNS queries to on-prem DNS.
+- **Conditional forwarding**: forward only specific domains (e.g., `corp.local`) while resolving AWS names locally.
+
+```text
+On-Prem DNS                          VPC / Route 53
+   │                                          │
+   │  Query aws.example.com                    │
+   ├─────────────────────────────────────────►│ Inbound endpoint
+   │                                          │ Private hosted zone
+   │◄─────────────────────────────────────────┤
+   │
+   │  Query corp.local
+   │
+   VPC outbound endpoint with resolver rule
+   │
+   ▼
+On-Prem DNS forwarder
+```
+
+### CloudFront cache behaviors, origin groups, and access control
+
+- **Cache behavior**: per-path-pattern rules for TTL, query strings, headers, cookies, compression, and viewer protocol.
+- **Origin group**: primary + secondary origin for failover on timeout/5xx.
+- **Origin Access Control (OAC) / OAI**: restrict S3 bucket access to CloudFront only.
+- **Field-level encryption**: encrypt sensitive fields at the edge with a public key; only the origin can decrypt with its private key.
+- **Signed URLs / signed cookies**: time-limited, IP-restricted access to private content.
+
+### CloudFront Functions vs Lambda@Edge
+
+| Feature | CloudFront Functions | Lambda@Edge |
+|---|---|---|
+| Runtime | Lightweight JavaScript | Node.js / Python |
+| Scale | Millions per second | Regional (Lambda) scale |
+| Latency | Sub-millisecond | Tens to hundreds of milliseconds |
+| Use case | Header manipulation, URL rewrites, cache-key changes | Complex logic, body transforms, external service calls |
+| Cost | Very low | Per invocation |
+
+### AWS WAF rule types and WebACL structure
+
+- **Managed rule groups**: AWS Managed Rules (baseline, known bad inputs, SQLi, LFI/RFI), partner rules.
+- **Rate-based rules**: track IPs that exceed a request threshold (minimum 100 requests in 5 minutes).
+- **Custom rules**: match URI, query string, body, headers, geo-location, IP sets.
+- **Bot Control / Account Takeover Prevention**: managed rules for bot mitigation.
+- **WebACL capacity units (WCU)**: each rule consumes capacity; WebACL has a hard capacity limit.
+
+### AWS Network Firewall rule groups
+
+A firewall policy is a collection of rule groups attached to VPC subnets.
+
+| Rule Group Type | What It Does |
+|---|---|
+| **Stateful** | Inspects traffic bidirectionally; supports 5-tuple, domain/URL, Suricata IPS rules |
+| **Stateless** | Simple allow/deny by 5-tuple |
+| **Domain list** | Allow/deny outbound traffic to specific domains |
+| **Suricata-compatible IPS** | Intrusion-prevention signatures |
+
+### Direct Connect details
+
+- **Dedicated connection**: 1 / 10 / 100 / 400 Gbps physical port provisioned by AWS.
+- **Hosted connection**: sub-1 Gbps to 10 Gbps via an AWS Direct Connect Partner.
+- **LAG (Link Aggregation Group)**: bundle multiple ports for higher throughput and redundancy.
+- **Virtual Interfaces (VIF)**:
+  - **Private VIF**: reach a VPC via VGW or DX Gateway.
+  - **Public VIF**: reach public AWS services (S3, DynamoDB) with public IPs.
+  - **Transit VIF**: connect to a Transit Gateway for many VPCs.
+- **DX Gateway**: spans Regions; connect on-prem to VPCs in multiple Regions.
+- **Resilience**: use dual DX locations and a VPN backup path.
+
+### Site-to-Site VPN components and patterns
+
+Components:
+
+- **Customer Gateway (CGW)**: the on-prem router/device represented in AWS.
+- **Virtual Private Gateway (VGW)**: AWS-side VPN concentrator attached to a VPC.
+- **Transit Gateway VPN**: terminate VPN on a Transit Gateway to serve many VPCs.
+
+Routing patterns:
+
+- **Static routing**: simple, single tunnel.
+- **BGP dynamic routing**: multiple paths, automatic failover, route advertisement.
+- **VPN CloudHub**: connect multiple on-prem sites through a single VGW using BGP.
+
+### Gateway Load Balancer (GWLB) deep dive
+
+GWLB transparently inserts third-party network appliances into the traffic path.
+
+```text
+Client
+   │
+   ▼
+GWLB
+   │ GENEVE encapsulation
+   ▼
+Security Appliance (EC2 ENI)
+   │
+   ▼
+GWLB
+   │
+   ▼
+Destination
+```
+
+- Operates at Layer 3/4 transparently.
+- Uses **GENEVE** protocol to preserve original packet metadata.
+- Appliances can live in a separate inspection VPC.
+- Common with centralized security VPCs for firewall/IDS/IPS inspection.
+
+### VPC Flow Log key fields
+
+Flow logs capture metadata, not payload. Useful fields:
+
+| Field | Meaning |
+|---|---|
+| `srcaddr` / `dstaddr` | Source and destination IP |
+| `srcport` / `dstport` | Source and destination port |
+| `protocol` | IANA protocol number |
+| `packets` / `bytes` | Transfer volume |
+| `start` / `end` | Time window |
+| `action` | ACCEPT or REJECT |
+| `log-status` | OK, NODATA, SKIPDATA |
+
+Use cases:
+- Troubleshoot connectivity (find REJECT entries due to SG/NACL).
+- Security analysis and anomaly detection.
+- Cost attribution by source/destination.
+
+### AWS Network Manager
+
+- Global dashboard for Transit Gateway and Cloud WAN networks.
+- Visualize topology, monitor events, and automate route updates.
+- Useful for large multi-Region or multi-account network operations.

@@ -734,3 +734,213 @@ After fixing a consumer bug, move messages from the DLQ back to the source queue
 - Pipes have configurable batch size and concurrency limits.
 - Downstream throttling can cause Pipe failures; place an SQS buffer after the Pipe if the target is fragile.
 - Use enrichment only when needed; each enrichment adds latency and cost.
+
+---
+
+## 24. SQS Production Patterns and Edge Cases
+
+### Message attributes
+
+SQS messages can carry metadata separate from the body. Use `MessageAttributes` for routing, filtering, or tracing without parsing the payload.
+
+```json
+{
+  "eventType": {
+    "DataType": "String",
+    "StringValue": "orderPlaced"
+  },
+  "userId": {
+    "DataType": "String",
+    "StringValue": "u-12345"
+  }
+}
+```
+
+### Encryption
+
+- **SSE-SQS**: server-side encryption using AWS-managed keys; no KMS throttling.
+- **SSE-KMS**: use customer-managed keys for compliance; watch KMS API quotas at very high throughput.
+- In transit: always use HTTPS endpoints.
+
+### SQS vs SNS vs Kafka
+
+| Feature | SQS | SNS | Kafka |
+|---|---|---|---|
+| Messaging pattern | Point-to-point queue | Pub/sub fan-out | Distributed log stream |
+| Message retention | 14 days | None (unless SQS subscriber) | Configurable, replayable |
+| Replay | No | No | Yes |
+| Ordering | FIFO only | FIFO topic only | Per partition |
+| Scaling | Automatic | Automatic | Manual / auto with MSK |
+| Consumer model | Pull | Push | Pull |
+
+### Common SQS use cases
+
+| Use case | Why SQS |
+|---|---|
+| Decoupling microservices | Durable buffer isolates failures |
+| Retry + DLQ resilience | Failed messages captured for inspection |
+| Ordered processing | SQS FIFO with `MessageGroupId` |
+| Workflow/task queues | Reliable hand-off between steps |
+| High-throughput pipelines | Standard queue scales horizontally |
+| Long-term storage / replay | Not a fit — use Kinesis/MSK |
+
+### SQS best-practices checklist
+
+| Practice | Why |
+|---|---|
+| Use long polling (`WaitTimeSeconds > 0`) | Reduces empty responses and API cost |
+| Attach a DLQ | Prevents message loss on persistent failures |
+| Batch up to 10 messages | Saves API calls and cost |
+| Set visibility timeout > processing time | Prevents duplicate processing |
+| Enable encryption (SSE-SQS/SSE-KMS) | Security / compliance |
+| CloudWatch alarms on backlog/DLQ | Drives auto-scaling and incident response |
+
+### SQS + EC2 Worker pattern (manual pull)
+
+Use EC2 workers when tasks are long-running, stateful, or need custom runtime control.
+
+```text
+Producer
+   │ SendMessage
+   ▼
+SQS Queue
+   │
+   └── EC2 Worker polls (ReceiveMessage)
+          │
+          ├── Process message
+          ├── On success -> DeleteMessage
+          └── On failure -> leave for retry or DLQ
+```
+
+Key details:
+- Use **long polling** (`WaitTimeSeconds` > 0) to reduce empty responses.
+- Use **multi-threaded consumers** and pull up to 10 messages per call.
+- Implement **exponential backoff + jitter** for application-level retries.
+- Scale with **Auto Scaling based on queue depth** (`ApproximateNumberOfMessagesVisible`).
+- You own logging, metrics, and retry logic.
+
+### SQS + Lambda vs SQS + EC2 Worker
+
+| Concern | SQS + Lambda | SQS + EC2 Worker |
+|---|---|---|
+| Scaling | Automatic | Auto Scaling by queue depth |
+| Cost model | Per invocation | Per EC2 uptime |
+| Retry logic | Built-in | Manual |
+| Best for | Short/medium stateless tasks | Long-running, stateful, complex jobs |
+| Cold starts | Possible | None once warm |
+| Infrastructure mgmt | None | OS, patches, app deployment |
+| Throughput control | Batch size + max concurrency | Worker count + polling loop |
+
+### SNS + SQS hybrid fan-out + queue pattern
+
+A very common microservices pattern: SNS fans out to multiple SQS queues, each consumed by a different service.
+
+```text
+Producer Service
+   │
+   ▼
+SNS Topic
+   │
+   ├──► SQS Queue A ──► Worker A
+   ├──► SQS Queue B ──► Worker B
+   └──► Lambda Function C
+```
+
+Use this when one event must reach multiple independent consumers reliably.
+
+### FIFO + Lambda edge cases
+
+- Ordering is **per `MessageGroupId`**; a single group is processed sequentially.
+- To preserve strict ordering, keep **batch size small** (often 1) and ensure consumers do not process messages from the same group in parallel.
+- FIFO throughput is capped; verify it matches Lambda concurrency and expected message rate.
+- Use `MessageDeduplicationId` or enable content-based deduplication.
+
+### Custom retry logic for EC2 workers
+
+Visibility timeout alone may not give you backoff. Implement application-level retry:
+
+```text
+retry_delay = min(base * 2^attempt + random_jitter, max_delay)
+```
+
+- Cap the maximum delay to avoid runaway timers.
+- After `maxReceiveCount` is reached, SQS automatically moves the message to the DLQ.
+
+### Multi-queue architecture
+
+Split work by type to avoid head-of-line blocking and let each queue scale independently.
+
+```text
+SQS-ResizeImage
+SQS-SendEmail
+SQS-GenerateInvoice
+   │
+   └── Worker pools poll only their own queue
+```
+
+Each queue gets its own visibility timeout, DLQ, and scaling policy.
+
+### Redrive policy
+
+Attach a DLQ with `RedrivePolicy` on the source queue:
+
+```json
+{
+  "deadLetterTargetArn": "arn:aws:sqs:<region>:<account-id>:MyDLQ",
+  "maxReceiveCount": "5"
+}
+```
+
+`maxReceiveCount` is the number of receives before a message is moved to the DLQ. The DLQ must be the **same queue type** as the source queue (Standard↔Standard, FIFO↔FIFO).
+
+### Time-based message handling
+
+| Mechanism | Scope | Use case |
+|---|---|---|
+| Queue-level `DelaySeconds` | All messages in queue | Delay every message by fixed time |
+| Per-message `DelaySeconds` | Single message | Schedule one message to appear later |
+| `ChangeMessageVisibility` | In-flight message | Extend processing time for long jobs |
+
+Maximum delay/visibility change is **15 minutes**.
+
+### SQS CloudWatch metrics deep dive
+
+| Metric | Purpose |
+|---|---|
+| `ApproximateNumberOfMessagesVisible` | Backlog waiting to be processed |
+| `ApproximateNumberOfMessagesNotVisible` | Messages currently in flight |
+| `ApproximateNumberOfMessagesDelayed` | Messages delayed by timer or queue delay |
+| `ApproximateAgeOfOldestMessage` | Oldest unprocessed message; best SLO signal |
+| `NumberOfMessagesReceived` | Consumer poll rate; spikes may indicate retries |
+| `NumberOfMessagesDeleted` | Successful processing rate |
+| `SentMessageSize` | Average message size |
+
+Set alarms on `ApproximateAgeOfOldestMessage` and DLQ depth.
+
+### SQS IAM least-privilege example
+
+Producer:
+
+```json
+{
+  "Effect": "Allow",
+  "Action": "sqs:SendMessage",
+  "Resource": "arn:aws:sqs:<region>:<account-id>:MyQueue"
+}
+```
+
+Consumer (Lambda or EC2):
+
+```json
+{
+  "Effect": "Allow",
+  "Action": [
+    "sqs:ReceiveMessage",
+    "sqs:DeleteMessage",
+    "sqs:ChangeMessageVisibility"
+  ],
+  "Resource": "arn:aws:sqs:<region>:<account-id>:MyQueue"
+}
+```
+
+For cross-account access, use an SQS resource policy on the queue.

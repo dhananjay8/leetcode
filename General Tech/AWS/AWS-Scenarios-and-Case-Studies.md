@@ -906,3 +906,79 @@ A: Tenants pay for their own interface endpoints. The provider pays for the NLB 
 
 **Q: How do you protect the provider side?**
 A: Use an internal ALB/NLB in private subnets, Security Groups restricting source to the endpoint service, IAM endpoint policies, AWS WAF if fronted by API Gateway, and CloudWatch metrics to detect abuse.
+
+---
+
+## Case Study 12: Resilient Multi-AZ Node.js API with an Unreliable External Service
+
+### Scenario & Scale Requirements
+
+Design a highly available Node.js API that also calls a third-party service with variable latency and occasional failures.
+
+- **Traffic**: 100,000 requests/min baseline, spiking to 1,000,000/min during campaigns.
+- **Availability target**: 99.99%.
+- **External dependency**: third-party REST API with sporadic 5xx errors and >5s tail latency.
+- **Security**: backend services and PostgreSQL must not be publicly reachable.
+
+### Proposed Architecture
+
+```text
+Internet Users
+   │
+   ▼
+Route 53 -> CloudFront + WAF
+   │
+   ▼
+API Gateway / ALB (public, cross-AZ)
+   │
+   ▼
+ECS/EKS Node.js service in private subnets across 2+ AZs
+   │
+   ├── Read/write -> Aurora PostgreSQL (Multi-AZ, private DB subnets)
+   ├── Documents -> S3 via VPC Gateway Endpoint
+   └── External calls -> SQS (Outbox) -> Worker pool -> External API
+```
+
+Resilience controls:
+- **SQS buffer** decouples the external API from front-end request handlers.
+- **Circuit breaker** on the worker prevents repeated calls to a failing dependency.
+- **Exponential backoff + jitter** for retries inside workers.
+- **DLQ** for requests that permanently fail so they can be reconciled later.
+- **Worker Auto Scaling** based on `ApproximateNumberOfMessagesVisible`.
+- **Aurora Multi-AZ** for database failover; read replicas for scale.
+
+### In-Depth Trade-off Analysis
+
+| Concern | Decision | Reason |
+|---|---|---|
+| External API bursts | SQS between app and worker | Prevents downstream slowness from consuming front-end threads |
+| Avoid retry storms | Circuit breaker + backoff | Stops hammering a failing endpoint; probes recovery in half-open state |
+| 10× traffic spike | CloudFront cache + WAF rate limits + target tracking autoscaling | Absorbs and shapes load before it reaches the API |
+| Private database | Aurora in private subnets; SG allows 5432 only from app tier | No public exposure |
+| S3 access from private subnets | Gateway VPC endpoint | Avoids NAT and keeps traffic on AWS backbone |
+| Asynchronous result | 202 Accepted + job ID | Caller polls or receives webhook when external call completes |
+
+### Failure Modes & Mitigations
+
+| Failure | Impact | Mitigation |
+|---|---|---|
+| External API down | External operations queue up | Circuit breaker opens; workers process other jobs; DLQ catches permanent failures |
+| Worker pool slow | SQS backlog grows | Scale workers on queue depth; alarm on message age |
+| Single AZ outage | Targets in one AZ fail | ALB routes to healthy AZ; Aurora fails over writer |
+| Traffic spike exceeds capacity | Latency rises, errors increase | WAF rate limits, CloudFront cache, target tracking autoscaling, queue backpressure |
+| Database primary failure | Writes blocked briefly | Aurora Multi-AZ automatic failover; app retries with exponential backoff |
+| Malicious traffic | Resource exhaustion / DDoS | CloudFront + Shield + WAF rate rules absorb and block bad traffic |
+
+### Staff-Level Follow-Ups
+
+**Q: Why place SQS between the application and the external API?**
+A: The external API's latency and failures would otherwise propagate to the synchronous front-end path. SQS lets us accept the request quickly, process external calls asynchronously, retry independently, and avoid cascading timeouts.
+
+**Q: How do you choose circuit-breaker thresholds?**
+A: Use a rolling window of recent calls (e.g., 30 seconds, minimum 20 requests). Open when error rate exceeds 50%; move to half-open after a cool-down and allow a trickle of requests to test recovery. Base thresholds on observed p99 behavior, not just averages.
+
+**Q: What if the external API is down for hours?**
+A: The queue grows and alarms fire. We serve a degraded response (cached result or "pending" status) while parking work in the queue. A reconciliation job drains the DLQ once the API recovers.
+
+**Q: How do you keep the database private?**
+A: Aurora runs in private DB subnets with no public IP. Route tables do not route 0.0.0.0/0 to an IGW. The app tier Security Group is allowed on port 5432 only from the app tier Security Group.

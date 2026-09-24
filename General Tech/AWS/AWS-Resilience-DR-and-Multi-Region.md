@@ -579,3 +579,85 @@ Cell-based design partitions the system into independent failure-isolated units.
 7. Gradually re-admit traffic; monitor error budgets and SLOs.
 8. Post-incident: root cause, fix, and rehearse runbook in FIS/GameDay.
 ```
+
+---
+
+## 25. Why Multiple AZs Matter: A Concrete Failure Example
+
+A common anti-pattern is placing every component in one AZ.
+
+**Bad design:**
+
+```text
+AZ-a: EC2 + RDS + EBS
+   │
+   └── AZ-a fails -> entire application disappears
+```
+
+**Better design:**
+
+```text
+AZ-a: EC2 targets, ALB
+AZ-b: EC2 targets, ALB
+AZ-c: RDS Multi-AZ standby
+
+Single AZ failure -> ALB routes around it, DB fails over
+```
+
+Staff point: **Multi-AZ protects against AZ-scale failure, not Region-scale failure.** Region-scale failures require multi-Region DR.
+
+---
+
+## 26. Resilience Design Principles
+
+1. **Use multiple AZs by default** for production workloads.
+2. **Use multiple Regions only when justified** by RTO/RPO, latency, or compliance.
+3. **Separate high availability from disaster recovery:**
+   - HA = survive component/AZ failure with minimal disruption.
+   - DR = recover from Region-scale or systemic failure.
+4. **Choose the right replication model:**
+   - Synchronous when zero data loss is required.
+   - Asynchronous when latency and throughput matter more.
+5. **Understand each service's replication semantics** — S3, Aurora, RDS, DynamoDB, and EBS all differ.
+6. **Backups are not DR** until restores are tested and runbooks exist.
+7. **Failover should rely on data-plane primitives** (Route 53 ARC, Global Accelerator), not Regional control planes.
+
+---
+
+## 27. Reference Resilience Architectures
+
+### Small production application
+
+```text
+Route 53
+   │
+   ▼
+ALB (cross-AZ)
+   │
+   ├──► EC2 in AZ-a
+   └──► EC2 in AZ-b
+           │
+           ▼
+      RDS Multi-AZ
+           │
+           ▼
+         S3 (multi-AZ by default)
+```
+
+Tolerates instance failure or the loss of an entire AZ with minimal disruption.
+
+### High-scale global application
+
+```text
+Route 53 / Global Accelerator
+   │
+   ├──► Mumbai Region
+   │       ALB -> ECS/EKS -> Aurora Global DB (primary)
+   │                       S3
+   │
+   └──► Singapore Region
+           ALB -> ECS/EKS -> Aurora reader
+                           S3 replica (CRR)
+```
+
+Provides low latency for geographically distributed users and supports DR if a Region becomes unavailable.

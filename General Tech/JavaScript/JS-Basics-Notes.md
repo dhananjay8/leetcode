@@ -336,7 +336,7 @@ numbers.forEach(n => console.log(n)); // side effects only
 ```
 
 | Method | Returns | Use case |
-|---|---|---|---|
+|---|---|---|
 | `map` | New array of same length | Transform each element |
 | `filter` | New array, possibly shorter | Select matching elements |
 | `reduce` | Single value | Aggregate / fold |
@@ -456,7 +456,7 @@ console.log(double(4)); // 8
 | ES6 / ES2015 | 2015 | `let`/`const`, arrow functions, classes, promises, modules, template literals, destructuring, spread/rest, `Map`, `Set`, generators |
 | ES2016 | 2016 | Exponentiation `**`, `Array.prototype.includes` |
 | ES2017 | 2017 | `async/await`, `Object.entries`/`values`, `padStart`/`padEnd` |
-| ES2018 | 2018 | Async iteration, rest/spread props, `Promise.finally`, `Object.fromEntries` |
+| ES2018 | 2018 | Async iteration, rest/spread properties, `Promise.finally` |
 | ES2019 | 2019 | `flat`/`flatMap`, `Object.fromEntries`, `trimStart`/`trimEnd` |
 | ES2020 | 2020 | `BigInt`, dynamic `import`, nullish coalescing `??`, optional chaining `?.` |
 | ES2021 | 2021 | `replaceAll`, `Promise.any`, logical assignment `||=`/`&&=`/`??=` |
@@ -607,10 +607,14 @@ The event loop coordinates the call stack, Web APIs, and callback queues:
 | `process.nextTick` | Current operation, before microtasks |
 | `queueMicrotask` | Microtask queue |
 | `Promise.then` | Microtask queue |
-| `setTimeout(fn, 0)` | Macrotask queue (minimum delay ~1-20ms) |
-| `setImmediate` (Node) | Check phase after I/O |
+| `setTimeout(fn, 0)` | Timers phase (effectively clamped by runtime/event-loop load) |
+| `setImmediate` (Node) | Check phase (often after I/O callbacks) |
 
-Order of execution: `process.nextTick` → microtasks → `setTimeout(0)` → `setImmediate`.
+Ordering note:
+
+- `process.nextTick` runs before Promise microtasks.
+- Microtasks run before the event loop proceeds to the next phase.
+- Between `setTimeout(0)` and `setImmediate`, ordering can vary by context; inside an I/O callback, `setImmediate` typically fires first.
 
 ### Generators
 
@@ -657,6 +661,67 @@ Cross-Origin Resource Sharing. Browsers block requests from one origin to anothe
 ### Middlewares
 
 Functions that sit between a request and a final handler, common in Express/NestJS. They can modify the request/response, end the request, or call `next()` to continue.
+
+### `null` vs `undefined`
+
+| Value | Meaning | Typical source |
+|---|---|---|
+| `undefined` | Value not assigned / missing | Uninitialized variables, missing function args, absent object keys |
+| `null` | Explicitly empty value | Developer intentionally sets no value |
+
+```javascript
+let a;
+const b = null;
+
+console.log(a); // undefined
+console.log(b); // null
+console.log(typeof a); // 'undefined'
+console.log(typeof b); // 'object' (legacy JS bug)
+console.log(a == b);   // true
+console.log(a === b);  // false
+```
+
+### `PUT` vs `PATCH` vs `POST`
+
+| Method | Semantics | Idempotent? | Typical use |
+|---|---|---|---|
+| `POST` | Create subordinate resource / trigger action | Usually no | Create order, submit form, execute action |
+| `PUT` | Replace resource representation fully | Yes | Replace `/users/123` with complete payload |
+| `PATCH` | Partial update of resource | Usually yes (depends on patch ops) | Update a few fields |
+
+Interview note: if the same request can be retried safely with the same effect, it's idempotent.
+
+### `package.json` essentials
+
+| Field | Purpose |
+|---|---|
+| `name`, `version` | Package identity |
+| `scripts` | Standardized project commands (`test`, `build`, `start`) |
+| `dependencies` | Runtime dependencies |
+| `devDependencies` | Tooling/test/build dependencies |
+| `engines` | Node/npm version constraints |
+| `type` | Module mode (`commonjs` or `module`) |
+
+Common npm flags (historical + current):
+
+- `npm i -g <pkg>` installs globally.
+- `npm i <pkg> --save-dev` adds to `devDependencies`.
+- `npm i <pkg> --save` is legacy; modern npm saves to `dependencies` by default.
+
+### Node.js process exit codes (interview quick view)
+
+| Exit code | Meaning |
+|---|---|
+| `0` | Success |
+| `1` | Uncaught fatal exception / generic failure |
+| `128 + signal` | Process terminated by Unix signal (e.g., `SIGKILL` => `137`) |
+
+```javascript
+process.on('uncaughtException', (err) => {
+  console.error(err);
+  process.exit(1);
+});
+```
 
 ---
 
@@ -775,8 +840,8 @@ console.log(typeof undefined);   // 'undefined'
 ### 9. `var`/`let` hoisting quiz
 
 ```javascript
-abc(); // TypeError: abc is not a function (let TDZ is over at this point but value is an arrow function expression)
-def(); // works: var declaration hoisted
+abc(); // ReferenceError: Cannot access 'abc' before initialization
+def(); // TypeError: def is not a function (var is hoisted as undefined)
 
 let abc = () => console.log('a');
 var def = () => console.log('b');

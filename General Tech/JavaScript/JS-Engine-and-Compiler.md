@@ -363,7 +363,28 @@ Staff point: **Initialize object properties in the same order and avoid adding p
 
 ---
 
-## 14. Common Staff Engineer Follow-Up Questions
+## 14. Practical Debugging: Inspecting Engine Behavior
+
+Useful Node/V8 flags when diagnosing hot-path regressions:
+
+| Command/Flag | What it helps with |
+|---|---|
+| `node --trace-gc app.js` | See GC frequency and pause behavior |
+| `node --trace-opt app.js` | See which functions get optimized |
+| `node --trace-deopt app.js` | See deoptimization events and reasons |
+| `node --inspect app.js` | Attach Chrome DevTools for CPU/heap profiling |
+
+Quick investigation flow:
+
+1. Reproduce workload deterministically.
+2. Capture CPU profile to locate hot functions.
+3. Capture heap snapshots to detect growth/leaks.
+4. Check `--trace-deopt` for unstable type/object-shape assumptions.
+5. Refactor for stable shapes and monomorphic call sites.
+
+---
+
+## 15. Common Staff Engineer Follow-Up Questions
 
 **Q1. Why does V8 use both an interpreter and a compiler?**
 A: Ignition gives fast startup and compact bytecode while the profiler gathers data. TurboFan then optimizes hot code. A single-tier compiler would either start slowly or produce unoptimized code.
@@ -388,7 +409,7 @@ A: Use stable object shapes, avoid `delete`, prefer typed arrays for numeric wor
 
 ---
 
-## 15. Staff-Level Sound Bites
+## 16. Staff-Level Sound Bites
 
 - "V8 parses to an AST, interprets to bytecode, profiles, then compiles hot paths to machine code."
 - "TurboFan's optimizations are speculative; wrong assumptions cause deoptimization."
@@ -398,7 +419,7 @@ A: Use stable object shapes, avoid `delete`, prefer typed arrays for numeric wor
 
 ---
 
-## 16. Quick Reference Tables
+## 17. Quick Reference Tables
 
 ### V8 pipeline
 

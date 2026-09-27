@@ -21,6 +21,23 @@
 
 Staff point: **Write many fast unit tests, fewer integration tests, and very few E2E tests.** Speed of feedback is the deciding factor.
 
+### Arrange-Act-Assert (AAA) structure
+
+Use this pattern in every test to keep intent obvious:
+
+```javascript
+test('calculates total price', () => {
+  // Arrange
+  const items = [{ price: 10 }, { price: 15 }];
+
+  // Act
+  const total = getTotal(items);
+
+  // Assert
+  expect(total).toBe(25);
+});
+```
+
 ---
 
 ## 2. Core Tools
@@ -104,6 +121,14 @@ test('GET /api returns 200', async () => {
 | **Stub** | Replaces a function with a canned return | No | Yes |
 | **Mock** | Pre-programmed expectations + canned behavior | Yes | Yes |
 | **Fixture** | Static input data for consistent tests | — | — |
+
+### `clear` vs `reset` vs `restore` (Jest)
+
+| API | Clears call history | Clears implementation | Restores original function |
+|---|---|---|---|
+| `jest.clearAllMocks()` | Yes | No | No |
+| `jest.resetAllMocks()` | Yes | Yes (resets to default mock) | No |
+| `jest.restoreAllMocks()` | Yes | Yes | Yes (`spyOn` only) |
 
 ### Spy example (Jest)
 
@@ -354,9 +379,46 @@ A: Use `jest --watch`, add focused `test.only`, insert `console.log` or breakpoi
 - **Snapshot tests** are brittle for rapidly changing UI/data; review diffs carefully in PRs.
 - **Coverage thresholds can be gamed**: 100% coverage does not mean 100% correctness.
 
+### Flaky test mitigation checklist
+
+- Freeze time with fake timers (`jest.useFakeTimers()`) for timer-driven logic.
+- Avoid shared mutable state across tests; create fresh fixtures per test.
+- Randomize test order periodically to detect hidden coupling.
+- Replace arbitrary sleeps with deterministic waits/assertions.
+- Use retries only as a temporary containment mechanism, not a permanent fix.
+
+### Contract testing (service boundaries)
+
+- Unit tests validate local logic.
+- Integration tests validate internal wiring.
+- **Contract tests** validate producer-consumer schema compatibility across microservices.
+
+Good options: Pact or OpenAPI schema validation in CI.
+
 ---
 
-## 7. Staff-Level Sound Bites
+## 7. CI Quality Gates (Recommended Defaults)
+
+| Gate | Recommended baseline |
+|---|---|
+| Unit test pass rate | 100% |
+| Branch coverage | >= 80% (team-specific) |
+| Critical-path integration tests | Mandatory on PR |
+| Lint + type checks | Mandatory on PR |
+| Flaky test budget | 0 accepted in `main` |
+
+Example pipeline shape:
+
+1. Install + cache dependencies.
+2. Lint + type-check.
+3. Unit tests + coverage.
+4. Integration tests with ephemeral DB/container.
+5. Build artifact.
+6. Optional E2E smoke on merge.
+
+---
+
+## 8. Staff-Level Sound Bites
 
 - "The goal of unit tests is to give fast feedback, not to prove the whole system works."
 - "Use mocks to make tests deterministic; over-mocking hides real integration bugs."
@@ -367,7 +429,7 @@ A: Use `jest --watch`, add focused `test.only`, insert `console.log` or breakpoi
 
 ---
 
-## 8. Quick Reference Table
+## 9. Quick Reference Table
 
 | Task | Tool / Pattern |
 |---|---|

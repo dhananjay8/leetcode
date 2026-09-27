@@ -173,3 +173,24 @@ Production-grade monitoring: `event-loop-lag`, `clinic.js`, `NodeSource`, or APM
 | Avoid blocking the event loop | Async I/O, streaming, chunked processing |
 | Detect blocking code | Event-loop lag monitors + CPU profiling |
 | Tune file/crypto thread pool | `UV_THREADPOOL_SIZE` |
+
+---
+
+## 9. Interview First-Response Openers (1-2 lines)
+
+| Concept | First statement to say in interview |
+|---|---|
+| Why Node scales | "Node scales for I/O-heavy workloads because one event loop coordinates many in-flight operations without blocking threads per request." |
+| Event loop role | "The event loop executes callbacks when work completes; it should never be used for heavy CPU loops." |
+| Libuv thread pool | "Libuv offloads blocking operations like file and crypto work; default pool size is 4 and can be tuned." |
+| Worker threads vs cluster | "Use worker threads for CPU parallelism inside one process and cluster/replicas for multi-core request distribution." |
+| Event-loop lag | "Lag is the earliest production signal that synchronous or CPU-heavy code is starving request handling." |
+
+---
+
+## 10. Frequent Staff-Level Follow-Ups
+
+- **Graceful shutdown:** stop accepting new traffic, drain in-flight requests, close DB/queue clients, and then exit.
+- **Overload protection:** enforce timeouts, bulkheads, circuit breakers, and bounded queues to prevent cascading failure.
+- **Concurrency budgets:** cap outbound parallelism per downstream to avoid self-inflicted saturation.
+- **Operational SLOs:** tie event-loop lag, queue depth, and timeout rate directly to latency/error SLO alarms.

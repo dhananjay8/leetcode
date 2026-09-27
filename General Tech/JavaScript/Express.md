@@ -406,3 +406,28 @@ describe('GET /users', () => {
 | Compression | `compression` middleware |
 | Rate limiting | `express-rate-limit` |
 | Request validation | `express-validator`, `joi`, or `zod` |
+
+---
+
+## 17. Interview First-Response Openers (1-2 lines)
+
+| Concept | First statement to say in interview |
+|---|---|
+| What is Express | "Express is a minimal HTTP framework for Node that gives a middleware pipeline and routing primitives without enforcing heavy architecture." |
+| Middleware | "Middleware is ordered request-processing logic; every request flows through it, so order and side effects are critical." |
+| Routing | "Express routing maps method + path to handlers, with path params/query/body as distinct data channels." |
+| Error handling | "Operational errors should be normalized in centralized error middleware with safe client messages and rich server logs." |
+| Sessions/cookies | "Sessions store server-side identity state while cookies carry client tokens/IDs; at scale, session storage should be externalized (Redis)." |
+| CORS | "CORS is a browser-enforced cross-origin policy controlled by response headers and preflight negotiation." |
+| AuthN vs AuthZ | "Authenticate identity first, then authorize actions with role/permission policies at route or domain boundaries." |
+| REST vs GraphQL | "REST offers cache-friendly explicit endpoints; GraphQL optimizes client data shape at the cost of more complex server governance." |
+
+---
+
+## 18. Frequent Staff-Level Follow-Ups
+
+- **Graceful lifecycle:** implement readiness/liveness probes and drain logic before process exit.
+- **Idempotency for writes:** support idempotency keys for critical POST operations (payments/orders) to handle retries safely.
+- **Standardized observability:** add request IDs, latency histograms, status-code cardinality, and structured logs.
+- **Security hardening defaults:** `helmet`, strict CORS origin allowlists, request-size limits, and rate limits per sensitive endpoint.
+- **API evolution:** enforce backward-compatible versioning strategy and deprecation windows.

@@ -913,3 +913,34 @@ const c = a.map(e => { if (e > 2) return e; });      // [undefined, undefined, 3
 | Shallow copy array | `[...arr]`, `arr.slice()` |
 | Deep copy (JSON-safe) | `JSON.parse(JSON.stringify(obj))` |
 | Deep copy (robust) | `_.cloneDeep(obj)` or recursive function |
+
+---
+
+## 24. Interview First-Response Openers (1-2 lines)
+
+| Concept | First statement to say in interview |
+|---|---|
+| Hoisting | "JavaScript hoists declarations during compile phase; only function declarations are fully initialized, while `let`/`const` stay in TDZ until execution reaches them." |
+| Scope | "JavaScript uses lexical scope, so variable visibility is based on where code is written, not where a function is called." |
+| `var` vs `let` vs `const` | "`var` is function-scoped and re-declarable; `let`/`const` are block-scoped with TDZ, and `const` freezes the binding, not nested object data." |
+| Closures | "A closure is a function that retains access to its lexical environment after the outer function has returned, enabling private state and factories." |
+| `this` binding | "`this` is call-site driven for regular functions, while arrow functions capture lexical `this` from the surrounding scope." |
+| `call` / `apply` / `bind` | "All three control `this`; `call` and `apply` invoke immediately, while `bind` returns a new pre-bound function." |
+| Pass-by-value model | "JavaScript is always pass-by-value; for objects, the value being copied is the reference, so mutation is visible but reassignment is local." |
+| Shallow vs deep copy | "Shallow copy clones only first level; deep copy duplicates nested references, which matters for immutable state management." |
+| Array methods | "Use `map` to transform, `filter` to select, `reduce` to aggregate, `find` to locate first match, and `forEach` for side effects only." |
+| Currying | "Currying converts multi-arg functions into unary chains so partial application and composition become straightforward." |
+| Equality | "Prefer `===` for predictable comparisons; `Object.is` is useful for edge cases like `NaN` and signed zero." |
+| Event loop | "JavaScript runs one call stack; microtasks (`Promise.then`) always drain before the next macrotask phase." |
+| Promises / async-await | "`async/await` is syntax over Promises; it improves control flow readability without changing concurrency semantics." |
+| `null` vs `undefined` | "`undefined` means missing/uninitialized value; `null` means intentionally empty." |
+| HTTP update verbs | "`PUT` replaces the full resource and is idempotent; `PATCH` partially updates; `POST` is generally non-idempotent create/action." |
+
+---
+
+## 25. Frequent Staff-Level Follow-Ups
+
+- **Immutability at scale:** be explicit on where shallow copy is safe vs where structural sharing libraries are needed.
+- **Event-loop safety:** identify blocking hotspots (JSON parse, sync crypto, regex backtracking) and move heavy paths off main thread.
+- **API semantics:** tie method idempotency to retries, backoff policies, and exactly-once illusions.
+- **Defensive JavaScript:** enforce strict mode, lint rules, and runtime guards (`zod`/`joi`) at service boundaries.

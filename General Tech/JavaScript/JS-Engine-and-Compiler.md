@@ -450,3 +450,27 @@ A: Use stable object shapes, avoid `delete`, prefer typed arrays for numeric wor
 | Speed | Fast | Slower |
 | Size | Limited | Large |
 | Data | Locals, primitives | Objects, closures |
+
+---
+
+## 18. Interview First-Response Openers (1-2 lines)
+
+| Concept | First statement to say in interview |
+|---|---|
+| Parser + AST | "V8 first parses JavaScript into an AST, which is the structural model used for scope analysis and later code generation." |
+| Ignition | "Ignition executes bytecode quickly for fast startup while collecting runtime behavior." |
+| TurboFan | "TurboFan compiles hot paths into optimized machine code using observed type feedback." |
+| Profiler feedback | "Optimization in V8 is data-driven; profiler feedback determines where speculative optimization is worth it." |
+| Deoptimization | "When runtime assumptions break, V8 deoptimizes to safe bytecode execution and may re-optimize later." |
+| Hidden classes | "Stable object shapes produce monomorphic access paths, which keeps inline caches fast." |
+| GC generations | "Most objects die young, so V8 collects new space frequently and old space less often to reduce pause impact." |
+| Stack vs heap | "Stack is fast, bounded, and frame-based; heap is flexible, larger, and GC-managed." |
+
+---
+
+## 19. Frequent Staff-Level Follow-Ups
+
+- **Latency tail control:** correlate `--trace-gc` pauses with P95/P99 latency before tuning memory or code paths.
+- **Shape discipline:** construct objects with consistent property order, avoid late property addition/deletion in hot loops.
+- **Deopt-driven refactor:** use `--trace-deopt` output to identify polymorphic call sites and unstable numeric/string mixing.
+- **Memory leak triage:** compare consecutive heap snapshots and retained-size growth, not just process RSS.

@@ -329,3 +329,27 @@ export function foo() {}
 | Catch unhandled promise rejections | `process.on('unhandledRejection')` |
 | Reproducible CI install | `npm ci` |
 | Enable ES modules in a package | `"type": "module"` in `package.json` |
+
+---
+
+## 11. Interview First-Response Openers (1-2 lines)
+
+| Concept | First statement to say in interview |
+|---|---|
+| Worker threads | "Worker threads provide real CPU parallelism for JavaScript compute paths; they are not a replacement for async I/O." |
+| EventEmitter | "EventEmitter is Node's observer backbone: producers emit events, consumers subscribe, and APIs like streams/HTTP build on it." |
+| Streams | "Streams handle large data efficiently in chunks, which avoids memory spikes from full buffering." |
+| Backpressure | "Backpressure is flow control: when `write()` returns false, producer must slow down until `drain` fires." |
+| `spawn` vs `fork` | "Use `spawn` for external binaries/commands and `fork` for Node child processes that need IPC messaging." |
+| Error handling | "Handle errors at local boundaries first, then use process-level handlers only as a crash-and-restart safety net." |
+| CJS vs ESM | "CommonJS is runtime `require`; ESM is statically analyzable `import` with better tooling and tree-shaking." |
+| npm + lockfiles | "`npm ci` with lockfiles gives deterministic installs, which is mandatory for reproducible CI/CD pipelines." |
+
+---
+
+## 12. Frequent Staff-Level Follow-Ups
+
+- **Context propagation:** use `AsyncLocalStorage` for request correlation IDs and per-request telemetry.
+- **Cancellation discipline:** support `AbortController` and end-to-end timeouts to avoid hanging async work.
+- **Unhandled rejection policy:** decide fail-fast vs tolerate-and-report explicitly; avoid undefined runtime behavior.
+- **Dependency governance:** enforce `npm audit` policy, SBOM generation, and regular transitive dependency reviews.

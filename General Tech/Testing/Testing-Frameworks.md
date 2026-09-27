@@ -1,4 +1,4 @@
-# JavaScript Testing Frameworks — Staff/Principal Interview Deep Dive
+# JavaScript/TypeScript Testing Frameworks — Staff/Principal Interview Deep Dive
 
 ---
 
@@ -442,3 +442,45 @@ Example pipeline shape:
 | Test HTTP API | `supertest(app).get('/api')` |
 | Test NestJS service | `Test.createTestingModule` + `module.get(Service)` |
 | Measure coverage | `jest --coverage` |
+
+---
+
+## 10. TypeScript-Specific Testing Notes
+
+| Topic | Staff-level guidance |
+|---|---|
+| Type-aware test execution | Use `ts-jest` or transpile with `swc`/`esbuild` before Jest runtime |
+| Strict mocks | Use typed mocks (`jest.Mocked<T>`) to avoid runtime mismatch and incorrect assumptions |
+| API contract types | Keep shared DTO/schema packages versioned to reduce producer/consumer drift |
+| Source maps | Enable source maps so stack traces point to `.ts` lines in CI failures |
+
+```typescript
+type UserRepo = { findById(id: string): Promise<{ id: string } | null> };
+
+const repo: jest.Mocked<UserRepo> = {
+  findById: jest.fn(),
+};
+```
+
+---
+
+## 11. Interview First-Response Openers (1-2 lines)
+
+| Concept | First statement to say in interview |
+|---|---|
+| Test pyramid | "I optimize for fast feedback: many unit tests, fewer integration tests, and minimal critical-path E2E tests." |
+| Unit vs integration | "Unit tests isolate logic; integration tests verify module wiring and real boundaries like DB or HTTP." |
+| Mocks and stubs | "I mock to remove nondeterminism and cost, but keep enough integration coverage so real wiring bugs still surface." |
+| Async testing | "Every async test must deterministically signal completion and avoid hidden open handles." |
+| Coverage | "Coverage is a confidence signal, not correctness proof; branch-risk areas matter more than raw percentages." |
+| CI gates | "Quality gates should block merges on failing tests, type/lint errors, and critical-path regression checks." |
+
+---
+
+## 12. Frequent Staff-Level Follow-Ups
+
+- **Flaky-test governance:** quarantine policy + owner + SLA; flaky tests in `main` should be treated as incidents.
+- **Deterministic async tests:** freeze time (`jest.useFakeTimers()`), avoid real sleeps, and assert with bounded waits.
+- **Integration realism:** run critical integration tests with ephemeral dependencies (e.g., test containers) instead of over-mocking.
+- **Regression strategy:** add a failing test first for production bugs, then keep it as permanent regression coverage.
+- **Risk-based testing:** prioritize auth, money movement, retries/idempotency, and data integrity paths over equal coverage everywhere.

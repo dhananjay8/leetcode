@@ -366,7 +366,143 @@ describe('GET /users', () => {
 
 ---
 
-## 14. REST vs GraphQL in Express
+## 14. Additional Production Patterns
+
+### Request lifecycle and the "headers already sent" trap
+
+Once a response is sent (`res.send`, `res.json`, `res.status(...).end`), headers are finalized. Any later attempt to send another response or set a header throws:
+
+```
+Error: Cannot set headers after they are sent to the client
+```
+
+This usually happens when middleware or an async callback sends a response after the route handler already ended. Always use `return` after `res.send()` or centralize response handling.
+
+### Route specificity and ordering
+
+Express matches routes in registration order. A generic parameter route can swallow a specific route if defined first.
+
+```javascript
+// BAD: /products/new is shadowed
+app.get('/products/:id', handler);
+app.get('/products/new', handler);
+
+// GOOD
+app.get('/products/new', handler);
+app.get('/products/:id', handler);
+```
+
+### Controllers: keep route handlers thin
+
+```javascript
+// routes/users.js
+const express = require('express');
+const router = express.Router();
+const userController = require('../controllers/userController');
+
+router.get('/', userController.list);
+router.get('/:id', userController.getById);
+router.post('/', userController.create);
+
+module.exports = router;
+```
+
+Benefits:
+
+- Routes are pure wiring; controllers hold domain logic.
+- Easier to unit test business logic without mocking `req`/`res`.
+- Consistent error handling patterns.
+
+### Security headers with Helmet
+
+```javascript
+const helmet = require('helmet');
+app.use(helmet());
+```
+
+Helmet sets baseline security headers (HSTS, X-Frame-Options, X-Content-Type-Options, CSP, etc.). Customize CSP to allow required scripts and sources.
+
+### Health and readiness endpoints
+
+```javascript
+app.get('/health', (req, res) => res.status(200).json({ status: 'ok' }));
+
+app.get('/ready', async (req, res) => {
+  const dbOk = await db.ping();
+  const cacheOk = await cache.ping();
+  if (dbOk && cacheOk) return res.status(200).json({ ready: true });
+  res.status(503).json({ ready: false });
+});
+```
+
+- **Liveness** (`/health`): "Is the process alive?"
+- **Readiness** (`/ready`): "Can the process accept traffic?"
+
+K8s uses these for restart and traffic routing decisions.
+
+### Rate limiting strategies
+
+```javascript
+const rateLimit = require('express-rate-limit');
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100,
+  standardHeaders: true,
+  legacyHeaders: false,
+  keyGenerator: (req) => req.ip,
+});
+
+app.use('/api', limiter);
+```
+
+For multi-instance deployments use a Redis-backed store so limits are global, not per-process.
+
+### Express 5 async error handling
+
+Express 4.x does not automatically catch rejected promises in route handlers. Express 5.x forwards rejected promises to error middleware without a wrapper.
+
+Express 4 safe pattern:
+
+```javascript
+const asyncHandler = (fn) => (req, res, next) => {
+  Promise.resolve(fn(req, res, next)).catch(next);
+};
+
+app.get('/users/:id', asyncHandler(async (req, res) => {
+  const user = await db.getUser(req.params.id);
+  res.json(user);
+}));
+```
+
+Packages like `express-async-handler` or `express-async-errors` provide this behavior.
+
+### AbortController for downstream cancellation
+
+```javascript
+app.get('/proxy', async (req, res, next) => {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 5000);
+
+  try {
+    const upstream = await fetch('https://slow.api/data', {
+      signal: controller.signal,
+    });
+    const data = await upstream.json();
+    clearTimeout(timeout);
+    res.json(data);
+  } catch (err) {
+    clearTimeout(timeout);
+    next(err);
+  }
+});
+```
+
+Use `AbortController` to cancel slow downstream calls and avoid holding connections beyond client/server timeouts.
+
+---
+
+## 15. REST vs GraphQL in Express
 
 | Factor | REST | GraphQL |
 |---|---|---|
@@ -379,7 +515,7 @@ describe('GET /users', () => {
 
 ---
 
-## 15. Staff-Level Sound Bites
+## 16. Staff-Level Sound Bites
 
 - "Express is thin by design; it gives you freedom, but that freedom requires discipline in architecture."
 - "Middleware order matters — each request flows through middleware in the order it is registered."
@@ -390,7 +526,7 @@ describe('GET /users', () => {
 
 ---
 
-## 16. Quick Reference Table
+## 17. Quick Reference Table
 
 | Task | Pattern / Middleware |
 |---|---|
@@ -406,10 +542,15 @@ describe('GET /users', () => {
 | Compression | `compression` middleware |
 | Rate limiting | `express-rate-limit` |
 | Request validation | `express-validator`, `joi`, or `zod` |
+| Security headers baseline | `helmet()` |
+| Health/readiness | `/health`, `/ready` endpoints |
+| Distributed rate limiting | `express-rate-limit` + Redis store |
+| Async error wrapper | `express-async-handler` or Express 5 |
+| Downstream cancellation | `AbortController` |
 
 ---
 
-## 17. Interview First-Response Openers (1-2 lines)
+## 18. Interview First-Response Openers (1-2 lines)
 
 | Concept | First statement to say in interview |
 |---|---|
@@ -421,10 +562,16 @@ describe('GET /users', () => {
 | CORS | "CORS is a browser-enforced cross-origin policy controlled by response headers and preflight negotiation." |
 | AuthN vs AuthZ | "Authenticate identity first, then authorize actions with role/permission policies at route or domain boundaries." |
 | REST vs GraphQL | "REST offers cache-friendly explicit endpoints; GraphQL optimizes client data shape at the cost of more complex server governance." |
+| Request lifecycle | "After a response is sent, headers are committed; any further send causes a runtime error, so centralize response handling and return early." |
+| Route specificity | "Express matches routes in order, so specific paths must be registered before parameter routes to avoid shadowing." |
+| Helmet | "`helmet()` gives a security header baseline; customize CSP rather than disabling it." |
+| Health/readiness | "`/health` says the process is alive; `/ready` says dependencies are reachable and traffic should be routed here." |
+| Rate limiting | "Rate limits should be global across instances in production, usually backed by Redis." |
+| Express async errors | "Express 4 does not catch rejected promises in routes; wrap handlers or upgrade to Express 5 for automatic forwarding to error middleware." |
 
 ---
 
-## 18. Frequent Staff-Level Follow-Ups
+## 19. Frequent Staff-Level Follow-Ups
 
 - **Graceful lifecycle:** implement readiness/liveness probes and drain logic before process exit.
 - **Idempotency for writes:** support idempotency keys for critical POST operations (payments/orders) to handle retries safely.

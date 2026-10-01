@@ -305,7 +305,104 @@ export function foo() {}
 
 ---
 
-## 9. Staff-Level Sound Bites
+## 9. Safer Stream Pipelines with `stream.pipeline`
+
+`stream.pipeline` automatically cleans up streams on error and avoids resource leaks compared to manual `.pipe()` chains.
+
+```javascript
+const { pipeline } = require('stream');
+const fs = require('fs');
+const zlib = require('zlib');
+
+pipeline(
+  fs.createReadStream('input.txt'),
+  zlib.createGzip(),
+  fs.createWriteStream('output.txt.gz'),
+  (err) => {
+    if (err) console.error('Pipeline failed:', err);
+    else console.log('Pipeline succeeded');
+  }
+);
+```
+
+For promise-based code:
+
+```javascript
+const { pipeline } = require('stream/promises');
+
+await pipeline(
+  fs.createReadStream('input.txt'),
+  zlib.createGzip(),
+  fs.createWriteStream('output.txt.gz')
+);
+```
+
+---
+
+## 10. `AbortController` and Cancelable Async Operations
+
+```javascript
+const controller = new AbortController();
+const { signal } = controller;
+
+fetch('https://api.example.com/data', { signal })
+  .then((res) => res.json())
+  .catch((err) => {
+    if (err.name === 'AbortError') console.log('Request canceled');
+  });
+
+setTimeout(() => controller.abort(), 5000);
+```
+
+Use `AbortSignal` for:
+
+- Canceling outgoing HTTP requests.
+- Stopping streams that support signals.
+- Forwarding cancellation through multiple async boundaries.
+
+---
+
+## 11. `AsyncLocalStorage` for Request Context Propagation
+
+```javascript
+const { AsyncLocalStorage } = require('async_hooks');
+const asyncLocalStorage = new AsyncLocalStorage();
+
+function logWithId(msg) {
+  const id = asyncLocalStorage.getStore();
+  console.log(`${id !== undefined ? id : 'unknown'}: ${msg}`);
+}
+
+asyncLocalStorage.run(123, () => {
+  logWithId('start'); // 123: start
+  setImmediate(() => logWithId('finish')); // 123: finish
+});
+```
+
+Staff use cases:
+
+- Request correlation IDs through async call chains.
+- Per-request telemetry / tracing without manual propagation.
+- User/tenant context in deeply nested service calls.
+
+---
+
+## 12. Promisified File System APIs (`fs/promises`)
+
+```javascript
+const fs = require('fs/promises');
+
+async function readConfig(path) {
+  const data = await fs.readFile(path, 'utf8');
+  return JSON.parse(data);
+}
+```
+
+Prefer `fs/promises` over callback or sync APIs in request handlers. The sync APIs block the event loop; the callback API can create deeply nested error handling.
+
+---
+
+## 13. Staff-Level Sound Bites
 
 - "Worker threads add parallelism for CPU-bound JavaScript; they do not replace non-blocking I/O."
 - "EventEmitters are the glue of Node.js streams, HTTP, and process events."
@@ -316,7 +413,7 @@ export function foo() {}
 
 ---
 
-## 10. Quick Reference Table
+## 14. Quick Reference Table
 
 | Need | Right tool |
 |---|---|
@@ -329,10 +426,14 @@ export function foo() {}
 | Catch unhandled promise rejections | `process.on('unhandledRejection')` |
 | Reproducible CI install | `npm ci` |
 | Enable ES modules in a package | `"type": "module"` in `package.json` |
+| Safely chain streams | `stream.pipeline()` or `stream/promises` |
+| Cancel async work | `AbortController` + `AbortSignal` |
+| Request-scoped context | `AsyncLocalStorage` |
+| Non-blocking file I/O | `fs/promises` |
 
 ---
 
-## 11. Interview First-Response Openers (1-2 lines)
+## 15. Interview First-Response Openers (1-2 lines)
 
 | Concept | First statement to say in interview |
 |---|---|
@@ -344,10 +445,13 @@ export function foo() {}
 | Error handling | "Handle errors at local boundaries first, then use process-level handlers only as a crash-and-restart safety net." |
 | CJS vs ESM | "CommonJS is runtime `require`; ESM is statically analyzable `import` with better tooling and tree-shaking." |
 | npm + lockfiles | "`npm ci` with lockfiles gives deterministic installs, which is mandatory for reproducible CI/CD pipelines." |
+| `stream.pipeline` | "`stream.pipeline` safely wires streams together and cleans up on failure, avoiding leaks from manual `.pipe()` chains." |
+| `AsyncLocalStorage` | "`AsyncLocalStorage` propagates request-scoped context through asynchronous callbacks without explicit parameter passing." |
+| `fs/promises` | "I use `fs/promises` to keep file I/O non-blocking and avoid callback nesting or accidental sync calls in request handlers." |
 
 ---
 
-## 12. Frequent Staff-Level Follow-Ups
+## 16. Frequent Staff-Level Follow-Ups
 
 - **Context propagation:** use `AsyncLocalStorage` for request correlation IDs and per-request telemetry.
 - **Cancellation discipline:** support `AbortController` and end-to-end timeouts to avoid hanging async work.

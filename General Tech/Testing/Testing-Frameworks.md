@@ -418,7 +418,88 @@ Example pipeline shape:
 
 ---
 
-## 8. Staff-Level Sound Bites
+## 8. Advanced Testing Patterns
+
+### Mock Service Worker (MSW) vs module mocking
+
+| Approach | Mechanism | Best for |
+|---|---|---|
+| `jest.mock('axios')` | Replaces module implementation | Single-file unit tests with simple stubs |
+| MSW | Intercepts network calls at the request layer | Component/integration tests where real client code should run |
+
+MSW keeps the application code path identical to production while still controlling the server response.
+
+```typescript
+// msw/handlers.ts
+import { http, HttpResponse } from 'msw';
+
+export const handlers = [
+  http.get('/api/user', () => HttpResponse.json({ id: 1, name: 'Alice' })),
+];
+```
+
+### E2E tools: Playwright vs Cypress
+
+| Concern | Playwright | Cypress |
+|---|---|---|
+| Browser support | Chromium, Firefox, WebKit | Chromium, Firefox, Edge |
+| Cross-origin/tabs | Native multi-tab, multi-origin | Requires `cy.origin()` wrapper, single tab at a time |
+| Test runner | Separate process per browser | Runs inside browser |
+| Best fit | Complex multi-page flows, cross-browser | Single-origin rich component/interaction tests |
+
+### Mutation testing
+
+Mutation testing verifies that your assertions actually catch code changes. Tools:
+
+- JavaScript/TypeScript: Stryker
+- Python: MutPy
+
+High mutation score indicates tests assert meaningful behavior, not just line coverage.
+
+### Property-based testing
+
+Instead of example-based tests, generate random inputs and verify invariants.
+
+```javascript
+// fast-check example
+const { assert, property, integer } = require('fast-check');
+
+assert(
+  property(integer(), integer(), (a, b) => a + b === b + a)
+);
+```
+
+Use for parsers, validators, state machines, and algorithms with clear invariants.
+
+### Snapshot testing — when to use and avoid
+
+| Good use | Bad use |
+|---|---|
+| Serialized error messages, CLI output, AST dumps | Large UI component trees that change frequently |
+| Stable configuration objects | Database responses with timestamps/IDs |
+
+Treat snapshots as intentional assertions; review diffs in PRs and avoid auto-updating without inspection.
+
+### Flaky-test policy template
+
+1. **Detect**: CI marks test as flaky after N inconsistent runs.
+2. **Quarantine**: move out of blocking pipeline but keep running on a schedule.
+3. **Owner**: assign to a team/individual with SLA.
+4. **Fix root cause**: deterministic waits, isolation, fake time, stable data.
+5. **Reintegrate**: only after passing 100 consecutive runs.
+
+### Test Impact Analysis (TIA)
+
+Run only tests affected by changed files to keep PR feedback fast.
+
+- Map source files to dependent tests.
+- Use coverage/dependency graphs or tools like Jest `--changedSince`.
+- Combine with remote build cache for monorepos.
+
+---
+
+## 9. Staff-Level Sound Bites
+
 
 - "The goal of unit tests is to give fast feedback, not to prove the whole system works."
 - "Use mocks to make tests deterministic; over-mocking hides real integration bugs."
@@ -429,7 +510,7 @@ Example pipeline shape:
 
 ---
 
-## 9. Quick Reference Table
+## 10. Quick Reference Table
 
 | Task | Tool / Pattern |
 |---|---|
@@ -442,10 +523,16 @@ Example pipeline shape:
 | Test HTTP API | `supertest(app).get('/api')` |
 | Test NestJS service | `Test.createTestingModule` + `module.get(Service)` |
 | Measure coverage | `jest --coverage` |
+| Intercept HTTP in tests | MSW handlers |
+| Cross-browser E2E | Playwright |
+| Measure test quality | Mutation testing (Stryker) |
+| Generate test inputs | Property-based testing (fast-check) |
+| Reduce PR test time | Test Impact Analysis (`jest --changedSince`) |
+| Stable flaky-test process | Quarantine + owner + reintegration criteria |
 
 ---
 
-## 10. TypeScript-Specific Testing Notes
+## 11. TypeScript-Specific Testing Notes
 
 | Topic | Staff-level guidance |
 |---|---|
@@ -464,7 +551,7 @@ const repo: jest.Mocked<UserRepo> = {
 
 ---
 
-## 11. Interview First-Response Openers (1-2 lines)
+## 12. Interview First-Response Openers (1-2 lines)
 
 | Concept | First statement to say in interview |
 |---|---|
@@ -474,10 +561,14 @@ const repo: jest.Mocked<UserRepo> = {
 | Async testing | "Every async test must deterministically signal completion and avoid hidden open handles." |
 | Coverage | "Coverage is a confidence signal, not correctness proof; branch-risk areas matter more than raw percentages." |
 | CI gates | "Quality gates should block merges on failing tests, type/lint errors, and critical-path regression checks." |
+| MSW | "MSW intercepts real network calls, so tests exercise the actual client path instead of coupling to a specific HTTP library implementation." |
+| E2E tools | "I choose Playwright when flows span tabs or origins; Cypress is strong for single-origin rich interactions, but tabs and cross-origin flows need extra care." |
+| Mutation/property testing | "Beyond coverage, mutation testing and property-based tests validate that assertions are meaningful and invariants hold across many inputs." |
+| Flaky tests | "Flaky tests erode trust; I quarantine, assign an owner, and require a deterministic fix before reintegration." |
 
 ---
 
-## 12. Frequent Staff-Level Follow-Ups
+## 13. Frequent Staff-Level Follow-Ups
 
 - **Flaky-test governance:** quarantine policy + owner + SLA; flaky tests in `main` should be treated as incidents.
 - **Deterministic async tests:** freeze time (`jest.useFakeTimers()`), avoid real sleeps, and assert with bounded waits.

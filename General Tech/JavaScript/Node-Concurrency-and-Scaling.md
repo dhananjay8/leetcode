@@ -152,7 +152,72 @@ Production-grade monitoring: `event-loop-lag`, `clinic.js`, `NodeSource`, or APM
 
 ---
 
-## 7. Staff-Level Sound Bites
+## 7. The `cluster` Module in Practice
+
+The Node.js `cluster` module forks one worker process per CPU core and shares a single server port across them.
+
+```javascript
+const cluster = require('cluster');
+const os = require('os');
+const http = require('http');
+
+if (cluster.isPrimary) {
+  const numCPUs = os.availableParallelism();
+  for (let i = 0; i < numCPUs; i++) cluster.fork();
+
+  cluster.on('exit', (worker) => {
+    console.log(`Worker ${worker.process.pid} died; restarting...`);
+    cluster.fork();
+  });
+} else {
+  http.createServer((req, res) => {
+    res.end(`Hello from worker ${process.pid}`);
+  }).listen(3000);
+}
+```
+
+Use cases:
+
+- Scale an HTTP server across all CPU cores on a single machine.
+- Provide process-level fault isolation (a worker crash does not bring down the whole server).
+- In container/Kubernetes deployments, prefer horizontal pod scaling over `cluster` because each container can run a single Node process.
+
+---
+
+## 8. Measuring Performance with `perf_hooks`
+
+```javascript
+const { performance, PerformanceObserver } = require('perf_hooks');
+
+const obs = new PerformanceObserver((list) => {
+  console.log(list.getEntries()[0]);
+});
+obs.observe({ type: 'measure' });
+
+performance.mark('start');
+// ... work ...
+performance.mark('end');
+performance.measure('work', 'start', 'end');
+```
+
+For event-loop delay:
+
+```javascript
+const { monitorEventLoopDelay } = require('perf_hooks');
+const h = monitorEventLoopDelay({ resolution: 20 });
+h.enable();
+
+setInterval(() => {
+  console.log(`p99 event-loop delay: ${h.percentile(99)} ns`);
+  h.reset();
+}, 5000);
+```
+
+Staff point: **Profile before optimizing — event-loop delay and heap snapshots identify whether the bottleneck is CPU, I/O, or memory.**
+
+---
+
+## 9. Staff-Level Sound Bites
 
 - "Node.js is a concurrency coordinator, not a parallel-computation engine."
 - "The event loop lets one thread manage thousands of connections as long as no callback blocks."
@@ -162,7 +227,7 @@ Production-grade monitoring: `event-loop-lag`, `clinic.js`, `NodeSource`, or APM
 
 ---
 
-## 8. Quick Reference Table
+## 10. Quick Reference Table
 
 | Task | Right tool |
 |---|---|
@@ -176,7 +241,7 @@ Production-grade monitoring: `event-loop-lag`, `clinic.js`, `NodeSource`, or APM
 
 ---
 
-## 9. Interview First-Response Openers (1-2 lines)
+## 11. Interview First-Response Openers (1-2 lines)
 
 | Concept | First statement to say in interview |
 |---|---|
@@ -185,10 +250,13 @@ Production-grade monitoring: `event-loop-lag`, `clinic.js`, `NodeSource`, or APM
 | Libuv thread pool | "Libuv offloads blocking operations like file and crypto work; default pool size is 4 and can be tuned." |
 | Worker threads vs cluster | "Use worker threads for CPU parallelism inside one process and cluster/replicas for multi-core request distribution." |
 | Event-loop lag | "Lag is the earliest production signal that synchronous or CPU-heavy code is starving request handling." |
+| Worker threads vs cluster | "Use worker threads for CPU parallelism inside one process and cluster/replicas for multi-core request distribution." |
+| `cluster` module | "`cluster` forks worker processes that share a server port, giving process-level isolation and multi-core scaling on a single host." |
+| `perf_hooks` | "`perf_hooks` gives high-resolution timing and event-loop delay metrics so you optimize from real data, not guesses." |
 
 ---
 
-## 10. Frequent Staff-Level Follow-Ups
+## 12. Frequent Staff-Level Follow-Ups
 
 - **Graceful shutdown:** stop accepting new traffic, drain in-flight requests, close DB/queue clients, and then exit.
 - **Overload protection:** enforce timeouts, bulkheads, circuit breakers, and bounded queues to prevent cascading failure.

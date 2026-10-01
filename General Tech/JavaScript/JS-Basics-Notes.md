@@ -725,7 +725,190 @@ process.on('uncaughtException', (err) => {
 
 ---
 
-## 21. Programming Problems
+## 21. Additional Interview-Critical Topics
+
+### Classes and class inheritance
+
+```javascript
+class Animal {
+  constructor(name) { this.name = name; }
+  speak() { console.log(this.name); }
+}
+
+class Dog extends Animal {
+  speak() { console.log(`${this.name} barks`); }
+}
+
+const d = new Dog('Buddy');
+d.speak(); // Buddy barks
+```
+
+Class declarations are hoisted but remain in the TDZ until evaluated, just like `let`/`const`.
+
+### `Map`, `Set`, `WeakMap`, `WeakRef`
+
+| Collection | Use when |
+|---|---|
+| `Map` | Frequent key insertions/deletions with any key type; preserves insertion order |
+| `Set` | Unique values needed |
+| `WeakMap` | Private data attached to objects without preventing GC |
+| `WeakRef` | Non-strong reference to an object (allows GC) |
+
+Use `Map` over plain objects when keys are not strings or when iteration order/size matters.
+
+### Debounce and throttle
+
+```javascript
+function debounce(fn, wait) {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => fn(...args), wait);
+  };
+}
+
+function throttle(fn, limit) {
+  let inThrottle;
+  return (...args) => {
+    if (!inThrottle) {
+      fn(...args);
+      inThrottle = true;
+      setTimeout(() => (inThrottle = false), limit);
+    }
+  };
+}
+```
+
+- **Debounce** waits for a pause in events; useful for search input.
+- **Throttle** limits execution to a fixed interval; useful for scroll/resize handlers.
+
+### `AbortController`
+
+```javascript
+const controller = new AbortController();
+fetch('/api/data', { signal: controller.signal })
+  .then((res) => res.json())
+  .catch((err) => {
+    if (err.name === 'AbortError') console.log('Request aborted');
+  });
+
+// Cancel after 5 seconds
+setTimeout(() => controller.abort(), 5000);
+```
+
+`AbortController` lets you cancel `fetch`, streams, and other async operations that accept a signal.
+
+### Event delegation
+
+Attach one listener to a parent and use `event.target` to identify which child was clicked.
+
+```javascript
+document.getElementById('list').addEventListener('click', (e) => {
+  if (e.target.matches('li.item')) console.log(e.target.textContent);
+});
+```
+
+Benefits: fewer listeners, automatic handling of dynamically added children.
+
+### Memoization
+
+```javascript
+function memoize(fn) {
+  const cache = new Map();
+  return (...args) => {
+    const key = JSON.stringify(args);
+    if (cache.has(key)) return cache.get(key);
+    const result = fn(...args);
+    cache.set(key, result);
+    return result;
+  };
+}
+```
+
+Staff note: memoization trades memory for CPU; be cautious with unbounded caches and non-serializable arguments.
+
+### Type coercion and falsy values
+
+| Expression | Result | Why |
+|---|---|---|
+| `0 == '0'` | `true` | String converted to number |
+| `0 === '0'` | `false` | Strict equality, no coercion |
+| `[] == false` | `true` | Array to primitive to number `0` |
+| `null == undefined` | `true` | Special coercion rule |
+| `NaN == NaN` | `false` | `NaN` is never equal to itself |
+
+Falsy values: `false`, `0`, `-0`, `''`, `null`, `undefined`, `NaN`, `document.all`.
+Prefer `===` and explicit conversions in production code.
+
+### `for await...of` and async iterators
+
+```javascript
+async function* asyncRange(n) {
+  for (let i = 0; i < n; i++) {
+    await new Promise((r) => setTimeout(r, 10));
+    yield i;
+  }
+}
+
+(async () => {
+  for await (const x of asyncRange(3)) {
+    console.log(x);
+  }
+})();
+```
+
+Async iterators let you consume asynchronous data sources with the same mental model as synchronous loops.
+
+### Browser rendering, `requestAnimationFrame`, and the Scheduler API
+
+```javascript
+function animate() {
+  // Runs before the next paint
+  requestAnimationFrame(animate);
+}
+requestAnimationFrame(animate);
+```
+
+| Mechanism | Purpose |
+|---|---|
+| `requestAnimationFrame` | Schedule work before the next browser paint (60fps target) |
+| `scheduler.yield()` | Yield to higher-priority work without dropping to the end of the task queue |
+| `scheduler.postTask()` | Priority-aware scheduling (`user-blocking`, `user-visible`, `background`) |
+
+Staff note: long microtask queues block rendering. Chunk work with `requestAnimationFrame` or `scheduler.yield()` to keep Interaction to Next Paint (INP) healthy.
+
+### Core Web Vitals: INP and TBT
+
+| Metric | What it measures | Staff angle |
+|---|---|---|
+| **INP** (Interaction to Next Paint) | Latency of the worst user interaction | Long JavaScript tasks and microtask starvation block the main thread and inflate INP |
+| **TBT** (Total Blocking Time) | Sum of long tasks between First Contentful Paint and Time to Interactive | Reduce by breaking work into chunks and moving heavy logic off main thread |
+
+### WebAssembly (Wasm)
+
+WebAssembly is a low-level, portable binary format that runs in the browser and Node.js alongside JavaScript.
+
+Use when:
+
+- CPU-intensive computation (image/video/audio processing, codecs).
+- Existing C/C++/Rust codebases need to run on the web.
+- Predictable near-native performance matters more than dynamic flexibility.
+
+JavaScript remains the orchestrator; Wasm handles the hot compute modules.
+
+### `BigInt` and `Symbol` reminders
+
+```javascript
+const huge = 9007199254740991n + 1n; // BigInt
+const key = Symbol('private');       // unique, non-string object key
+```
+
+- `BigInt` supports arbitrarily large integers; cannot be mixed with `Number` directly.
+- `Symbol` creates unique property keys useful for non-colliding metadata.
+
+---
+
+## 22. Programming Problems
 
 ### 1. Reverse a string
 
@@ -859,7 +1042,7 @@ const c = a.map(e => { if (e > 2) return e; });      // [undefined, undefined, 3
 
 ---
 
-## 22. Staff-Level Sound Bites
+## 23. Staff-Level Sound Bites
 
 - "`var` is function-scoped and hoisted to `undefined`; `let` and `const` are block-scoped and subject to the temporal dead zone."
 - "Closures let a function retain access to its lexical scope even after the outer function returns."
@@ -871,7 +1054,7 @@ const c = a.map(e => { if (e > 2) return e; });      // [undefined, undefined, 3
 
 ---
 
-## 23. Quick Reference Tables
+## 24. Quick Reference Tables
 
 ### Variable declarations
 
@@ -916,7 +1099,7 @@ const c = a.map(e => { if (e > 2) return e; });      // [undefined, undefined, 3
 
 ---
 
-## 24. Interview First-Response Openers (1-2 lines)
+## 25. Interview First-Response Openers (1-2 lines)
 
 | Concept | First statement to say in interview |
 |---|---|
@@ -936,10 +1119,25 @@ const c = a.map(e => { if (e > 2) return e; });      // [undefined, undefined, 3
 | `null` vs `undefined` | "`undefined` means missing/uninitialized value; `null` means intentionally empty." |
 | HTTP update verbs | "`PUT` replaces the full resource and is idempotent; `PATCH` partially updates; `POST` is generally non-idempotent create/action." |
 
+| Classes / inheritance | "Classes are syntactic sugar over constructor functions and prototype chains; declarations are hoisted but stay in the TDZ until evaluation." |
+| `Map`/`Set`/`WeakMap` | "Use `Map` for non-string keys and ordered iteration, `Set` for uniqueness, and `WeakMap`/`WeakRef` when you want metadata that does not extend object lifetime." |
+| Debounce / throttle | "Debounce waits for a pause in events, throttle caps the rate; both are common ways to avoid expensive work on high-frequency events." |
+| `AbortController` | "`AbortController` gives us a standard way to cancel `fetch`, streams, and other signal-aware async operations without leaking resources." |
+| Event delegation | "Event delegation attaches one listener to a parent and uses `event.target`, reducing memory and handling dynamically added children." |
+| Memoization | "Memoization caches function results to trade memory for CPU; guard against unbounded growth and non-serializable keys." |
+| Type coercion | "JavaScript coerces operands in loose equality; I prefer `===` and explicit conversions to avoid surprising rules." |
+| Async iterators | "`for await...of` consumes async iterables with the same readability as synchronous loops, useful for streaming data." |
+| Browser rendering | "Long tasks and microtask starvation block the main thread; I use `requestAnimationFrame`, `scheduler.yield()`, and chunking to protect INP and TBT." |
+| WebAssembly | "WebAssembly lets me move CPU-bound modules written in C++/Rust into the browser or Node while JavaScript orchestrates them." |
+| Core Web Vitals | "INP measures interaction latency; TBT measures main-thread blocking — both are key signals for a responsive user experience." |
+
 ---
 
-## 25. Frequent Staff-Level Follow-Ups
+## 26. Frequent Staff-Level Follow-Ups
 
+- **Collection choice:** pick `Map`/`Set` over plain objects when key types, iteration order, or object-identity semantics matter.
+- **Cancelable async operations:** pass `AbortSignal` through service boundaries and respect it in fetch/stream cleanup.
+- **Event-delegation memory model:** prefer delegation for large or dynamic lists; attach close to the common ancestor to avoid deep propagation.
 - **Immutability at scale:** be explicit on where shallow copy is safe vs where structural sharing libraries are needed.
 - **Event-loop safety:** identify blocking hotspots (JSON parse, sync crypto, regex backtracking) and move heavy paths off main thread.
 - **API semantics:** tie method idempotency to retries, backoff policies, and exactly-once illusions.

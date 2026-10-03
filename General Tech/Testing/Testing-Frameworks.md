@@ -343,6 +343,44 @@ A: Treat tests as production code. Review and refactor them in the same PR that 
 **Q20. How do you debug failing tests in NestJS?**
 A: Use `jest --watch`, add focused `test.only`, insert `console.log` or breakpoints, and run with `--verbose` and `--detectOpenHandles` to find leaked async resources.
 
+### Staff/Principal-Level Questions
+
+**Q21. How is stress testing different from load testing and performance testing?**
+A:
+- **Load testing** validates behavior at an *expected* traffic level (does the system meet SLAs at normal/peak load?).
+- **Stress testing** pushes traffic *beyond* expected limits to find the breaking point and observe failure mode (does it degrade gracefully or crash hard?).
+- **Performance testing** is the umbrella term/measurement discipline (latency, throughput, resource usage) that load, stress, soak, and spike tests all fall under.
+
+**Q22. What is soak (endurance) testing and what bugs does it uniquely catch?**
+A: Soak testing runs sustained moderate load for an extended period (hours/days) to catch slow memory leaks, connection-pool exhaustion, unbounded cache growth, log-disk fill-up, and clock-drift/rotation bugs that short load tests never trigger.
+
+**Q23. What is spike testing?**
+A: Suddenly jump traffic from baseline to a very high value (e.g., flash-sale, breaking-news event) and back down, to validate auto-scaling reaction time, queue backpressure, and recovery behavior rather than just the steady-state ceiling.
+
+**Q24. What is chaos engineering and how does it differ from traditional testing?**
+A: Traditional tests verify the system behaves correctly under *expected* conditions. Chaos engineering deliberately injects real failures (kill a pod, add network latency, drop a dependency, exhaust disk) into a running system — often in production — to verify resilience assumptions (retries, circuit breakers, failover) actually hold, not just that the code compiles against them.
+
+**Q25. What's the difference between smoke testing, sanity testing, and regression testing?**
+A:
+- **Smoke**: a small, fast suite run right after a deploy/build to confirm the system isn't fundamentally broken ("is it even worth testing further?").
+- **Sanity**: a focused, shallow check on a specific area after a small change/fix, confirming that change behaves sanely before deeper regression runs.
+- **Regression**: re-running previously-passing tests after a change to confirm nothing that used to work has broken.
+
+**Q26. What is contract testing and when do unit/integration tests fail to catch what it catches?**
+A: Contract tests verify that a producer's API/event schema matches what a consumer expects, independent of both being deployed together. Unit tests only check code in isolation; integration tests usually run against a *real but single* version of a dependency. Neither catches a producer shipping a breaking change that only a *different team's* consumer would notice — contract tests (e.g., Pact) close that gap in a microservices org without needing a full staging environment with every service deployed.
+
+**Q27. When would you choose TDD over writing tests after the implementation?**
+A: For complex business/domain logic, bug fixes (write the failing regression test first), and public API design where the test acts as the first consumer of the interface. I don't force TDD on throwaway spikes, pure UI/visual work, or exploratory prototypes where the design itself is still unknown.
+
+**Q28. How do you decide how much of each test type to write for a new service?**
+A: Start from risk and change frequency, not a fixed ratio: heavy unit coverage on business logic that changes often, integration tests on every real I/O boundary (DB, queue, third-party API), and E2E/contract tests only on the handful of journeys that are both business-critical and cross multiple services.
+
+**Q29. How would you test a payment/checkout flow at a staff level?**
+A: Layer defenses: property-based tests for the pricing/tax math invariants, contract tests against the payment provider's API schema, integration tests for idempotency-key handling and retry/duplicate-charge prevention, and a small number of E2E tests for the critical happy-path and one or two failure paths (declined card, timeout). Add a reconciliation job as a production-side test that compares expected vs actual charged amounts.
+
+**Q30. What's the difference between A/B testing and the testing types discussed so far?**
+A: Unit/integration/E2E/performance tests validate that code *behaves correctly*. A/B testing is a statistical experiment on *already-correct* code to measure which variant performs better against a business metric (conversion, engagement) — it's a product-analytics technique, not a correctness check, though it still needs solid test coverage underneath it to trust the results.
+
 ---
 
 ## 5. Framework Selection Guide
@@ -498,7 +536,119 @@ Run only tests affected by changed files to keep PR feedback fast.
 
 ---
 
-## 9. Staff-Level Sound Bites
+## 9. Full Testing Taxonomy & Comparison Matrix
+
+A staff-level answer to "what kinds of testing are there?" should group types by **what question they answer**, not just list names.
+
+### By correctness / functional scope
+
+| Type | Answers | Scope | Speed | Typical owner |
+|---|---|---|---|---|
+| **Unit** | "Does this function/class do what it should, in isolation?" | Single function/module | Fast | Dev |
+| **Integration** | "Do these modules + a real boundary (DB/queue/HTTP) work together?" | Few modules + 1 real dependency | Medium | Dev |
+| **Contract** | "Does the producer's API/event schema still match what the consumer expects?" | Producer/consumer schema | Fast | Dev (both sides) |
+| **E2E** | "Does the full user journey work through the real system?" | Whole app/stack | Slow | Dev/QA |
+| **Smoke** | "Is the build even alive after deploy?" | Critical paths only | Very fast | CI/CD |
+| **Sanity** | "Did this specific small fix behave sanely?" | One narrow area | Fast | Dev |
+| **Regression** | "Did this change break something that used to work?" | Previously-passing suite | Varies | CI |
+| **Acceptance (UAT)** | "Does this meet the business requirement/spec?" | Business scenario | Slow | QA/Product |
+
+### By non-functional / quality-attribute scope
+
+| Type | Answers | How it's run |
+|---|---|---|
+| **Load testing** | "Do we meet SLAs at expected/peak traffic?" | Ramp to known target RPS (k6, Locust, Gatling, Artillery) |
+| **Stress testing** | "Where does it break, and how (graceful vs catastrophic)?" | Ramp past expected limits until failure |
+| **Soak / endurance testing** | "Does it stay healthy under sustained load for hours/days?" | Long-duration moderate load; watches for leaks |
+| **Spike testing** | "Can we survive a sudden traffic cliff/surge and recover?" | Sudden step-change in traffic, then back down |
+| **Scalability testing** | "Does throughput scale linearly as we add resources/instances?" | Vary resource count, measure throughput/latency curve |
+| **Performance/benchmark testing** | "What's the latency/throughput/resource profile right now?" | Microbenchmarks, profilers, APM traces |
+| **Chaos engineering** | "Do our resilience mechanisms (retry, circuit breaker, failover) actually work when real failures happen?" | Inject real faults (kill pod, add latency, drop dependency) — often in production |
+| **Security testing** | "Can this be exploited?" | SAST (static scan), DAST (running-app scan), dependency/SCA scan, pen testing |
+| **Accessibility testing** | "Can users with disabilities use this?" | Automated (axe, Lighthouse) + manual screen-reader checks |
+| **Visual regression testing** | "Did the UI unintentionally change pixel-for-pixel?" | Screenshot diffing (Percy, Chromatic, Playwright) |
+| **Fuzz testing** | "What happens with malformed/random/adversarial input?" | Automated random/mutated input generators |
+| **Mutation testing** | "Do our assertions actually catch real code changes?" | Tool mutates source, checks if tests fail (Stryker) |
+| **Property-based testing** | "Does this invariant hold across many generated inputs, not just our hand-picked examples?" | Generators + invariant assertions (fast-check) |
+| **Canary testing** | "Does the new version behave acceptably for a small slice of real production traffic before full rollout?" | Route % of traffic to new version, compare metrics |
+| **A/B testing** | "Which already-correct variant performs better on a business metric?" | Statistical experiment, not a correctness check |
+
+Staff point: **"Unit/integration/E2E answer 'is it correct'; load/stress/soak/spike answer 'is it fast and stable enough'; chaos answers 'does it fail safely'; security/accessibility answer 'is it safe to use' — they're different axes, not competing alternatives, and a mature system needs coverage on all of them proportional to risk."**
+
+---
+
+## 10. Deciding a Testing Strategy — Step-by-Step Framework
+
+A testing **strategy** is the decision of *which* of the types above to invest in, *how much*, and *when* — tailored to the system, not copy-pasted from another team.
+
+### Step-by-step approach
+
+1. **Identify the failure cost.** What happens if this breaks in production — lost money, safety incident, bad UX, silent data corruption? Higher cost → more layers of defense, not just more tests of one type.
+2. **Map the critical user/business journeys.** List the 5-10 flows that must never break (checkout, auth, data ingestion). These earn E2E/contract coverage; everything else usually doesn't need it.
+3. **Classify the system shape**, since it changes the right pyramid:
+   - Stateless API service → heavy unit + integration, light E2E.
+   - UI-heavy frontend → unit for logic, component tests for UI, few E2E for critical flows, visual regression for design-sensitive screens.
+   - Event-driven/microservices → contract tests + chaos engineering + synthetic monitoring become as important as unit tests.
+   - Data pipeline/batch system → data-quality assertions, schema/contract tests, and replay/backfill tests matter more than UI-style E2E.
+4. **Pick tools matched to the stack and team skill**, not the "best" tool in the abstract — consistency across the team beats a marginally-better tool nobody adopts.
+5. **Define quality gates per pipeline stage**: what blocks a PR (unit + lint + type-check) vs what runs nightly (full E2E, load tests) vs what runs pre-release (soak, security scan).
+6. **Decide environments per test type**: unit = no I/O; integration = ephemeral/testcontainers; E2E = staging; load/chaos = staging or production with guardrails.
+7. **Assign ownership and a flaky-test policy.** Tests without an owner rot; quarantine + SLA + reintegration criteria (see Section 8) applies strategy-wide, not just to one suite.
+8. **Instrument feedback from production back into the strategy.** Every incident/postmortem should answer "which test type should have caught this, and why didn't it?" and either add that test or add that *type* of test if it didn't exist yet.
+9. **Revisit quarterly** as the system changes shape (new integrations, new scale, new compliance requirements) — a strategy frozen at launch silently rots.
+
+### Decision table (symptom → what to prioritize)
+
+| Situation | Prioritize |
+|---|---|
+| High change frequency, low blast radius | Heavy unit tests, fast feedback, light E2E |
+| Payment/financial correctness | Property-based + contract + strong integration + production reconciliation |
+| Microservices / distributed system | Contract tests + chaos engineering + synthetic monitoring over more E2E |
+| Expected traffic spike (launch, sale) | Load + stress + spike testing before the event, not after |
+| Long-running services (leaks, drift) | Soak/endurance testing |
+| Regulatory/compliance requirement | Traceability matrix: requirement → test case → evidence, audit trail |
+| Design-sensitive UI | Visual regression + accessibility testing |
+| Legacy code with no tests | Characterization tests (pin current behavior) before refactoring, not TDD from scratch |
+
+---
+
+## 11. TDD, BDD, and Test-Last — Pros, Cons, and When to Use Each
+
+### Test-Driven Development (TDD): red → green → refactor
+
+| Pros | Cons |
+|---|---|
+| Tight feedback loop; design emerges from usage, not guesswork | Overhead/learning curve for teams new to it |
+| Forces testable, decoupled interfaces (hard-to-test code gets redesigned early) | Can over-couple tests to implementation details if done mechanically |
+| Built-in regression suite as a side effect of development | Slower for exploratory/spike/prototype work where the design itself is unknown |
+| Prevents speculative over-engineering (write only enough code to pass) | Not a natural fit for visual/UI-heavy or highly exploratory ML work |
+| Each bug fix starts with a reproducing failing test, which becomes permanent regression coverage | Risk of "testing theater" — chasing coverage numbers instead of meaningful assertions |
+
+### Behavior-Driven Development (BDD): Given/When/Then
+
+| Pros | Cons |
+|---|---|
+| Shared language between business, QA, and engineering; specs are readable by non-engineers | Feature files add maintenance overhead and can duplicate unit tests if misused |
+| Executable specification doubles as living documentation | Step-definition glue code can become its own hard-to-maintain codebase |
+| Good for acceptance-level/cross-functional clarity on business rules | Not a substitute for fast, fine-grained unit tests |
+
+### Test-last (write code, then tests)
+
+| Pros | Cons |
+|---|---|
+| Faster initial prototyping when exploring an unknown design | Tests shaped by whatever the implementation happened to do — bias toward "tests that pass," not "tests that prove correctness" |
+| Fine for throwaway spikes/prototypes | Coverage gaps are easy to miss; regression debt accumulates silently |
+
+### Staff-level guidance
+
+- **TDD is a tool, not a mandate.** Apply it where it earns its cost: complex business/domain logic, bug fixes (failing test first), and public API design. Skip it for throwaway spikes and pure visual/UI exploration.
+- **BDD earns its keep at the acceptance-test layer** for cross-functional clarity on business rules — it is not a replacement for the unit-test layer underneath it.
+- **Legacy code gets characterization tests first** (pin current behavior, even if "wrong"), then TDD-style tests once you're safely refactoring under that net.
+- The real signal of a healthy strategy is not "do we do TDD" but "do regressions keep coming back, and does the team trust the suite enough to refactor without fear?"
+
+---
+
+## 12. Staff-Level Sound Bites
 
 
 - "The goal of unit tests is to give fast feedback, not to prove the whole system works."
@@ -507,10 +657,13 @@ Run only tests affected by changed files to keep PR feedback fast.
 - "E2E tests are expensive; reserve them for user-critical paths."
 - "Jest's `jest.mock` is hoisted, so factories cannot reference top-level variables directly."
 - "Coverage is a guardrail, not a target."
+- "Load testing proves we meet SLAs at expected traffic; stress testing proves we fail gracefully beyond it — they answer different questions."
+- "Chaos engineering tests whether our resilience mechanisms actually work, not whether the code compiles against them."
+- "TDD is a design tool I reach for on complex business logic and bug fixes, not a blanket mandate for every line of code."
 
 ---
 
-## 10. Quick Reference Table
+## 13. Quick Reference Table
 
 | Task | Tool / Pattern |
 |---|---|
@@ -529,10 +682,15 @@ Run only tests affected by changed files to keep PR feedback fast.
 | Generate test inputs | Property-based testing (fast-check) |
 | Reduce PR test time | Test Impact Analysis (`jest --changedSince`) |
 | Stable flaky-test process | Quarantine + owner + reintegration criteria |
+| Load/stress/spike test a Node API | k6, Artillery, Gatling |
+| Inject real failures (chaos) | Chaos Mesh, Gremlin, AWS Fault Injection Service |
+| Screenshot/visual diff | Percy, Chromatic, Playwright snapshots |
+| Automated accessibility scan | `axe-core`, Lighthouse CI |
+| Pin legacy behavior before refactor | Characterization tests |
 
 ---
 
-## 11. TypeScript-Specific Testing Notes
+## 14. TypeScript-Specific Testing Notes
 
 | Topic | Staff-level guidance |
 |---|---|
@@ -551,7 +709,7 @@ const repo: jest.Mocked<UserRepo> = {
 
 ---
 
-## 12. Interview First-Response Openers (1-2 lines)
+## 15. Interview First-Response Openers (1-2 lines)
 
 | Concept | First statement to say in interview |
 |---|---|
@@ -565,13 +723,20 @@ const repo: jest.Mocked<UserRepo> = {
 | E2E tools | "I choose Playwright when flows span tabs or origins; Cypress is strong for single-origin rich interactions, but tabs and cross-origin flows need extra care." |
 | Mutation/property testing | "Beyond coverage, mutation testing and property-based tests validate that assertions are meaningful and invariants hold across many inputs." |
 | Flaky tests | "Flaky tests erode trust; I quarantine, assign an owner, and require a deterministic fix before reintegration." |
+| Load vs stress testing | "Load testing confirms we meet SLAs at expected traffic; stress testing finds where we break and whether we degrade gracefully beyond that." |
+| Chaos engineering | "Chaos engineering injects real failures to prove resilience mechanisms work in practice, not just on paper." |
+| TDD | "I use TDD selectively — complex business logic and bug fixes benefit most; I don't force it on throwaway spikes or pure UI exploration." |
+| Testing strategy | "I size each test type to the failure cost and change frequency of the code it covers, not a fixed ratio applied uniformly." |
 
 ---
 
-## 13. Frequent Staff-Level Follow-Ups
+## 16. Frequent Staff-Level Follow-Ups
 
 - **Flaky-test governance:** quarantine policy + owner + SLA; flaky tests in `main` should be treated as incidents.
 - **Deterministic async tests:** freeze time (`jest.useFakeTimers()`), avoid real sleeps, and assert with bounded waits.
 - **Integration realism:** run critical integration tests with ephemeral dependencies (e.g., test containers) instead of over-mocking.
 - **Regression strategy:** add a failing test first for production bugs, then keep it as permanent regression coverage.
 - **Risk-based testing:** prioritize auth, money movement, retries/idempotency, and data integrity paths over equal coverage everywhere.
+- **Pre-launch performance gates:** require load + stress + spike test sign-off before any traffic-sensitive launch (sale, marketing push).
+- **Resilience verification:** schedule recurring chaos experiments on critical services rather than treating resilience as a one-time design exercise.
+- **Strategy review cadence:** revisit the testing strategy every quarter or after every major incident postmortem, not just at project kickoff.

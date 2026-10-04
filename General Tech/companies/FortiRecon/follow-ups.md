@@ -99,3 +99,15 @@ Use these responses for the 20-25 minute follow-up segment.
 - Phase 1: API, PostgreSQL, Kafka, discovery workers, OpenSearch, basic detection/alerts.
 - Phase 2: stronger enrichment, history tiers, quota controls.
 - Phase 3: graph-assisted correlation, advanced scoring, workflow automation.
+
+---
+
+## Director-Level Sound Bites
+
+- "Control plane and data plane are isolated on purpose — a 100x discovery spike should never be able to lock a tenant out of their own settings."
+- "Deduplication is a canonicalization problem before it's a hashing problem — normalize first, then hash, or you'll create false uniques."
+- "Entity resolution and risk correlation are two different questions — who owns this asset, versus is this asset dangerous — and I keep them as separate, independently testable stages."
+- "Idempotency keys belong at the point of fan-out, not after — check once, skip duplicates, and every downstream channel inherits dedup for free."
+- "I treat OpenSearch and the graph DB as rebuildable projections, not sources of truth — that's what makes 'OpenSearch is down' a non-event instead of an incident."
+- "Fail-closed for external rate limits, fail-open with conservative local limits for internal soft quotas — treating every failure mode the same way is how you get either an outage or a quota bypass."
+- "The scheduler's job is tenant fairness, not just throughput — a weighted, quota-aware scheduler is what stops one enterprise customer from starving everyone else."

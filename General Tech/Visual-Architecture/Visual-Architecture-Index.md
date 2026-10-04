@@ -21,7 +21,7 @@ AWS architecture diagrams and deep-dives live in `General Tech/AWS/`.
 | # | Sequence | Location | Focus |
 |---|---|---|---|
 | 1 | [Azure-AKS-Sequence.md](../Azure/Azure-AKS-Sequence.md) | `General Tech/Azure/` | AKS runtime and progressive rollout |
-| 2 | [FortiRecon-Event-Pipeline-Sequence.md](../Fortinet/FortiRecon-Event-Pipeline-Sequence.md) | `General Tech/Fortinet/` | FortiRecon EASM/DRP discovery to alert pipeline |
+| 2 | [FortiRecon-Event-Pipeline-Sequence.md](../companies/FortiRecon/FortiRecon-Event-Pipeline-Sequence.md) | `General Tech/companies/FortiRecon/` | FortiRecon EASM/DRP discovery to alert pipeline |
 
 ## Companion Docs
 

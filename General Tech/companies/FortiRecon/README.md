@@ -2,6 +2,16 @@
 
 Design a multi-tenant External Attack Surface Management (EASM) and Digital Risk Protection (DRP) platform that continuously discovers internet-facing assets, ingests threat intelligence, correlates findings, detects risk, and generates real-time alerts.
 
+---
+
+## 0. First-Response Script (60-90 seconds)
+
+> "I'd design FortiRecon as an event-driven security intelligence platform with a hard split between control plane and data plane. The control plane — tenant config, users, policies, schedules — runs on PostgreSQL and must stay fast and available even during a 100x discovery spike. The data plane — discovery workers, threat-intel connectors, stream processing, detection — is fully async through a Kafka event backbone, so every stage scales and fails independently. Discovery emits `asset.discovered` events; a normalize → dedup (`assetId = hash(normalizedAsset + type)`) → entity-resolution → correlation pipeline turns raw signals into scored risk findings. Alerting is idempotent by `tenantId + findingId + ruleVersion` before fan-out to email/webhook/SIEM, each with independent retry/circuit-breaker/DLQ. Storage is deliberately polyglot — PostgreSQL for source-of-truth state, OpenSearch for analyst search, a graph DB for relationship traversal, object storage for immutable history — each store serving one access pattern, not a single one-size-fits-all database."
+
+If probed deeper, pivot to the scheduler/quota design (tenant fairness under a 100x-larger customer) or the idempotency/dedup strategy — these are the two follow-ups interviewers ask most.
+
+---
+
 ## 1) Interview Framing (45 minutes)
 
 | Time | Topic | Objective |
@@ -162,6 +172,24 @@ Use weighted confidence signals, e.g. domain ownership, cert SANs, ASN affinity,
 
 "The goal is not peak event throughput in isolation. The goal is predictable detection latency, tenant isolation, and controlled failure behavior under volatile external inputs and bursty traffic."
 
+---
+
+## 13) Interview First-Response Openers (1-2 lines)
+
+| Concept | First statement to say in interview |
+|---|---|
+| Most important decision | "I separate control plane from data plane first — a 100x ingestion spike must never degrade login or config APIs." |
+| Why Kafka | "Kafka decouples every stage so discovery, ingestion, and processing scale and fail independently, with replay for free via retention." |
+| Dedup strategy | "I canonicalize first, then derive a deterministic `assetId = hash(normalizedAsset + type)` so idempotent upserts replace ad hoc duplicate checks." |
+| Entity resolution | "Tenant ownership is a confidence-scored, multi-signal problem — domain hierarchy, cert SANs, ASN affinity — not a single lookup." |
+| Alert idempotency | "The composite key `tenantId + findingId + ruleVersion` is checked before fan-out, so retries and reprocessing never double-alert a tenant." |
+| Storage choice | "Each store maps to one access pattern — Postgres for truth, OpenSearch for search, graph for relationships, object storage for history — not a single database doing everything." |
+| Noisy-neighbor defense | "Tenant classes plus a weighted scheduler and per-tenant quota buckets stop one large customer from starving everyone else's discovery jobs." |
+| Failure philosophy | "External rate limits fail closed; internal soft quotas fail open with conservative local limits — the two failure modes aren't interchangeable." |
+
+---
+
 ## Companion Files
-- [`diagrams.md`](./diagrams.md)
-- [`follow-ups.md`](./follow-ups.md)
+- [`diagrams.md`](./diagrams.md) — Mermaid diagrams for all 5 architectural views, each with talking points.
+- [`follow-ups.md`](./follow-ups.md) — 20-question Director-level drill-down Q&A.
+- [`panel-questions.md`](./panel-questions.md) — Cross-questions to ask the panel + behavioral/leadership prep for a Director-level round.

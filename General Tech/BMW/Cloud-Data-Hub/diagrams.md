@@ -168,26 +168,28 @@ sequenceDiagram
 flowchart LR
   GH[GitHub Actions] -. OIDC assumeRole .-> CIROLE[(IAM Role for CI/CD)]
   CIROLE --> ECR[(Amazon ECR)]
-  CIROLE --> ECS[(ECS: register task definition & deploy)]
+  CIROLE --> ECS_DEPLOY[ECS: register task defn & deploy]
 
   subgraph Runtime[ECS Service Runtime]
     direction TB
-    TE[Task Execution Role\n(ECR pull, CW logs, secrets fetch refs)]
-    TR[Task Role\n(used by app code)]
     APP[Express API Container]
+    TR[Task Role<br/>used by app code]
+    TE[Task Execution Role<br/>ECR pull, CW logs, secrets fetch]
   end
 
-  ECR --> Runtime
-  Runtime -->|secrets| SM[Secrets Manager]
-  Runtime -->|AWS SDK| S3[(S3 datasets)]
-  Runtime -->|AWS SDK| GLUE[AWS Glue Catalog]
-  Runtime -->|AWS SDK| LF[AWS Lake Formation]
+  ECR --> APP
+  ECS_DEPLOY --> APP
+  APP -->|AWS SDK| S3[(S3 datasets)]
+  APP -->|AWS SDK| GLUE[AWS Glue Catalog]
+  APP -->|AWS SDK| LF[AWS Lake Formation]
 
-  TE -.only-> ECR
-  TE -.and-> CW[CloudWatch Logs]
-  TR -.least-privilege-> S3
-  TR -.least-privilege-> GLUE
-  TR -.least-privilege-> LF
+  TR -.least-privilege.-> S3
+  TR -.least-privilege.-> GLUE
+  TR -.least-privilege.-> LF
+
+  TE -.pulls image.-> ECR
+  TE -.writes logs.-> CW[CloudWatch Logs]
+  TE -.fetches secrets.-> SM[(Secrets Manager)]
 ```
 
 **Talking points**
@@ -204,20 +206,20 @@ flowchart TB
   PR[Pull Request] --> CI[CI: lint + type-check + tests]
   CI --> BUILD[Docker build]
   BUILD --> SIGN[Scan/Sign Image]
-  SIGN --> PUSH[Push to ECR]
-  PUSH --> DEPLOY[Update ECS service]
-  DEPLOY --> SMOKE[Smoke tests]
+  SIGN --> PUSH[Push image to ECR]
+  PUSH --> ECR[(Amazon ECR)]
+  ECR --> DEPLOY[Deploy to ECS Fargate]
+  DEPLOY --> ECS_SERVICE[(ECS service)]
+  ECS_SERVICE --> SMOKE[Smoke tests]
   SMOKE --> PROMOTE[Promote/Tag release]
 
-  subgraph Auth[Authentication]
-    GH[GitHub Actions OIDC Token] --> STS[STS: AssumeRoleWithWebIdentity]
-    STS --> ROLE[(Deploy Role with least-privilege)]
-  end
+  GH[GitHub Actions OIDC Token] --> STS[STS: AssumeRoleWithWebIdentity]
+  STS --> ROLE[(Deploy Role with least-privilege)]
+  ROLE -.permits.-> ECR
+  ROLE -.permits.-> ECS_SERVICE
+  ROLE -.permits.-> CW[CloudWatch (alarms update)]
 
   CI -.uses.-> GH
-  ROLE -.permits.-> ECR[(ECR)]
-  ROLE -.permits.-> ECS[(ECS)]
-  ROLE -.permits.-> CW[CloudWatch (alarms update)]
 ```
 
 **Talking points**

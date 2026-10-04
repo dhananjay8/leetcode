@@ -203,23 +203,23 @@ flowchart LR
 
 ```mermaid
 flowchart TB
-  PR[Pull Request] --> CI[CI: lint + type-check + tests]
+  PR[Pull Request] --> CI[CI lint type check tests]
   CI --> BUILD[Docker build]
-  BUILD --> SIGN[Scan/Sign Image]
+  BUILD --> SIGN[Scan sign image]
   SIGN --> PUSH[Push image to ECR]
-  PUSH --> ECR[(Amazon ECR)]
+  PUSH --> ECR[Amazon ECR]
   ECR --> DEPLOY[Deploy to ECS Fargate]
-  DEPLOY --> ECS_SERVICE[(ECS service)]
-  ECS_SERVICE --> SMOKE[Smoke tests]
-  SMOKE --> PROMOTE[Promote/Tag release]
+  DEPLOY --> ECS[ECS Fargate service]
+  ECS --> SMOKE[Smoke tests]
+  SMOKE --> PROMOTE[Promote release]
 
-  GH[GitHub Actions OIDC Token] --> STS[STS: AssumeRoleWithWebIdentity]
-  STS --> ROLE[(Deploy Role with least-privilege)]
-  ROLE -.permits.-> ECR
-  ROLE -.permits.-> ECS_SERVICE
-  ROLE -.permits.-> CW[CloudWatch (alarms update)]
+  GH[GitHub Actions OIDC token] --> STS[STS AssumeRoleWithWebIdentity]
+  STS --> ROLE[Deploy Role least privilege]
+  ROLE -- permits --> ECR
+  ROLE -- permits --> ECS
+  ROLE -- permits --> CW[CloudWatch]
 
-  CI -.uses.-> GH
+  CI -- uses --> GH
 ```
 
 **Talking points**

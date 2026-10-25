@@ -19,7 +19,7 @@
 | Doc | Focus |
 | --- | --- |
 | [Production CI/CD, GitOps & Helm](./Production-CI-CD-and-GitOps-Deep-Dive.md) | Full staff-level pipeline narrative, phase-by-phase |
-| [Production Operations & SRE Scenarios](./Production-Operations-Scenarios.md) | Break-glass, drift, expand/contract, supply-chain scenarios |
 | [Enterprise Microservice Deployment Recipe](./Enterprise-Microservice-Deployment-Recipe.md) | Three-repo enterprise rollout recipe (Qualys-style pattern) |
+| [DevOps Case Studies & Scenario Questions](./DevOps-Case-Studies-and-Scenario-Questions.md) | Staff-level CI/CD, IaC, observability, security, reliability, migration, and culture cases |
 
 > Terraform and AWS notes live in their own folders: `../Terraform`, `../AWS`.

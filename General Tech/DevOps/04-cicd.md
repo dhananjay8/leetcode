@@ -180,7 +180,10 @@ Soak at each step (`5%→10m, 25%→30–60m, 50%+`). Gate on **user-impacting s
 | **Config & Secret wiring** | External Secrets Operator / Sealed Secrets + ConfigMaps | **Consul KV sync** (`etmaudit/apps/<svc>`) + **Vault AppRole** (`qvaultsi` HCL policy) + `qhelm` overrides |
 | **How to frame in interviews** | "Both enforce Git as single source of truth, immutable versioned artifacts, and layered Helm overrides; ArgoCD reconciles via an in-cluster pull controller, whereas the Qualys pod runner couples Helm release orchestration (`quadfile`) with Consul KV and Vault policy provisioning in one atomic pod rollout." | — |
 
-*(Deep dives: see `Production-CI-CD-and-GitOps-Deep-Dive.md`, `Enterprise-Microservice-Deployment-Recipe.md`, `Production-Operations-Scenarios.md`, and `../Kubernetes/07-gitops-argocd.md`.)*
+Deep dives: [CI/CD and GitOps](./Production-CI-CD-and-GitOps-Deep-Dive.md),
+[enterprise deployment](./Enterprise-Microservice-Deployment-Recipe.md),
+[DevOps scenarios](./DevOps-Case-Studies-and-Scenario-Questions.md), and
+[Kubernetes GitOps](../Kubernetes/07-gitops-argocd.md).
 
 ---
 

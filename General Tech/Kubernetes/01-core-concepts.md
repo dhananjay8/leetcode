@@ -51,7 +51,10 @@ Rule: multi-container Pod only when containers are **tightly coupled**; independ
 
 ### Pod lifecycle phases
 
-`Pending → Running → Succeeded/Failed` (+ `Unknown` on node comms loss). Init containers must all complete before app containers start. `CrashLoopBackOff` is a *status symptom*, not a phase — see `09-troubleshooting.md`.
+`Pending → Running → Succeeded/Failed` (+ `Unknown` on node comms loss).
+Init containers must all complete before app containers start.
+`CrashLoopBackOff` is a *status symptom*, not a phase — see the
+[troubleshooting guide](./Docker-Kubernetes-Troubleshooting-Interview-Guide.md).
 
 ### Pod spec reference
 

@@ -1,10 +1,12 @@
 # General Tech Interview Notes
 
-Supplementary staff-level interview preparation across AI engineering, cloud, DevOps, Kubernetes, Python, and testing.
+Supplementary staff-level interview preparation across AI engineering,
+cloud, DevOps, Kubernetes, Python, and testing.
 
 ## DevOps
 
 - [DevOps Topic Notes](./DevOps/README.md)
+- [DevOps Case Studies & Scenario Questions](./DevOps/DevOps-Case-Studies-and-Scenario-Questions.md)
 - [DevOps Year Plan](./DevOps_Plan.md)
 
 ## AWS
@@ -15,6 +17,8 @@ Supplementary staff-level interview preparation across AI engineering, cloud, De
 ## Kubernetes
 
 - [Kubernetes Topic Notes](./Kubernetes/README.md)
+- [Docker & Kubernetes Case Studies](./Kubernetes/Docker-Kubernetes-Case-Studies-and-Scenarios.md)
+- [Docker & Kubernetes Troubleshooting Q&A](./Kubernetes/Docker-Kubernetes-Troubleshooting-Interview-Guide.md)
 - [Kubernetes Year Plan](./K8s_Plan.md)
 
 ## AI Engineering

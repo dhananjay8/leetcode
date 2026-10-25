@@ -35,7 +35,11 @@ Key semantics interviewers probe:
 - **CPU over-limit → throttled** (cfs quota stalls the process; shows as latency, `container_cpu_cfs_throttled_seconds`). **Memory over-limit → OOMKilled (137)** — CPU is compressible, memory isn't.
 - Some shops set `requests == limits` for CPU to avoid throttle jitter; JVMs should set `-XX:MaxRAMPercentage` (container-aware since JDK 8u191/10) or the JVM sizes the heap off *node* RAM → OOM.
 - `LimitRange` = per-namespace defaults/min-max for requests/limits; `ResourceQuota` = namespace totals (pods w/o requests are rejected when a compute quota exists).
-- **Node eviction** (kubelet, before scheduler notices): `memory.available`, `nodefs.available`, `pid.available` thresholds → evicts BestEffort→Burstable→Guaranteed. DiskPressure → `imagefs`/`nodefs` full — see `09-troubleshooting.md`.
+- **Node eviction** (kubelet, before scheduler notices):
+  `memory.available`, `nodefs.available`, `pid.available` thresholds →
+  evicts BestEffort→Burstable→Guaranteed. DiskPressure → `imagefs`/`nodefs`
+  full — see the
+  [troubleshooting guide](./Docker-Kubernetes-Troubleshooting-Interview-Guide.md).
 
 ---
 

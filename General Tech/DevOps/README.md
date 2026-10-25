@@ -3,13 +3,23 @@
 ## Topics
 
 | # | Topic | Doc |
-|---|-------|-----|
-| 1 | [Linux & Networking Fundamentals](./01-linux-networking.md) | Commands, permissions, TCP/IP, DNS, HTTP |
-| 2 | [Git & Version Control](./02-git.md) | Branching, merging, rebasing, workflows |
-| 3 | [Docker & Containers](./03-docker.md) | Images, Dockerfiles, compose, networking, volumes |
-| 4 | [CI/CD Pipelines](./04-cicd.md) | GitHub Actions, Jenkins, pipeline design |
-| 5 | [Terraform & IaC](./05-terraform.md) | State, modules, providers, best practices |
-| 6 | [AWS Cloud Essentials](./06-aws.md) | EC2, S3, VPC, IAM, RDS, ALB, key services |
-| 7 | [Monitoring & Observability](./07-monitoring.md) | Prometheus, Grafana, ELK, alerting, SRE |
-| 8 | [DevOps Security](./08-security.md) | Secrets, scanning, supply chain, IAM hygiene |
-| 9 | [DevOps Interview Q&A](./09-interview-qa.md) | Top 50 frequently asked questions |
+| --- | ------- | ----- |
+| 1 | [Linux & Networking Fundamentals](./01-linux-networking.md) | Commands, kernel/process states, inodes/FDs, TCP/IP, DNS, HTTP/1.1–3, mTLS |
+| 2 | [Git & Version Control](./02-git.md) | Branching, merge/squash/rebase, reflog/bisect, monorepo Git |
+| 3 | [Docker & Containers](./03-docker.md) | Namespaces/cgroups, PID 1 & tini, alpine vs glibc/distroless, multi-stage, networking |
+| 4 | [CI/CD, Jenkins, GitOps & Production Deployment](./04-cicd.md) | Jenkins architecture/shared libs, ArgoCD vs Qualys `qhelm`/`quadfile`, deployment strategies |
+| 5 | [Configuration Management (Ansible, Chef, Puppet)](./05-config-management-ansible-chef-puppet.md) | Ansible architecture/playbooks, Chef/Puppet pull vs push, Qualys Consul/Vault/`qhelm` orchestration |
+| 6 | [Nginx, HAProxy, Envoy & Service Mesh](./06-nginx-haproxy-service-mesh.md) | L4 vs L7 proxies, Nginx/HAProxy tuning & traps, Istio/Linkerd/Cilium, real-world 502/503 case studies |
+| 7 | [Monitoring & Observability](./07-monitoring.md) | Prometheus metric types (Histogram vs Summary), multi-window burn-rate alerts, OpenTelemetry, ELK/Loki |
+| 8 | [DevOps Security](./08-security.md) | SAST/SCA/DAST, HashiCorp Vault (AppRole/K8s auth), OIDC, supply chain (SLSA/cosign) |
+| 9 | [DevOps Interview Q&A](./09-interview-qa.md) | Rapid-fire questions & production troubleshooting scenarios |
+
+## Deep Dives
+
+| Doc | Focus |
+| --- | --- |
+| [Production CI/CD, GitOps & Helm](./Production-CI-CD-and-GitOps-Deep-Dive.md) | Full staff-level pipeline narrative, phase-by-phase |
+| [Production Operations & SRE Scenarios](./Production-Operations-Scenarios.md) | Break-glass, drift, expand/contract, supply-chain scenarios |
+| [Enterprise Microservice Deployment Recipe](./Enterprise-Microservice-Deployment-Recipe.md) | Three-repo enterprise rollout recipe (Qualys-style pattern) |
+
+> Terraform and AWS notes live in their own folders: `../Terraform`, `../AWS`.

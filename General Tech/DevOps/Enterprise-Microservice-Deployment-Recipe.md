@@ -18,7 +18,7 @@
 ## 2. Repositories and Responsibilities
 
 | Repo | Role |
-|---|---|
+| --- | --- |
 | `etm-audit-<service>` | Source code, unit tests, Dockerfile, Jenkins scripts, bundled consul/helm config |
 | `etm-audit-config-mgmt` | Aggregates service-level config into a single release artifact; provides base qhelm overrides |
 | `etmaudit` | Per-pod, per-environment deployment manifest (quadfile, qhelm overrides, consul overrides, qvaultsi policies) |
@@ -50,7 +50,7 @@
 **`config/consul/`**
 
 | File | Purpose |
-|---|---|
+| --- | --- |
 | `application.yaml` | App name, server port, management port, JPA/DDL defaults, actuator |
 | `logback-spring.xml` | Standard logging config |
 | `kafka-client.yaml` | Kafka truststore, bootstrap settings |
@@ -300,17 +300,199 @@ Consul KV paths merge with the base config pulled from `etm-audit-config-mgmt`; 
 
 ### 5.6 qvaultsi policy
 
-Create `environment/<podKind>/<podName>/ansible/overrides/qvaultsi/etm-audit-<service>/etmaudit.hcl`:
+Create `environment/<podKind>/<podName>/ansible/overrides/qvaultsi/etm-audit-<service>/etmaudit.hcl` (include **both** `secret/etm-audit/...` and `secret/data/etm-audit/...` because Vault KV v2 uses the `data/` prefix under the hood, and only include paths referenced in the service's `VAULT_PATHS`):
 
 ```hcl
-path "secret/etm-audit/<service-secret>" {
-  capabilities = ["read"]
+"path" "secret/etm-audit/<service-secret>" {
+  "capabilities" = ["read"]
+}
+"path" "secret/etm-audit/<service-secret>/*" {
+  "capabilities" = ["read"]
+}
+"path" "secret/data/etm-audit/<service-secret>" {
+  "capabilities" = ["read"]
+}
+"path" "secret/data/etm-audit/<service-secret>/*" {
+  "capabilities" = ["read"]
 }
 ```
 
+### 5.7 Push to the right branch (Gerrit review workflow)
+
+Do not create extra topic branches; push the working branch directly to `refs/for/<branch>`:
+
+| Pod | Target branch | Push command |
+| --- | --- | --- |
+| Pod 43 (`qa`) | `qa` | `git push -u origin HEAD:refs/for/qa` |
+| Pod 19 (`dev`) | `dev` | `git push -u origin HEAD:refs/for/dev` |
+
 ---
 
-## 6. Staff-Level Takeaways
+## 6. Phase 4 — Post-Deploy Validation, Rollback & Lessons Learned
+
+### 6.1 Post-deploy validation commands
+
+1. Check the pod is `Running` (`n/n` ready) in the `etmaudit` namespace.
+2. Tail logs for startup errors (Consul/Vault/Oracle/S3/ES connection failures are the most common) and verify logs are written under `/var/log/app/` on the host.
+3. Exercise the actuator endpoints on the **management port** (`9090`):
+
+```bash
+# Liveness
+curl http://<pod-host>:<mgmt-port>/actuator/health/liveness
+
+# Readiness
+curl http://<pod-host>:<mgmt-port>/actuator/health/readiness
+```
+
+1. If the service exposes an ingress route, test through `https://qualysguard.<pod>.eng.sjc01.qualys.com/<context-path>` (or `kubeingress.<pod>.eng.sjc01.qualys.com/<context-path>`).
+
+### 6.2 Rollback (per pod)
+
+- **Primary**: revert the tag/values change in `etmaudit` pod branch → runner applies previous `imageTag`; config artifacts unchanged unless the failure was config-caused (then revert consul/helm override too).
+- **Fast**: `helm rollback <release> <rev>` via the pod's release tooling, then immediately commit the matching revert to `etmaudit` so Git stays truth.
+- `wait_for_success` releases that timed out leave the release `FAILED` — rollback first, then investigate; a second deploy over a failed release can mask the real error.
+
+### 6.3 11 Hard-Won Lessons Learned from `p19` / `p43` Rollouts
+
+1. **Kubernetes container port names must be `<= 15` characters**: Initial `central-helm` overrides named ports `http-etm-audit-researcher-ui-service-8080` and K8s API validation rejected them. Use short names like `http`.
+2. **Quote `JAVA_OPTS`, regex `ingress` paths, and `@...@` image tag placeholders**: YAML parsers choke on unquoted `@etm-audit-<service>.version@` tokens, regex special characters, and multi-flag Java option strings.
+3. **Align `SERVER_SERVLET_CONTEXT_PATH`, the ingress path, the React/Vite base, and the API base path**: Changing one without the others breaks UI asset/API routing.
+4. **Trim `VAULT_PATHS` to the exact secrets the service needs**: Over-broad paths cause Vault mount/permission errors at Spring Cloud bootstrap.
+5. **Include both `secret/etm-audit/...` and `secret/data/etm-audit/...` in `qvaultsi` policies**: Vault KV v2 requires both prefixes.
+6. **Use `LI_HTTPS_PROXY` and an AWS SDK v2 Apache HTTP client for S3 in pods**: Direct public AWS endpoints are blocked by pod firewall rules.
+7. **Separate management port from app port (`MANAGEMENT_PORT=9090`)**: Actuator liveness/readiness probes and Prometheus scraping must target `MANAGEMENT_PORT`, not the application port.
+8. **Set `wait_for_success: true` for foundational services**: Prevents race conditions where `etm-audit-researcher-ui-service` starts before `etm-audit-library-sync-service` is ready.
+9. **Disable HPA (`autoscaling.enabled: false`) and keep `replicaCount: 1` during initial rollouts**: Enable autoscaling only after the first rollout is verified stable.
+10. **JPA `ddl-auto`: use `none` in production**: `update` was used in `p43` only during initial schema bootstrap; switch to `none` and use Flyway / checked-in DDL once stable.
+11. **Never let Gradle cache `SNAPSHOT` config artifacts for 24 hours**: Keep `resolutionStrategy.cacheChangingModulesFor(0, 'seconds')` and `--refresh-dependencies`.
+
+### 6.4 Common failure modes
+
+| Symptom | Likely cause | Check |
+| --- | --- | --- |
+| `ImagePullBackOff` | Tag not pushed / registry perms / arch mismatch | `build-image.sh` output, registry listing |
+| Pod starts, readiness never passes | Probe on wrong port (app vs `MANAGEMENT_PORT`) | `describe pod` probe URL vs actual port |
+| App boots but config is default | Consul prefix wrong / sync disabled | `CONSUL_PREFIXES`, `consul.sync.enabled`, KV exists |
+| `Vault: permission denied` | qvaultsi HCL missing the path (`secret/data/...`) | `VAULT_PATHS` vs `etmaudit.hcl` paths |
+| Egress timeouts to S3/ES/Oracle | Proxy env not set for that pod | `LI_HTTPS_PROXY` in common override, AWS SDK v2 proxy client |
+| Ingress 404 | Context-path/regex mismatch | `SERVER_SERVLET_CONTEXT_PATH` vs `qualysguardIngressPath` regex |
+| Deploys pass but dependents fail | Ordering wrong in quadfile | Move dependency earlier, `wait_for_success: true` |
+| SNAPSHOT stale after rebuild | Gradle cached changing module | `cacheChangingModulesFor(0, 'seconds')`, `--refresh-dependencies` |
+
+### 6.5 Three-Repo File Checklist
+
+- **Service repo (`etm-audit-<service>`)**:
+  - `pom.xml` (JDK 17, `distributionManagement`, `config-release-maven-plugin`)
+  - `src/main/resources/application.properties` (env-driven defaults + `management.server.port`)
+  - `config/consul/{application.yaml, logback-spring.xml, kafka-client.yaml, s3-client.yaml, proxy.yaml}`
+  - `config/helm/etm-audit-<service>/{Chart.yaml, values.yaml}`
+  - `build-scripts/{Dockerfile, build-image.sh, image.env, entrypoint.sh}`
+  - `jenkins_build_scripts/{build_script.sh, post_build_script.sh, variables}`, `Jenkinsfile`, `properties.yaml`
+- **Config mgmt repo (`etm-audit-config-mgmt`)**:
+  - `gradle.properties` (`etm-audit-<service>.version`)
+  - `build.gradle` (`copy_consul` / `copy_helm` dependencies when aggregating)
+  - `config/ansible/overrides/qhelm/etm-audit-<service>-values-override.yml`
+- **Deployment repo (`etmaudit`)**:
+  - `environment/<podKind>/<podName>/build.gradle` + `settings.gradle` include
+  - `environment/<podKind>/<podName>/ansible/overrides/quadfile.yaml`
+  - `environment/<podKind>/<podName>/ansible/overrides/qhelm/{etm-audit-<service>-values-override.yml, common-values-override.yml}`
+  - `environment/<podKind>/<podName>/consul/etm-audit-<service>/*.yaml`
+  - `environment/<podKind>/<podName>/ansible/overrides/qvaultsi/etm-audit-<service>/etmaudit.hcl`
+
+---
+
+## 7. Appendix: Deep Repo Anatomy & Mapping to K8s / DevOps Concepts
+
+### 7.1 Mental Model — Qualys Stack vs Standard K8s / GitOps
+
+| Concept in the Qualys stack | Standard K8s / DevOps concept | Repo that owns it |
+| --- | --- | --- |
+| `etm-audit-<service>` source + container | Application code, Docker image | `etm-audit-<service>` |
+| `config/consul`, `config/helm` in service repo | Default config bundles (Consul KV, Helm wrapper) | `etm-audit-<service>` |
+| `etm-audit-config-mgmt` | Central config release factory / umbrella artifact (`-{consul,helm,ansible}.zip`) | `etm-audit-config-mgmt` |
+| `etmaudit/environment/<pod>` | Per-cluster / per-environment deployment manifest (ArgoCD `ApplicationSet` overlay) | `etmaudit` (Gerrit repo) |
+| `quadfile.yaml` | Helm release plan / deployment order (ArgoCD App-of-Apps + Sync Waves) | `etmaudit` |
+| `qhelm/<service>-values-override.yml` | Helm `values.yaml` for `nexus/central-helm-chart` | `etmaudit` + `etm-audit-config-mgmt` |
+| `consul/<service>/` | Consul KV paths read at runtime by Spring Cloud Consul (`ConfigMap` equivalent) | `etmaudit` + `etm-audit-config-mgmt` |
+| `qvaultsi/<service>/etmaudit.hcl` | Vault ACL policy for the service account | `etmaudit` |
+| `ansible` | Deployment orchestrator that runs Helm, Consul sync, `qvaultsi` | `etm-audit-config-mgmt` + `etmaudit` |
+| `art-hq.intranet.qualys.com:5001` | Docker registry | external |
+| `nexus.intranet.qualys.com` | Maven / artifact repository | external |
+
+### 7.2 Inside `etm-audit-config-mgmt` (Central Config Release Factory)
+
+| File / folder | K8s / DevOps purpose |
+| --- | --- |
+| `build.gradle` | Defines `copy_consul`, `copy_helm`, `copy_jenkins`, `copy_prometheus`, `copy_alertmanager`, `copy_grafana`, `qvaultEssentials` configurations; pulls service artifacts from Nexus and assembles them |
+| `gradle.properties` | Version catalog (`<service>.version` properties) |
+| `jenkins_build_scripts/build_script.sh` | Builds artifact, runs `helm lint` on `build/config/helm/etm-audit-helm/`, tags release branches, runs `./gradlew publish` |
+| `config/consul/` | Default Consul KV files for centrally bundled services (`auditya-orchestrator`, `etmaudit-mcp-server`) → zipped into `-consul.zip` |
+| `config/helm/etm-audit-helm/` | Umbrella Helm chart for `etmaudit` namespace (`templates/roles.yaml` installs `Role`/`RoleBinding`); note: newer `p19`/`p43` services deploy via `nexus/central-helm-chart` instead |
+| `config/ansible/overrides/qhelm/` | **Base** `qhelm` value overrides for every service + `common-values-override.yml` |
+| `config/qvaultsi/etm-audit-secrets/etmaudit.hcl` | Generic Vault policy for `etm-audit` secrets (pod policies layer on top) |
+| `build/config/` | Gradle output where `copyConfigs` merges local `config/` with downloaded service zips and replaces `@moduleVersion@` / `@<service>.version@` tokens |
+
+**The `config {}` Gradle DSL (`com.qualys.aqui.config.release`)**:
+
+```groovy
+config {
+    consul {
+        kvPrefix = "etmaudit/apps"           // base KV path in Consul
+        sync { enabled = true; deleteModeEnabled = true }
+    }
+    helm {
+        namespace = "etm"                    // default Helm namespace
+        sync { enabled = true; deleteModeEnabled = true }
+    }
+    apigateway { ... }
+}
+```
+
+### 7.3 Inside `etmaudit` (Gerrit Per-Pod Deployment Repo) & Layout Evolution
+
+| File / folder | K8s / DevOps purpose |
+| --- | --- |
+| `build.gradle` (root) & `settings.gradle` | Loads `config-gradle-plugins` classpath and lists `:environment:<podKind>:<podName>` subprojects |
+| `environment/<podKind>/<podName>/build.gradle` | Per-pod entry point: declares `podProvider`, `podKind`, `podName`, `etm-audit-config-mgmt` version, and `consul`/`helm`/`ansible` zip dependencies |
+| `.../ansible/overrides/quadfile.yaml` | Ordered Helm release plan (`helm upgrade --install` using `nexus/central-helm-chart`) |
+| `.../ansible/overrides/qhelm/` | Pod-wide `common-values-override.yml` + per-service `<service>-values-override.yml` |
+| `.../ansible/overrides/qvaultsi/<service>/etmaudit.hcl` | Per-pod Vault ACL policy applied by Ansible `qvaultsi` role |
+| `.../ansible/overrides/secrets/` | Encrypted `.gpg` secrets when a secret is not in Vault |
+| `.../consul/<service>/` | Pod-specific Consul KV overrides (`application.yaml`, `logback-spring.xml`, `kafka-client.yaml`, `s3-client.yaml`) pushed to `etmaudit/apps/<service>/` |
+| `.../prometheus/`, `alertmanager/`, `terraform/`, `jenkins/` | Pod-level monitoring rules, IaC (DNS/LB), and Jenkins job definitions |
+
+- **Two Repo Layouts in Production**:
+  1. **`p43` pattern (newer, centralized)**: `build.gradle` depends on a single `etm-audit-config-mgmt` `{consul,helm,ansible}` artifact; `consul/<service>/` and `ansible/overrides/qhelm/` are flat under the pod (`etm-audit-researcher-ui-service`, `etm-audit-library-sync-service`).
+  2. **`p04` pattern (older, per-service artifact)**: `build.gradle` depends directly on each service's own zips (`ea-catalog-svc`); overrides are nested under `ansible/<service>/<version>/` and `consul/<service>/<version>/`.
+
+### 7.4 5-Step End-to-End Runtime Journey (From Commit to Pod Traffic)
+
+1. **Service Build**: Jenkins runs `mvn clean deploy -DskipTests` (publishes JAR + `-consul.zip` + `-helm.zip` to Nexus) and `build-scripts/build-image.sh` (pushes image to `art-hq.intranet.qualys.com:5001`).
+2. **Config Aggregation**: `etm-audit-config-mgmt` merges service zips, substitutes `@<service>.version@` tokens, runs `helm lint`, and publishes `etm-audit-config-mgmt-<version>-{consul,helm,ansible}.zip`.
+3. **Pod Deployment**: Jenkins/Gradle in `etmaudit/environment/<pod>` runs **Ansible** roles:
+   - `qvaultsi` → applies `etmaudit.hcl` to Vault.
+   - `consul sync` → pushes merged YAML files to Consul KV `etmaudit/apps/<service>/`.
+   - `helm install/upgrade` → iterates `quadfile.yaml`, running `helm upgrade --install <release> nexus/central-helm-chart -n etmaudit --values <merged qhelm overrides>` (blocking on `wait_for_success: true`).
+4. **Pod Runtime Startup**:
+   - Kubelet pulls the image from `art-hq`.
+   - **Init container (`distroless-container`)** copies the Java truststore into a shared volume.
+   - Main container starts `entrypoint.sh`, passing `-Dspring.cloud.consul.*`, `-Dspring.cloud.vault.*`, and `-Dmanagement.server.port=9090`.
+   - Spring Cloud Consul reads `etmaudit/apps/<service>/`, Spring Cloud Vault reads `VAULT_PATHS`, and Actuator exposes liveness/readiness on `:9090`.
+5. **Traffic Routing**: `central-helm-chart` provisions the Ingress (`kubeingress.<pod>.eng.sjc01.qualys.com/<context-path>`) → Service selects pods by `extralabels`/`podLabels` → forwards to `targetPort`.
+
+### 7.5 Quick Glossary & 45-Second Interview Pitch
+
+- **`qhelm`**: Qualys convention for layered Helm values files overriding `central-helm-chart`.
+- **`quadfile`**: Ordered manifest of Helm releases applied to a pod with `wait_for_success` gating.
+- **`qvaultsi`**: Ansible role that provisions per-service HCL read policies in HashiCorp Vault.
+- **`central-helm-chart`**: Shared enterprise Helm chart hosted in Nexus so microservices don't duplicate Kubernetes YAML templates.
+- **`config-gradle-plugins`**: `com.qualys.aqui.config.release` and `com.qualys.aqui.config.environment` plugins that package and sync Consul/Helm/Ansible/Vault artifacts.
+
+> **45-Second Staff Pitch**: *"We operate a multi-pod regional Kubernetes platform using a strict three-repo GitOps model: the **service repo** builds immutable JDK 17 / distroless images and publishes versioned config zips; the **central config-mgmt repo** aggregates service versions into a release train and defines cross-pod base Helm overrides; and the **per-pod environment repo** (`etmaudit`) holds only the pod-specific delta — Consul KV overrides, least-privilege Vault HCL policies, and an ordered release manifest (`quadfile`) that gates dependent services on readiness probes (`wait_for_success: true`). That separation lets us roll out a new microservice across 15+ regional pods without duplicating YAML or ever committing a secret."*
+
+---
+
+## 8. Staff-Level Takeaways
 
 - **Three-repo separation** decouples code release from config release from environment-specific deployment state.
 - **Immutable artifacts**: every image and config artifact is version-tagged; no `latest`.

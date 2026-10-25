@@ -1,98 +1,160 @@
-# DevOps Interview — Top 50 Questions & Answers
+# DevOps Interview — Questions & Answers
 
-## General DevOps
+## 1. General DevOps
 
-**Q1: What is DevOps?**
-A culture and set of practices that combines software development (Dev) and IT operations (Ops). Goal: shorten the development lifecycle while delivering high quality. Key practices: CI/CD, IaC, monitoring, automation, collaboration.
+**Q: What is DevOps?**
+Culture + practices combining development and operations to shorten the delivery lifecycle while keeping quality. Pillars: CI/CD, IaC, monitoring, automation, shared ownership.
 
-**Q2: What is Infrastructure as Code?**
-Managing infrastructure through code instead of manual processes. Benefits: version controlled, repeatable, auditable, testable. Tools: Terraform (multi-cloud), CloudFormation (AWS), Pulumi (programming languages).
+**Q: What is Infrastructure as Code?**
+Managing infra through declarative code — versioned, repeatable, auditable, testable. Terraform (multi-cloud), CloudFormation (AWS-only), Pulumi (real languages).
 
-**Q3: Explain the CI/CD pipeline you've built.**
-*(Tailor to your experience)* Typical: Push to Git → GitHub Actions runs tests → Build Docker image → Push to ECR → Terraform provisions infra → ArgoCD deploys to K8s → Health checks → Slack notification.
+**Q: Explain the CI/CD pipeline you've built.**
+Push → CI builds/tests/scans → Docker image tagged by SHA → push to registry → manifests repo updated → ArgoCD syncs to cluster → health/smoke checks → Slack notify. *(See `04-cicd.md` for the full flow and ops scenarios.)*
 
-**Q4: How do you handle a production incident?**
-1. **Detect**: Alerts fire (PagerDuty)
-2. **Triage**: Assess severity, communicate in incident channel
-3. **Mitigate**: Rollback deployment, scale up, redirect traffic
-4. **Fix**: Identify root cause, deploy fix
-5. **Post-mortem**: Blameless review, action items to prevent recurrence
+**Q: How do you handle a production incident?**
+Detect (alert) → triage (severity, comms channel) → **mitigate first** (rollback/scale/failover — don't debug in place) → root-cause → blameless postmortem with action items.
 
-**Q5: Difference between Continuous Delivery and Continuous Deployment?**
-Delivery = automated pipeline up to staging, manual approval for prod. Deployment = fully automated to prod, no human gate. Most companies use Delivery (manual approval for prod).
+**Q: Continuous Delivery vs Continuous Deployment?**
+Delivery = auto to staging, human gate to prod. Deployment = fully automated to prod. The gate is the difference.
 
-## Docker & Containers
+---
 
-**Q6: What is a container?**
-Lightweight, portable package containing application + dependencies. Uses kernel namespaces (isolation) and cgroups (resource limits). Shares host OS kernel (unlike VMs which run full OS).
+## 2. Docker & Containers
 
-**Q7: Docker image vs container?**
-Image = read-only template (blueprint). Container = running instance of an image. You can create multiple containers from one image.
+**Q: What is a container?**
+A Linux process isolated by **namespaces** (view) and limited by **cgroups** (resources), packaged in layered filesystem layers. Shares host kernel — not a lightweight VM.
 
-**Q8: How do you debug a container that keeps crashing?**
-```bash
-docker logs <container>           # check error logs
-docker inspect <container>        # check config, exit code
-docker run -it <image> sh         # override CMD, get shell
-docker events                     # watch events in real-time
-```
+**Q: Docker image vs container?**
+Image = immutable layered blueprint. Container = writable runtime instance of an image; many containers per image.
 
-## Cloud & Networking
+**Q: How does `docker run` work under the hood?**
+CLI→dockerd→pull if needed→containerd creates writable layer→network namespace+veth+iptables→namespaces/cgroups→runc starts PID 1.
 
-**Q9: What is a VPC and why do you need it?**
-Virtual Private Cloud — isolated network in the cloud. You control: IP ranges (CIDR), subnets, routing, firewalls. Segregate environments (prod/staging), control ingress/egress.
+**Q: CMD vs ENTRYPOINT?**
+ENTRYPOINT = the executable; CMD = default args (replaceable). `docker run img x` replaces CMD, not ENTRYPOINT.
 
-**Q10: How does a load balancer work?**
-Distributes incoming traffic across multiple backend servers. ALB (Layer 7): HTTP routing, path-based rules. NLB (Layer 4): TCP/UDP, ultra-low latency. Health checks remove unhealthy backends.
+**Q: Debug a crashing container?**
+`docker ps -a` (exit code) → `docker logs` → `docker inspect` (`State.OOMKilled`) → `docker exec`/`--entrypoint sh` → `docker events` → `docker stats`. Exit 137 = OOM/SIGKILL, 1 = app error, 127 = command not found.
 
-**Q11: What is the difference between horizontal and vertical scaling?**
-- **Vertical**: Bigger machine (more CPU/RAM). Simpler, has limits.
-- **Horizontal**: More machines. Scales infinitely, needs load balancer, app must be stateless.
+**Q: Reduce image size?**
+Multi-stage build → minimal base (alpine/distroless) → fewer RUN layers → `.dockerignore` → `--omit=dev` → order layers for cache hits.
 
-## Terraform
+**Q: Volumes vs bind mounts vs tmpfs?**
+Volumes: Docker-managed, portable, prod persistence. Bind mounts: host path, dev convenience. tmpfs: in-memory, ephemeral.
 
-**Q12: What is Terraform state?**
-JSON file tracking real infrastructure. Maps config to resource IDs. Must be remote (S3) with locking (DynamoDB) for teams.
+**Q: COPY vs ADD?**
+ADD also fetches URLs and auto-extracts archives — prefer explicit COPY.
 
-**Q13: How do you manage multiple environments with Terraform?**
-Option A: Workspaces (`terraform workspace new staging`). Option B: Separate state files + tfvars per environment (preferred for large projects). Option C: Terragrunt for DRY multi-env configs.
+**Q: Docker network modes?**
+bridge (default, NAT+docker0), host (share host netns), none, overlay (multi-host VXLAN), macvlan (real L2 identity). Embedded DNS at **127.0.0.11** resolves service names on user-defined networks.
 
-## Monitoring & SRE
+**Q: Docker vs Podman?**
+Podman is daemonless and rootless-first, docker-CLI-compatible; Docker uses a root daemon (dockerd). Kubernetes uses containerd directly since dockershim removal in v1.24.
 
-**Q14: What are the four golden signals?**
-Latency, Traffic, Errors, Saturation. Monitor these for any service.
+**Q: Compose vs Swarm vs Kubernetes?**
+Compose = multi-container on one host (dev/CI). Swarm = simple multi-host orchestration (maintenance mode). K8s = full orchestration — self-healing, autoscaling, ecosystem.
 
-**Q15: What is an error budget?**
-If SLO is 99.9%, you have 43.2 min of downtime/month. Spend it on risky deployments. Used up → slow down, focus on reliability.
+**Q: Production Docker challenges you've hit?** *(source Q20)*
+Container sprawl → orchestration + labels/quotas. Persistent storage → volumes/external CSI. Security → scanning + least privilege. Disk fill from logs/images → log rotation + `system prune` policy. Clock/timezone drift → explicit TZ.
 
-**Q16: How do you set up alerting that doesn't cause alert fatigue?**
-Only alert on actionable items. Use severity levels. Group related alerts. Require alerts to have runbooks. Review and prune noisy alerts regularly.
+---
 
-## Scenario-Based
+## 3. Cloud & Networking
 
-**Q17: Your website is down. Walk me through troubleshooting.**
-1. Check monitoring dashboards — what broke?
-2. Check DNS — `dig example.com`
-3. Check load balancer — healthy targets?
-4. Check application — pods running? `kubectl get pods`
-5. Check logs — `kubectl logs <pod>`
-6. Check dependencies — DB, cache, external APIs
-7. Check recent changes — was something deployed?
-8. Check resources — disk full? OOM killed?
+**Q: What is a VPC?**
+Isolated virtual network you control: CIDR, subnets, routes, SGs/NACLs. Segregates environments; public subnet has IGW route, private uses NAT for egress.
 
-**Q18: You need to migrate a database with zero downtime. How?**
-1. Set up replication from old → new DB
-2. Wait for replication lag to reach 0
-3. Switch application to new DB (via config/DNS change)
-4. Verify, then decommission old DB
-5. Use blue-green or feature flag for the cutover
+**Q: Load balancer types?**
+ALB = L7, host/path routing, TLS termination. NLB = L4, ultra-low latency, static IPs. Health checks gate traffic.
 
-**Q19: How do you ensure high availability for a stateless web application?**
-Multi-AZ deployment, ALB, Auto Scaling Group (min 2 instances), health checks, RDS Multi-AZ, S3 for static assets, CloudFront CDN, Route 53 failover routing.
+**Q: Horizontal vs vertical scaling?**
+Vertical = bigger instance (simple, ceiling, no app change). Horizontal = more instances (needs LB + statelessness, near-unbounded, adds resilience). K8s: HPA = horizontal, VPA = vertical.
 
-**Q20: A deployment caused a spike in errors. What do you do?**
-1. Immediate: Rollback (`kubectl rollout undo` or revert commit)
-2. Verify: Error rate returns to normal
-3. Investigate: Compare old vs new code, check logs for new error patterns
-4. Fix: Create proper fix, add tests to prevent regression
-5. Re-deploy with monitoring
+**Q: High availability on AWS?**
+Multi-AZ compute behind ALB + ASG; RDS Multi-AZ; S3 (11 nines durability); Route53 health-check failover; stateless app tier.
+
+**Q: Security Group vs NACL?**
+SG = instance-level, **stateful**, allow-only. NACL = subnet-level, **stateless**, allow+deny, numbered-rule evaluation.
+
+---
+
+## 4. Terraform
+
+**Q: What is state?**
+JSON mapping config→real resource IDs/metadata. Remote backend (S3) + locking (DynamoDB) is mandatory for teams; never commit or hand-edit.
+
+**Q: Two `terraform apply` at once?**
+Without locking → state corruption/race. DynamoDB lock serializes operations.
+
+**Q: Multiple environments?**
+Workspaces for simple cases; separate state + `env.tfvars` per env (preferred); Terragrunt for DRY at scale.
+
+**Q: Secrets in Terraform?**
+`sensitive = true` vars, `TF_VAR_*` env, or data-source into Secrets Manager/Vault. Never in `.tf` — state also stores values, so encrypt the backend.
+
+---
+
+## 5. Monitoring & SRE
+
+**Q: Four golden signals?**
+Latency, Traffic, Errors, Saturation.
+
+**Q: Error budget?**
+99.9% SLO = 43.2 min/month of allowed downtime. Spend on velocity; exhausted → freeze risky releases.
+
+**Q: Prevent alert fatigue?**
+Actionable-only paging, severity tiers, `for:` durations, grouping, runbooks, escalation, monthly alert review/pruning.
+
+**Q: What do you monitor for a web app?**
+p50/p95/p99 latency, 4xx/5xx rate, RPS, saturation (CPU/mem/disk/pools), dependency latency, business KPIs.
+
+---
+
+## 6. Scenarios
+
+**Q: Website down — walk me through it.**
+Dashboards → DNS (`dig`) → LB target health → pods (`kubectl get pods`) → logs → dependencies → recent deploys → resources (disk/OOM).
+
+**Q: Zero-downtime DB migration?**
+Replicate old→new → lag → 0 → cutover app (config/DNS flag) → verify → decommission. Keep a reversible window.
+
+**Q: Deploy caused an error spike?**
+Rollback immediately → verify recovery → diff old/new → fix + regression test → redeploy under canary.
+
+**Q: Failed build in pipeline?** *(source Q23)*
+Read the failing stage's logs → notify → retry only transient steps → isolate to stage → keep last-good artifact for deploy.
+
+**Q: Latency spikes for 30% of users, no crashes?** *(source advanced)*
+Compare latency histograms by pod/zone/version → filter logs by window+labels → check service endpoints/network policies/sidecars → trace slow requests → load-test suspect pods in isolation.
+
+**Q:Zero-downtime deployments?**
+Rolling update (`maxUnavailable:0`) + readiness probes + graceful SIGTERM handling + PDB; canary/blue-green for extra assurance.
+
+**Q: CI/CD secrets handling?**
+Pipeline secret store (masked) → env injection at runtime → External Secrets → Vault/AWS SM in cluster → OIDC over static keys → rotate.
+
+**Q: Server says `No space left on device`, but `df -h` shows 45% free?**
+Two culprits: (1) **Deleted file still held open** by a running process (`lsof +L1` — truncate via `/proc/<pid>/fd/<n>` or reload the process); (2) **Inode exhaustion** (`df -i` at 100% from millions of tiny files).
+
+**Q: Load average is 40 on an 8-CPU host, but CPU utilization is 10%. Why?**
+Linux load average counts processes in **`R` (runnable) + `D` (uninterruptible disk/NFS sleep)**. Threads are blocked on slow storage/NFS I/O — check `iostat -xz 1`, `vmstat 1`, and `ps aux | awk '$8 ~ /D/'`.
+
+**Q: Why does `docker stop` take exactly 10s (or K8s pod deletion 30s) and exit with 137?**
+The container's **PID 1** used shell form (`CMD node app.js` → `/bin/sh -c`) or didn't register a `SIGTERM` handler. PID 1 ignores default signals, waits out the grace period, then gets `SIGKILL`ed (`128 + 9 = 137`). Fix: JSON exec form `["node", "app.js"]` + `tini` / `--init`.
+
+**Q: Why is L4 load balancing broken for gRPC, and how do you fix it?**
+gRPC multiplexes requests over a **single long-lived HTTP/2 TCP connection**. An L4 LB balances at TCP connection setup, pinning all requests from one client to one backend pod. Fix: L7 proxy (Envoy, Nginx `grpc_pass`, ALB with HTTP/2 target group) or client-side load balancing with headless Service DNS.
+
+**Q: Ansible vs Terraform vs Puppet/Chef — when do you use which?**
+**Terraform** = declarative *infrastructure provisioning* with state file (VPCs, EKS, RDS). **Ansible** = agentless (SSH/WinRM) *configuration management & procedural orchestration* (OS patching, running `qhelm`/Helm release playbooks across pods). **Puppet/Chef** = agent-based pull configuration management for large VM fleets with continuous drift convergence.
+
+---
+
+## 7. Recall — Top Sound Bites
+
+- "Mitigate first, root-cause second — every minute of MTTR is user impact."
+- "Containers: namespaces isolate the view, cgroups limit the budget."
+- "Rolling for routine, canary for risk, blue-green for reversibility."
+- "An alert you ignore is an alert you should delete."
+- "State is Terraform's brain — remote, locked, encrypted."
+- "base64 ≠ encryption" (secrets) · "docker.sock = root" (containers).

@@ -21,7 +21,7 @@ There are **three independent systems** working together:
 One of the biggest misconceptions is that **Helm replaces Kubernetes**. It does not.
 
 | Tool | Role | Analogy |
-|---|---|---|
+| --- | --- | --- |
 | **Helm** | Package manager and templating engine that generates Kubernetes YAML | JVM compiles Java to bytecode |
 | **Kubernetes** | Runtime that executes the YAML and manages container lifecycle | CPU executes machine code |
 | **ArgoCD/Flux** | GitOps controller that reconciles desired state with cluster | Continuous sync agent |
@@ -123,7 +123,7 @@ Workspace is created and tied to this exact commit.
 ### 5.2 Dependency restore
 
 | Language | Command |
-|---|---|
+| --- | --- |
 | Node.js | `npm ci` |
 | Python | `pip install -r requirements.txt` |
 | Java | `mvn dependency:resolve` |
@@ -142,7 +142,7 @@ Pipeline stops immediately if tests fail.
 ### 5.4 Static analysis
 
 | Tool | Ecosystem |
-|---|---|
+| --- | --- |
 | SonarQube | Multi-language |
 | ESLint | JavaScript |
 | Pylint | Python |
@@ -152,7 +152,7 @@ Pipeline stops immediately if tests fail.
 ### 5.5 Security scans
 
 | Type | Input | Tool examples |
-|---|---|---|
+| --- | --- | --- |
 | Dependency scanning | `package.json`, `pom.xml`, etc. | Snyk, Dependabot, OWASP Dependency-Check |
 | Container scan | Docker image | Trivy, Clair, Grype |
 | IaC scan | Terraform/CloudFormation/CDK | Checkov, tfsec, Terrascan |
@@ -189,7 +189,7 @@ The image itself is scanned. If a base layer contains a vulnerable `openssl`, th
 ### 5.9 Image signing
 
 | Tool | Purpose |
-|---|---|
+| --- | --- |
 | Cosign | Sign and verify container images |
 | Notary | Docker Content Trust v1 |
 | Sigstore/Cosign keyless | Identity-based signing |
@@ -199,13 +199,24 @@ Protects against tampered images, fake registry pushes, and supply-chain attacks
 ### 5.10 Push to registry
 
 | Registry | Cloud |
-|---|---|
+| --- | --- |
 | Amazon ECR | AWS |
 | Azure ACR | Azure |
 | Google GAR | GCP |
 | Harbor | On-prem / multi-cloud |
 
 At this point: **build is complete; nothing has been deployed.**
+
+### 5.11 Artifact promotion — build once, deploy everywhere
+
+The same immutable artifact flows through environments — **never rebuilt per env**:
+
+```text
+myapp:74ae12bc  →  dev deploy  →  qa deploy  →  prod deploy
+                 (same digest, only values/overlays differ)
+```
+
+Rebuilding per environment breaks the "what we tested is what we ship" guarantee and creates digest drift. Promotion = updating which tag/digest each env's deployment repo points to.
 
 ---
 
@@ -252,6 +263,16 @@ kubectl apply
 ```
 
 Developers never run Helm manually in production; the controller does.
+
+### 6.3 Environment promotion rings
+
+```text
+dev (auto-sync on merge) → qa (auto or PR) → staging → prod (PR + approval)
+```
+
+- Each env is a separate path/branch in the deployment repo; promotion = a PR copying the verified tag forward.
+- Gates tighten per ring: dev = none, qa = automated test pass, staging = soak + sign-off, prod = human approval + change window.
+- **Secrets never ride this flow** — each env resolves its own via Vault/External Secrets at apply time.
 
 ---
 
@@ -342,7 +363,7 @@ replicas: {{ .Values.replicas }}
 Same chart, different values per environment:
 
 | Environment | replicas | cpu |
-|---|---|---|
+| --- | --- | --- |
 | Development | 1 | 200m |
 | Staging | 3 | 500m |
 | Production | 20 | 2 |
@@ -429,11 +450,23 @@ If checks fail, the pipeline can automatically roll back to the previous version
 ## 11. Common Deployment Models
 
 | Model | How it works | Best for |
-|---|---|---|
+| --- | --- | --- |
 | **Helm + CI** | CI runs `helm upgrade --install` directly | Small teams, simpler environments |
 | **Helm + ArgoCD (GitOps)** | CI updates image tag in deployment repo; ArgoCD reconciles | Most modern Kubernetes platforms |
 | **Kustomize + ArgoCD** | CI updates image tags in Kustomize overlays; ArgoCD applies | Teams preferring native Kubernetes tooling |
 | **Raw Kubernetes manifests** | CI/CD applies plain YAML with `kubectl apply` | Smaller projects or simple deployments |
+
+### 11.1 Anti-patterns (interviewers ask "what goes wrong?")
+
+| Anti-pattern | Why it bites |
+| --- | --- |
+| Rebuilding per environment | Digest drift; you test one artifact, ship another |
+| `:latest` tags in prod | Mutable → no reliable rollback target |
+| `kubectl apply`/`helm upgrade` from laptops | Untracked drift; no audit trail |
+| Secrets in pipeline logs or values files | Permanent exposure in CI history |
+| CI cluster creds with cluster-admin | One leaked kubeconfig = total compromise |
+| Rollback by editing live state | Git truth diverges; next sync reverts or conflicts |
+| Deploy == release coupling | No canary/flag path → every deploy is a launch |
 
 ---
 
@@ -515,7 +548,7 @@ Old ReplicaSet scaled down
 ## 14. Quick Reference Table
 
 | Step | Output | Failure mode |
-|---|---|---|
+| --- | --- | --- |
 | Source control | Commit SHA | Merge conflicts, untested code |
 | CI tests | Test report | Build blocked |
 | Static analysis | Quality report | Security/style issues |
@@ -526,3 +559,22 @@ Old ReplicaSet scaled down
 | GitOps reconcile | Desired state applied | Drift, sync failure |
 | Kubernetes rollout | New pods ready | Probe failures, scheduling errors |
 | Post-deploy verification | Healthy signal | Rollback triggered |
+
+---
+
+## 15. Interview Follow-Ups
+
+**Q: Why three systems (CI / artifacts / CD) instead of one pipeline?**
+Decoupling = independent scaling, rollback without rebuild, and different trust boundaries — CD never sees source, CI never touches prod.
+
+**Q: How does a commit reach prod?**
+SHA → test+scan → immutable image:sha → registry → deploy-repo tag update → GitOps render → K8s rollout → probe-gated traffic → verify. (Recite the §3 sequence.)
+
+**Q: GitOps vs traditional push CD?**
+Pull model: no cluster creds in CI, continuous drift correction, git = audit. Push model: simpler, faster feedback loop, but creds sprawl and drift is invisible.
+
+**Q: How do you do a canary in this world?**
+Argo Rollouts/Flagger CRD in the chart → analysis template queries Prometheus (error rate, p99) → auto-promote or abort. The deploy repo never changes shape — the rollout controller handles traffic math.
+
+**Q: Pipeline took the prod env down — RCA?**
+Bisect the flow: bad artifact (scan gap?) vs bad values (deploy repo diff) vs bad apply (sync error) vs bad runtime (probe/resource). Each stage has its own blame surface — that's the point of the separation.

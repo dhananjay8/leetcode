@@ -1,107 +1,111 @@
-# Kubernetes Security
+# Kubernetes Security — Interview Notes
 
-## RBAC (Role-Based Access Control)
-Controls who can do what in the cluster.
+## 1. The Layers (text sequence)
 
+```text
+API request → authn (who) → authz/RBAC (allowed?) → admission (mutate/validate)
+Pod runtime → securityContext → Pod Security Standards → NetworkPolicy → node isolation
+Data        → Secrets (etcd encryption) → external secret managers → image scanning/signing
 ```
-Subject (User/Group/ServiceAccount) → RoleBinding → Role (permissions)
-```
 
-### Role (namespace-scoped) vs ClusterRole (cluster-wide)
+---
+
+## 2. RBAC — Who Can Do What
+
+- **Role/RoleBinding** = namespaced · **ClusterRole/ClusterRoleBinding** = cluster-wide (or node-level resources).
+- Default-deny: no binding = no permission. `kubectl auth can-i` to check.
+
 ```yaml
-# Role — permissions within a namespace
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
-metadata:
-  namespace: production
-  name: pod-reader
+metadata: { namespace: prod, name: pod-reader }
 rules:
-  - apiGroups: [""]           # core API group
-    resources: ["pods", "pods/log"]
+  - apiGroups: [""]            # "" = core group
+    resources: ["pods"]
     verbs: ["get", "list", "watch"]
-
 ---
-# RoleBinding — binds role to a subject
-apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
-metadata:
-  name: read-pods
-  namespace: production
-subjects:
-  - kind: User
-    name: alice
-    apiGroup: rbac.authorization.k8s.io
-roleRef:
-  kind: Role
-  name: pod-reader
-  apiGroup: rbac.authorization.k8s.io
+subjects: [{ kind: User, name: alice }]       # or ServiceAccount/Group
+roleRef: { kind: Role, name: pod-reader }
 ```
 
-### ServiceAccount
-Identity for pods (not humans). Each namespace has a `default` SA.
+Rules: **verb × resource** granularity (`get` vs `list` differ); `secrets` access is the crown jewel — audit it; avoid `*` wildcards and `cluster-admin` in production.
+
+## 3. ServiceAccounts & Projected Bound Tokens (`TokenRequest` API)
+
+Every pod has an SA token (default SA = useless baseline). Create dedicated SAs per app → bind Roles to them. `automountServiceAccountToken: false` when the app doesn't call the API. On AWS, **IRSA** (or **EKS Pod Identity**) maps SA→IAM role (no node-level AWS keys).
+
+- **Legacy Secret Tokens vs Modern Bound Projected Tokens (`v1.22+` / `v1.24+`)**:
+  - **Old (<1.21)**: K8s created a permanent `Secret` per ServiceAccount with a **non-expiring JWT**. If leaked, valid forever.
+  - **Modern (`TokenRequest` API + `ServiceAccountToken` projected volume)**: kubelet mounts a **time-bound (~1h expiry), audience-scoped, pod-bound OIDC JWT** and rotates it automatically before expiry; invalidated immediately when the Pod is deleted.
+
+## 4. securityContext — the Interview Checklist
 
 ```yaml
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: app-sa
-  annotations:
-    eks.amazonaws.com/role-arn: arn:aws:iam::123:role/my-role  # IRSA for AWS
-
----
-# Pod using ServiceAccount
-spec:
-  serviceAccountName: app-sa
-  automountServiceAccountToken: false  # disable if not needed (security)
+securityContext:                        # pod-level
+  runAsNonRoot: true
+  runAsUser: 1000
+  fsGroup: 2000
+  seccompProfile: { type: RuntimeDefault }
+containers:
+  - name: app
+    securityContext:                    # container-level
+      allowPrivilegeEscalation: false   # no setuid
+      readOnlyRootFilesystem: true      # needs /tmp as emptyDir volume
+      capabilities: { drop: [ALL] }     # add back only what's needed, e.g. NET_BIND_SERVICE
 ```
 
-## Pod Security
+## 5. Pod Security Standards (PSS replaced PSP, deprecated v1.21, removed v1.25)
 
-### Security Context
-```yaml
-spec:
-  securityContext:
-    runAsNonRoot: true
-    runAsUser: 1000
-    fsGroup: 2000
-  containers:
-    - name: app
-      securityContext:
-        allowPrivilegeEscalation: false
-        readOnlyRootFilesystem: true
-        capabilities:
-          drop: ["ALL"]
-```
-
-### Pod Security Standards (replaces PodSecurityPolicy)
-| Level | Description |
-|-------|-------------|
-| **Privileged** | No restrictions (system workloads) |
-| **Baseline** | Minimally restrictive (prevents known privilege escalations) |
-| **Restricted** | Heavily restricted (best practices, non-root, read-only) |
+| Level | Enforcement | Use |
+| ------- | ------------- | ----- |
+| `privileged` | None | kube-system, CNI agents |
+| `baseline` | Blocks obvious escalation (hostPID, hostNetwork, privileged) | Default for normal workloads |
+| `restricted` | + runAsNonRoot, drop ALL caps, seccomp, RO-rootfs | Prod apps, multi-tenant |
 
 ```bash
-# Enforce on namespace
-kubectl label namespace production pod-security.kubernetes.io/enforce=restricted
+kubectl label ns prod pod-security.kubernetes.io/enforce=restricted
+# modes: enforce | audit | warn
 ```
 
-## Secrets Management
-K8s Secrets are **base64-encoded, NOT encrypted** by default in etcd.
+## 6. Secrets — Encode ≠ Encrypt (favorite gotcha)
 
-**Best practices:**
-1. Enable etcd encryption at rest
-2. Use **External Secrets Operator** to sync from Vault / AWS Secrets Manager
-3. Use **Sealed Secrets** if you must commit secrets to Git
-4. Limit RBAC access to secrets
-5. Audit secret access
+- `kubectl get secret -o yaml` output is **base64 — anyone with read access decodes it**. So: etcd **encryption at rest** (EncryptionConfiguration, KMS provider) + tight RBAC on `secrets`.
+- External managers (prod answer): AWS Secrets Manager / GCP SM / HashiCorp Vault / Azure KV via **External Secrets Operator** or CSI driver — K8s stays the consumption layer, manager owns rotation/audit.
+- Avoid env-var secrets for high sensitivity (visible in `kubectl exec env`, process lists, crash dumps) — mounted files are marginally better; best is short-lived workload-identity tokens.
 
-## Interview Questions
+## 7. Runtime & Admission Security (from source gaps)
 
-**Q: A developer needs read-only access to pods in staging namespace. How?**
-Create a Role with `verbs: [get, list, watch]` on `resources: [pods]` in staging namespace. Bind it to the developer's user/group via RoleBinding.
+- **Admission controllers**: built-in (LimitRanger, PodSecurity, ResourceQuota) + dynamic webhooks — **OPA/Gatekeeper** (Rego DSL) or **Kyverno** (YAML-native) for policy-as-code ("no :latest", "must have resource limits", "only trusted registries").
+- **CEL `ValidatingAdmissionPolicy` (GA in v1.30)**: Compiles Common Expression Language (`object.spec.containers.all(c, !c.image.endsWith(':latest'))`) **in-process inside `kube-apiserver`** — zero external webhook network hop, zero webhook pod crash blocking cluster deployments!
+- **seccomp**: syscall allowlist — `seccompProfile: RuntimeDefault` blocks ~44 dangerous syscalls (`kexec_load`, `reboot`, `bpf`) out of ~300+ Linux syscalls for free.
+- **AppArmor/SELinux**: MAC confinement at node level (`annotations` / `securityContext.appArmorProfile`).
+- **Sandboxed runtimes (`RuntimeClass`)**: **gVisor (`runsc`)** (user-space kernel intercepting syscalls) or **Kata Containers / Firecracker** (lightweight microVM per pod) for untrusted multi-tenant code execution.
+- **Runtime detection**: Falco / Cilium Tetragon (eBPF) → alert or kill on shells spawned in pods (`execve /bin/sh`), sensitive file reads (`/etc/shadow`), crypto miners, or unexpected outbound connections.
+- **Image supply chain**: scan in CI (Trivy/Grype), sign + verify (cosign), private registries only.
 
-**Q: How do you prevent containers from running as root?**
-Set `runAsNonRoot: true` in securityContext. Enforce with Pod Security Standards (restricted mode) on the namespace.
+---
 
-**Q: Role vs ClusterRole?**
-Role = scoped to a namespace. ClusterRole = cluster-wide or can be bound to a namespace via RoleBinding.
+## 8. Interview Q&A
+
+**Q: Compromised pod — blast radius?**
+Namespaced RBAC limits API calls; NetworkPolicy limits lateral movement; non-root + RO-rootfs + dropped caps limits node damage; PSS stops escalation. Then: detect (Falco), isolate (cordon + delete pod), rotate SA token + secrets.
+
+**Q: How do pods call the K8s API?**
+Mounted SA token → apiserver → RBAC decides. That's why `automountServiceAccountToken: false` is a cheap win.
+
+**Q: Secret got exfiltrated from `kubectl get secret -o yaml`?**
+RBAC on `get secrets` was too broad — that's the real vuln. Rotate, enable etcd encryption, move to external manager, audit `secrets` access.
+
+**Q: Pod runs as root — how bad?**
+Container root ≠ host root by default (user namespaces still maturing), but root + writable rootfs + default caps = easier escape; `runAsNonRoot` is baseline hygiene.
+
+---
+
+## 9. Recall — Sound Bites
+
+- "Authn → authz → admission — three doors, in that order."
+- "RoleBinding is namespaced; ClusterRoleBinding reaches the cluster."
+- "Secrets are encoded, not encrypted — encrypt etcd + starve RBAC."
+- "PSP is dead; Pod Security Standards + admission policies replaced it."
+- "`runAsNonRoot + drop ALL + readOnlyRootFilesystem` is the 80% answer."

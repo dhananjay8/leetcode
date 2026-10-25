@@ -66,26 +66,26 @@ A controlled runner (Jenkins/Ansible) reads approved changes and runs qhelm/Helm
 
 ### 2.1 Regional cloud outage + zero-day in auth: secure break-glass
 
-**Objectives**
+#### Objectives (2.1)
 
 - Patch critical auth quickly despite control-plane outage.
 - Maintain strong auditability and revert-to-Git truth post-fix.
 
-**Design**
+#### Design (2.1)
 
 - Pre-provision a **break-glass pathway** per cluster:
   - Ephemeral, time-bound service account with minimal RBAC, disabled by default, enabled only via M-of-N approval.
   - **Signed change bundle**: image digest + exact Helm values + attestation (SLSA/Cosign) produced by CI.
   - Offline runner (bastion) with direct kube API access in-region; no dependency on centralized CI/control plane.
 
-**Execution**
+#### Execution (2.1)
 
 - Security declares emergency; M-of-N approves enabling break-glass SA (auto-expires in, e.g., 2 hours).
 - Operator applies signed bundle via Helm (values pinned to digest).
 - Admission policies only allow artifacts with required attestations.
 - Capture a local change journal (commands, diffs) and commit a post-facto PR to the environment repo once the control plane returns.
 
-**Safeguards**
+#### Safeguards (2.1)
 
 - All secrets pulled from Vault with short TTL.
 - Gatekeeper/Kyverno policy: deny unsigned/unauthorized images even in break-glass.
@@ -95,12 +95,12 @@ A controlled runner (Jenkins/Ansible) reads approved changes and runs qhelm/Helm
 
 ### 2.2 Rogue infrastructure state (manual SG change) + drift reconciliation
 
-**Objectives**
+#### Objectives (2.2)
 
 - Detect/contain drift; avoid surprise downtime.
 - Convert ad-hoc change into tracked IaC.
 
-**Design**
+#### Design (2.2)
 
 - Continuous drift detection on critical resources (security groups, NACLs, ingress).
 - **Quarantine mode**: when drift appears, freeze destructive remediation; open a “drift PR” that imports the live diff into the environment repo as a change proposal.
@@ -108,7 +108,7 @@ A controlled runner (Jenkins/Ansible) reads approved changes and runs qhelm/Helm
   - Merge drift PR (adopt the change), or
   - Revert drift: apply desired Git state with a planned drain window.
 
-**Safeguards**
+#### Safeguards (2.2)
 
 - Time-boxed drift grace period with alerts.
 - Auto-created change tickets link Git commits, approvals, and applied remediation.
@@ -117,18 +117,18 @@ A controlled runner (Jenkins/Ansible) reads approved changes and runs qhelm/Helm
 
 ### 2.3 Legacy migration deadlock (Jenkins → GitOps/ArgoCD-like)
 
-**Objectives**
+#### Objectives (2.3)
 
 - 100% adoption without blocking feature delivery.
 
-**Design**
+#### Design (2.3)
 
 - **Transitional compat adapter**:
   - Keep Jenkins builds but require publishing: signed image, SBOM, deployment manifest fragment (values.yaml delta) to a known registry/repo.
   - A thin GitOps controller consumes those artifacts and commits standardized overlays into the environment repo.
 - Golden templates and SDK for teams to port custom scripts progressively.
 
-**Governance**
+#### Governance (2.3)
 
 - Conformance scorecard: signing, SBOM, manifest outputs tracked per service.
 - Deadlines with exceptions path; executive dashboard on progress.
@@ -207,7 +207,59 @@ Pipeline gates: replication lag, backfill progress, data parity checks, throttle
 
 ---
 
-## 6. Checklists and Operational Notes
+## 6. Part F — Incident & Reliability Scenarios
+
+### 6.1 Error budget exhausted mid-quarter: release freeze vs business pressure
+
+#### Objectives (6.1)
+
+- Protect user experience without becoming "the team that blocks everything".
+
+#### Design
+
+- SLO defined per service (e.g., 99.9% monthly availability ≈ 43m error budget); burn-rate alerts at 2× (slow) and 14.4× (fast) windows.
+- **Policy**: budget exhausted → freeze risky changes, allow only reliability work + reverts; budget healthy → ship freely. Written down, agreed by product — not an on-call judgment call.
+- Dashboard shows budget consumed + projected exhaustion date; review weekly.
+
+### 6.2 Retry storm after LB flap: cascading failure
+
+#### Design (6.2)
+
+- Root cause chain: LB reconnect → all clients retry simultaneously → backend saturates → more timeouts → more retries.
+- Controls: **exponential backoff + jitter** on clients, timeouts at every hop (budgeted: downstream timeout < upstream timeout), **circuit breaker** (open after N failures, half-open probes), load shedding at the edge (reject early vs queue forever), `Retry-After` honoring.
+- Post-incident: retry budget (max % of traffic that may be retries), chaos-test the LB flap regularly.
+
+### 6.3 Noisy neighbor degrades shared cluster
+
+#### Design (6.3)
+
+- Symptoms: unrelated service p99 climbs; node CPU/mem saturated by one team's pods.
+- Controls: requests+limits enforced via LimitRange/ResourceQuota, QoS-aware placement (Guaranteed for latency-critical), tainted dedicated nodes for batch jobs, `container_cpu_cfs_throttled` alerting, per-team quota dashboards.
+- Follow-up: descheduler to rebalance; chargeback/showback makes cost visible without police work.
+
+### 6.4 Consul / Vault blip during node scale-up causes mass `CrashLoopBackOff`
+
+#### Design (6.4)
+
+- **Symptom**: Running pods are healthy, but newly scheduled pods during HPA scale-up fail with `CrashLoopBackOff` when Consul KV or Vault has a transient 30s outage (`fail-fast: true` at Spring Cloud bootstrap).
+- **Controls**:
+  1. Separate **startup dependency** from **liveness**: never fail a liveness probe on a transient downstream Consul/Vault blip (or all healthy pods restart simultaneously and DDoS Vault on recovery!).
+  2. Configure retry with exponential backoff on Spring Cloud Vault/Consul bootstrap (`spring.cloud.vault.config.lifecycle`, retry template) + **`startupProbe`** with sufficient budget (`failureThreshold * periodSeconds = 120s`).
+  3. Cache rendered config/secrets in an encrypted in-cluster fallback (`ExternalSecrets` synced K8s `Secret`) when zero-dependency pod cold-start is required.
+
+### 6.5 Corporate egress proxy (`LI_HTTPS_PROXY`) connection exhaustion to S3
+
+#### Design (6.5)
+
+- **Symptom**: Service pods in a private pod subnet time out uploading/downloading artifacts from AWS S3 (`SdkClientException: Unable to execute HTTP request: Timeout waiting for connection from pool`).
+- **Root Cause**: All S3 traffic hairpins through a shared corporate Squid/HTTP proxy (`LI_HTTPS_PROXY`), or the AWS SDK v2 Apache HTTP client default `maxConnections (50)` is exhausted because streams (`ResponseInputStream`) aren't closed in a `try-with-resources` block.
+- **Controls**:
+  1. Always consume/close `ResponseInputStream` in `try-with-resources`; tune Apache HTTP client `maxConnections`, `connectionAcquisitionTimeout`, and `socketTimeout`.
+  2. Architecturally: bypass the corporate HTTP proxy for intra-cloud traffic using **VPC Gateway Endpoints for S3/DynamoDB** (free, line-rate, private routing) and `NO_PROXY` rules for internal CIDRs.
+
+---
+
+## 7. Checklists and Operational Notes
 
 - Always reconcile to Git after any emergency or manual action; the environment repo remains the source of truth.
 - Store **image digests**, not just tags, in values overrides to prevent tag drift.
@@ -216,7 +268,7 @@ Pipeline gates: replication lag, backfill progress, data parity checks, throttle
 
 ---
 
-## 7. Staff-Level Sound Bites
+## 8. Staff-Level Sound Bites
 
 - "Git is the source of truth; every emergency action must eventually be represented as a committed change."
 - "Break-glass is a controlled, auditable, time-bound exception — not a permanent bypass."
@@ -227,10 +279,10 @@ Pipeline gates: replication lag, backfill progress, data parity checks, throttle
 
 ---
 
-## 8. Quick Reference Table
+## 9. Quick Reference Table
 
 | Scenario | Key technique | Guardrail |
-|---|---|---|
+| --- | --- | --- |
 | Regional outage + urgent patch | Break-glass SA + signed bundle | Time-bound TTL, M-of-N approval |
 | Infrastructure drift | Drift detection + quarantine PR | Auto-ticket, policy review |
 | Jenkins → GitOps migration | Compat adapter + conformance scorecard | Executive dashboard, exception path |
@@ -239,3 +291,8 @@ Pipeline gates: replication lag, backfill progress, data parity checks, throttle
 | Breaking schema change | Expand/Contract | Backfill parity gates |
 | Poison pill rollback | min_readable/max_writable versions | Dual-format compatibility window |
 | Malicious registry push | Admission control + digest pinning | CI-only publish policy |
+| Error budget exhausted | Freeze risky changes, reliability-only work | Pre-agreed policy, not on-call judgment |
+| Retry storm / cascade | Backoff+jitter, circuit breaker, load shedding | Retry budget, downstream < upstream timeouts |
+| Noisy neighbor | Quotas, QoS placement, dedicated pools | Throttle alerts, showback |
+| Consul/Vault blip on boot | `startupProbe` + bootstrap backoff; never fail liveness | Encrypted K8s Secret cache via ESO |
+| Proxy pool exhaustion to S3 | Close SDK streams + VPC Gateway Endpoint + `NO_PROXY` | Connection-pool saturation metric |

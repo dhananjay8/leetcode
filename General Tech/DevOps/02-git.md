@@ -1,106 +1,131 @@
-# Git & Version Control
+# Git & Version Control — Interview Notes
 
-## Core Concepts
+## 1. Core Model
+
+```text
+Working Directory ──git add──▶ Staging (index) ──git commit──▶ Local repo ──git push──▶ Remote
+        ▲ git checkout/restore ──▲ git restore --staged ──▲ git reset
 ```
-Working Directory → (git add) → Staging Area → (git commit) → Local Repo → (git push) → Remote
-```
 
-## Essential Commands
+`git fetch` updates remote-tracking refs only; `git pull` = `fetch` + `merge` (or `+ rebase` with `pull.rebase=true`).
 
-### Setup & Config
+---
+
+## 2. Essential Commands
+
 ```bash
-git config --global user.name "Name"
-git config --global user.email "email@example.com"
-git init                        # initialize new repo
-git clone <url>                 # clone remote repo
+# setup & daily
+git config --global user.name "Name"; git config --global user.email "e@x.com"
+git init | git clone <url>
+git status | git add . | git commit -m "feat: x" | git push origin main | git pull
+
+# branching (modern: switch/restore)
+git branch | git switch -c feat | git switch feat
+git branch -d feat | git branch -D feat        # safe vs force delete
+git merge feat | git rebase main
+
+# undoing
+git stash | git stash pop
+git restore file            # discard unstaged edits
+git restore --staged file   # unstage
+git reset HEAD~1            # undo commit, keep changes (mixed)
+git reset --hard HEAD~1     # undo commit, DISCARD changes
+git revert <hash>           # new commit that undoes — safe on shared history
+git cherry-pick <hash>      # apply one commit elsewhere
+git log --oneline --graph | git diff [--staged] | git blame file
+git rebase -i HEAD~3        # squash commits: change pick→squash
 ```
 
-### Daily Workflow
+### Recovery & Forensics (the "oh no" commands)
+
 ```bash
-git status                      # what's changed?
-git add .                       # stage all changes
-git add file.txt                # stage specific file
-git commit -m "feat: add login" # commit with message
-git push origin main            # push to remote
-git pull origin main            # fetch + merge from remote
-git fetch                       # download changes without merging
+git reflog                            # HEAD history — recovers "lost" commits/dangling work
+git switch -c rescue <sha>            # resurrect from reflog
+git bisect start && bisect bad && bisect good v1.2   # binary-search the breaking commit
+git stash push -m "wip" | stash list | stash apply stash@{1}
+git worktree add ../hotfix hotfix     # second checkout, no stash dance
+git clean -fdx                        # nuke untracked+ignored (dry-run: -n first!)
+git log -S "password" --all           # pickaxe: find commit that added a string
+git blame -L 10,20 file               # who wrote these lines
+git cherry -v main feat               # commits in feat not yet in main
 ```
 
-### Branching
-```bash
-git branch                      # list branches
-git branch feature-login        # create branch
-git checkout feature-login      # switch branch
-git checkout -b feature-login   # create + switch (shortcut)
-git switch feature-login        # modern alternative to checkout
-git branch -d feature-login     # delete branch (safe)
-git branch -D feature-login     # force delete
-```
+---
 
-### Merging & Rebasing
-```bash
-git merge feature-login         # merge branch into current
-git rebase main                 # rebase current branch onto main
+## 3. Merge vs Rebase vs Revert (favorite comparisons)
 
-# Merge: creates a merge commit, preserves history
-# Rebase: rewrites history, creates linear timeline (cleaner)
-```
+| | Merge | Rebase |
+| --- | ------- | -------- |
+| History | Preserves, adds merge commit | Rewrites, linear |
+| Shared branches | Safe | **Never rebase shared history** |
+| Conflict cost | Once at merge | Once **per replayed commit** |
+| Use | Integrate into main | Clean feature branch before merging |
 
-**Merge vs Rebase:**
-- **Merge**: Safe for shared branches (main/develop). Creates merge commit.
-- **Rebase**: Good for feature branches before merging. Linear history. **Never rebase shared branches.**
+| | Revert | Reset |
+| --- | -------- | ------- |
+| Effect | New commit undoing a change | Moves HEAD, drops commits |
+| Shared-safe | ✅ | ❌ (rewrites history) |
 
-### Undoing Changes
-```bash
-git stash                       # save changes temporarily
-git stash pop                   # restore stashed changes
-git reset HEAD~1                # undo last commit (keep changes)
-git reset --hard HEAD~1         # undo last commit (discard changes)
-git revert <hash>               # create new commit that undoes a commit (safe)
-git checkout -- file.txt        # discard unstaged changes to file
-```
+### PR Merge Strategies (Merge Commit vs Squash vs Rebase)
 
-### Cherry-pick & Log
-```bash
-git cherry-pick <hash>          # apply specific commit to current branch
-git log --oneline --graph       # visual commit history
-git log -n 5                    # last 5 commits
-git diff                        # unstaged changes
-git diff --staged               # staged changes
-git blame file.txt              # who changed each line
-```
+| Strategy | Graph shape | Pros | Cons |
+| --- | --- | --- | --- |
+| **Create a merge commit** (`--no-ff`) | Preserves feature branch + merge node | Full history of branch context; easy to revert entire PR | Noisy "railroad tracks" graph in busy repos |
+| **Squash and merge** | Collapses all PR commits into **1 commit** on `main` | Clean 1-commit-per-PR linear history; trivial `git revert` and `git bisect` | Loses granular intermediate commits on `main` |
+| **Rebase and merge** | Replays each PR commit linearly onto `main` | Linear history + preserves individual commits | Every intermediate commit must pass tests or `git bisect` breaks |
 
-## Git Workflows
+### Scale & Safety Features (`--force-with-lease`, Monorepo Git)
 
-### GitFlow
-```
-main (production) ← develop ← feature branches
-                  ← release branches
-                  ← hotfix branches
-```
+- **`git push --force-with-lease` vs `--force`**: `--force` blindly overwrites the remote branch; `--force-with-lease` checks that the remote ref matches your last-fetched ref (fails safely if a teammate pushed in the meantime).
+- **CI & Monorepo speedups**: `git clone --depth 1` (shallow clone — cuts 3-minute CI checkouts to 5 seconds), `git clone --filter=blob:none` (blobless clone), and `git sparse-checkout` (materialize only needed directories in a monorepo).
+- **`.git` Object Model (under the hood)**: content-addressable store in `.git/objects/` keyed by SHA-1/SHA-256 of 4 types: **blob** (file bytes), **tree** (directory listing pointing to blobs/subtrees), **commit** (points to root tree + parent commit SHAs + author), and **annotated tag**. Branches are just 41-byte files in `.git/refs/heads/` holding a commit SHA; `HEAD` is a pointer to the current branch ref.
 
-### Trunk-Based Development (Preferred at most companies)
-```
-main (always deployable) ← short-lived feature branches (< 1 day)
-                          Feature flags for incomplete features
-```
+---
 
-## Interview Questions
+## 4. Workflows
 
-**Q: How do you resolve a merge conflict?**
-1. Git marks conflicts in files with `<<<<<<<`, `=======`, `>>>>>>>`
-2. Edit file to choose correct version
-3. `git add` the resolved file
-4. `git commit`
+| Workflow | Shape | Fit |
+| ---------- | ------- | ----- |
+| **Trunk-based** | main always deployable; feature branches < 1 day; flags hide WIP | Most modern teams / CD |
+| **GitFlow** | main ← develop ← feature/release/hotfix branches | Scheduled releases, older orgs |
+| **Fork-and-PR** | Contributors fork, PR to upstream | OSS |
 
-**Q: Difference between `git pull` and `git fetch`?**
-`fetch` downloads changes but doesn't modify your working directory. `pull` = `fetch` + `merge`.
+---
 
-**Q: What is a detached HEAD?**
-HEAD points to a specific commit instead of a branch. Any commits made will be lost if you switch branches without creating a branch from that point.
+## 5. Interview Q&A
 
-**Q: How do you squash commits?**
-```bash
-git rebase -i HEAD~3            # interactive rebase last 3 commits
-# Change "pick" to "squash" for commits you want to combine
-```
+**Q: Resolve a merge conflict?**
+`<<<<<<<`/`=======`/`>>>>>>>` markers → edit to the right result → `git add` → `git commit` (merge) or `git rebase --continue` (rebase).
+
+**Q: `pull` vs `fetch`?**
+fetch downloads without touching your work; pull = fetch + merge.
+
+**Q: Detached HEAD?**
+HEAD on a commit, not a branch — commits there are orphaned once you switch away unless you `git switch -c rescue` first.
+
+**Q: Commit to wrong branch?**
+`git switch -c right-branch` (commit travels with HEAD) or `git cherry-pick` it then `reset --hard` the wrong branch.
+
+**Q: Secret committed — what now?**
+Rotate the credential immediately → purge history (`git filter-repo`/BFG) → force-push (coordinate!) → prevent with pre-commit scanning + push protection.
+
+**Q: Rebase vs merge in practice?**
+Rebase feature branches onto main before PR (linear, bisectable); merge PRs into main (preserves context, no shared-history rewrites).
+
+**Q: `reset --hard` ate a commit — recover?**
+`git reflog` → find the SHA → `git switch -c rescue <sha>`. Git keeps dangling commits ~90 days (gc.pruneExpire).
+
+**Q: Find which commit broke it with no obvious suspect?**
+`git bisect` — binary search; script it with `bisect run ./test.sh` for automation.
+
+**Q: Conventional Commits — why?**
+`feat:`/`fix:`/`chore:` prefixes drive changelogs, semver bumps, and CI filters; PR titles often must match in trunk-based repos.
+
+---
+
+## 6. Recall — Sound Bites
+
+- "Rebase rewrites, merge preserves — never rebase what others pulled."
+- "revert is the only shared-safe undo."
+- "Detached HEAD = commits on a limb; branch before you leave."
+- "fetch is free; pull mutates."

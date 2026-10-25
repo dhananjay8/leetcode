@@ -1,128 +1,91 @@
-# Kubernetes Observability
+# Kubernetes Observability — Interview Notes
 
-## Stack Overview
-```
-Application Pods → ServiceMonitor/PodMonitor → Prometheus (metrics) → Grafana (dashboards)
-                 → Fluentd/Fluent Bit (logs) → Elasticsearch → Kibana
-                 → OpenTelemetry (traces) → Jaeger/Tempo
-                                           → AlertManager → Slack/PagerDuty
-```
+## 1. The Three Pillars on K8s
 
-## Metrics with Prometheus
-
-### How Prometheus Works in K8s
-1. **ServiceMonitor** tells Prometheus which services to scrape
-2. Prometheus scrapes `/metrics` endpoint from pods every 15-30s
-3. Stores time-series data locally (TSDB)
-4. Grafana queries Prometheus for dashboards
-5. AlertManager evaluates rules, sends notifications
-
-### Key Metrics to Monitor
-
-**Pods/Containers:**
-```
-container_cpu_usage_seconds_total        # CPU usage
-container_memory_working_set_bytes       # Memory usage
-kube_pod_status_phase                    # Pod phase (Running, Pending, Failed)
-kube_pod_container_status_restarts_total # Restart count (CrashLoopBackOff)
+```text
+Metrics   Prometheus (scrape /metrics, PromQL, rules) → Grafana → Alertmanager
+Logs      Fluent Bit (DaemonSet) → Elasticsearch/Loki → Kibana/Grafana
+Traces    App → OTel collector → Jaeger/Tempo → trace IDs join logs+metrics
 ```
 
-**Nodes:**
-```
-node_cpu_seconds_total                   # Node CPU
-node_memory_MemAvailable_bytes           # Available memory
-node_disk_io_time_seconds_total          # Disk I/O
-node_filesystem_avail_bytes              # Disk space
-```
+K8s-specific wrinkle: nodes/pods are ephemeral — collection must be per-node (DaemonSet) or via OTLP sidecar/gateway, not host-installed agents on app servers.
 
-**Application (RED Method):**
-```
-http_requests_total                      # Rate (requests/sec)
-http_request_duration_seconds_bucket     # Duration (latency histogram)
-http_requests_total{status=~"5.."}       # Errors (5xx count)
-```
+## 2. Metrics — Prometheus on K8s
 
-### Grafana Dashboards to Build
-1. **Cluster Overview**: Node count, CPU/memory utilization, pod count
-2. **Namespace Dashboard**: Pods by namespace, resource usage per namespace
-3. **Deployment Health**: Replica count, rollout status, restart count
-4. **Application Dashboard**: Request rate, error rate, latency (p50/p95/p99)
-5. **Resource Usage**: CPU/memory requests vs limits vs actual usage
+- **kube-state-metrics** exposes object state (pod phase, deploy replicas, PVC usage). **node-exporter** → node CPU/mem/disk. Apps expose `/metrics`; ServiceMonitor/PodMonitor CRDs wire scraping with Prometheus Operator.
+- Golden signals for services — **RED**: Rate, Errors, Duration. For infra: **USE** (Utilization, Saturation, Errors).
+- Cardinality warning: label explosion (user_id as label) kills Prometheus — keep labels bounded.
 
-## Logging
-
-### Log Collection Architecture
-```
-Pod (stdout/stderr) → kubelet writes to /var/log/containers/
-                          ↓
-                    DaemonSet: Fluent Bit (lightweight collector)
-                          ↓
-                    Elasticsearch / CloudWatch / S3
-                          ↓
-                    Kibana / CloudWatch Logs Insights
+```promql
+# p95 latency per service
+histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket{job="api"}[5m])) by (le, service))
+# crashlooping pods
+increase(kube_pod_container_status_restarts_total[1h]) > 3
 ```
 
-### Key kubectl Log Commands
-```bash
-kubectl logs <pod>                        # current container logs
-kubectl logs <pod> -c <container>         # specific container in multi-container pod
-kubectl logs <pod> --previous             # logs from previously crashed container
-kubectl logs -f <pod>                     # follow/stream logs
-kubectl logs -l app=myapp --all-containers  # logs from all pods matching label
-kubectl logs <pod> --since=1h             # last 1 hour of logs
-kubectl logs <pod> --tail=100             # last 100 lines
-```
+## 3. Logging
 
-## Alerting Best Practices
+- Fluent Bit/Fluentd **DaemonSet** tails `/var/log/containers/*.log` (stdout/stderr is the contract — apps must not write local files).
+- Enrich with k8s metadata (namespace, pod, labels) at the agent; **structured JSON logs** so queries work; ship to ES/Loki/CloudWatch.
+- Sidecar logging only when stdout can't be used (multi-stream legacy apps); ephemeral pods mean agent must ship fast — pod can die mid-flush.
 
-### Critical Alerts (Page someone)
-- Pod CrashLoopBackOff for > 5 minutes
-- Node NotReady for > 5 minutes
-- Error rate > 5% for > 5 minutes
-- Disk usage > 90%
-- PVC nearly full
+## 4. Tracing
 
-### Warning Alerts (Notify channel)
-- HPA at max replicas for > 15 minutes
-- Pod restart count increasing
-- CPU/memory usage consistently > 80%
-- Certificate expiring in < 30 days
+- OpenTelemetry SDK/agent → OTLP → collector (DaemonSet or deployment) → Jaeger/Tempo.
+- Value on K8s: a request crosses ingress → service → pods → DB; only a trace shows which hop burned the latency.
+- Connect the pillars: `trace_id` in log lines + exemplars in metrics = jump metric→trace→logs.
 
-### Alerting Rule Example
+### eBPF & agent-less observability (worth a mention)
+
+- **Cilium Hubble** — network flow visibility straight from eBPF (who talked to whom, dropped by which policy) with zero app instrumentation.
+- **Pixie / Cilium Tetragon** — auto-instrumented service maps + runtime security events via eBPF.
+- **K8s events are signals too**: `kubectl get events` feeds (FailedScheduling, Unhealthy, BackOff) → alert on them via event-exporter — pod failures often announce themselves there before metrics move.
+
+## 5. Alerting — Rules, Alertmanager, Fatigue
+
+- Prometheus `rules` (alerts) → Alertmanager: grouping, inhibition (page once per incident), silences (maintenance windows), routing (pager vs slack by severity).
+- **Alert-fatigue playbook**: every page must be actionable; symptom alerts (error budget burn) over cause alerts (CPU high); auto-remediate the noisy stuff first (restart policy, HPA) then alert on residual.
+
 ```yaml
 groups:
-  - name: kubernetes-alerts
-    rules:
-      - alert: PodCrashLooping
-        expr: rate(kube_pod_container_status_restarts_total[15m]) > 0
-        for: 5m
-        labels:
-          severity: critical
-        annotations:
-          summary: "Pod {{ $labels.pod }} is crash looping"
-          runbook_url: "https://wiki/runbooks/crashloop"
-
-      - alert: HighMemoryUsage
-        expr: container_memory_working_set_bytes / container_spec_memory_limit_bytes > 0.9
-        for: 10m
-        labels:
-          severity: warning
-        annotations:
-          summary: "Pod {{ $labels.pod }} memory > 90% of limit"
+- name: api
+  rules:
+    - alert: HighErrorRate
+      expr: sum(rate(http_requests_total{status=~"5.."}[5m])) / sum(rate(http_requests_total[5m])) > 0.05
+      for: 10m
+      labels: { severity: page }
+      annotations: { summary: "API 5xx > 5% for 10m", runbook: "https://..." }
 ```
 
-## Interview Questions
+## 6. Failure → Observe → Fix Loop (interview frame)
 
-**Q: How do you set up monitoring for a K8s cluster from scratch?**
-1. Install Prometheus Stack (kube-prometheus-stack Helm chart) — includes Prometheus, Grafana, AlertManager, default dashboards
-2. Add ServiceMonitors for your applications
-3. Create Grafana dashboards (or import community dashboards)
-4. Configure AlertManager with Slack/PagerDuty
-5. Add Fluent Bit DaemonSet for log collection → ship to Elasticsearch or CloudWatch
+```text
+Symptom (page) → dashboards localize (which svc/pod/node)
+             → metrics say WHAT, traces say WHERE, logs say WHY
+             → kubectl describe/events for infra causes
+             → fix + postmortem + SLO/error-budget update
+```
 
-**Q: A pod keeps restarting. How do you use monitoring to investigate?**
-1. Check Grafana: restart count metric increasing for which pod?
-2. Check prometheus: `kube_pod_container_status_restarts_total`
-3. Check if OOMKilled: `container_memory_working_set_bytes` near limit
-4. Check logs in Kibana/CloudWatch filtered by pod name + timeframe
-5. Correlate with deployments: did a deploy happen at that time?
+## 7. Interview Q&A
+
+**Q: Monitor a cluster you've never seen?**
+Layers: node health (USE), cluster objects (KSM: crashlooping, pending pods, unbound PVCs), golden signals per service (RED), then SLOs + error budgets. Tools are secondary to the layers.
+
+**Q: Metrics vs logs vs traces?**
+Metrics = cheap aggregates for alerting; logs = detailed events, expensive at scale; traces = request path across services. Complementary — don't try to alert on logs or grep metrics.
+
+**Q: Prometheus HA/scale?**
+Two replicas + external dedupe/TSDB (Thanos/Cortex/Mimir) for long-term + multi-cluster; remote-write to central store; Federation for hierarchical rollups (older pattern).
+
+**Q: How do you know alerts are good?**
+Every page has a runbook + owner; measure pages/week/oncall and false-positive rate; prune monthly.
+
+---
+
+## 8. Recall — Sound Bites
+
+- "Metrics alert, logs explain, traces locate."
+- "DaemonSet for collectors — the nodes are your agents."
+- "RED for services, USE for resources."
+- "Cardinality is Prometheus's kryptonite — bound your labels."
+- "Page on symptoms (error budget), not causes (CPU 90%)."

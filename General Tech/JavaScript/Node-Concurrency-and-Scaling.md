@@ -21,7 +21,7 @@ Node.js powers high-throughput systems like PayPal, LinkedIn, and Netflix becaus
 Key design decisions that make this scale:
 
 | Design choice | Benefit |
-|---|---|
+| --- | --- |
 | Single-threaded event loop | No context-switching overhead per connection |
 | Non-blocking I/O | Main thread never waits on disk/network |
 | OS-level async networking | Handles thousands of concurrent sockets |
@@ -96,7 +96,7 @@ Microtasks (`Promise.then`, `queueMicrotask`) and `process.nextTick` run between
 A single thread is efficient until it is treated like a worker thread.
 
 | Trap | Why it hurts | Mitigation |
-|---|---|---|
+| --- | --- | --- |
 | Long synchronous loops | Blocks the event loop | Chunk work or use worker threads |
 | Heavy JSON parsing | CPU work on main thread | Offload or stream parsing |
 | Crypto/hash operations | CPU-bound | Use native crypto streaming, worker threads, or external service |
@@ -110,7 +110,7 @@ Staff point: **CPU work on the main thread starves every other connection. The e
 ## 5. Scaling Options: Worker Threads, Child Processes, Cluster
 
 | Approach | Use case | Shared memory? | Communication |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | **Cluster module** | Distribute connections across OS processes | No | No explicit messaging needed |
 | **Child process** | Run external commands or isolate a Node workload | No | stdio / IPC |
 | **Worker threads** | CPU-intensive JavaScript inside the same Node process | SharedArrayBuffer possible | `postMessage` |
@@ -230,7 +230,7 @@ Staff point: **Profile before optimizing — event-loop delay and heap snapshots
 ## 10. Quick Reference Table
 
 | Task | Right tool |
-|---|---|
+| --- | --- |
 | Scale across CPU cores | `cluster`, PM2, or container replicas behind a load balancer |
 | Offload CPU-heavy JS | `worker_threads` |
 | Run external commands | `child_process.spawn` |
@@ -244,13 +244,13 @@ Staff point: **Profile before optimizing — event-loop delay and heap snapshots
 ## 11. Interview First-Response Openers (1-2 lines)
 
 | Concept | First statement to say in interview |
-|---|---|
+| --- | --- |
 | Why Node scales | "Node scales for I/O-heavy workloads because one event loop coordinates many in-flight operations without blocking threads per request." |
 | Event loop role | "The event loop executes callbacks when work completes; it should never be used for heavy CPU loops." |
 | Libuv thread pool | "Libuv offloads blocking operations like file and crypto work; default pool size is 4 and can be tuned." |
 | Worker threads vs cluster | "Use worker threads for CPU parallelism inside one process and cluster/replicas for multi-core request distribution." |
-| Event-loop lag | "Lag is the earliest production signal that synchronous or CPU-heavy code is starving request handling." |
-| Worker threads vs cluster | "Use worker threads for CPU parallelism inside one process and cluster/replicas for multi-core request distribution." |
+| Event-loop lag | "Lag is the earliest production signal that synchronous or CPU-bound code is starving request handling." |
+| `SharedArrayBuffer` vs `postMessage` | "`postMessage` clones data via the structured clone algorithm unless you pass a Transferable `ArrayBuffer` (zero-copy ownership transfer) or share memory via `SharedArrayBuffer` + `Atomics`." |
 | `cluster` module | "`cluster` forks worker processes that share a server port, giving process-level isolation and multi-core scaling on a single host." |
 | `perf_hooks` | "`perf_hooks` gives high-resolution timing and event-loop delay metrics so you optimize from real data, not guesses." |
 

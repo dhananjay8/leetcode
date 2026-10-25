@@ -93,16 +93,48 @@ etcd quorum loss or DB-full alarm — reads work, writes fail. Restore quorum/sn
 `<svc>.b.svc.cluster.local` (or `<svc>.b` — search domains expand). Plus NetworkPolicy if egress-restricted.
 
 **Q: Why do rolling updates cause brief `502`s even with `readinessProbe` and `maxUnavailable: 0`?**
-`SIGTERM` to the pod and `EndpointSlice` removal happen **in parallel** — kube-proxy/Ingress takes 1–5s to remove the terminating pod IP. If the app closes its socket immediately on `SIGTERM`, in-flight requests hit a closed port. Fix: `preStop: sleep 10` + graceful drain.
+Pod shutdown and EndpointSlice propagation are asynchronous. Proxies
+may still have an open connection or stale endpoint when the app stops
+accepting traffic. Check ingress logs, endpoint termination conditions,
+and app drain logs. Stop accepting new work, finish in-flight requests,
+and allow for endpoint propagation within `terminationGracePeriodSeconds`.
+Tune a `preStop` delay only when measurements show it is needed; there
+is no universal 10-second fix.
 
 **Q: How does a Kubernetes Controller / Operator work internally (`client-go`)?**
 **Reflector** (`List` + `Watch` on apiserver) → pushes events into **DeltaFIFO** queue → **SharedInformer** updates local thread-safe cache (**Indexer/Lister** so reads don't hit etcd) and fires **ResourceEventHandlers** → handler enqueues only `"namespace/name"` key into a **Workqueue (RateLimitingQueue)** → **Worker goroutines** pop keys, read current state from Lister, and reconcile **level-triggered** (`actual → desired`) idempotently.
 
 **Q: Why did a Java pod get `OOMKilled (137)` when `-Xmx` was set below the memory limit?**
-cgroup memory tracks total RSS (`container_memory_working_set_bytes`), while `-Xmx` only caps the **JVM Heap** — ignoring Metaspace, Thread Stacks (`1MB × threads`), Direct ByteBuffers (Netty/Kafka/S3 SDK), and native glibc malloc arenas. Fix: `-XX:MaxRAMPercentage=70.0` + `-XX:MaxDirectMemorySize`.
+The container's cgroup limit includes more than Java heap (Metaspace,
+thread stacks, direct buffers, native allocations, and charged page
+cache). `container_memory_working_set_bytes` is a heuristic, **not**
+RSS or the enforcement counter. Inspect `kubectl describe pod`, cgroup
+`memory.current`/`memory.events`, JVM NMT and heap/direct-memory
+metrics. Size heap/direct memory using measured headroom; 70% is not
+a universal fix.
 
 **Q: How do you capture a `tcpdump` inside a `distroless` pod that has no shell or `tcpdump` binary?**
 Use `kubectl debug pod/<p> -it --image=nicolaka/netshoot --target=<ctr>` (ephemeral container sharing the pod's network namespace), or from the worker node find the container's host PID (`crictl inspect`) and run `nsenter -t <PID> -n tcpdump -nn -i any`.
+
+**Q: Your cluster runs out of resources often. How do you manage and optimise it?**
+Distinguish Pending pods (read `FailedScheduling` events for actual
+constraints: requests, taints, topology, or PVC zone) from node
+pressure/evictions. Compare requests with historical peaks and
+allocatable capacity, then rightsize conservatively with VPA
+recommendations. Quotas/LimitRanges bound tenant usage; autoscaling
+adds nodes only if eligible capacity is available. Spread constraints
+improve resilience but can reduce bin-packing. On Spot pools, PDBs
+govern voluntary evictions, **not** involuntary interruption.
+Validate savings and SLOs over representative peaks.
+
+**Q: One pod works, the other fails with the same image. How do you debug it?**
+First compare `imageID` digests; the same tag may resolve to
+different images. Compare `kubectl get pod -o yaml`, `describe` events,
+current/previous logs, node and zone, mounts and env at startup,
+ServiceAccount identity, network reachability, and traffic/partition
+assignment. ConfigMap/Secret env vars are startup snapshots; mounted
+volumes can refresh eventually (except `subPath` mounts). Check
+resource throttling and OOM events before blaming the image.
 
 ---
 

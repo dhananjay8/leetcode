@@ -46,7 +46,7 @@ app.use(logger);
 ### Built-in middleware
 
 | Middleware | Purpose |
-|---|---|
+| --- | --- |
 | `express.json()` | Parse JSON request bodies |
 | `express.urlencoded()` | Parse URL-encoded form bodies |
 | `express.static()` | Serve static files |
@@ -78,7 +78,7 @@ app.get('/users', (req, res) => {
 ### Route parameters, query parameters, and body
 
 | Source | Access | Example URL |
-|---|---|---|
+| --- | --- | --- |
 | Route params | `req.params` | `/users/:userId` |
 | Query params | `req.query` | `/search?q=express` |
 | Body | `req.body` | `POST /create` with JSON |
@@ -181,7 +181,7 @@ app.get('/home', (req, res) => {
 ```
 
 | Engine | Style | Best for |
-|---|---|---|
+| --- | --- | --- |
 | EJS | HTML + embedded JS | Teams comfortable with HTML |
 | Pug | Indentation-based, minimal | Concise templates |
 | Handlebars | Logicless | Strong separation of concerns |
@@ -226,7 +226,7 @@ Cross-Origin Resource Sharing controls which domains can request resources from 
 ### Key headers
 
 | Header | Purpose |
-|---|---|
+| --- | --- |
 | `Access-Control-Allow-Origin` | Allowed origin(s) |
 | `Access-Control-Allow-Methods` | Allowed HTTP methods |
 | `Access-Control-Allow-Headers` | Allowed request headers |
@@ -330,7 +330,7 @@ Popular packages: `dotenv` for `.env` loading, `convict`, `config`.
 ## 12. Testing Express Applications
 
 | Type | Tools |
-|---|---|
+| --- | --- |
 | Unit | Jest + mocked request/response objects |
 | Integration | Jest + Supertest |
 | E2E | Playwright/Cypress or full Supertest flows |
@@ -354,7 +354,7 @@ describe('GET /users', () => {
 ## 13. Performance Optimization
 
 | Technique | How |
-|---|---|
+| --- | --- |
 | Caching | Redis for frequent data; HTTP cache headers for static assets |
 | Compression | `compression` middleware for gzip/deflate |
 | Load balancing | NGINX, AWS ALB, PM2 cluster mode |
@@ -372,7 +372,7 @@ describe('GET /users', () => {
 
 Once a response is sent (`res.send`, `res.json`, `res.status(...).end`), headers are finalized. Any later attempt to send another response or set a header throws:
 
-```
+```text
 Error: Cannot set headers after they are sent to the client
 ```
 
@@ -500,12 +500,55 @@ app.get('/proxy', async (req, res, next) => {
 
 Use `AbortController` to cancel slow downstream calls and avoid holding connections beyond client/server timeouts.
 
+### Reverse Proxy Trust (`app.set('trust proxy', 1)`)
+
+When Express runs behind an ALB, NGINX, Envoy, or Cloudflare,
+`req.socket.remoteAddress` is normally the nearest proxy's IP.
+Configure `trust proxy` for the **actual trusted proxy addresses or
+hop topology**, not an assumed `1`: an overly broad setting lets
+clients spoof forwarded headers and bypass IP-based limits.
+
+- **`express-rate-limit` (`req.ip`)** rate-limits the **entire load balancer IP**, blocking all users simultaneously!
+- **`req.protocol`** reports `'http'` even on HTTPS requests terminated at the ALB, causing `express-session` with `cookie: { secure: true }` to **silently refuse to set `Set-Cookie` headers**!
+
+### Graceful Shutdown on Kubernetes (`SIGTERM`)
+
+```javascript
+const server = app.listen(3000);
+let shuttingDown = false;
+app.get('/ready', (req, res) =>
+  res.sendStatus(shuttingDown ? 503 : 200),
+);
+
+process.once('SIGTERM', async () => {
+  shuttingDown = true;
+  try {
+    // Stop accepting connections; existing requests can complete.
+    await new Promise((resolve, reject) =>
+      server.close((err) => err ? reject(err) : resolve()),
+    );
+    await Promise.all([dbPool.end(), redis.quit()]);
+  } catch (error) {
+    console.error('Shutdown failed', error);
+    process.exitCode = 1;
+  }
+});
+```
+
+Set a bounded shutdown deadline aligned with Kubernetes
+`terminationGracePeriodSeconds`; handle stuck in-flight requests and
+keep-alive sockets according to your Node version. Endpoint withdrawal,
+probe changes, and existing connections are asynchronous; neither a
+fixed `preStop` sleep nor an unconditional keep-alive timeout guarantees
+zero 502s. Ensure `headersTimeout` remains above `keepAliveTimeout`
+if tuning them, and test against the actual proxy idle timeout.
+
 ---
 
 ## 15. REST vs GraphQL in Express
 
 | Factor | REST | GraphQL |
-|---|---|---|
+| --- | --- | --- |
 | Endpoint design | Multiple resource-specific endpoints | Single `/graphql` endpoint |
 | Over-fetching | Common | Avoided |
 | Under-fetching | Common | Avoided |
@@ -529,7 +572,7 @@ Use `AbortController` to cancel slow downstream calls and avoid holding connecti
 ## 17. Quick Reference Table
 
 | Task | Pattern / Middleware |
-|---|---|
+| --- | --- |
 | Parse JSON body | `express.json()` |
 | Parse forms | `express.urlencoded({ extended: true })` |
 | Serve static files | `express.static('public')` |
@@ -553,7 +596,7 @@ Use `AbortController` to cancel slow downstream calls and avoid holding connecti
 ## 18. Interview First-Response Openers (1-2 lines)
 
 | Concept | First statement to say in interview |
-|---|---|
+| --- | --- |
 | What is Express | "Express is a minimal HTTP framework for Node that gives a middleware pipeline and routing primitives without enforcing heavy architecture." |
 | Middleware | "Middleware is ordered request-processing logic; every request flows through it, so order and side effects are critical." |
 | Routing | "Express routing maps method + path to handlers, with path params/query/body as distinct data channels." |

@@ -23,7 +23,7 @@ var a = 10;     // declaration hoisted; assignment stays here
 ### Hoisting by declaration type
 
 | Declaration | Hoisted? | Initialized? | Early access result |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `var` | Yes | To `undefined` | `undefined` |
 | `let` | Yes (temporal dead zone) | No | `ReferenceError` |
 | `const` | Yes (temporal dead zone) | No | `ReferenceError` |
@@ -66,7 +66,7 @@ class MyClass {}
 ## 2. `var`, `let`, and `const`
 
 | Feature | `var` | `let` | `const` |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | Scope | Function scope | Block scope | Block scope |
 | Hoisting | Yes, initialized `undefined` | Yes, TDZ | Yes, TDZ |
 | Reassignment | Allowed | Allowed | Not allowed |
@@ -163,7 +163,7 @@ console.log(add5(3)); // 8
 ### `this` rules
 
 | Context | `this` refers to |
-|---|---|
+| --- | --- |
 | Method call (`obj.method()`) | The object (`obj`) |
 | Regular function (non-strict) | Global object (`window`/`global`) |
 | Regular function (strict mode) | `undefined` |
@@ -175,7 +175,7 @@ console.log(add5(3)); // 8
 ### `call` vs `apply` vs `bind`
 
 | Method | Invocation | Arguments |
-|---|---|---|
+| --- | --- | --- |
 | `call(thisArg, arg1, arg2, ...)` | Immediate | Comma-separated |
 | `apply(thisArg, [arg1, arg2, ...])` | Immediate | Array |
 | `bind(thisArg, arg1, arg2, ...)` | Returns a new function | Comma-separated |
@@ -207,7 +207,7 @@ greetPerson('Hello');            // Hello, John
 JavaScript is **always pass-by-value**. For objects, the value passed is a **reference** (memory address).
 
 | Data type | What is passed | Mutating inside function | Reassigning inside function |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | Primitives (`number`, `string`, `boolean`, etc.) | Copy of the value | No effect on caller | No effect on caller |
 | Objects/arrays | Copy of the reference | Affects the original object | No effect on caller |
 
@@ -271,7 +271,7 @@ const obj3 = _.cloneDeep(obj1);
 ### Comparison
 
 | Feature | Shallow Copy | Deep Copy |
-|---|---|---|
+| --- | --- | --- |
 | Nested objects | Shared reference | Independent copies |
 | Modification effect | Affects original | Does not affect original |
 | Speed | Faster | Slower |
@@ -282,7 +282,7 @@ const obj3 = _.cloneDeep(obj1);
 ## 7. Useful Object Methods
 
 | Method | Behavior |
-|---|---|
+| --- | --- |
 | `Object.assign(target, ...sources)` | Shallow merge/copy |
 | `Object.keys(obj)` | Array of own enumerable keys |
 | `Object.values(obj)` | Array of own enumerable values |
@@ -336,7 +336,7 @@ numbers.forEach(n => console.log(n)); // side effects only
 ```
 
 | Method | Returns | Use case |
-|---|---|---|
+| --- | --- | --- |
 | `map` | New array of same length | Transform each element |
 | `filter` | New array, possibly shorter | Select matching elements |
 | `reduce` | Single value | Aggregate / fold |
@@ -430,7 +430,7 @@ console.log(double(4)); // 8
 ## 13. Functional Programming Concepts
 
 | Concept | Definition |
-|---|---|
+| --- | --- |
 | **First-class functions** | Functions can be assigned, passed, and returned like values |
 | **Pure functions** | Same input → same output; no side effects |
 | **Immutability** | Data is not modified; new data is created |
@@ -447,7 +447,7 @@ console.log(double(4)); // 8
 ## 14. ES Standards Overview
 
 | Version | Year | Major features |
-|---|---|---|
+| --- | --- | --- |
 | ES1 | 1997 | Core language |
 | ES2 | 1998 | Editorial changes |
 | ES3 | 1999 | `try/catch`, regex, `switch` |
@@ -458,16 +458,18 @@ console.log(double(4)); // 8
 | ES2017 | 2017 | `async/await`, `Object.entries`/`values`, `padStart`/`padEnd` |
 | ES2018 | 2018 | Async iteration, rest/spread properties, `Promise.finally` |
 | ES2019 | 2019 | `flat`/`flatMap`, `Object.fromEntries`, `trimStart`/`trimEnd` |
-| ES2020 | 2020 | `BigInt`, dynamic `import`, nullish coalescing `??`, optional chaining `?.` |
-| ES2021 | 2021 | `replaceAll`, `Promise.any`, logical assignment `||=`/`&&=`/`??=` |
-| ES2022 | 2022 | Top-level `await`, class private fields/methods, `.at()` |
+| ES2020 | 2020 | `BigInt`, dynamic `import()`, nullish coalescing `??`, optional chaining `?.`, `Promise.allSettled`, `globalThis` |
+| ES2021 | 2021 | `replaceAll`, `Promise.any`, logical assignment `\|\|=`, `&&=`, `??=`, `WeakRef`, `FinalizationRegistry` |
+| ES2022 | 2022 | Top-level `await`, class `#private` fields/methods, `.at()`, `Object.hasOwn()`, `Error` `{ cause }` |
+| ES2023 | 2023 | Non-mutating array copies (`toSorted`, `toReversed`, `toSpliced`, `with`), `findLast` / `findLastIndex` |
+| ES2024 | 2024 | `Object.groupBy` / `Map.groupBy`, `Promise.withResolvers()`, `Set` methods (`union`, `intersection`, `difference`) |
 
 ---
 
 ## 15. Equality Checks
 
 | Operator | Behavior |
-|---|---|
+| --- | --- |
 | `==` | Loose equality with type coercion (`1 == '1'` is `true`) |
 | `===` | Strict equality; no type coercion (`1 === '1'` is `false`) |
 | `Object.is(a, b)` | Same-value equality; treats `NaN` as equal to `NaN` and `+0`/`-0` as different |
@@ -484,7 +486,7 @@ console.log(Object.is(NaN, NaN)); // true
 ## 16. Strict Mode vs Non-Strict Mode
 
 | Behavior | Non-strict | Strict mode |
-|---|---|---|
+| --- | --- | --- |
 | Undeclared variables | Create global property | Throw `ReferenceError` |
 | `this` in plain function | Global object | `undefined` |
 | Duplicate parameter names | Allowed | `SyntaxError` |
@@ -497,7 +499,7 @@ console.log(Object.is(NaN, NaN)); // true
 ## 17. Loop Comparison
 
 | Loop | Best for | Notes |
-|---|---|---|
+| --- | --- | --- |
 | `for (let i = 0; ...)` | Index-based iteration, break/continue | Most flexible |
 | `forEach` | Execute side effect for each item | Cannot break/return out of loop |
 | `for...in` | Object keys enumeration | Iterates inherited enumerable properties; use `hasOwnProperty` check |
@@ -529,7 +531,7 @@ const isNonEmptyObject = obj =>
 ```
 
 | Method | Detects arrays | Detects `null` | Detects plain objects |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `typeof` + `!== null` | Yes | No | Yes |
 | `Object.prototype.toString` | No | No | Yes |
 | `Object.getPrototypeOf` | No | No | Yes |
@@ -563,7 +565,7 @@ p.then(console.log).catch(console.error);
 ### Promise static methods
 
 | Method | Behavior |
-|---|---|
+| --- | --- |
 | `Promise.all` | Resolves when all promises resolve; rejects on first rejection |
 | `Promise.allSettled` | Waits for all; returns status/value for each |
 | `Promise.race` | Settles as soon as any promise settles |
@@ -587,7 +589,7 @@ async function fetchUser(id) {
 ### Callbacks vs Promises
 
 | Pattern | Problem | Solution |
-|---|---|---|
+| --- | --- | --- |
 | Callbacks | Callback hell, inversion of control | Promises / async-await |
 | Promises | Chain readability | async-await |
 
@@ -603,7 +605,7 @@ The event loop coordinates the call stack, Web APIs, and callback queues:
 ### Timers (Node.js)
 
 | API | Queues after |
-|---|---|
+| --- | --- |
 | `process.nextTick` | Current operation, before microtasks |
 | `queueMicrotask` | Microtask queue |
 | `Promise.then` | Microtask queue |
@@ -665,7 +667,7 @@ Functions that sit between a request and a final handler, common in Express/Nest
 ### `null` vs `undefined`
 
 | Value | Meaning | Typical source |
-|---|---|---|
+| --- | --- | --- |
 | `undefined` | Value not assigned / missing | Uninitialized variables, missing function args, absent object keys |
 | `null` | Explicitly empty value | Developer intentionally sets no value |
 
@@ -684,7 +686,7 @@ console.log(a === b);  // false
 ### `PUT` vs `PATCH` vs `POST`
 
 | Method | Semantics | Idempotent? | Typical use |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `POST` | Create subordinate resource / trigger action | Usually no | Create order, submit form, execute action |
 | `PUT` | Replace resource representation fully | Yes | Replace `/users/123` with complete payload |
 | `PATCH` | Partial update of resource | Usually yes (depends on patch ops) | Update a few fields |
@@ -694,7 +696,7 @@ Interview note: if the same request can be retried safely with the same effect, 
 ### `package.json` essentials
 
 | Field | Purpose |
-|---|---|
+| --- | --- |
 | `name`, `version` | Package identity |
 | `scripts` | Standardized project commands (`test`, `build`, `start`) |
 | `dependencies` | Runtime dependencies |
@@ -711,7 +713,7 @@ Common npm flags (historical + current):
 ### Node.js process exit codes (interview quick view)
 
 | Exit code | Meaning |
-|---|---|
+| --- | --- |
 | `0` | Success |
 | `1` | Uncaught fatal exception / generic failure |
 | `128 + signal` | Process terminated by Unix signal (e.g., `SIGKILL` => `137`) |
@@ -748,7 +750,7 @@ Class declarations are hoisted but remain in the TDZ until evaluated, just like 
 ### `Map`, `Set`, `WeakMap`, `WeakRef`
 
 | Collection | Use when |
-|---|---|
+| --- | --- |
 | `Map` | Frequent key insertions/deletions with any key type; preserves insertion order |
 | `Set` | Unique values needed |
 | `WeakMap` | Private data attached to objects without preventing GC |
@@ -830,7 +832,7 @@ Staff note: memoization trades memory for CPU; be cautious with unbounded caches
 ### Type coercion and falsy values
 
 | Expression | Result | Why |
-|---|---|---|
+| --- | --- | --- |
 | `0 == '0'` | `true` | String converted to number |
 | `0 === '0'` | `false` | Strict equality, no coercion |
 | `[] == false` | `true` | Array to primitive to number `0` |
@@ -870,7 +872,7 @@ requestAnimationFrame(animate);
 ```
 
 | Mechanism | Purpose |
-|---|---|
+| --- | --- |
 | `requestAnimationFrame` | Schedule work before the next browser paint (60fps target) |
 | `scheduler.yield()` | Yield to higher-priority work without dropping to the end of the task queue |
 | `scheduler.postTask()` | Priority-aware scheduling (`user-blocking`, `user-visible`, `background`) |
@@ -880,7 +882,7 @@ Staff note: long microtask queues block rendering. Chunk work with `requestAnima
 ### Core Web Vitals: INP and TBT
 
 | Metric | What it measures | Staff angle |
-|---|---|---|
+| --- | --- | --- |
 | **INP** (Interaction to Next Paint) | Latency of the worst user interaction | Long JavaScript tasks and microtask starvation block the main thread and inflate INP |
 | **TBT** (Total Blocking Time) | Sum of long tasks between First Contentful Paint and Time to Interactive | Reduce by breaking work into chunks and moving heavy logic off main thread |
 
@@ -1059,7 +1061,7 @@ const c = a.map(e => { if (e > 2) return e; });      // [undefined, undefined, 3
 ### Variable declarations
 
 | | scope | hoisted | reassign | global object |
-|---|---|---|---|---|
+| --- | --- | --- | --- | --- |
 | `var` | function | yes (`undefined`) | yes | yes |
 | `let` | block | yes (TDZ) | yes | no |
 | `const` | block | yes (TDZ) | no | no |
@@ -1067,7 +1069,7 @@ const c = a.map(e => { if (e > 2) return e; });      // [undefined, undefined, 3
 ### `this` binding
 
 | Call site | `this` |
-|---|---|
+| --- | --- |
 | `obj.method()` | `obj` |
 | Plain function strict | `undefined` |
 | Plain function non-strict | global |
@@ -1078,7 +1080,7 @@ const c = a.map(e => { if (e > 2) return e; });      // [undefined, undefined, 3
 ### Array method cheat sheet
 
 | Method | Returns | Mutates original |
-|---|---|---|
+| --- | --- | --- |
 | `map` | new array | no |
 | `filter` | new array | no |
 | `reduce` | single value | no |
@@ -1091,7 +1093,7 @@ const c = a.map(e => { if (e > 2) return e; });      // [undefined, undefined, 3
 ### Copy methods
 
 | Need | Method |
-|---|---|
+| --- | --- |
 | Shallow copy object | `{ ...obj }`, `Object.assign({}, obj)` |
 | Shallow copy array | `[...arr]`, `arr.slice()` |
 | Deep copy (JSON-safe) | `JSON.parse(JSON.stringify(obj))` |
@@ -1102,7 +1104,7 @@ const c = a.map(e => { if (e > 2) return e; });      // [undefined, undefined, 3
 ## 25. Interview First-Response Openers (1-2 lines)
 
 | Concept | First statement to say in interview |
-|---|---|
+| --- | --- |
 | Hoisting | "JavaScript hoists declarations during compile phase; only function declarations are fully initialized, while `let`/`const` stay in TDZ until execution reaches them." |
 | Scope | "JavaScript uses lexical scope, so variable visibility is based on where code is written, not where a function is called." |
 | `var` vs `let` vs `const` | "`var` is function-scoped and re-declarable; `let`/`const` are block-scoped with TDZ, and `const` freezes the binding, not nested object data." |

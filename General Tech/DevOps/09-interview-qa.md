@@ -81,10 +81,14 @@ SG = instance-level, **stateful**, allow-only. NACL = subnet-level, **stateless*
 ## 4. Terraform
 
 **Q: What is state?**
-JSON mapping config→real resource IDs/metadata. Remote backend (S3) + locking (DynamoDB) is mandatory for teams; never commit or hand-edit.
+State maps configuration to real resource IDs/metadata. Use an encrypted
+remote backend with locking and access controls; S3 backends can use an S3
+lockfile on supported Terraform versions or legacy DynamoDB locking.
+Do not commit or casually hand-edit state.
 
 **Q: Two `terraform apply` at once?**
-Without locking → state corruption/race. DynamoDB lock serializes operations.
+Without locking → state races and possible corruption. Use backend locking
+(for example an S3 lockfile, or DynamoDB on older S3 backend setups).
 
 **Q: Multiple environments?**
 Workspaces for simple cases; separate state + `env.tfvars` per env (preferred); Terragrunt for DRY at scale.
@@ -150,7 +154,146 @@ gRPC multiplexes requests over a **single long-lived HTTP/2 TCP connection**. An
 
 ---
 
-## 7. Recall — Top Sound Bites
+## 7. Staff-Level Scenario Questions (Structured Answers)
+
+### CI/CD & Pipelines
+
+**Q: Your deployment pipeline fails at random stages. How do you make it more reliable?**
+
+- **1. Measure & Classify Failure Modes (Don't Guess)**: Tag every failed build for 2 weeks by failure class: (a) **Flaky test** (timing/race, shared test DB), (b) **Infra/ephemeral flake** (spot runner preemption, Docker registry `503`, npm/Maven timeout), or (c) **Non-deterministic build** (unpinned packages, `:latest` base images).
+- **2. Quarantine Flaky Tests**: Move non-deterministic tests into a quarantined suite with an automated **flake budget** (e.g., `>1%` flake rate auto-opens a ticket and blocks the owning team's PRs if unfixed in 7 days — never silently retry tests `5×` forever).
+- **3. Harden Infra & Network Calls**: Wrap external artifact/registry pulls in bounded retries with **exponential backoff + jitter**; host a pull-through cache (Nexus/Artifactory/ECR Pull-Through) so public registry blips never break builds.
+- **4. Enforce Determinism & Idempotency**: Pin base images by `@sha256` digest, commit lockfiles (`package-lock.json`, `gradle.lockfile`, `.terraform.lock.hcl`), set explicit per-stage timeouts, and make deploy scripts idempotent (`helm upgrade --install --atomic`).
+
+**Q: Product wants faster releases, but your builds are slow. How do you speed up without breaking things?**
+
+- **1. Profile Stage Wall-Clock Time First**: Measure p50/p95 duration per stage (checkout, dependency install, compile, unit test, security scan, image build, E2E) to find the true bottleneck.
+- **2. Multi-Layer Caching**: Enable remote build caches (**Gradle Build Cache / Nx / Turborepo**), dependency cache keyed by lockfile hash, and Docker BuildKit layer caching (`--cache-from` / `--cache-to` registry).
+- **3. Parallelize & Affected-Graph Execution**: Shard unit/integration suites across parallel workers (`jest --shard=1/4`, Gradle `maxParallelForks`), run SAST/SCA/lint stages concurrently in a fan-out DAG, and in monorepos build/test **only affected modules** (`git diff` graph).
+- **4. Rebalance the Test Pyramid (Never Drop Gates)**: Keep unit, contract, and smoke tests in the fast PR path (`<8 min` target); shift heavy browser E2E and chaos suites to post-merge canary / pre-prod promotion rings with automated rollback gates (`Argo Rollouts`).
+
+### Infrastructure as Code (IaC)
+
+**Q: Your Terraform script works in dev but crashes in prod. What's your next step?**
+
+- **1. Freeze & Inspect — Never Re-run `apply -auto-approve`**: Read the exact error from `terraform plan` / `apply` output and classify the divergence between `dev` and `prod`:
+  - **Configuration Drift**: Someone hotfixed `prod` manually in the AWS/Azure console → run `terraform plan -refresh-only` to inspect drift, then `terraform import` or reconcile code.
+  - **Quota / Cloud Service Limits**: Prod scale hits AWS ENI/VPC/vCPU quotas or Azure regional SKU exhaustion that small `dev` sizing never triggered.
+  - **IAM / RBAC Scope**: Prod execution role lacks permissions (`kms:Decrypt`, `iam:PassRole`) or hits an AWS SCP / Azure Policy deny rule active only in prod.
+  - **Provider / State Skew**: Missing `.terraform.lock.hcl` or manual state surgery.
+- **2. Prevention**: Run `terraform plan -out=plan.tfplan` against the
+  intended prod state in CI using appropriately scoped plan permissions.
+  Inspect the diff and `terraform show -json plan.tfplan` for policy checks.
+  A successful plan cannot guarantee that apply-time quotas or cloud API
+  calls will succeed.
+
+**Q: A junior accidentally deleted critical infra using IaC. How do you prevent this next time?**
+
+- **1. Resource-Level Guardrails in Code**: Apply `prevent_destroy`
+  to selected critical resources while the lifecycle block remains in
+  configuration; it does not protect a resource after its block is removed.
+  Combine with RDS deletion protection, S3 versioning/Object Lock where
+  retention is required, and Azure `CanNotDelete` locks where appropriate.
+- **2. Eliminate Local `terraform apply` to Prod**: Revoke human write access to prod state/cloud accounts; all applies must execute through **GitOps CI pipelines (Atlantis / Terraform Cloud / GitHub Actions)** using OIDC roles.
+- **3. Policy-as-Code Gate (`OPA / Conftest / Sentinel`)**: Inspect
+  `terraform show -json plan.tfplan` for `delete` or replacement actions
+  (replacement includes delete/create) on protected resource types and
+  require a separate reviewed exception.
+- **4. Blast-Radius Isolation**: Split monolithic Terraform state into small, blast-radius-isolated stacks (`network/`, `data-plane/`, `app-tier/`) so an app-tier change can never touch the database state file.
+
+### Monitoring & Observability
+
+**Q: A service went down at 2 AM. You weren't alerted. What would you fix in your monitoring setup?**
+
+- **1. Shift from Cause-Based to Symptom-Based Alerting**: CPU/memory can be 10% while 100% of requests return `500` (e.g., expired cert, DB pool deadlock). Page on **Golden Signals & SLO multi-window burn rates** (`5xx` error ratio, `p99` latency, and **traffic drop to zero** at the ingress/ALB layer).
+- **2. Add Synthetic Blackbox Probes**: External probes can cover DNS,
+  TLS, CDN, and ingress. To cover auth and DB, use a safe transaction
+  with a test identity; a TCP/HTTP health probe alone cannot prove that
+  the entire user journey works.
+- **3. Dead-Man's-Switch (`Watchdog` Alert)**: Configure an always-firing Prometheus `Watchdog` alert routed through Alertmanager → PagerDuty heartbeat so if Prometheus, Alertmanager, or the notification webhook itself dies, PagerDuty pages immediately.
+- **4. Chaos Validation**: Verify every new alert by injecting a fault in staging (or pausing the endpoint) to prove the page actually wakes on-call.
+
+**Q: You have logs, metrics, and traces — but you're still blind during outages. What's missing?**
+
+- **1. Cross-Signal Correlation (`trace_id` + Exemplars)**: Metrics, logs, and traces are useless in silos. Inject W3C `traceparent` (`trace_id`, `span_id`) into every structured JSON log line and attach **Prometheus Exemplars** to latency histograms so an engineer can click a `p99` spike on Grafana and jump straight to the exact slow trace and its logs.
+- **2. Change-Event Overlay**: Correlate deploy markers, Git SHAs,
+  feature flags, and configuration changes with golden-signal dashboards;
+  do not assume a fixed percentage of outages are change-related.
+- **3. Business Dimensions Without Cardinality Explosions**: Group
+  metrics by bounded dimensions such as region, AZ, service, or version.
+  Put tenant IDs on sampled traces/controlled-access logs instead of
+  unbounded Prometheus labels; protect sensitive identifiers.
+- **4. Actionable Runbooks & Service Topology**: Link every alert annotation to a concrete runbook with the first 3 diagnostic commands and an up-to-date dependency map.
+
+### Containerisation & Kubernetes
+
+**Q: Your Kubernetes cluster runs out of resources often. How would you manage and optimise it?**
+
+- **1. Separate Requests from True Saturation**: Compare
+  `kube_pod_container_resource_requests` with usage and node allocatable
+  capacity. Measure headroom per node and workload rather than assuming
+  a universal utilization ratio.
+- **2. Rightsize Workloads**: Use VPA recommendation mode, Goldilocks,
+  or Kubecost alongside peak demand, OOM history, and startup needs.
+  Memory `limits = requests` alone does **not** make a pod Guaranteed:
+  every container must set matching CPU **and** memory requests/limits.
+- **3. Enforce Namespace Governance**: Apply `ResourceQuota` (caps total namespace CPU/memory/pods) and `LimitRange` (enforces default requests/limits so no BestEffort pod can starve a node).
+- **4. Smart Node Autoscaling & Bin-Packing**: Use **Karpenter** (with `consolidation` enabled to bin-pack underutilized nodes onto right-sized instances and Spot pools for fault-tolerant workloads) + `PriorityClass` so critical prod services preempt batch/cron pods under pressure.
+
+**Q: One pod works, the other fails with the same image. How would you debug it?**
+
+- **First verify the image digests**, not just the tag, then diff runtime
+  state and traffic as well as environment:
+  1. **Node & AZ Placement (`kubectl get pod -o wide`)**: Are they on different worker nodes or AZs? Check the failing node for `DiskPressure`/`MemoryPressure`, kernel/cgroup differences, broken CNI/iptables on that node, or AZ-specific NAT Gateway / subnet ACL blackholes.
+  2. **Runtime Config & Secret Drift**: Did someone update a `ConfigMap` or `Secret`? Pods reading config via **`env:` variables never refresh** until restarted, whereas volume-mounted files update — or one pod booted before/after a Vault/Consul KV update.
+  3. **Resource Neighbours & Throttling**: Is the failing pod co-located with a noisy neighbor causing CFS CPU throttling (`container_cpu_cfs_throttled_seconds_total`) or disk I/O contention?
+  4. **Stateful / Sticky Traffic Skew**: Is a broken client session, poison Kafka partition key, or hot Redis shard pinned specifically to the failing pod's IP/consumer instance?
+  5. **Ephemeral State**: Check `/tmp` or `emptyDir` exhaustion;
+     compare `kubectl get pod -o yaml`, `kubectl describe pod`, current
+     and `--previous` logs, and runtime reachability. `kubectl diff`
+     compares manifests with live resources, not two pods directly.
+
+### Security & Access Control
+
+**Q: Developers have too many permissions in production. How do you enforce least privilege?**
+
+- **1. Audit Actual Usage Before Revoking**: Analyze 90 days of **AWS IAM Access Analyzer / CloudTrail** and **Kubernetes Audit Logs** (`audit2rbac`) to see which permissions are actually used vs over-granted `ClusterAdmin`/`AdministratorAccess`.
+- **2. Default Read-Only + CI-Only Writes**: Give engineers read-only observability (`get`, `list`, `watch` on non-secret resources; logs/metrics in Grafana) in production. All mutations happen via peer-reviewed GitOps/CI pipelines using workload OIDC identities.
+- **3. Just-In-Time (JIT) Break-Glass Elevation**: For live incident debugging, use **PAM / AWS IAM Identity Center / Teleport** to grant temporary, ticket-linked, time-bound (`1–2 hour` TTL) elevated roles with full session recording and Slack/SIEM alerting.
+
+**Q: A secret got exposed in a Git commit. What steps would you take now and for future protection?**
+
+- **Immediate Incident Response (Now)**:
+  1. **Revoke & Rotate Immediately**: Assume the secret was scraped within seconds of push. Revoke the IAM key / DB password / API token / Vault SecretID **first** — rewriting Git history does *not* make an exposed secret safe!
+  2. **Audit Blast Radius**: Query CloudTrail, Vault audit logs, and DB connection logs for any unauthorized access using that credential between commit time and revocation.
+  3. **Coordinate History Remediation**: After revocation, assess
+     whether history rewrite is necessary with repository owners.
+     `git-filter-repo`/BFG and force-push rewrite shared history and
+     cannot recall already copied credentials; handle forks, cached
+     references, and collaborator clones under an agreed plan.
+- **Future Prevention**:
+  1. **Pre-Commit + Server-Side Push Protection**: Enforce **`gitleaks` / `trufflehog`** in local pre-commit hooks, CI gates, and GitHub Secret Scanning Push Protection (blocks the `git push` at the server before it lands).
+  2. **Eliminate Static Secrets**: Migrate to short-lived **OIDC Workload Identity** (IRSA / Azure Workload Identity) and runtime **Vault / External Secrets Operator** injection.
+
+### Collaboration & Culture
+
+**Q: Developers blame Ops. Ops blame Dev. The release is stuck. How would you bring ownership and alignment?**
+
+- **1. Unblock the Release Safely First**: Establish a single war-room channel, define objective **canary health criteria** (`5xx < 0.1%`, `p99 < 250ms` for 30m) and an instant **1-command rollback trigger** — removing subjective fear from the release decision.
+- **2. Replace Siloed KPIs with Shared DORA + SLO Incentives**: Silos happen when Dev is rewarded for feature velocity and Ops is punished for downtime. Align both teams under shared **DORA metrics** (Deployment Frequency, Lead Time, Change Failure Rate, MTTR) and a shared **Error Budget policy** (if the service has error budget remaining, Dev can ship; if the budget is burned, both teams focus on reliability).
+- **3. Self-Service Golden Paths ("You Build It, You Run It")**: Platform/Ops builds paved-road templates (`qhelm` charts, CI shared libraries, pre-wired dashboards/alerts), and product engineers own their service's on-call rotation and Helm values.
+
+**Q: Your team is stuck firefighting. How do you build a culture of automation and stability?**
+
+- **1. Quantify & Rank Toil**: Categorize pages and manual tickets
+  by frequency and time spent, then rank recurring offenders; do not
+  assume a fixed percentage of interruptions comes from the top three.
+- **2. Ring-Fence an Explicit Toil Budget (`20–25%` Capacity)**: Make toil reduction a non-negotiable sprint commitment (e.g., the engineer coming off on-call spends the next week eliminating the #1 page cause from their shift, backed by engineering leadership).
+- **3. Delete Noisy Alerts & Automate Runbooks**: Prune non-actionable alerts immediately; convert repetitive manual runbooks into Kubernetes self-healing probes, KEDA/HPA scaling rules, or automated remediation jobs, and track **Postmortem Action Items as P0/P1 sprint tickets** with SLA deadlines.
+
+---
+
+## 8. Recall — Top Sound Bites
 
 - "Mitigate first, root-cause second — every minute of MTTR is user impact."
 - "Containers: namespaces isolate the view, cgroups limit the budget."

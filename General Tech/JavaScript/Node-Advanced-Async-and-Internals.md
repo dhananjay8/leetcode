@@ -68,7 +68,7 @@ Staff point: **Use worker threads for CPU-bound work. For I/O-bound tasks, prefe
 ### Common methods
 
 | Method | Purpose |
-|---|---|
+| --- | --- |
 | `on(event, listener)` | Subscribe to an event |
 | `once(event, listener)` | Subscribe once, then remove |
 | `emit(event, ...args)` | Emit an event with optional data |
@@ -105,7 +105,7 @@ If an `'error'` event is emitted without a listener, Node.js throws and may term
 Streams process data in chunks rather than buffering everything in memory. Types:
 
 | Type | Direction | Example |
-|---|---|---|
+| --- | --- | --- |
 | **Readable** | Read | `fs.createReadStream`, `process.stdin` |
 | **Writable** | Write | `fs.createWriteStream`, `process.stdout` |
 | **Duplex** | Both | TCP socket |
@@ -131,7 +131,7 @@ input.pipe(gzip).pipe(output);
 Backpressure occurs when a readable stream produces data faster than the writable stream can consume it. The writable stream signals pause/resume automatically.
 
 | Signal | Meaning |
-|---|---|
+| --- | --- |
 | `writable.write(chunk)` returns `false` | Buffer is full; slow down |
 | `'drain'` event | Writable is ready for more data |
 | `readable.pause()` / `readable.resume()` | Manual flow control |
@@ -145,7 +145,7 @@ Staff point: **Always handle backpressure when piping large amounts of data; ign
 Both are from `child_process`. Choose based on communication needs.
 
 | Method | Purpose | Communication | Overhead |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `spawn` | Run external commands / non-Node processes | stdio streams | Low |
 | `fork` | Spawn a separate Node.js module | IPC messages | Higher (due to IPC) |
 
@@ -261,7 +261,7 @@ app.use((error, req, res, next) => {
 ## 7. CommonJS (`require`) vs ES Modules (`import`)
 
 | Aspect | CommonJS (`require`) | ES Modules (`import`) |
-|---|---|---|
+| --- | --- | --- |
 | Syntax | `const x = require('x')` | `import x from 'x'` |
 | Loading | Synchronous, runtime | Static parse, asynchronous loading possible |
 | Top-level `await` | No | Yes |
@@ -284,7 +284,7 @@ export function foo() {}
 ## 8. NPM Essentials
 
 | Command | Effect |
-|---|---|
+| --- | --- |
 | `npm install <pkg>` | Add to `dependencies` |
 | `npm install --save-dev <pkg>` | Add to `devDependencies` |
 | `npm install -g <pkg>` | Install globally |
@@ -295,7 +295,7 @@ export function foo() {}
 ### Semantic versioning
 
 | Range | Meaning |
-|---|---|
+| --- | --- |
 | `1.2.3` | Exact version |
 | `^1.2.3` | Compatible with minor/patch updates |
 | `~1.2.3` | Patch updates only |
@@ -416,7 +416,7 @@ Prefer `fs/promises` over callback or sync APIs in request handlers. The sync AP
 ## 14. Quick Reference Table
 
 | Need | Right tool |
-|---|---|
+| --- | --- |
 | Parallel CPU work inside Node | `worker_threads` |
 | Run shell command | `child_process.spawn` |
 | Separate Node process with messaging | `child_process.fork` |
@@ -436,7 +436,7 @@ Prefer `fs/promises` over callback or sync APIs in request handlers. The sync AP
 ## 15. Interview First-Response Openers (1-2 lines)
 
 | Concept | First statement to say in interview |
-|---|---|
+| --- | --- |
 | Worker threads | "Worker threads provide real CPU parallelism for JavaScript compute paths; they are not a replacement for async I/O." |
 | EventEmitter | "EventEmitter is Node's observer backbone: producers emit events, consumers subscribe, and APIs like streams/HTTP build on it." |
 | Streams | "Streams handle large data efficiently in chunks, which avoids memory spikes from full buffering." |

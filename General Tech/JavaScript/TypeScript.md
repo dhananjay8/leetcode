@@ -96,7 +96,7 @@ function format(value: string | number | Date) {
 ### Narrowing techniques
 
 | Technique | Example |
-|---|---|
+| --- | --- |
 | `typeof` | `typeof value === 'string'` |
 | `instanceof` | `value instanceof Error` |
 | `in` operator | `'bark' in animal` |
@@ -192,19 +192,36 @@ theme.primary.toUpperCase(); // still typed as the literal '#000', not widened t
 ```
 
 | Approach | Type-checks shape? | Keeps literal/narrow type? |
-|---|---|---|
+| --- | --- | --- |
 | `: Theme` annotation | Yes | No — widens to the annotated type |
-| `as Theme` assertion | **No** (bypasses checking) | No |
+| `as Theme` assertion | Limited overlap check, not runtime validation | Usually exposes the asserted type |
 | `satisfies Theme` | Yes | **Yes** — keeps the most specific inferred type |
 
 - `satisfies` is the staff-level answer to "how do I get both validation and precise inference" — it replaced a lot of `as const` + manual annotation gymnastics.
+
+### Type Assertions (`as`), Angle-Bracket Syntax & Non-Null Assertion (`!`)
+
+```typescript
+const input = document.getElementById('email') as HTMLInputElement; // preferred (JSX-safe)
+const legacy = <HTMLInputElement>document.getElementById('email');  // disallowed in .tsx (ambiguous with JSX)
+
+// Double assertion escape hatch (when types don't overlap)
+declare const rawValue: unknown;
+type TargetType = { id: string };
+const forced = (rawValue as unknown) as TargetType;
+
+// Non-null assertion operator (`!`) — strips `null | undefined` at compile time
+const btn = document.querySelector('#submit')!; // typed as Element; still null at runtime if absent
+```
+
+- **Staff rule**: Prefer `as Type` over `<Type>` because `<Type>` collides with JSX syntax. Neither assertion validates input; `!` also does not throw on `null` at runtime. At an untrusted boundary, check or parse data first, and use a runtime assertion when absence is an error.
 
 ---
 
 ## 6. `interface` vs `type` — The Real Differences
 
 | | `interface` | `type` |
-|---|---|---|
+| --- | --- | --- |
 | Object shapes | Yes | Yes |
 | Unions / intersections | No (can `extends` but not union) | Yes |
 | Mapped / conditional types | No | Yes |
@@ -264,12 +281,24 @@ interface Comparer<T> { compare(a: T, b: T): number; } // method params are chec
 
 - Staff point: **function parameters are contravariant in sound type theory, but TypeScript checks method-shorthand parameters bivariantly** for backward compatibility with older JS callback patterns. This is a known, intentional unsoundness — know it exists even if you rarely hit it.
 
+### Explicit Variance Annotations (`in` / `out`, TS 4.7+) & `NoInfer<T>` (TS 5.4+)
+
+```typescript
+type Producer<out T> = () => T;              // covariant (`out` = output position only)
+type Consumer<in T> = (value: T) => void;    // contravariant (`in` = input position only)
+type Invariant<in out T> = { get(): T; set(v: T): void };
+
+// NoInfer<T> blocks unwanted type-argument widening from a specific parameter
+function createFSM<S extends string>(states: S[], initial: NoInfer<S>) {}
+createFSM(['idle', 'loading'], 'done'); // Error: 'done' is not assignable to 'idle' | 'loading'
+```
+
 ---
 
 ## 8. Utility Types Deep Dive
 
 | Utility | What it does |
-|---|---|
+| --- | --- |
 | `Partial<T>` | All properties optional |
 | `Required<T>` | All properties required (strips `?`) |
 | `Readonly<T>` | All properties `readonly` |
@@ -399,7 +428,7 @@ const enum Fast { A, B }  // const enum — fully inlined at call sites, no obje
 ```
 
 | Concern | Numeric/string `enum` | Union of string literals |
-|---|---|---|
+| --- | --- | --- |
 | Runtime footprint | Emits a real JS object (except `const enum`) | Zero — fully erased |
 | Reverse mapping | Numeric enums get `Direction[0] === 'Up'` (surprises people) | N/A |
 | Cross-module safety | Nominal-ish: two enums with the same members still aren't interchangeable in some cases; numeric enums *are* too freely assignable from any `number` | Fully structural, exact matches only |
@@ -421,7 +450,7 @@ function greet(name: string | null) {
 ```
 
 | Flag | What it catches |
-|---|---|
+| --- | --- |
 | `strict` | Umbrella flag enabling all strict flags below |
 | `strictNullChecks` | `null`/`undefined` are not implicitly assignable to other types |
 | `noImplicitAny` | Disallows parameters/variables silently inferred as `any` |
@@ -469,7 +498,7 @@ class SavingsAccount extends Account {
 ```
 
 | Modifier | Enforced at | Visible via `JSON.stringify`/reflection |
-|---|---|---|
+| --- | --- | --- |
 | `public` (default) | Compile-time only | Yes |
 | `private` | Compile-time only — `(obj as any).secret` still reads it | Yes |
 | `protected` | Compile-time only | Yes |
@@ -478,6 +507,40 @@ class SavingsAccount extends Account {
 
 - Staff point: **TypeScript's `private`/`protected`/`readonly` are erased at compile time and provide zero runtime protection.** If you need genuine encapsulation (e.g. not exposing a secret to `JSON.stringify` or a debugger), use native `#private` fields, not the `private` keyword.
 - `this` as a return type lets a fluent/builder API stay correctly typed through subclasses without re-declaring every method.
+
+### Interface vs Class, `interface extends Class`, Multiple Inheritance (Mixins) & Function Overloading
+
+| Dimension | `interface` | `class` |
+| --- | --- | --- |
+| Exists at runtime? | **No** — completely erased (`0` bytes in bundle) | **Yes** — emits constructor function + prototype methods |
+| Can hold implementation / state? | No (declarations only) | Yes (fields, methods, constructors, `#private` state) |
+| Multiple inheritance? | `interface C extends A, B` (multiple allowed) | `class C extends A` (single base class only; `implements A, B` for interfaces) |
+
+```typescript
+// 1. Can an interface extend a class? YES — inherits member signatures (including private/protected!)
+class Control { private state: any; }
+interface SelectableControl extends Control { select(): void; }
+// Because Control has a `private state`, ONLY Control or a subclass of Control can implement SelectableControl!
+class Button extends Control implements SelectableControl { select() {} }
+
+// 2. Multiple Inheritance in TypeScript via Mixin Factory Pattern
+type Constructor<T = {}> = new (...args: any[]) => T;
+function Timestamped<TBase extends Constructor>(Base: TBase) {
+  return class extends Base { createdAt = new Date(); };
+}
+function Activatable<TBase extends Constructor>(Base: TBase) {
+  return class extends Base { isActive = false; activate() { this.isActive = true; } };
+}
+class UserRecord extends Timestamped(Activatable(class { id = ''; })) {}
+
+// 3. Function Overloading — multiple public signatures + 1 wider implementation signature
+function parseInput(raw: string): object;
+function parseInput(raw: object): string;
+function parseInput(raw: string | object): object | string {
+  return typeof raw === 'string' ? JSON.parse(raw) : JSON.stringify(raw);
+}
+// Note: The implementation signature (`string | object`) is NOT directly callable by external callers!
+```
 
 ---
 
@@ -518,7 +581,7 @@ class Service2 {
 ```
 
 | | Legacy decorators | TC39 Stage-3 decorators |
-|---|---|---|
+| --- | --- | --- |
 | Flag | `experimentalDecorators: true` | Default in modern TS, no flag |
 | Ecosystem | Angular, NestJS, TypeORM, Inversify | New code, Stage-3 spec-aligned |
 | Metadata reflection | `emitDecoratorMetadata` + `reflect-metadata` for DI frameworks | Different metadata model, still evolving |
@@ -544,13 +607,31 @@ import './global-augmentations';
 ```
 
 | Flag | Purpose |
-|---|---|
+| --- | --- |
 | `esModuleInterop` | Allows `import express from 'express'` against CJS modules without a default export |
 | `allowSyntheticDefaultImports` | Type-checking side of the above, without changing emit |
 | `isolatedModules` | Errors on any construct that can't be compiled file-by-file (needed for Babel/esbuild/swc, which transpile one file at a time with no type info) |
 | `verbatimModuleSyntax` | Keeps `import`/`export` syntax exactly as written (no silent elision), forces explicit `import type` for type-only imports |
 
 - Staff point: **`isolatedModules` matters the moment your build pipeline uses a non-`tsc` transpiler** (Babel, esbuild, swc, Next.js's default compiler). Those tools strip types per-file with no cross-file knowledge, so `const enum`, ambiguous re-exports of types, and some legacy decorator metadata patterns silently break — `tsc --noEmit` is then run *only* for type-checking in CI, while the actual JS emit comes from the faster transpiler.
+
+### Compilation Context, `namespace` vs ES Modules, and Explicit Resource Management (`using`)
+
+- **Compilation Context**: The logical grouping of `.ts`/`.d.ts` files (chosen via `files`, `include`, `exclude`) combined with `compilerOptions` in `tsconfig.json` that defines the program graph, ambient globals (`lib`), and module resolution rules (`moduleResolution: 'NodeNext' | 'bundler'`).
+- **`namespace` (Legacy Internal Modules) vs ES Modules**:
+  - `namespace Validation { export function check() {} }` compiles into a **runtime IIFE object** (`var Validation; (function(Validation){...})`).
+  - Avoid `namespace` in modern application code (use ES `import`/`export` modules for tree-shaking and bundler compatibility); `namespace` remains useful only inside `.d.ts` ambient declarations and declaration merging (e.g., `declare namespace Express { interface Request { user?: User } }`).
+- **Explicit Resource Management (`using` / `await using`, TS 5.2+)**:
+
+  ```typescript
+  class DbSession implements AsyncDisposable {
+    async [Symbol.asyncDispose]() { await this.close(); }
+    async close() {}
+  }
+  async function runQuery() {
+    await using session = new DbSession(); // automatically calls [Symbol.asyncDispose]() on scope exit
+  }
+  ```
 
 ---
 
@@ -581,7 +662,7 @@ import './global-augmentations';
 ```
 
 | Technique | Effect |
-|---|---|
+| --- | --- |
 | `composite` + `references` | Split a monorepo into independently-buildable, dependency-ordered projects (`tsc --build`) |
 | `incremental` | Caches build info (`.tsbuildinfo`) so unchanged files skip re-checking |
 | `skipLibCheck` | Skips type-checking `.d.ts` files (huge win on cold builds with many `node_modules` type packages) |
@@ -740,6 +821,7 @@ A: `never` is the type of a value that provably cannot occur (a function that al
 
 **Q7. Explain type guards with an example.**
 A: A type guard is a runtime check the compiler recognizes for narrowing, either a built-in operator (`typeof`, `instanceof`, `in`) or a user-defined predicate function returning `arg is Type`:
+
 ```typescript
 function isString(value: unknown): value is string {
   return typeof value === 'string';
@@ -771,11 +853,13 @@ A: Arrays are covariant: `Dog[]` is assignable to `Animal[]`, so code that recei
 
 **Q15. How would you implement `DeepPartial<T>` from scratch?**
 A:
+
 ```typescript
 type DeepPartial<T> = T extends object
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : T;
 ```
+
 It recurses through object properties, applying `Partial`-like optionality at every nesting level, bottoming out once `T` is no longer an object (primitives, functions).
 
 ### Scenario / Staff-Level Questions
@@ -794,6 +878,15 @@ A: Return a discriminated-union `Result<T, E>` (`{ ok: true, value } | { ok: fal
 
 **Q20. How would you prevent an `OrderId` from accidentally being passed where a `UserId` is expected, given both are strings?**
 A: Brand them with a phantom intersection type (`string & { readonly __brand: 'OrderId' }`) and only construct each through an explicit factory function — structural typing then rejects a raw `string` or the other brand at every call site, at zero runtime cost.
+
+**Q21. What is the Compilation Context in TypeScript, and what is the role of `namespace`?**
+A: The **Compilation Context** is the set of source files (`include`/`files`/`exclude`) plus `compilerOptions` defined by `tsconfig.json` that `tsc` analyzes as a single program. A `namespace` is TypeScript's legacy internal module syntax that emits an IIFE at runtime; in modern code ES modules (`import`/`export`) replace `namespace` everywhere except `.d.ts` declaration merging (e.g., augmenting `Express.Request`).
+
+**Q22. Can an `interface` extend a `class` in TypeScript? Can a class inherit from multiple classes?**
+A: Yes, an `interface` can `extends` a `class` — it inherits the class's member types without implementation, including any `private`/`protected` members (which restricts implementing that interface to the class itself or its subclasses). A class can only `extends` a single base class, though it can `implements` multiple interfaces or compose multiple class behaviors via the **TypeScript Mixin factory pattern** (`function Mixin<T extends Constructor>(Base: T)`).
+
+**Q23. How does Function Overloading work in TypeScript, and what is its main gotcha?**
+A: You write one or more public overload signatures followed by a single implementation signature whose parameter/return types are wide enough to cover all overloads. The gotcha is that the implementation signature itself is **not** part of the public callable contract, and all overloads are erased into a single JS function inspecting `typeof`/`Array.isArray` at runtime.
 
 ---
 
@@ -814,7 +907,7 @@ A: Brand them with a phantom intersection type (`string & { readonly __brand: 'O
 ### Strictness flags
 
 | Flag | Catches |
-|---|---|
+| --- | --- |
 | `strictNullChecks` | Implicit `null`/`undefined` assignment |
 | `noImplicitAny` | Silent `any` inference |
 | `strictFunctionTypes` | Unsound function-parameter assignment (not methods) |
@@ -825,7 +918,7 @@ A: Brand them with a phantom intersection type (`string & { readonly __brand: 'O
 ### Utility type cheat sheet
 
 | Need | Utility |
-|---|---|
+| --- | --- |
 | Make everything optional | `Partial<T>` |
 | Make everything required | `Required<T>` |
 | Make everything readonly | `Readonly<T>` |
@@ -840,7 +933,7 @@ A: Brand them with a phantom intersection type (`string & { readonly __brand: 'O
 ### `interface` vs `type` decision table
 
 | Need | Use |
-|---|---|
+| --- | --- |
 | Public API object shape, may be augmented | `interface` |
 | Union of variants | `type` |
 | Mapped/conditional/template-literal type | `type` |
@@ -852,7 +945,7 @@ A: Brand them with a phantom intersection type (`string & { readonly __brand: 'O
 ## 25. Interview First-Response Openers (1-2 lines)
 
 | Concept | First statement to say in interview |
-|---|---|
+| --- | --- |
 | What TypeScript is | "TypeScript adds a structural, erasable type system on top of JavaScript — all types disappear at compile time, so it's a design-time safety net, not a runtime guard." |
 | Structural typing | "TypeScript compares types by shape, not by declared name, so any object with the right members satisfies an interface — that's different from nominal typing in Java or C#." |
 | `interface` vs `type` | "I default to `interface` for shapes that might need augmentation or merging, and `type` whenever I need unions, mapped types, or conditional types that `interface` can't express." |

@@ -66,6 +66,7 @@ AssignmentExpression
 ### Why an AST?
 
 The AST lets the engine:
+
 - Validate syntax.
 - Detect variables and function declarations.
 - Build scope chains.
@@ -88,7 +89,7 @@ The AST lets the engine:
 ### Why use bytecode?
 
 | Concern | Bytecode solution |
-|---|---|
+| --- | --- |
 | Startup speed | No need to compile everything to machine code before running |
 | Memory | Bytecode is compact compared to native code |
 | Portability | Same bytecode can target different CPU architectures |
@@ -136,7 +137,7 @@ Staff point: **The profiler is what makes speculative optimization possible. Wit
 ### Key optimizations
 
 | Optimization | What it does |
-|---|---|
+| --- | --- |
 | **Inlining** | Replaces a function call with the function body to remove call overhead |
 | **Constant folding** | Evaluates constant expressions at compile time |
 | **Dead code elimination** | Removes code that cannot execute |
@@ -189,9 +190,31 @@ add('a', 'b'); // type assumption fails -> deoptimization
 - Hidden class transition not in the cache.
 - Calling a function with too many different object shapes.
 
-### Interview answer
+### Interview answer (Deoptimization)
 
 > TurboFan produces highly optimized machine code based on observed types. If the runtime types change, V8 deoptimizes and falls back to the interpreter. Polymorphic code is harder to optimize than monomorphic code.
+
+### Modern V8 Tiers (Ignition, Sparkplug, Maglev, TurboFan)
+
+Modern V8 can move hot code through several tiers; version and flags
+determine which tiers run, and functions do not have to visit every tier:
+
+| Tier | Name | Role & Trade-off |
+| --- | --- | --- |
+| **Tier 1** | **Ignition** | Register-based **bytecode interpreter**; fast startup, lowest memory footprint, collects type feedback vectors |
+| **Tier 2** | **Sparkplug** | Baseline compiler; produces machine code quickly without heavy optimization |
+| **Tier 3** | **Maglev** | Mid-tier optimizing compiler; trades some peak optimization for faster compilation |
+| **Tier 4** | **TurboFan** | Top-tier optimizing compiler; can specialize/in-line hot code using type feedback |
+
+- **Pointer compression**: On supported 64-bit builds, V8 represents
+  many heap pointers as 32-bit offsets within a cage. This can reduce
+  heap footprint, but the benefit depends on workload and does not
+  make every Node process or external allocation subject to a 4 GB cap.
+- **Small integers (`Smi`) vs `HeapNumber`**: Small integers can be
+  tagged without a separate heap allocation; other numbers may use
+  heap representations. Arrays can transition between packed/holed
+  and numeric/object element kinds; do not rely on a fixed one-way
+  progression or optimize before profiling.
 
 ---
 
@@ -240,7 +263,7 @@ Async stacks are harder to trace because the callback is invoked after the origi
 ## 9. Stack vs Heap
 
 | Aspect | Stack | Heap |
-|---|---|---|
+| --- | --- | --- |
 | Allocation speed | Very fast (pointer bump) | Slower (search/compact) |
 | Lifetime | Tied to function call | Managed by garbage collector |
 | Contents | Primitives, local variables, return addresses | Objects, arrays, closures |
@@ -284,7 +307,7 @@ Heap
 ```
 
 | Generation | Algorithm | Frequency | Pause |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | Young | Scavenge | High | Short |
 | Old | Mark-Sweep-Compact | Low | Longer |
 
@@ -368,7 +391,7 @@ Staff point: **Initialize object properties in the same order and avoid adding p
 Useful Node/V8 flags when diagnosing hot-path regressions:
 
 | Command/Flag | What it helps with |
-|---|---|
+| --- | --- |
 | `node --trace-gc app.js` | See GC frequency and pause behavior |
 | `node --trace-opt app.js` | See which functions get optimized |
 | `node --trace-deopt app.js` | See deoptimization events and reasons |
@@ -424,7 +447,7 @@ A: Use stable object shapes, avoid `delete`, prefer typed arrays for numeric wor
 ### V8 pipeline
 
 | Stage | Output | Purpose |
-|---|---|---|
+| --- | --- | --- |
 | Parser | AST | Structural representation of source |
 | Ignition | Bytecode | Fast baseline execution |
 | Profiler | Type/usage data | Identifies hot code |
@@ -434,7 +457,7 @@ A: Use stable object shapes, avoid `delete`, prefer typed arrays for numeric wor
 ### Optimization techniques
 
 | Technique | Effect |
-|---|---|
+| --- | --- |
 | Inlining | Removes call overhead |
 | Constant folding | Pre-computes constants |
 | Dead code elimination | Removes unreachable code |
@@ -445,7 +468,7 @@ A: Use stable object shapes, avoid `delete`, prefer typed arrays for numeric wor
 ### Stack vs Heap
 
 | | Stack | Heap |
-|---|---|---|
+| --- | --- | --- |
 | Managed by | Function call/return | Garbage collector |
 | Speed | Fast | Slower |
 | Size | Limited | Large |
@@ -456,7 +479,7 @@ A: Use stable object shapes, avoid `delete`, prefer typed arrays for numeric wor
 ## 18. Interview First-Response Openers (1-2 lines)
 
 | Concept | First statement to say in interview |
-|---|---|
+| --- | --- |
 | Parser + AST | "V8 first parses JavaScript into an AST, which is the structural model used for scope analysis and later code generation." |
 | Ignition | "Ignition executes bytecode quickly for fast startup while collecting runtime behavior." |
 | TurboFan | "TurboFan compiles hot paths into optimized machine code using observed type feedback." |

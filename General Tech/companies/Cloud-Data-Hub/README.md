@@ -22,6 +22,7 @@ Role: **Datahub - Architect / Tech Lead (AWS & Full-Stack TypeScript)**, BMW Tec
 10. Secure software design (RBAC, JWT, OWASP)
 
 **Advantageous (nice-to-have):**
+
 - Nx monorepo
 - BMW Density Design System
 - UI/UX awareness (able to assess design consistency)
@@ -29,6 +30,7 @@ Role: **Datahub - Architect / Tech Lead (AWS & Full-Stack TypeScript)**, BMW Tec
 - AWS cost optimization
 
 **Soft skills explicitly listed:**
+
 - Strong communication toward business and engineering (English working language)
 - Ownership & accountability — "you build it, you run it"
 - Ability to make **and defend** technical decisions
@@ -45,9 +47,11 @@ A sibling req on the same team — **"Datahub - Backend Developer / Data Enginee
 BMW's enterprise data platform is the **Cloud Data Hub (CDH)**, launched ~2020 out of a strategic BMW Group / AWS collaboration, evolved by 2025 into what AWS's own blog calls a **Data Lakehouse**. This is the platform context this specific "Datahub" team's APIs/GUI almost certainly sit on top of or adjacent to.
 
 ### Why CDH was built
+
 BMW's original (2015) on-premises data lake couldn't scale: a central ingest team became the bottleneck for onboarding every new data source, and compute scaling was rigid. CDH's architecture is a direct answer to that bottleneck.
 
 ### Core architectural principles (straight from BMW/AWS's own writeup)
+
 - **Inspired by both data mesh and data fabric**, not a pure implementation of either:
   - *Data mesh* gives the decentralized, product-oriented, domain-owned-by-agile-teams philosophy.
   - *Data fabric* gives the centralized metadata layer, automation, and enterprise-wide guardrails.
@@ -60,6 +64,7 @@ BMW's original (2015) on-premises data lake couldn't scale: a central ingest tea
 - **Evolution to AWS Lake Formation.** Early CDH shared data at the S3-bucket level (via a custom Glue Data Catalog **sync module** across accounts), which caused duplicate, filtered datasets. Lake Formation replaced this with **fine-grained, row/column-level access control** granted directly through the Data Portal, via resource links or tag-based access — a textbook "we outgrew our own abstraction and replaced it" story, good staff-level material.
 
 ### Concrete, sourced use cases worth knowing
+
 - **BMW Financial Services — regulatory reporting (GDPR/Schrems II).** PII is pseudonymized before landing in CDH. Architecture: Lake Formation resource links to share CDH datasets cross-account → Glue ETL for standard transforms, EMR for complex historical joins → S3 + **Apache Hudi** for record-level insert/update/upsert/delete → Glue Data Catalog → Athena for ad hoc queries, Redshift + Redshift Spectrum for dimensional marts → **Lambda UDFs inside Athena/Redshift** to re-personalize pseudonymized columns only for authorized consumption → Step Functions/Glue Workflows for orchestration → cross-account connectivity via **VPC peering**. A DynamoDB-backed data registry tracks job metadata for reprocessing/rerun.
 - **Autonomous driving data pipeline.** Vehicles → CDH as a data provider → a Step Functions pipeline runs 5 major EMR jobs → Parquet in S3 with Intelligent-Tiering → Lake Formation row/column-level control → analysts spin up on-demand EMR clusters (JupyterLab/Zeppelin/Spark) → QuickSight dashboards for KPI and platform cost/usage.
 - **2025 evolution — agentic search on a Lakehouse.** CDH now supports natural-language queries over petabytes of structured + unstructured data using **Amazon S3 Vectors** (embeddings), **Amazon Bedrock** (Titan embeddings, Claude models), **Bedrock AgentCore**, and the open-source **Strands Agents** framework, combining semantic search with SQL filtering ("hybrid search") — a sign the platform direction is moving toward AI-assisted self-service, relevant if asked "where do you see this platform going."
@@ -77,7 +82,7 @@ Practical implication for interview prep: **you are not expected to be the Spark
 ## 4. What To Prepare — Mapped Directly to the JD
 
 | JD item | What "deep hands-on for architecture decisions" means here | Where to study |
-|---|---|---|
+| --- | --- | --- |
 | TypeScript/JS full-stack | Structural typing, generics, discriminated unions, strict-mode flags, monorepo type-sharing between Angular/Node | `General Tech/JavaScript/TypeScript.md` |
 | Node.js/Express | Middleware pipelines, error-handling middleware, async error handling, request lifecycle, security headers | `General Tech/JavaScript/Express.md`, `Node-Advanced-Async-and-Internals.md` |
 | Angular (Standalone Components, RxJS) | Component architecture without NgModules, RxJS operators for async state, change detection, reactive forms | See companion gap-fill note below |
@@ -163,12 +168,18 @@ Benefits: one source of truth for contracts, faster refactors, guardrails via li
 
 ## Companion Files
 
+- [`connected-vehicle-platform-case-study.md`](./connected-vehicle-platform-case-study.md)
+  — Beginner-friendly synthesis of BMW Connected Company's CI/CD, Karpenter,
+  and Graviton stories. This is a separate platform from the enterprise CDH.
 - [`diagrams.md`](./diagrams.md) — Mermaid diagrams: CDH platform architecture (sourced) + a plausible Datahub web-app architecture for this role (inference, clearly labeled) + a user-journey sequence diagram.
 - [`interview-qa.md`](./interview-qa.md) — Grounded CDH/AWS architecture Q&A + role-stack Q&A (Node/Express/Angular/AWS/Postgres/Drizzle/CI-CD/testing/security) + staff-level one-liners.
 - [`panel-questions.md`](./panel-questions.md) — Thoughtful cross-questions to ask a senior panel who built this platform, plus behavioral/leadership prep for the "you build it, you run it" and cross-site leadership angles.
 
 ## Sources
 
+- AWS Architecture Blog: [How BMW Group accelerated connected vehicle workloads on AWS Graviton](https://aws.amazon.com/blogs/architecture/how-bmw-group-accelerated-connected-vehicle-workloads-on-aws-graviton/)
+- AWS for Industries: [Transforming the BMW Connected Vehicle Backend with Karpenter](https://aws.amazon.com/blogs/industries/transforming-the-bmw-connected-vehicle-backend-with-karpenter/)
+- AWS Migration & Modernization: [An Engine of Efficiency: BMW Group's CI/CD Modernization Journey with AWS](https://aws.amazon.com/blogs/migration-and-modernization/an-engine-of-efficiency-bmw-groups-ci-cd-modernization-journey-with-aws/)
 - AWS for Industries blog: [BMW Cloud Data Hub: A reference implementation of the modern data architecture on AWS](https://aws.amazon.com/blogs/industries/bmw-cloud-data-hub-a-reference-implementation-of-the-modern-data-architecture-on-aws/)
 - AWS Big Data blog: [How AWS Data Lab helped BMW Financial Services design and build a multi-account modern data architecture](https://aws.amazon.com/blogs/big-data/how-aws-data-lab-helped-bmw-financial-services-design-and-build-a-multi-account-modern-data-architecture/)
 - AWS for Industries blog: [Scaling Automated Driving data processing and data management with BMW Group on AWS](https://aws.amazon.com/blogs/industries/scaling-autonomous-driving-data-processing-and-data-management-with-bmw-group-on-aws/)
